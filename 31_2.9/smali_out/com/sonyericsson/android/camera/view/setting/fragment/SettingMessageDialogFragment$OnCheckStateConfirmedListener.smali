@@ -1,0 +1,81 @@
+.class Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment$OnCheckStateConfirmedListener;
+.super Ljava/lang/Object;
+.source "SettingMessageDialogFragment.java"
+
+# interfaces
+.implements Lcom/sonyericsson/android/camera/view/messagedialog/SettingMessageDialogBuilder$OnCheckStateConfirmedListener;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0xa
+    name = "OnCheckStateConfirmedListener"
+.end annotation
+
+
+# instance fields
+.field private final mFragment:Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment;
+
+.field private final mParameter:Lcom/sonyericsson/android/camera/view/messagedialog/MessageDialogRequest;
+
+
+# direct methods
+.method constructor <init>(Lcom/sonyericsson/android/camera/view/messagedialog/MessageDialogRequest;Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment;)V
+    .registers 3
+
+    .line 228
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 229
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment$OnCheckStateConfirmedListener;->mParameter:Lcom/sonyericsson/android/camera/view/messagedialog/MessageDialogRequest;
+
+    .line 230
+    iput-object p2, p0, Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment$OnCheckStateConfirmedListener;->mFragment:Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment;
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public onCheckedStateConfirmed(Z)V
+    .registers 4
+
+    .line 234
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "OnCheckStateConfirmedListener onCheckedStateConfirmed()"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 235
+    :cond_d
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment$OnCheckStateConfirmedListener;->mFragment:Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment;
+
+    .line 236
+    # invokes: Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment;->getOnMessageDialogCheckConfirmedListener()Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment$OnMessageDialogCheckConfirmedListener;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment;->access$100(Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment;)Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment$OnMessageDialogCheckConfirmedListener;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_1c
+
+    .line 238
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment$OnCheckStateConfirmedListener;->mParameter:Lcom/sonyericsson/android/camera/view/messagedialog/MessageDialogRequest;
+
+    iget-object v1, v1, Lcom/sonyericsson/android/camera/view/messagedialog/MessageDialogRequest;->mDialogId:Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;
+
+    invoke-interface {v0, v1, p1}, Lcom/sonyericsson/android/camera/view/setting/fragment/SettingMessageDialogFragment$OnMessageDialogCheckConfirmedListener;->onCheckConfirmed(Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;Z)V
+
+    :cond_1c
+    return-void
+.end method

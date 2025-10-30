@@ -1,0 +1,72 @@
+.class Lcom/sonyericsson/android/camera/controller/StateMachine$17;
+.super Ljava/lang/Object;
+.source "StateMachine.java"
+
+# interfaces
+.implements Ljava/lang/Runnable;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/sonyericsson/android/camera/controller/StateMachine;->onCropRegionReady()V
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = null
+.end annotation
+
+
+# instance fields
+.field final synthetic this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+
+# direct methods
+.method constructor <init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 2
+
+    .line 10672
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$17;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public run()V
+    .registers 4
+
+    .line 10675
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke onCropRegionReady"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10676
+    :cond_d
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$17;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    # getter for: Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$200(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_HIDE_BLACK_SCREEN:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v2, 0x0
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    invoke-interface {v0, v1, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method

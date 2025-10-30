@@ -1,0 +1,112 @@
+.class public Lcom/sonyericsson/android/camera/device/zsl/ImageToken;
+.super Ljava/lang/Object;
+.source "ImageToken.java"
+
+
+# static fields
+.field private static final INVALID_TOKEN:Lcom/sonyericsson/android/camera/device/zsl/ImageToken;
+
+
+# instance fields
+.field private final mListener:Lcom/sonyericsson/android/camera/device/zsl/ImageTokenListener;
+
+
+# direct methods
+.method static constructor <clinit>()V
+    .registers 2
+
+    .line 16
+    new-instance v0, Lcom/sonyericsson/android/camera/device/zsl/ImageToken;
+
+    const/4 v1, 0x0
+
+    invoke-direct {v0, v1}, Lcom/sonyericsson/android/camera/device/zsl/ImageToken;-><init>(Lcom/sonyericsson/android/camera/device/zsl/ImageTokenListener;)V
+
+    sput-object v0, Lcom/sonyericsson/android/camera/device/zsl/ImageToken;->INVALID_TOKEN:Lcom/sonyericsson/android/camera/device/zsl/ImageToken;
+
+    return-void
+.end method
+
+.method public constructor <init>(Lcom/sonyericsson/android/camera/device/zsl/ImageTokenListener;)V
+    .registers 2
+
+    .line 22
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 23
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/device/zsl/ImageToken;->mListener:Lcom/sonyericsson/android/camera/device/zsl/ImageTokenListener;
+
+    return-void
+.end method
+
+.method public static invalidToken()Lcom/sonyericsson/android/camera/device/zsl/ImageToken;
+    .registers 1
+
+    .line 52
+    sget-object v0, Lcom/sonyericsson/android/camera/device/zsl/ImageToken;->INVALID_TOKEN:Lcom/sonyericsson/android/camera/device/zsl/ImageToken;
+
+    return-object v0
+.end method
+
+
+# virtual methods
+.method public isValid()Z
+    .registers 2
+
+    .line 43
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/device/zsl/ImageToken;->mListener:Lcom/sonyericsson/android/camera/device/zsl/ImageTokenListener;
+
+    if-eqz v0, :cond_6
+
+    const/4 v0, 0x1
+
+    goto :goto_7
+
+    :cond_6
+    const/4 v0, 0x0
+
+    :goto_7
+    return v0
+.end method
+
+.method public recycle()V
+    .registers 2
+
+    .line 31
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/device/zsl/ImageToken;->mListener:Lcom/sonyericsson/android/camera/device/zsl/ImageTokenListener;
+
+    if-eqz v0, :cond_7
+
+    .line 32
+    invoke-interface {v0, p0}, Lcom/sonyericsson/android/camera/device/zsl/ImageTokenListener;->onTokenRecycled(Lcom/sonyericsson/android/camera/device/zsl/ImageToken;)V
+
+    :cond_7
+    return-void
+.end method
+
+.method public toString()Ljava/lang/String;
+    .registers 3
+
+    .line 57
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "ImageToken{mListener="
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/device/zsl/ImageToken;->mListener:Lcom/sonyericsson/android/camera/device/zsl/ImageTokenListener;
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    const/16 v1, 0x7d
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method

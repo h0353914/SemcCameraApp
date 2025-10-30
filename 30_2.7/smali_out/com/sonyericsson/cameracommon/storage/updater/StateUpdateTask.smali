@@ -1,0 +1,296 @@
+.class public Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;
+.super Lcom/sonyericsson/cameracommon/storage/updater/StorageUpdateTask;
+.source "StateUpdateTask.java"
+
+
+# direct methods
+.method public constructor <init>(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;Lcom/sonyericsson/cameracommon/storage/SavingTaskInquiry;Ljava/util/concurrent/Semaphore;Lcom/sonyericsson/cameracommon/storage/updater/StorageUpdateTask$OnTaskFinishCallback;Lcom/sonyericsson/cameracommon/storage/CameraStorageManager$UpdateRequestReason;)V
+    .registers 7
+    .param p1    # Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+        .annotation build Landroidx/annotation/NonNull;
+        .end annotation
+    .end param
+    .param p2    # Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;
+        .annotation build Landroidx/annotation/NonNull;
+        .end annotation
+    .end param
+    .param p3    # Lcom/sonyericsson/cameracommon/storage/SavingTaskInquiry;
+        .annotation build Landroidx/annotation/NonNull;
+        .end annotation
+    .end param
+    .param p4    # Ljava/util/concurrent/Semaphore;
+        .annotation build Landroidx/annotation/NonNull;
+        .end annotation
+    .end param
+    .param p5    # Lcom/sonyericsson/cameracommon/storage/updater/StorageUpdateTask$OnTaskFinishCallback;
+        .annotation build Landroidx/annotation/Nullable;
+        .end annotation
+    .end param
+    .param p6    # Lcom/sonyericsson/cameracommon/storage/CameraStorageManager$UpdateRequestReason;
+        .annotation build Landroidx/annotation/NonNull;
+        .end annotation
+    .end param
+
+    .line 31
+    invoke-direct/range {p0 .. p6}, Lcom/sonyericsson/cameracommon/storage/updater/StorageUpdateTask;-><init>(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;Lcom/sonyericsson/cameracommon/storage/SavingTaskInquiry;Ljava/util/concurrent/Semaphore;Lcom/sonyericsson/cameracommon/storage/updater/StorageUpdateTask$OnTaskFinishCallback;Lcom/sonyericsson/cameracommon/storage/CameraStorageManager$UpdateRequestReason;)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public call()Ljava/lang/Object;
+    .registers 10
+    .annotation build Landroidx/annotation/Nullable;
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/lang/Exception;
+        }
+    .end annotation
+
+    .line 37
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->getType()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v0
+
+    .line 38
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->getInquiry()Lcom/sonyericsson/cameracommon/storage/SavingTaskInquiry;
+
+    move-result-object v1
+
+    invoke-interface {v1, v0}, Lcom/sonyericsson/cameracommon/storage/SavingTaskInquiry;->getReservedSize(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)J
+
+    move-result-wide v1
+
+    .line 39
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->getRequestReason()Lcom/sonyericsson/cameracommon/storage/CameraStorageManager$UpdateRequestReason;
+
+    move-result-object v3
+
+    .line 41
+    sget-object v4, Lcom/sonyericsson/cameracommon/storage/CameraStorageManager$UpdateRequestReason;->APP_LAUNCH:Lcom/sonyericsson/cameracommon/storage/CameraStorageManager$UpdateRequestReason;
+
+    const/4 v5, 0x0
+
+    const/4 v6, 0x1
+
+    if-ne v3, v4, :cond_66
+
+    .line 43
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->acquire()Z
+
+    move-result v4
+
+    if-eqz v4, :cond_48
+
+    .line 45
+    :try_start_1c
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->getStorageManager()Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;
+
+    move-result-object v4
+
+    invoke-virtual {v4, v0, v1, v2, v3}, Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;->updateStateByVolumeInfo(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;JLcom/sonyericsson/cameracommon/storage/CameraStorageManager$UpdateRequestReason;)Lcom/sonyericsson/cameracommon/storage/CameraStorageManager$DetailStorageState;
+
+    .line 46
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->getStorageManager()Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v0}, Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;->checkAndNotifyStateChanged(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)V
+
+    .line 47
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->release()V
+    :try_end_2d
+    .catch Ljava/lang/Throwable; {:try_start_1c .. :try_end_2d} :catch_31
+    .catchall {:try_start_1c .. :try_end_2d} :catchall_2f
+
+    goto/16 :goto_cb
+
+    :catchall_2f
+    move-exception v0
+
+    goto :goto_38
+
+    :catch_31
+    move-exception v0
+
+    :try_start_32
+    const-string v1, "occurred exception"
+
+    .line 50
+    invoke-static {v1, v0}, Lcom/sonyericsson/android/camera/util/CamLog;->e(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    .line 51
+    throw v0
+    :try_end_38
+    .catchall {:try_start_32 .. :try_end_38} :catchall_2f
+
+    .line 54
+    :goto_38
+    new-instance v1, Ljava/lang/RuntimeException;
+
+    const-string v2, "trace no semaphore release"
+
+    invoke-direct {v1, v2}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
+
+    .line 55
+    invoke-virtual {v1}, Ljava/lang/RuntimeException;->fillInStackTrace()Ljava/lang/Throwable;
+
+    const-string v2, "Semaphore could not be released."
+
+    .line 56
+    invoke-static {v2, v1}, Lcom/sonyericsson/android/camera/util/CamLog;->e(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    .line 58
+    throw v0
+
+    .line 61
+    :cond_48
+    new-array v1, v6, [Ljava/lang/String;
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "StateUpdateTask["
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    const-string v0, "]: One time update failed."
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    aput-object v0, v1, v5
+
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/util/CamLog;->e([Ljava/lang/String;)V
+
+    goto :goto_cb
+
+    :cond_66
+    const-wide/16 v7, 0x0
+
+    cmp-long v4, v1, v7
+
+    if-nez v4, :cond_95
+
+    .line 64
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->tryAcquire()Z
+
+    move-result v4
+
+    if-eqz v4, :cond_95
+
+    .line 68
+    :try_start_72
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->getStorageManager()Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;
+
+    move-result-object v4
+
+    invoke-virtual {v4, v0, v1, v2, v3}, Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;->updateStateByVolumeInfo(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;JLcom/sonyericsson/cameracommon/storage/CameraStorageManager$UpdateRequestReason;)Lcom/sonyericsson/cameracommon/storage/CameraStorageManager$DetailStorageState;
+
+    .line 69
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->getStorageManager()Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v0}, Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;->checkAndNotifyStateChanged(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)V
+
+    .line 70
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->release()V
+    :try_end_83
+    .catchall {:try_start_72 .. :try_end_83} :catchall_84
+
+    goto :goto_b6
+
+    :catchall_84
+    move-exception v0
+
+    .line 74
+    new-instance v1, Ljava/lang/RuntimeException;
+
+    const-string v2, "trace"
+
+    invoke-direct {v1, v2}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
+
+    .line 75
+    invoke-virtual {v1}, Ljava/lang/RuntimeException;->fillInStackTrace()Ljava/lang/Throwable;
+
+    const-string v2, "Semaphore could not be released."
+
+    .line 76
+    invoke-static {v2, v1}, Lcom/sonyericsson/android/camera/util/CamLog;->e(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    .line 78
+    throw v0
+
+    .line 81
+    :cond_95
+    sget-boolean v1, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v1, :cond_b6
+
+    new-array v1, v6, [Ljava/lang/String;
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "StateUpdateTask["
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    const-string v3, "]: SKIP"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    aput-object v2, v1, v5
+
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 83
+    :cond_b6
+    :goto_b6
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->getStorageManager()Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;
+
+    move-result-object v1
+
+    .line 84
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->getStorageManager()Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;
+
+    move-result-object v2
+
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->getType()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;->calculateNextPollingInterval(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Lcom/sonyericsson/cameracommon/storage/CameraStorageManager$UpdateInterval;
+
+    move-result-object v2
+
+    sget-object v3, Lcom/sonyericsson/cameracommon/storage/CameraStorageManager$UpdateRequestReason;->PERIODIC_UPDATE:Lcom/sonyericsson/cameracommon/storage/CameraStorageManager$UpdateRequestReason;
+
+    .line 83
+    invoke-virtual {v1, v0, v2, v3}, Lcom/sonyericsson/cameracommon/storage/CameraStorageManager;->requestVolumeCheck(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;Lcom/sonyericsson/cameracommon/storage/CameraStorageManager$UpdateInterval;Lcom/sonyericsson/cameracommon/storage/CameraStorageManager$UpdateRequestReason;)V
+
+    .line 88
+    :goto_cb
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/storage/updater/StateUpdateTask;->notifyFinished()V
+
+    const/4 v0, 0x0
+
+    return-object v0
+.end method

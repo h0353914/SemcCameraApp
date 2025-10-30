@@ -1,0 +1,288 @@
+.class Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;
+.super Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoBase;
+.source "StateMachine.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonyericsson/android/camera/controller/StateMachine;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = "StateBurstCaptureWaitForAfDone"
+.end annotation
+
+
+# static fields
+.field private static final TAG:Ljava/lang/String; = "StateMachine.StateBurstCaptureWaitForAfDone"
+
+
+# instance fields
+.field private mIsCancelRequested:Z
+
+.field private mIsHighQualityBurstAvailable:Z
+
+.field final synthetic this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+
+# direct methods
+.method private constructor <init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 3
+
+    .line 6195
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    const/4 v0, 0x0
+
+    invoke-direct {p0, p1, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoBase;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    .line 6196
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->STATE_BURST_CAPTURE_WAIT_FOR_AF_DONE:Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->mCaptureState:Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    const/4 v0, 0x0
+
+    .line 6197
+    iput-boolean v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->mIsCancelRequested:Z
+
+    .line 6198
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine;->isHighQualityBurstAvailable()Z
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$8900(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+
+    move-result p1
+
+    iput-boolean p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->mIsHighQualityBurstAvailable:Z
+
+    return-void
+.end method
+
+.method synthetic constructor <init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+    .registers 3
+
+    .line 6186
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public varargs handleCaptureCancel([Ljava/lang/Object;)V
+    .registers 2
+
+    const/4 p1, 0x1
+
+    .line 6203
+    iput-boolean p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->mIsCancelRequested:Z
+
+    return-void
+.end method
+
+.method public varargs handleOnAutoFocusDone([Ljava/lang/Object;)V
+    .registers 7
+
+    .line 6208
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    iget-boolean v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->mIsHighQualityBurstAvailable:Z
+
+    const/4 v2, 0x0
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine;->checkBurstConditions(ZZ)Z
+    invoke-static {v0, v1, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$9000(Lcom/sonyericsson/android/camera/controller/StateMachine;ZZ)Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_19
+
+    .line 6209
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    new-instance v2, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCapture;
+
+    iget-boolean v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->mIsCancelRequested:Z
+
+    invoke-direct {v2, v0, v3, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCapture;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;ZLcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+    invoke-static {v0, v2, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$3800(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    goto :goto_5b
+
+    .line 6213
+    :cond_19
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone$1;
+
+    invoke-direct {v0, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone$1;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;)V
+
+    .line 6225
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine;->shouldRestartSessionBeforeCapture()Z
+    invoke-static {v3}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$8500(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+
+    move-result v3
+
+    const/4 v4, 0x1
+
+    if-eqz v3, :cond_41
+
+    .line 6226
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine;->cancelAutoFocus(Z)V
+    invoke-static {p1, v4}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$3900(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+
+    .line 6227
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$StateRestartPreviewSession;
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine;->getNextSessionTypeForCapture()Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$8600(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+    move-result-object v3
+
+    invoke-direct {v1, p1, v3}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateRestartPreviewSession;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;)V
+
+    .line 6228
+    invoke-virtual {v1, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateRestartPreviewSession;->setPendingTask(Ljava/lang/Runnable;)Lcom/sonyericsson/android/camera/controller/StateMachine$StateRestartPreviewSession;
+
+    move-result-object v0
+
+    new-array v1, v2, [Ljava/lang/Object;
+
+    .line 6227
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+    invoke-static {p1, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$3800(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    goto :goto_5b
+
+    .line 6230
+    :cond_41
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    sget-object v2, Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;->PHOTO:Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;
+
+    invoke-virtual {v0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->createPhotoSavingRequest(Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;)Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+    move-result-object v2
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine;->doCapture(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+    invoke-static {v0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$12700(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+
+    .line 6231
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    new-instance v2, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCapture;
+
+    invoke-direct {v2, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCapture;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+    invoke-static {v0, v2, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$3800(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    .line 6232
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine;->showCannotBurstInDarkCondition(Z)V
+    invoke-static {p1, v4}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$9100(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+
+    :goto_5b
+    return-void
+.end method
+
+.method public varargs handleOnFaceDetected([Ljava/lang/Object;)V
+    .registers 6
+
+    .line 6248
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    # getter for: Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$200(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_FACE_DETECTED:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v2, 0x1
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    const/4 v3, 0x0
+
+    aget-object p1, p1, v3
+
+    aput-object p1, v2, v3
+
+    invoke-interface {v0, v1, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public varargs handleOnObjectTracked([Ljava/lang/Object;)V
+    .registers 6
+
+    .line 6257
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    # getter for: Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$200(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_TRACKED_OBJECT_STATE_UPDATED:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v2, 0x1
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    const/4 v3, 0x0
+
+    aget-object p1, p1, v3
+
+    aput-object p1, v2, v3
+
+    invoke-interface {v0, v1, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public varargs handlePause([Ljava/lang/Object;)V
+    .registers 6
+
+    .line 6240
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    const/4 v1, 0x1
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine;->cancelAutoFocus(Z)V
+    invoke-static {v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$3900(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+
+    .line 6241
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;->this$0:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePause;
+
+    const/4 v2, 0x0
+
+    aget-object v2, p1, v2
+
+    check-cast v2, Ljava/lang/Boolean;
+
+    invoke-virtual {v2}, Ljava/lang/Boolean;->booleanValue()Z
+
+    move-result v2
+
+    const/4 v3, 0x0
+
+    invoke-direct {v1, v0, v2, v3}, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePause;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;ZLcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+    invoke-static {v0, v1, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->access$3800(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    return-void
+.end method

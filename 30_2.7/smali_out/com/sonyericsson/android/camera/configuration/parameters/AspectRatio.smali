@@ -1,0 +1,602 @@
+.class public final enum Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+.super Ljava/lang/Enum;
+.source "AspectRatio.java"
+
+# interfaces
+.implements Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+
+# annotations
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Ljava/lang/Enum<",
+        "Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;",
+        ">;",
+        "Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;"
+    }
+.end annotation
+
+
+# static fields
+.field private static final synthetic $VALUES:[Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+.field public static final enum EIGHTEEN_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+.field public static final enum FOUR_TO_THREE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+.field public static final enum ONE_TO_ONE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+.field public static final enum SIXTEEN_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+.field public static final TAG:Ljava/lang/String; = "AspectRatio"
+
+.field public static final enum TWENTYONE_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+.field private static final sParameterTextId:I = 0x7f0f00a9
+
+
+# instance fields
+.field private final mIconId:I
+
+.field private final mTextId:I
+
+
+# direct methods
+.method static constructor <clinit>()V
+    .registers 9
+
+    .line 19
+    new-instance v0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    const-string v1, "TWENTYONE_TO_NINE"
+
+    const/4 v2, 0x0
+
+    const v3, 0x7f0800eb
+
+    const v4, 0x7f0f00a7
+
+    invoke-direct {v0, v1, v2, v3, v4}, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;-><init>(Ljava/lang/String;III)V
+
+    sput-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->TWENTYONE_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    .line 22
+    new-instance v0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    const-string v1, "EIGHTEEN_TO_NINE"
+
+    const/4 v3, 0x1
+
+    const v4, 0x7f0800e8
+
+    const v5, 0x7f0f00a5
+
+    invoke-direct {v0, v1, v3, v4, v5}, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;-><init>(Ljava/lang/String;III)V
+
+    sput-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->EIGHTEEN_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    .line 25
+    new-instance v0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    const-string v1, "SIXTEEN_TO_NINE"
+
+    const/4 v4, 0x2
+
+    const v5, 0x7f0800e7
+
+    const v6, 0x7f0f00a4
+
+    invoke-direct {v0, v1, v4, v5, v6}, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;-><init>(Ljava/lang/String;III)V
+
+    sput-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->SIXTEEN_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    .line 28
+    new-instance v0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    const-string v1, "FOUR_TO_THREE"
+
+    const/4 v5, 0x3
+
+    const v6, 0x7f0800ec
+
+    const v7, 0x7f0f00a8
+
+    invoke-direct {v0, v1, v5, v6, v7}, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;-><init>(Ljava/lang/String;III)V
+
+    sput-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->FOUR_TO_THREE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    .line 31
+    new-instance v0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    const-string v1, "ONE_TO_ONE"
+
+    const/4 v6, 0x4
+
+    const v7, 0x7f0800ea
+
+    const v8, 0x7f0f00a6
+
+    invoke-direct {v0, v1, v6, v7, v8}, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;-><init>(Ljava/lang/String;III)V
+
+    sput-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->ONE_TO_ONE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    const/4 v0, 0x5
+
+    .line 18
+    new-array v0, v0, [Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->TWENTYONE_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    aput-object v1, v0, v2
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->EIGHTEEN_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    aput-object v1, v0, v3
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->SIXTEEN_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    aput-object v1, v0, v4
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->FOUR_TO_THREE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    aput-object v1, v0, v5
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->ONE_TO_ONE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    aput-object v1, v0, v6
+
+    sput-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->$VALUES:[Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    return-void
+.end method
+
+.method private constructor <init>(Ljava/lang/String;III)V
+    .registers 5
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(II)V"
+        }
+    .end annotation
+
+    .line 53
+    invoke-direct {p0, p1, p2}, Ljava/lang/Enum;-><init>(Ljava/lang/String;I)V
+
+    .line 54
+    iput p3, p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->mIconId:I
+
+    .line 55
+    iput p4, p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->mTextId:I
+
+    return-void
+.end method
+
+.method public static getAspectRatio(II)Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+    .registers 7
+
+    const/4 v0, 0x0
+
+    if-eqz p0, :cond_4f
+
+    if-nez p1, :cond_6
+
+    goto :goto_4f
+
+    .line 208
+    :cond_6
+    new-instance v1, Landroid/graphics/Rect;
+
+    const/16 v2, 0x15
+
+    const/16 v3, 0x9
+
+    const/4 v4, 0x0
+
+    invoke-direct {v1, v4, v4, v2, v3}, Landroid/graphics/Rect;-><init>(IIII)V
+
+    invoke-static {v1, p0, p1}, Lcom/sonyericsson/android/camera/device/PlatformDependencyResolver;->checkAspectRatio(Landroid/graphics/Rect;II)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_19
+
+    .line 210
+    sget-object p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->TWENTYONE_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    return-object p0
+
+    .line 211
+    :cond_19
+    new-instance v1, Landroid/graphics/Rect;
+
+    const/16 v2, 0x12
+
+    invoke-direct {v1, v4, v4, v2, v3}, Landroid/graphics/Rect;-><init>(IIII)V
+
+    invoke-static {v1, p0, p1}, Lcom/sonyericsson/android/camera/device/PlatformDependencyResolver;->checkAspectRatio(Landroid/graphics/Rect;II)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_29
+
+    .line 213
+    sget-object p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->EIGHTEEN_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    return-object p0
+
+    .line 214
+    :cond_29
+    new-instance v1, Landroid/graphics/Rect;
+
+    const/16 v2, 0x10
+
+    invoke-direct {v1, v4, v4, v2, v3}, Landroid/graphics/Rect;-><init>(IIII)V
+
+    invoke-static {v1, p0, p1}, Lcom/sonyericsson/android/camera/device/PlatformDependencyResolver;->checkAspectRatio(Landroid/graphics/Rect;II)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_39
+
+    .line 216
+    sget-object p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->SIXTEEN_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    return-object p0
+
+    .line 217
+    :cond_39
+    new-instance v1, Landroid/graphics/Rect;
+
+    const/4 v2, 0x4
+
+    const/4 v3, 0x3
+
+    invoke-direct {v1, v4, v4, v2, v3}, Landroid/graphics/Rect;-><init>(IIII)V
+
+    invoke-static {v1, p0, p1}, Lcom/sonyericsson/android/camera/device/PlatformDependencyResolver;->checkAspectRatio(Landroid/graphics/Rect;II)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_49
+
+    .line 219
+    sget-object p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->FOUR_TO_THREE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    return-object p0
+
+    :cond_49
+    if-ne p0, p1, :cond_4e
+
+    .line 221
+    sget-object p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->ONE_TO_ONE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    return-object p0
+
+    :cond_4e
+    return-object v0
+
+    :cond_4f
+    :goto_4f
+    return-object v0
+.end method
+
+.method public static getDefaultValue(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+    .registers 2
+
+    .line 193
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;->getDefaultValue(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;
+
+    move-result-object p0
+
+    .line 194
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;->getPictureRect()Landroid/graphics/Rect;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/graphics/Rect;->width()I
+
+    move-result v0
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;->getPictureRect()Landroid/graphics/Rect;
+
+    move-result-object p0
+
+    invoke-virtual {p0}, Landroid/graphics/Rect;->height()I
+
+    move-result p0
+
+    invoke-static {v0, p0}, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->getAspectRatio(II)Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    move-result-object p0
+
+    return-object p0
+.end method
+
+.method public static getOptions(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)[Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+    .registers 15
+
+    .line 113
+    new-instance v0, Ljava/util/ArrayList;
+
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+
+    .line 115
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isVideo()Z
+
+    move-result v1
+
+    const/4 v2, 0x0
+
+    if-nez v1, :cond_83
+
+    .line 122
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;->getOptions(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)[Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;
+
+    move-result-object p0
+
+    .line 123
+    array-length v1, p0
+
+    move v3, v2
+
+    move v4, v3
+
+    move v5, v4
+
+    move v6, v5
+
+    move v7, v6
+
+    move v8, v7
+
+    :goto_17
+    if-ge v3, v1, :cond_60
+
+    aget-object v9, p0, v3
+
+    .line 124
+    invoke-virtual {v9}, Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;->getPictureRect()Landroid/graphics/Rect;
+
+    move-result-object v10
+
+    invoke-virtual {v10}, Landroid/graphics/Rect;->width()I
+
+    move-result v10
+
+    .line 125
+    invoke-virtual {v9}, Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;->getPictureRect()Landroid/graphics/Rect;
+
+    move-result-object v9
+
+    invoke-virtual {v9}, Landroid/graphics/Rect;->height()I
+
+    move-result v9
+
+    .line 126
+    invoke-static {v10, v9}, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->getAspectRatio(II)Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    move-result-object v11
+
+    sget-object v12, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->TWENTYONE_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    const/4 v13, 0x1
+
+    if-ne v11, v12, :cond_36
+
+    move v7, v13
+
+    goto :goto_5d
+
+    .line 128
+    :cond_36
+    invoke-static {v10, v9}, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->getAspectRatio(II)Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    move-result-object v11
+
+    sget-object v12, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->EIGHTEEN_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    if-ne v11, v12, :cond_40
+
+    move v8, v13
+
+    goto :goto_5d
+
+    .line 130
+    :cond_40
+    invoke-static {v10, v9}, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->getAspectRatio(II)Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    move-result-object v11
+
+    sget-object v12, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->SIXTEEN_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    if-ne v11, v12, :cond_4a
+
+    move v5, v13
+
+    goto :goto_5d
+
+    .line 132
+    :cond_4a
+    invoke-static {v10, v9}, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->getAspectRatio(II)Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    move-result-object v11
+
+    sget-object v12, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->FOUR_TO_THREE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    if-ne v11, v12, :cond_54
+
+    move v4, v13
+
+    goto :goto_5d
+
+    .line 134
+    :cond_54
+    invoke-static {v10, v9}, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->getAspectRatio(II)Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    move-result-object v9
+
+    sget-object v10, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->ONE_TO_ONE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    if-ne v9, v10, :cond_5d
+
+    move v6, v13
+
+    :cond_5d
+    :goto_5d
+    add-int/lit8 v3, v3, 0x1
+
+    goto :goto_17
+
+    :cond_60
+    if-eqz v4, :cond_67
+
+    .line 147
+    sget-object p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->FOUR_TO_THREE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    invoke-virtual {v0, p0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    :cond_67
+    if-eqz v5, :cond_6e
+
+    .line 151
+    sget-object p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->SIXTEEN_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    invoke-virtual {v0, p0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    :cond_6e
+    if-eqz v6, :cond_75
+
+    .line 155
+    sget-object p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->ONE_TO_ONE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    invoke-virtual {v0, p0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    :cond_75
+    if-eqz v7, :cond_7c
+
+    .line 159
+    sget-object p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->TWENTYONE_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    invoke-virtual {v0, p0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    :cond_7c
+    if-eqz v8, :cond_83
+
+    .line 163
+    sget-object p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->EIGHTEEN_TO_NINE:Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    invoke-virtual {v0, p0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    .line 167
+    :cond_83
+    new-array p0, v2, [Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    invoke-virtual {v0, p0}, Ljava/util/ArrayList;->toArray([Ljava/lang/Object;)[Ljava/lang/Object;
+
+    move-result-object p0
+
+    check-cast p0, [Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    return-object p0
+.end method
+
+.method public static valueOf(Ljava/lang/String;)Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+    .registers 2
+
+    .line 18
+    const-class v0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    invoke-static {v0, p0}, Ljava/lang/Enum;->valueOf(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/Enum;
+
+    move-result-object p0
+
+    check-cast p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    return-object p0
+.end method
+
+.method public static values()[Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+    .registers 1
+
+    .line 18
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->$VALUES:[Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    invoke-virtual {v0}, [Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->clone()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, [Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;
+
+    return-object v0
+.end method
+
+
+# virtual methods
+.method public apply(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingApplicable;)V
+    .registers 2
+
+    .line 65
+    invoke-interface {p1, p0}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingApplicable;->set(Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;)V
+
+    return-void
+.end method
+
+.method public getIconId()I
+    .registers 2
+
+    .line 83
+    iget v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->mIconId:I
+
+    return v0
+.end method
+
+.method public getKey()Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+    .registers 2
+
+    .line 73
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->ASPECT_RATIO:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    return-object v0
+.end method
+
+.method public getKeyTextId()I
+    .registers 2
+
+    const v0, 0x7f0f00a9
+
+    return v0
+.end method
+
+.method public getName()Ljava/lang/String;
+    .registers 2
+
+    .line 175
+    invoke-virtual {p0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/Class;->getName()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public getTextId()I
+    .registers 2
+
+    .line 93
+    iget v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->mTextId:I
+
+    return v0
+.end method
+
+.method public getValue()Ljava/lang/String;
+    .registers 2
+
+    .line 103
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/configuration/parameters/AspectRatio;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method

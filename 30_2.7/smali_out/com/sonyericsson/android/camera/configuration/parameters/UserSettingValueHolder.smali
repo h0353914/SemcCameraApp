@@ -1,0 +1,1114 @@
+.class public Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;
+.super Ljava/lang/Object;
+.source "UserSettingValueHolder.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ForceChangedState;,
+        Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$NormalState;,
+        Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+    }
+.end annotation
+
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "<T::",
+        "Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;",
+        ">",
+        "Ljava/lang/Object;"
+    }
+.end annotation
+
+
+# static fields
+.field public static final DELIMITER:Ljava/lang/String; = "-"
+
+.field public static final NO_VALUE:Ljava/lang/String; = "NO_VALUE"
+
+.field public static final REGULAR_EXPRESSION:Ljava/lang/String; = "@"
+
+.field public static final TAG:Ljava/lang/String; = "UserSettingValueHolder"
+
+
+# instance fields
+.field private mChanged:Z
+
+.field private mDefaultValue:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "TT;"
+        }
+    .end annotation
+.end field
+
+.field private mIntValue:I
+
+.field private mOptions:[Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "[TT;"
+        }
+    .end annotation
+.end field
+
+.field private mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder<",
+            "TT;>.ParameterState;"
+        }
+    .end annotation
+.end field
+
+
+# direct methods
+.method public constructor <init>(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+    .registers 4
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(TT;)V"
+        }
+    .end annotation
+
+    .line 52
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    if-nez p1, :cond_e
+
+    const-string v0, "Create UserSettingValueHolder with null default value "
+
+    .line 54
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 56
+    :cond_e
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mDefaultValue:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    .line 57
+    new-instance v0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$NormalState;
+
+    const/4 v1, 0x0
+
+    invoke-direct {v0, p0, p1, v1, v1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$NormalState;-><init>(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    .line 58
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->getCurrentValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object p1
+
+    instance-of p1, p1, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingIntValue;
+
+    if-eqz p1, :cond_30
+
+    .line 59
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->getCurrentValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object p1
+
+    check-cast p1, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingIntValue;
+
+    invoke-interface {p1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingIntValue;->getInitialIntValue()I
+
+    move-result p1
+
+    iput p1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mIntValue:I
+
+    .line 61
+    :cond_30
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->onApplied()V
+
+    return-void
+.end method
+
+.method static synthetic access$002(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;Z)Z
+    .registers 2
+
+    .line 24
+    iput-boolean p1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mChanged:Z
+
+    return p1
+.end method
+
+.method static synthetic access$102(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+    .registers 2
+
+    .line 24
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    return-object p1
+.end method
+
+.method private deserialize(Ljava/lang/String;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+    .registers 5
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            ")TT;"
+        }
+    .end annotation
+
+    const-string v0, "NO_VALUE"
+
+    .line 437
+    invoke-virtual {p1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_a
+
+    return-object v1
+
+    :cond_a
+    const-string v0, "@"
+
+    .line 440
+    invoke-virtual {p1, v0}, Ljava/lang/String;->split(Ljava/lang/String;)[Ljava/lang/String;
+
+    move-result-object p1
+
+    .line 441
+    array-length v0, p1
+
+    const/4 v2, 0x2
+
+    if-ge v0, v2, :cond_15
+
+    return-object v1
+
+    :cond_15
+    const/4 v0, 0x0
+
+    .line 446
+    :try_start_16
+    aget-object v0, p1, v0
+
+    invoke-static {v0}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
+
+    move-result-object v0
+
+    const/4 v2, 0x1
+
+    .line 447
+    aget-object p1, p1, v2
+
+    invoke-static {v0, p1}, Ljava/lang/Enum;->valueOf(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/Enum;
+
+    move-result-object p1
+
+    check-cast p1, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+    :try_end_25
+    .catch Ljava/lang/ClassCastException; {:try_start_16 .. :try_end_25} :catch_47
+    .catch Ljava/lang/ClassNotFoundException; {:try_start_16 .. :try_end_25} :catch_3c
+    .catch Ljava/lang/LinkageError; {:try_start_16 .. :try_end_25} :catch_31
+    .catch Ljava/lang/IllegalArgumentException; {:try_start_16 .. :try_end_25} :catch_26
+
+    goto :goto_52
+
+    :catch_26
+    move-exception p1
+
+    .line 455
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_51
+
+    const-string v0, "deserialize failed."
+
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/util/CamLog;->w(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    goto :goto_51
+
+    :catch_31
+    move-exception p1
+
+    .line 453
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_51
+
+    const-string v0, "deserialize failed."
+
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/util/CamLog;->w(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    goto :goto_51
+
+    :catch_3c
+    move-exception p1
+
+    .line 451
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_51
+
+    const-string v0, "deserialize failed."
+
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/util/CamLog;->w(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    goto :goto_51
+
+    :catch_47
+    move-exception p1
+
+    .line 449
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_51
+
+    const-string v0, "deserialize failed."
+
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/util/CamLog;->w(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    :cond_51
+    :goto_51
+    move-object p1, v1
+
+    :goto_52
+    return-object p1
+.end method
+
+.method private getParameterState(Ljava/lang/String;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+    .registers 6
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            ")",
+            "Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder<",
+            "TT;>.ParameterState;"
+        }
+    .end annotation
+
+    .line 473
+    :try_start_0
+    invoke-static {p1}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
+
+    move-result-object p1
+
+    const/4 v0, 0x1
+
+    .line 474
+    new-array v1, v0, [Ljava/lang/Class;
+
+    invoke-virtual {p0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v2
+
+    const/4 v3, 0x0
+
+    aput-object v2, v1, v3
+
+    invoke-virtual {p1, v1}, Ljava/lang/Class;->getConstructor([Ljava/lang/Class;)Ljava/lang/reflect/Constructor;
+
+    move-result-object p1
+
+    new-array v0, v0, [Ljava/lang/Object;
+
+    aput-object p0, v0, v3
+
+    invoke-virtual {p1, v0}, Ljava/lang/reflect/Constructor;->newInstance([Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object p1
+
+    check-cast p1, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+    :try_end_1c
+    .catch Ljava/lang/ClassCastException; {:try_start_0 .. :try_end_1c} :catch_75
+    .catch Ljava/lang/ClassNotFoundException; {:try_start_0 .. :try_end_1c} :catch_6a
+    .catch Ljava/lang/IllegalArgumentException; {:try_start_0 .. :try_end_1c} :catch_5f
+    .catch Ljava/lang/SecurityException; {:try_start_0 .. :try_end_1c} :catch_54
+    .catch Ljava/lang/InstantiationException; {:try_start_0 .. :try_end_1c} :catch_49
+    .catch Ljava/lang/IllegalAccessException; {:try_start_0 .. :try_end_1c} :catch_3e
+    .catch Ljava/lang/reflect/InvocationTargetException; {:try_start_0 .. :try_end_1c} :catch_33
+    .catch Ljava/lang/NoSuchMethodException; {:try_start_0 .. :try_end_1c} :catch_28
+    .catch Ljava/lang/LinkageError; {:try_start_0 .. :try_end_1c} :catch_1d
+
+    goto :goto_80
+
+    :catch_1d
+    move-exception p1
+
+    .line 492
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_7f
+
+    const-string v0, "getParameterState failed"
+
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    goto :goto_7f
+
+    :catch_28
+    move-exception p1
+
+    .line 490
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_7f
+
+    const-string v0, "getParameterState failed"
+
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    goto :goto_7f
+
+    :catch_33
+    move-exception p1
+
+    .line 488
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_7f
+
+    const-string v0, "getParameterState failed"
+
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    goto :goto_7f
+
+    :catch_3e
+    move-exception p1
+
+    .line 486
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_7f
+
+    const-string v0, "getParameterState failed"
+
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    goto :goto_7f
+
+    :catch_49
+    move-exception p1
+
+    .line 484
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_7f
+
+    const-string v0, "getParameterState failed"
+
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    goto :goto_7f
+
+    :catch_54
+    move-exception p1
+
+    .line 482
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_7f
+
+    const-string v0, "getParameterState failed"
+
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    goto :goto_7f
+
+    :catch_5f
+    move-exception p1
+
+    .line 480
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_7f
+
+    const-string v0, "getParameterState failed"
+
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    goto :goto_7f
+
+    :catch_6a
+    move-exception p1
+
+    .line 478
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_7f
+
+    const-string v0, "getParameterState failed"
+
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    goto :goto_7f
+
+    :catch_75
+    move-exception p1
+
+    .line 476
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_7f
+
+    const-string v0, "getParameterState failed"
+
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    :cond_7f
+    :goto_7f
+    const/4 p1, 0x0
+
+    :goto_80
+    return-object p1
+.end method
+
+.method private serialize(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)Ljava/lang/String;
+    .registers 4
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(TT;)",
+            "Ljava/lang/String;"
+        }
+    .end annotation
+
+    if-nez p1, :cond_5
+
+    const-string p1, "NO_VALUE"
+
+    return-object p1
+
+    .line 421
+    :cond_5
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {p1}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/Class;->getName()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v1, "@"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p1}, Ljava/lang/Object;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-virtual {v0, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    return-object p1
+.end method
+
+
+# virtual methods
+.method public applyCurrentValue()V
+    .registers 2
+
+    .line 133
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->applyCurrentValue()V
+
+    return-void
+.end method
+
+.method public applyRecommendedValue(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+    .registers 3
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(TT;)V"
+        }
+    .end annotation
+
+    .line 123
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v0, p1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->applyRecommendedValue(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+
+    return-void
+.end method
+
+.method public canChanged()V
+    .registers 2
+
+    const/4 v0, 0x1
+
+    .line 188
+    iput-boolean v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mChanged:Z
+
+    return-void
+.end method
+
+.method public createValueString()Ljava/lang/String;
+    .registers 3
+
+    .line 340
+    new-instance v0, Ljava/lang/StringBuffer;
+
+    invoke-direct {v0}, Ljava/lang/StringBuffer;-><init>()V
+
+    .line 341
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v1}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/Class;->getName()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
+
+    const-string v1, "-"
+
+    .line 342
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
+
+    .line 343
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->getCurrentValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    invoke-direct {p0, v1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->serialize(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
+
+    const-string v1, "-"
+
+    .line 344
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
+
+    .line 345
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->getOriginalValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    invoke-direct {p0, v1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->serialize(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
+
+    const-string v1, "-"
+
+    .line 346
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
+
+    .line 347
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->getRecommendedValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    invoke-direct {p0, v1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->serialize(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
+
+    .line 349
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->getCurrentValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    instance-of v1, v1, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingIntValue;
+
+    if-eqz v1, :cond_60
+
+    const-string v1, "-"
+
+    .line 350
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
+
+    .line 351
+    iget v1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mIntValue:I
+
+    invoke-static {v1}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
+
+    .line 354
+    :cond_60
+    invoke-virtual {v0}, Ljava/lang/StringBuffer;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public forceChange(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)Z
+    .registers 3
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(TT;)Z"
+        }
+    .end annotation
+
+    .line 105
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v0, p1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->forceChange(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)Z
+
+    move-result p1
+
+    return p1
+.end method
+
+.method public get()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+    .registers 2
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()TT;"
+        }
+    .end annotation
+
+    .line 87
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->getCurrentValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public getDefaultValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+    .registers 2
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()TT;"
+        }
+    .end annotation
+
+    .line 167
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mDefaultValue:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    return-object v0
+.end method
+
+.method public getInt()I
+    .registers 2
+
+    .line 527
+    iget v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mIntValue:I
+
+    return v0
+.end method
+
+.method public getOptions()[Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+    .registers 2
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()[TT;"
+        }
+    .end annotation
+
+    .line 69
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mOptions:[Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    invoke-virtual {v0}, [Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;->clone()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, [Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    return-object v0
+.end method
+
+.method public getOriginalValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+    .registers 2
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()TT;"
+        }
+    .end annotation
+
+    .line 91
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->getOriginalValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public getRecommendedValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+    .registers 2
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()TT;"
+        }
+    .end annotation
+
+    .line 95
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->getRecommendedValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public hasChanged()Z
+    .registers 2
+
+    .line 172
+    iget-boolean v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mChanged:Z
+
+    return v0
+.end method
+
+.method public onApplied()V
+    .registers 2
+
+    const/4 v0, 0x0
+
+    .line 180
+    iput-boolean v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mChanged:Z
+
+    return-void
+.end method
+
+.method public parseValueString(Ljava/lang/String;)V
+    .registers 8
+
+    if-nez p1, :cond_3
+
+    return-void
+
+    .line 370
+    :cond_3
+    iget-boolean v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mChanged:Z
+
+    if-eqz v0, :cond_8
+
+    return-void
+
+    :cond_8
+    const-string v0, "-"
+
+    .line 373
+    invoke-virtual {p1, v0}, Ljava/lang/String;->split(Ljava/lang/String;)[Ljava/lang/String;
+
+    move-result-object p1
+
+    .line 374
+    array-length v0, p1
+
+    const/4 v1, 0x4
+
+    if-ge v0, v1, :cond_13
+
+    return-void
+
+    :cond_13
+    const/4 v0, 0x0
+
+    .line 378
+    aget-object v0, p1, v0
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->getParameterState(Ljava/lang/String;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    move-result-object v0
+
+    if-nez v0, :cond_1d
+
+    return-void
+
+    :cond_1d
+    const/4 v2, 0x1
+
+    .line 384
+    aget-object v2, p1, v2
+
+    invoke-direct {p0, v2}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->deserialize(Ljava/lang/String;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v2
+
+    if-nez v2, :cond_27
+
+    return-void
+
+    :cond_27
+    const/4 v3, 0x2
+
+    .line 390
+    aget-object v3, p1, v3
+
+    invoke-direct {p0, v3}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->deserialize(Ljava/lang/String;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v3
+
+    const/4 v4, 0x3
+
+    .line 392
+    aget-object v4, p1, v4
+
+    invoke-direct {p0, v4}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->deserialize(Ljava/lang/String;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v4
+
+    .line 394
+    instance-of v5, v2, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingIntValue;
+
+    if-eqz v5, :cond_41
+
+    .line 395
+    aget-object p1, p1, v1
+
+    invoke-static {p1}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+
+    move-result p1
+
+    iput p1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mIntValue:I
+
+    .line 400
+    :cond_41
+    invoke-virtual {v0, v2}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->setCurrentValue(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+
+    .line 401
+    invoke-virtual {v0, v3}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->setOriginalValue(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+
+    .line 402
+    invoke-virtual {v0, v4}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->setRecommendedValue(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+
+    .line 403
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    return-void
+.end method
+
+.method public reset()Z
+    .registers 2
+
+    .line 113
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->reset()Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public set(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+    .registers 3
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(TT;)V"
+        }
+    .end annotation
+
+    .line 78
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v0, p1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->setCurrentValue(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+
+    return-void
+.end method
+
+.method public setDefaultValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+    .registers 3
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()TT;"
+        }
+    .end annotation
+
+    .line 142
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mDefaultValue:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->setCurrentValue(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+
+    .line 143
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mDefaultValue:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    return-object v0
+.end method
+
+.method public setInt(I)V
+    .registers 2
+
+    .line 519
+    iput p1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mIntValue:I
+
+    return-void
+.end method
+
+.method public setOptions([Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+    .registers 2
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "([TT;)V"
+        }
+    .end annotation
+
+    .line 65
+    invoke-virtual {p1}, [Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;->clone()Ljava/lang/Object;
+
+    move-result-object p1
+
+    check-cast p1, [Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mOptions:[Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    return-void
+.end method
+
+.method public toString()Ljava/lang/String;
+    .registers 8
+
+    .line 504
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    if-nez v0, :cond_9
+
+    .line 505
+    invoke-super {p0}, Ljava/lang/Object;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+
+    .line 508
+    :cond_9
+    invoke-virtual {v0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 509
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->getCurrentValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    const-string v2, "NO_VALUE"
+
+    invoke-static {v1, v2}, Ljava/util/Objects;->toString(Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 510
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->getOriginalValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v2
+
+    const-string v3, "NO_VALUE"
+
+    invoke-static {v2, v3}, Ljava/util/Objects;->toString(Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v2
+
+    .line 511
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mState:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;
+
+    invoke-virtual {v3}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder$ParameterState;->getRecommendedValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v3
+
+    const-string v4, "NO_VALUE"
+
+    invoke-static {v3, v4}, Ljava/util/Objects;->toString(Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v3
+
+    const-string v4, "%s(%s|%s|%s)"
+
+    const/4 v5, 0x4
+
+    .line 512
+    new-array v5, v5, [Ljava/lang/Object;
+
+    const/4 v6, 0x0
+
+    aput-object v0, v5, v6
+
+    const/4 v0, 0x1
+
+    aput-object v1, v5, v0
+
+    const/4 v0, 0x2
+
+    aput-object v2, v5, v0
+
+    const/4 v0, 0x3
+
+    aput-object v3, v5, v0
+
+    invoke-static {v4, v5}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public updateDefaultValue(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+    .registers 2
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(TT;)TT;"
+        }
+    .end annotation
+
+    .line 152
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mDefaultValue:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    .line 153
+    iget-boolean p1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mChanged:Z
+
+    if-nez p1, :cond_c
+
+    .line 154
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->setDefaultValue()Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    .line 155
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->onApplied()V
+
+    .line 157
+    :cond_c
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValueHolder;->mDefaultValue:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    return-object p1
+.end method

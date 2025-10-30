@@ -1,0 +1,129 @@
+.class public Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;
+.super Ljava/lang/Object;
+.source "IptcRecord.java"
+
+
+# static fields
+.field public static final COMPARATOR:Ljava/util/Comparator;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/Comparator<",
+            "Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+
+# instance fields
+.field private final bytes:[B
+
+.field public final iptcType:Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcType;
+
+.field public final value:Ljava/lang/String;
+
+
+# direct methods
+.method static constructor <clinit>()V
+    .registers 1
+
+    .line 29
+    new-instance v0, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord$1;
+
+    invoke-direct {v0}, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord$1;-><init>()V
+
+    sput-object v0, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;->COMPARATOR:Ljava/util/Comparator;
+
+    return-void
+.end method
+
+.method public constructor <init>(Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcType;Ljava/lang/String;)V
+    .registers 3
+
+    .line 41
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 42
+    iput-object p1, p0, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;->iptcType:Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcType;
+
+    :try_start_5
+    const-string p1, "ISO-8859-1"
+
+    .line 45
+    invoke-virtual {p2, p1}, Ljava/lang/String;->getBytes(Ljava/lang/String;)[B
+
+    move-result-object p1
+    :try_end_b
+    .catch Ljava/io/UnsupportedEncodingException; {:try_start_5 .. :try_end_b} :catch_c
+
+    goto :goto_d
+
+    :catch_c
+    const/4 p1, 0x0
+
+    .line 49
+    :goto_d
+    iput-object p1, p0, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;->bytes:[B
+
+    .line 50
+    iput-object p2, p0, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;->value:Ljava/lang/String;
+
+    return-void
+.end method
+
+.method public constructor <init>(Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcType;[BLjava/lang/String;)V
+    .registers 4
+
+    .line 35
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 36
+    iput-object p1, p0, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;->iptcType:Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcType;
+
+    .line 37
+    iput-object p2, p0, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;->bytes:[B
+
+    .line 38
+    iput-object p3, p0, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;->value:Ljava/lang/String;
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public getIptcTypeName()Ljava/lang/String;
+    .registers 2
+
+    .line 62
+    iget-object v0, p0, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;->iptcType:Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcType;
+
+    invoke-interface {v0}, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcType;->getName()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public getRawBytes()[B
+    .registers 2
+
+    .line 54
+    iget-object v0, p0, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;->bytes:[B
+
+    invoke-virtual {v0}, [B->clone()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, [B
+
+    return-object v0
+.end method
+
+.method public getValue()Ljava/lang/String;
+    .registers 2
+
+    .line 58
+    iget-object v0, p0, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;->value:Ljava/lang/String;
+
+    return-object v0
+.end method

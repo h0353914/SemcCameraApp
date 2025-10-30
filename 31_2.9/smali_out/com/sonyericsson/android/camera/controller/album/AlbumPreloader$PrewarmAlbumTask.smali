@@ -1,0 +1,73 @@
+.class final Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader$PrewarmAlbumTask;
+.super Landroid/os/AsyncTask;
+.source "AlbumPreloader.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x12
+    name = "PrewarmAlbumTask"
+.end annotation
+
+
+# static fields
+.field private static final THREAD_NAME:Ljava/lang/String; = "PrewarmAlbum"
+
+
+# instance fields
+.field final synthetic this$0:Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader;
+
+
+# direct methods
+.method private constructor <init>(Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader;)V
+    .registers 2
+
+    .line 254
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader$PrewarmAlbumTask;->this$0:Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader;
+
+    invoke-direct {p0}, Landroid/os/AsyncTask;-><init>()V
+
+    return-void
+.end method
+
+.method synthetic constructor <init>(Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader;Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader$1;)V
+    .registers 3
+
+    .line 254
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader$PrewarmAlbumTask;-><init>(Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader;)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method protected doInBackground([Ljava/lang/Object;)Ljava/lang/Object;
+    .registers 3
+
+    .line 260
+    invoke-static {}, Ljava/lang/Thread;->currentThread()Ljava/lang/Thread;
+
+    move-result-object p1
+
+    const-string v0, "PrewarmAlbum"
+
+    invoke-virtual {p1, v0}, Ljava/lang/Thread;->setName(Ljava/lang/String;)V
+
+    .line 261
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader$PrewarmAlbumTask;->this$0:Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader;
+
+    # getter for: Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader;->mFastViewManager:Lcom/sonyericsson/album/fastview/FastViewManager;
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader;->access$200(Lcom/sonyericsson/android/camera/controller/album/AlbumPreloader;)Lcom/sonyericsson/album/fastview/FastViewManager;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/album/fastview/FastViewManager;->prewarm()V
+
+    const/4 p1, 0x0
+
+    return-object p1
+.end method

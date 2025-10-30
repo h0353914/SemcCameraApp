@@ -1,0 +1,1464 @@
+.class public Lcom/google/lens/sdk/LensApi;
+.super Ljava/lang/Object;
+.source "PG"
+
+
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/google/lens/sdk/LensApi$LensLaunchStatusCallback;,
+        Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;,
+        Lcom/google/lens/sdk/LensApi$LensLaunchStatus;,
+        Lcom/google/lens/sdk/LensApi$LensFeature;,
+        Lcom/google/lens/sdk/LensApi$LensAvailabilityStatus;
+    }
+.end annotation
+
+
+# static fields
+.field static final a:Landroid/net/Uri;
+
+.field public static final synthetic b:I
+
+
+# instance fields
+.field private final c:Lal;
+
+.field private final d:Laq;
+
+.field private final e:Landroid/app/KeyguardManager;
+
+
+# direct methods
+.method static constructor <clinit>()V
+    .registers 1
+
+    const-string v0, "googleapp://lens"
+
+    .line 1
+    invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v0
+
+    sput-object v0, Lcom/google/lens/sdk/LensApi;->a:Landroid/net/Uri;
+
+    return-void
+.end method
+
+.method public constructor <init>(Landroid/content/Context;)V
+    .registers 4
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    .line 2
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    const-string v0, "keyguard"
+
+    .line 3
+    invoke-virtual {p1, v0}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/app/KeyguardManager;
+
+    iput-object v0, p0, Lcom/google/lens/sdk/LensApi;->e:Landroid/app/KeyguardManager;
+
+    .line 4
+    new-instance v0, Lal;
+
+    invoke-direct {v0, p1}, Lal;-><init>(Landroid/content/Context;)V
+
+    iput-object v0, p0, Lcom/google/lens/sdk/LensApi;->c:Lal;
+
+    new-instance v0, Laq;
+
+    iget-object v1, p0, Lcom/google/lens/sdk/LensApi;->c:Lal;
+
+    .line 5
+    invoke-direct {v0, p1, v1}, Laq;-><init>(Landroid/content/Context;Lal;)V
+
+    iput-object v0, p0, Lcom/google/lens/sdk/LensApi;->d:Laq;
+
+    return-void
+.end method
+
+.method private final a(Landroid/app/Activity;Lcom/google/lens/sdk/LensApi$LensLaunchStatusCallback;Ljava/lang/Runnable;)V
+    .registers 6
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->e:Landroid/app/KeyguardManager;
+
+    .line 45
+    invoke-virtual {v0}, Landroid/app/KeyguardManager;->isKeyguardLocked()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_3a
+
+    .line 46
+    sget v0, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v1, 0x1a
+
+    if-ge v0, v1, :cond_2f
+
+    .line 47
+    sget p1, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    new-instance p3, Ljava/lang/StringBuilder;
+
+    const/16 v0, 0x40
+
+    invoke-direct {p3, v0}, Ljava/lang/StringBuilder;-><init>(I)V
+
+    const-string v0, "Cannot start Lens when device is locked with Android "
+
+    invoke-virtual {p3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p3, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string p1, "LensApi"
+
+    invoke-virtual {p3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p3
+
+    invoke-static {p1, p3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    if-eqz p2, :cond_2e
+
+    const/4 p1, 0x1
+
+    .line 48
+    invoke-interface {p2, p1}, Lcom/google/lens/sdk/LensApi$LensLaunchStatusCallback;->onLaunchStatusFetched(I)V
+
+    :cond_2e
+    return-void
+
+    .line 49
+    :cond_2f
+    new-instance v0, Lbp;
+
+    invoke-direct {v0, p3, p2}, Lbp;-><init>(Ljava/lang/Runnable;Lcom/google/lens/sdk/LensApi$LensLaunchStatusCallback;)V
+
+    iget-object p2, p0, Lcom/google/lens/sdk/LensApi;->e:Landroid/app/KeyguardManager;
+
+    .line 50
+    invoke-virtual {p2, p1, v0}, Landroid/app/KeyguardManager;->requestDismissKeyguard(Landroid/app/Activity;Landroid/app/KeyguardManager$KeyguardDismissCallback;)V
+
+    return-void
+
+    .line 51
+    :cond_3a
+    invoke-interface {p3}, Ljava/lang/Runnable;->run()V
+
+    if-eqz p2, :cond_43
+
+    const/4 p1, 0x0
+
+    .line 52
+    invoke-interface {p2, p1}, Lcom/google/lens/sdk/LensApi$LensLaunchStatusCallback;->onLaunchStatusFetched(I)V
+
+    :cond_43
+    return-void
+.end method
+
+.method private final a(Ljava/lang/String;)Z
+    .registers 9
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->c:Lal;
+
+    iget-object v0, v0, Lal;->f:Lbi;
+
+    iget-object v0, v0, Lbi;->c:Ljava/lang/String;
+
+    .line 29
+    invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v1
+
+    const/4 v2, 0x1
+
+    if-nez v1, :cond_3f
+
+    const-string v1, "\\."
+
+    const/4 v3, -0x1
+
+    .line 30
+    invoke-virtual {v0, v1, v3}, Ljava/lang/String;->split(Ljava/lang/String;I)[Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "\\."
+
+    .line 31
+    invoke-virtual {p1, v1, v3}, Ljava/lang/String;->split(Ljava/lang/String;I)[Ljava/lang/String;
+
+    move-result-object p1
+
+    .line 32
+    array-length v1, v0
+
+    array-length v3, p1
+
+    invoke-static {v1, v3}, Ljava/lang/Math;->min(II)I
+
+    move-result v1
+
+    const/4 v3, 0x0
+
+    move v4, v3
+
+    :goto_22
+    if-ge v4, v1, :cond_39
+
+    .line 33
+    aget-object v5, v0, v4
+
+    invoke-static {v5}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+
+    move-result v5
+
+    .line 34
+    aget-object v6, p1, v4
+
+    invoke-static {v6}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+
+    move-result v6
+
+    if-lt v5, v6, :cond_38
+
+    if-gt v5, v6, :cond_37
+
+    add-int/lit8 v4, v4, 0x1
+
+    goto :goto_22
+
+    :cond_37
+    return v3
+
+    :cond_38
+    return v2
+
+    .line 35
+    :cond_39
+    array-length v0, v0
+
+    array-length p1, p1
+
+    if-ge v0, p1, :cond_3e
+
+    return v2
+
+    :cond_3e
+    return v3
+
+    :cond_3f
+    return v2
+.end method
+
+
+# virtual methods
+.method public final a(Landroid/app/Activity;)V
+    .registers 8
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->d:Laq;
+
+    .line 104
+    invoke-static {}, Leb;->c()V
+
+    iget-object v1, v0, Laq;->a:Las;
+
+    .line 105
+    invoke-interface {v1}, Las;->c()Z
+
+    move-result v1
+
+    const/4 v2, 0x0
+
+    if-eqz v1, :cond_63
+
+    .line 106
+    sget-object v1, Lo;->c:Lo;
+
+    .line 107
+    invoke-virtual {v1}, Lde;->e()Lda;
+
+    move-result-object v1
+
+    check-cast v1, Ln;
+
+    .line 106
+    sget v3, Lm;->cI:I
+
+    iget-boolean v4, v1, Lda;->c:Z
+
+    if-nez v4, :cond_1d
+
+    goto :goto_22
+
+    .line 108
+    :cond_1d
+    invoke-virtual {v1}, Lda;->b()V
+
+    iput-boolean v2, v1, Lda;->c:Z
+
+    .line 106
+    :goto_22
+    iget-object v4, v1, Ln;->b:Lde;
+
+    .line 109
+    check-cast v4, Lo;
+
+    add-int/lit8 v5, v3, -0x1
+
+    if-eqz v3, :cond_61
+
+    iput v5, v4, Lo;->b:I
+
+    iget v3, v4, Lo;->a:I
+
+    or-int/lit8 v3, v3, 0x1
+
+    iput v3, v4, Lo;->a:I
+
+    .line 110
+    invoke-virtual {v1}, Lda;->f()Lde;
+
+    move-result-object v1
+
+    check-cast v1, Lo;
+
+    :try_start_38
+    iget-object v0, v0, Laq;->a:Las;
+
+    .line 111
+    invoke-virtual {v1}, Lbu;->m()[B
+
+    move-result-object v1
+
+    .line 112
+    invoke-static {}, Leb;->c()V
+
+    move-object v3, v0
+
+    check-cast v3, Lba;
+
+    .line 113
+    invoke-virtual {v3}, Lba;->c()Z
+
+    move-result v3
+
+    const-string v4, "Attempted to use lensServiceSession before ready."
+
+    invoke-static {v3, v4}, Leb;->a(ZLjava/lang/String;)V
+
+    check-cast v0, Lba;
+
+    iget-object v0, v0, Lba;->g:Lg;
+
+    .line 114
+    invoke-static {v0}, Leb;->a(Ljava/lang/Object;)V
+
+    invoke-interface {v0, v1}, Lg;->a([B)V
+    :try_end_57
+    .catch Landroid/os/RemoteException; {:try_start_38 .. :try_end_57} :catch_58
+    .catch Ljava/lang/SecurityException; {:try_start_38 .. :try_end_57} :catch_58
+
+    goto :goto_63
+
+    :catch_58
+    move-exception v0
+
+    const-string v1, "LensServiceBridge"
+
+    const-string v3, "Unable to send prewarm signal."
+
+    .line 115
+    invoke-static {v1, v3, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    goto :goto_63
+
+    :cond_61
+    const/4 p1, 0x0
+
+    .line 109
+    throw p1
+
+    .line 114
+    :cond_63
+    :goto_63
+    new-instance v0, Landroid/content/Intent;
+
+    .line 116
+    invoke-direct {v0}, Landroid/content/Intent;-><init>()V
+
+    const-string v1, "android.intent.action.VIEW"
+
+    .line 117
+    invoke-virtual {v0, v1}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
+
+    sget-object v1, Lcom/google/lens/sdk/LensApi;->a:Landroid/net/Uri;
+
+    .line 118
+    invoke-virtual {v0, v1}, Landroid/content/Intent;->setData(Landroid/net/Uri;)Landroid/content/Intent;
+
+    .line 119
+    invoke-virtual {p1, v0, v2}, Landroid/app/Activity;->startActivityForResult(Landroid/content/Intent;I)V
+
+    return-void
+.end method
+
+.method public final a(Landroid/app/Activity;Lbs;)V
+    .registers 11
+
+    .line 100
+    invoke-static {}, Landroid/os/SystemClock;->elapsedRealtimeNanos()J
+
+    move-result-wide v3
+
+    iget-object v6, p0, Lcom/google/lens/sdk/LensApi;->d:Laq;
+
+    new-instance v7, Lbm;
+
+    move-object v0, v7
+
+    move-object v1, p0
+
+    move-object v2, p2
+
+    move-object v5, p1
+
+    .line 101
+    invoke-direct/range {v0 .. v5}, Lbm;-><init>(Lcom/google/lens/sdk/LensApi;Lbs;JLandroid/app/Activity;)V
+
+    .line 102
+    invoke-static {}, Leb;->c()V
+
+    new-instance p1, Lao;
+
+    .line 103
+    invoke-direct {p1, v6, v7}, Lao;-><init>(Laq;Lap;)V
+
+    invoke-virtual {v6, p1}, Laq;->a(Lap;)V
+
+    return-void
+.end method
+
+.method public final a(Lbs;)V
+    .registers 7
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->d:Laq;
+
+    .line 120
+    invoke-virtual {v0}, Laq;->c()Lz;
+
+    move-result-object v1
+
+    invoke-virtual {p1, v1}, Lbs;->a(Lz;)Landroid/os/Bundle;
+
+    move-result-object v1
+
+    .line 121
+    invoke-virtual {v0, v1}, Laq;->a(Landroid/os/Bundle;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_75
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->d:Laq;
+
+    .line 122
+    invoke-virtual {v0}, Laq;->c()Lz;
+
+    invoke-virtual {p1}, Lbs;->c()Landroid/os/Bundle;
+
+    move-result-object p1
+
+    .line 123
+    invoke-static {}, Leb;->c()V
+
+    iget-object v1, v0, Laq;->a:Las;
+
+    .line 124
+    invoke-interface {v1}, Las;->c()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_6e
+
+    .line 125
+    sget-object v1, Lo;->c:Lo;
+
+    .line 126
+    invoke-virtual {v1}, Lde;->e()Lda;
+
+    move-result-object v1
+
+    check-cast v1, Ln;
+
+    .line 125
+    sget v2, Lm;->cM:I
+
+    iget-boolean v3, v1, Lda;->c:Z
+
+    if-nez v3, :cond_33
+
+    goto :goto_39
+
+    .line 127
+    :cond_33
+    invoke-virtual {v1}, Lda;->b()V
+
+    const/4 v3, 0x0
+
+    iput-boolean v3, v1, Lda;->c:Z
+
+    .line 125
+    :goto_39
+    iget-object v3, v1, Ln;->b:Lde;
+
+    .line 128
+    check-cast v3, Lo;
+
+    add-int/lit8 v4, v2, -0x1
+
+    if-eqz v2, :cond_6c
+
+    iput v4, v3, Lo;->b:I
+
+    iget v2, v3, Lo;->a:I
+
+    or-int/lit8 v2, v2, 0x1
+
+    iput v2, v3, Lo;->a:I
+
+    .line 125
+    invoke-virtual {v1}, Lda;->f()Lde;
+
+    move-result-object v1
+
+    check-cast v1, Lo;
+
+    new-instance v2, Lk;
+
+    .line 129
+    invoke-direct {v2, p1}, Lk;-><init>(Landroid/os/Parcelable;)V
+
+    :try_start_54
+    iget-object p1, v0, Laq;->a:Las;
+
+    .line 130
+    invoke-virtual {v1}, Lbu;->m()[B
+
+    move-result-object v1
+
+    .line 131
+    invoke-interface {p1, v1, v2}, Las;->b([BLk;)V
+    :try_end_5d
+    .catch Landroid/os/RemoteException; {:try_start_54 .. :try_end_5d} :catch_63
+    .catch Ljava/lang/SecurityException; {:try_start_54 .. :try_end_5d} :catch_63
+
+    iget-object p1, v0, Laq;->a:Las;
+
+    .line 134
+    invoke-interface {p1}, Las;->a()V
+
+    return-void
+
+    :catch_63
+    move-exception p1
+
+    const-string v0, "LensServiceBridge"
+
+    const-string v1, "Failed to start Lens"
+
+    .line 132
+    invoke-static {v0, v1, p1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    goto :goto_6e
+
+    :cond_6c
+    const/4 p1, 0x0
+
+    .line 128
+    throw p1
+
+    :cond_6e
+    :goto_6e
+    const-string p1, "LensApi"
+
+    const-string v0, "Failed to start lens."
+
+    .line 133
+    invoke-static {p1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    :cond_75
+    return-void
+.end method
+
+.method public final a(Landroid/graphics/Bitmap;Lbs;)Z
+    .registers 6
+
+    if-nez p1, :cond_9
+
+    const-string v0, "LensApi"
+
+    const-string v1, "launchLensActivityWithBitmap: bitmap should not be null."
+
+    .line 58
+    invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    :cond_9
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->e:Landroid/app/KeyguardManager;
+
+    .line 59
+    invoke-virtual {v0}, Landroid/app/KeyguardManager;->isKeyguardLocked()Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_1a
+
+    const-string p1, "LensApi"
+
+    const-string p2, "Cannot start Lens with Bitmap when device is locked."
+
+    .line 60
+    invoke-static {p1, p2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    return v1
+
+    :cond_1a
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->d:Laq;
+
+    .line 61
+    invoke-virtual {v0}, Laq;->g()I
+
+    move-result v0
+
+    sget v2, Lbh;->b:I
+
+    if-ne v0, v2, :cond_34
+
+    .line 62
+    invoke-virtual {p2}, Lbs;->b()Lbr;
+
+    move-result-object p2
+
+    invoke-virtual {p2, p1}, Lbr;->a(Landroid/graphics/Bitmap;)V
+
+    invoke-virtual {p2}, Lbr;->a()Lbs;
+
+    move-result-object p1
+
+    invoke-virtual {p0, p1}, Lcom/google/lens/sdk/LensApi;->a(Lbs;)V
+
+    const/4 p1, 0x1
+
+    return p1
+
+    :cond_34
+    return v1
+.end method
+
+.method public final a(Lbs;Lcom/google/lens/sdk/PendingIntentConsumer;)Z
+    .registers 8
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->d:Laq;
+
+    .line 78
+    invoke-virtual {v0}, Laq;->f()I
+
+    move-result v0
+
+    sget v1, Lbh;->b:I
+
+    const/4 v2, 0x0
+
+    if-ne v0, v1, :cond_79
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->d:Laq;
+
+    .line 79
+    invoke-virtual {v0}, Laq;->c()Lz;
+
+    move-result-object v1
+
+    invoke-virtual {p1, v1}, Lbs;->a(Lz;)Landroid/os/Bundle;
+
+    move-result-object v1
+
+    .line 80
+    invoke-virtual {v0, v1}, Laq;->a(Landroid/os/Bundle;)Z
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->d:Laq;
+
+    .line 81
+    invoke-virtual {v0}, Laq;->c()Lz;
+
+    invoke-virtual {p1}, Lbs;->c()Landroid/os/Bundle;
+
+    move-result-object p1
+
+    .line 82
+    invoke-static {}, Leb;->c()V
+
+    iput-object p2, v0, Laq;->b:Lcom/google/lens/sdk/PendingIntentConsumer;
+
+    iget-object p2, v0, Laq;->a:Las;
+
+    .line 83
+    invoke-interface {p2}, Las;->c()Z
+
+    move-result p2
+
+    if-eqz p2, :cond_72
+
+    .line 84
+    sget-object p2, Lo;->c:Lo;
+
+    .line 85
+    invoke-virtual {p2}, Lde;->e()Lda;
+
+    move-result-object p2
+
+    check-cast p2, Ln;
+
+    .line 84
+    sget v1, Lm;->cN:I
+
+    iget-boolean v3, p2, Lda;->c:Z
+
+    if-nez v3, :cond_3d
+
+    goto :goto_42
+
+    .line 86
+    :cond_3d
+    invoke-virtual {p2}, Lda;->b()V
+
+    iput-boolean v2, p2, Lda;->c:Z
+
+    .line 84
+    :goto_42
+    iget-object v3, p2, Ln;->b:Lde;
+
+    .line 87
+    check-cast v3, Lo;
+
+    add-int/lit8 v4, v1, -0x1
+
+    if-eqz v1, :cond_70
+
+    iput v4, v3, Lo;->b:I
+
+    iget v1, v3, Lo;->a:I
+
+    const/4 v4, 0x1
+
+    or-int/2addr v1, v4
+
+    iput v1, v3, Lo;->a:I
+
+    .line 88
+    invoke-virtual {p2}, Lda;->f()Lde;
+
+    move-result-object p2
+
+    check-cast p2, Lo;
+
+    new-instance v1, Lk;
+
+    .line 89
+    invoke-direct {v1, p1}, Lk;-><init>(Landroid/os/Parcelable;)V
+
+    :try_start_5d
+    iget-object p1, v0, Laq;->a:Las;
+
+    .line 90
+    invoke-virtual {p2}, Lbu;->m()[B
+
+    move-result-object p2
+
+    .line 91
+    invoke-interface {p1, p2, v1}, Las;->b([BLk;)V
+    :try_end_66
+    .catch Landroid/os/RemoteException; {:try_start_5d .. :try_end_66} :catch_67
+    .catch Ljava/lang/SecurityException; {:try_start_5d .. :try_end_66} :catch_67
+
+    return v4
+
+    :catch_67
+    move-exception p1
+
+    const-string p2, "LensServiceBridge"
+
+    const-string v0, "Failed to send Lens service client event"
+
+    .line 92
+    invoke-static {p2, v0, p1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
+
+    goto :goto_72
+
+    :cond_70
+    const/4 p1, 0x0
+
+    .line 87
+    throw p1
+
+    :cond_72
+    :goto_72
+    const-string p1, "LensApi"
+
+    const-string p2, "Failed to request pending intent."
+
+    .line 93
+    invoke-static {p1, p2}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    :cond_79
+    return v2
+.end method
+
+.method public checkArStickersAvailability(Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;)V
+    .registers 5
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->c:Lal;
+
+    new-instance v1, Lbq;
+
+    const/4 v2, 0x1
+
+    .line 6
+    invoke-direct {v1, p1, v2}, Lbq;-><init>(Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;I)V
+
+    invoke-virtual {v0, v1}, Lal;->a(Lai;)V
+
+    return-void
+.end method
+
+.method public checkLensAvailability(Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;)V
+    .registers 5
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->e:Landroid/app/KeyguardManager;
+
+    .line 7
+    invoke-virtual {v0}, Landroid/app/KeyguardManager;->isKeyguardLocked()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_14
+
+    .line 8
+    sget v0, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v1, 0x1a
+
+    if-lt v0, v1, :cond_f
+
+    goto :goto_14
+
+    :cond_f
+    const/4 v0, 0x5
+
+    .line 12
+    invoke-interface {p1, v0}, Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;->onAvailabilityStatusFetched(I)V
+
+    return-void
+
+    :cond_14
+    :goto_14
+    const-string v0, "8.3"
+
+    .line 9
+    invoke-direct {p0, v0}, Lcom/google/lens/sdk/LensApi;->a(Ljava/lang/String;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_21
+
+    const/4 v0, 0x6
+
+    .line 10
+    invoke-interface {p1, v0}, Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;->onAvailabilityStatusFetched(I)V
+
+    return-void
+
+    :cond_21
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->c:Lal;
+
+    new-instance v1, Lbq;
+
+    const/4 v2, 0x0
+
+    .line 11
+    invoke-direct {v1, p1, v2}, Lbq;-><init>(Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;I)V
+
+    invoke-virtual {v0, v1}, Lal;->a(Lai;)V
+
+    return-void
+.end method
+
+.method public checkPendingIntentAvailability(Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;)V
+    .registers 4
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->e:Landroid/app/KeyguardManager;
+
+    .line 13
+    invoke-virtual {v0}, Landroid/app/KeyguardManager;->isKeyguardLocked()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_14
+
+    .line 14
+    sget v0, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v1, 0x1a
+
+    if-lt v0, v1, :cond_f
+
+    goto :goto_14
+
+    :cond_f
+    const/4 v0, 0x5
+
+    .line 20
+    invoke-interface {p1, v0}, Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;->onAvailabilityStatusFetched(I)V
+
+    return-void
+
+    :cond_14
+    :goto_14
+    const-string v0, "9.72"
+
+    .line 15
+    invoke-direct {p0, v0}, Lcom/google/lens/sdk/LensApi;->a(Ljava/lang/String;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_21
+
+    const/4 v0, 0x6
+
+    .line 16
+    invoke-interface {p1, v0}, Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;->onAvailabilityStatusFetched(I)V
+
+    return-void
+
+    :cond_21
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->d:Laq;
+
+    new-instance v1, Lbo;
+
+    .line 17
+    invoke-direct {v1, p1}, Lbo;-><init>(Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;)V
+
+    .line 18
+    invoke-static {}, Leb;->c()V
+
+    new-instance p1, Lan;
+
+    .line 19
+    invoke-direct {p1, v0, v1}, Lan;-><init>(Laq;Lap;)V
+
+    invoke-virtual {v0, p1}, Laq;->a(Lap;)V
+
+    return-void
+.end method
+
+.method public checkPostCaptureAvailability(Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;)V
+    .registers 4
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->e:Landroid/app/KeyguardManager;
+
+    .line 21
+    invoke-virtual {v0}, Landroid/app/KeyguardManager;->isKeyguardLocked()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_14
+
+    .line 22
+    sget v0, Landroid/os/Build$VERSION;->SDK_INT:I
+
+    const/16 v1, 0x1a
+
+    if-lt v0, v1, :cond_f
+
+    goto :goto_14
+
+    :cond_f
+    const/4 v0, 0x5
+
+    .line 28
+    invoke-interface {p1, v0}, Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;->onAvailabilityStatusFetched(I)V
+
+    return-void
+
+    :cond_14
+    :goto_14
+    const-string v0, "8.19"
+
+    .line 23
+    invoke-direct {p0, v0}, Lcom/google/lens/sdk/LensApi;->a(Ljava/lang/String;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_21
+
+    const/4 v0, 0x6
+
+    .line 24
+    invoke-interface {p1, v0}, Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;->onAvailabilityStatusFetched(I)V
+
+    return-void
+
+    :cond_21
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->d:Laq;
+
+    new-instance v1, Lbn;
+
+    .line 25
+    invoke-direct {v1, p1}, Lbn;-><init>(Lcom/google/lens/sdk/LensApi$LensAvailabilityCallback;)V
+
+    .line 26
+    invoke-static {}, Leb;->c()V
+
+    new-instance p1, Lam;
+
+    .line 27
+    invoke-direct {p1, v0, v1}, Lam;-><init>(Laq;Lap;)V
+
+    invoke-virtual {v0, p1}, Laq;->a(Lap;)V
+
+    return-void
+.end method
+
+.method public launchLensActivity(Landroid/app/Activity;)V
+    .registers 4
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+
+    new-instance v0, Lbj;
+
+    .line 36
+    invoke-direct {v0, p0, p1}, Lbj;-><init>(Lcom/google/lens/sdk/LensApi;Landroid/app/Activity;)V
+
+    const/4 v1, 0x0
+
+    invoke-direct {p0, p1, v1, v0}, Lcom/google/lens/sdk/LensApi;->a(Landroid/app/Activity;Lcom/google/lens/sdk/LensApi$LensLaunchStatusCallback;Ljava/lang/Runnable;)V
+
+    return-void
+.end method
+
+.method public launchLensActivity(Landroid/app/Activity;I)V
+    .registers 5
+    .param p2    # I
+        .annotation build Lcom/google/lens/sdk/LensApi$LensFeature;
+        .end annotation
+    .end param
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+
+    packed-switch p2, :pswitch_data_48
+
+    .line 40
+    new-instance p1, Ljava/lang/StringBuilder;
+
+    const/16 v0, 0x22
+
+    .line 42
+    invoke-direct {p1, v0}, Ljava/lang/StringBuilder;-><init>(I)V
+
+    const-string v0, "Invalid lens activity: "
+
+    invoke-virtual {p1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p1, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string p2, "LensApi"
+
+    invoke-virtual {p1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p2, p1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    return-void
+
+    .line 0
+    :pswitch_1c
+    iget-object p2, p0, Lcom/google/lens/sdk/LensApi;->c:Lal;
+
+    iget-object p2, p2, Lal;->f:Lbi;
+
+    iget p2, p2, Lbi;->e:I
+
+    .line 37
+    invoke-static {p2}, Lbh;->a(I)I
+
+    move-result p2
+
+    if-nez p2, :cond_2a
+
+    sget p2, Lbh;->a:I
+
+    :cond_2a
+    sget v0, Lbh;->b:I
+
+    if-ne p2, v0, :cond_3d
+
+    new-instance p2, Landroid/content/Intent;
+
+    .line 38
+    invoke-direct {p2}, Landroid/content/Intent;-><init>()V
+
+    const-string v0, "com.google.ar.lens"
+
+    const-string v1, "com.google.vr.apps.ornament.app.MainActivity"
+
+    .line 39
+    invoke-virtual {p2, v0, v1}, Landroid/content/Intent;->setClassName(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
+
+    .line 40
+    invoke-virtual {p1, p2}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
+
+    :cond_3d
+    return-void
+
+    .line 42
+    :pswitch_3e
+    new-instance p2, Lbl;
+
+    .line 41
+    invoke-direct {p2, p0, p1}, Lbl;-><init>(Lcom/google/lens/sdk/LensApi;Landroid/app/Activity;)V
+
+    const/4 v0, 0x0
+
+    invoke-direct {p0, p1, v0, p2}, Lcom/google/lens/sdk/LensApi;->a(Landroid/app/Activity;Lcom/google/lens/sdk/LensApi$LensLaunchStatusCallback;Ljava/lang/Runnable;)V
+
+    return-void
+
+    :pswitch_data_48
+    .packed-switch 0x0
+        :pswitch_3e
+        :pswitch_1c
+    .end packed-switch
+.end method
+
+.method public launchLensActivity(Landroid/app/Activity;Lcom/google/lens/sdk/LensApi$LensLaunchStatusCallback;)V
+    .registers 5
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    .line 43
+    invoke-static {}, Lbs;->a()Lbr;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbr;->a()Lbs;
+
+    move-result-object v0
+
+    new-instance v1, Lbk;
+
+    .line 44
+    invoke-direct {v1, p0, p1, v0}, Lbk;-><init>(Lcom/google/lens/sdk/LensApi;Landroid/app/Activity;Lbs;)V
+
+    invoke-direct {p0, p1, p2, v1}, Lcom/google/lens/sdk/LensApi;->a(Landroid/app/Activity;Lcom/google/lens/sdk/LensApi$LensLaunchStatusCallback;Ljava/lang/Runnable;)V
+
+    return-void
+.end method
+
+.method public launchLensActivityWithBitmap(Landroid/graphics/Bitmap;)Z
+    .registers 5
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->e:Landroid/app/KeyguardManager;
+
+    .line 53
+    invoke-virtual {v0}, Landroid/app/KeyguardManager;->isKeyguardLocked()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_11
+
+    const-string p1, "LensApi"
+
+    const-string v0, "Cannot start Lens with Bitmap when device is locked."
+
+    .line 54
+    invoke-static {p1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    const/4 p1, 0x0
+
+    return p1
+
+    .line 55
+    :cond_11
+    invoke-static {}, Landroid/os/SystemClock;->elapsedRealtimeNanos()J
+
+    move-result-wide v0
+
+    .line 56
+    invoke-static {}, Lbs;->a()Lbr;
+
+    move-result-object v2
+
+    invoke-static {v0, v1}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
+
+    move-result-object v0
+
+    invoke-virtual {v2, v0}, Lbr;->a(Ljava/lang/Long;)V
+
+    invoke-virtual {v2}, Lbr;->a()Lbs;
+
+    move-result-object v0
+
+    .line 57
+    invoke-virtual {p0, p1, v0}, Lcom/google/lens/sdk/LensApi;->a(Landroid/graphics/Bitmap;Lbs;)Z
+
+    move-result p1
+
+    return p1
+.end method
+
+.method public launchLensActivityWithBitmapForTranslate(Landroid/graphics/Bitmap;)Z
+    .registers 6
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->d:Laq;
+
+    .line 63
+    invoke-virtual {v0}, Laq;->d()Lx;
+
+    move-result-object v0
+
+    iget v0, v0, Lx;->a:I
+
+    and-int/lit8 v0, v0, 0x2
+
+    const/4 v1, 0x0
+
+    if-nez v0, :cond_15
+
+    const-string p1, "LensApi"
+
+    const-string v0, "Translate is not supported."
+
+    .line 64
+    invoke-static {p1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    return v1
+
+    .line 65
+    :cond_15
+    sget-object v0, Lbe;->c:Lbe;
+
+    .line 66
+    invoke-virtual {v0}, Lde;->e()Lda;
+
+    move-result-object v0
+
+    check-cast v0, Lbb;
+
+    .line 67
+    sget-object v2, Lbd;->a:Lbd;
+
+    iget-boolean v3, v0, Lda;->c:Z
+
+    if-nez v3, :cond_24
+
+    goto :goto_29
+
+    .line 68
+    :cond_24
+    invoke-virtual {v0}, Lda;->b()V
+
+    iput-boolean v1, v0, Lda;->c:Z
+
+    :goto_29
+    iget-object v1, v0, Lbb;->b:Lde;
+
+    .line 69
+    check-cast v1, Lbe;
+
+    .line 70
+    invoke-virtual {v2}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    iput-object v2, v1, Lbe;->b:Lbd;
+
+    iget v2, v1, Lbe;->a:I
+
+    or-int/lit8 v2, v2, 0x2
+
+    iput v2, v1, Lbe;->a:I
+
+    .line 71
+    invoke-virtual {v0}, Lda;->f()Lde;
+
+    move-result-object v0
+
+    check-cast v0, Lbe;
+
+    .line 72
+    invoke-static {}, Lbs;->a()Lbr;
+
+    move-result-object v1
+
+    iget-object v2, v1, Lbr;->a:Lbs;
+
+    const/4 v3, 0x5
+
+    .line 73
+    invoke-static {v3}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v3
+
+    iput-object v3, v2, Lbs;->e:Ljava/lang/Integer;
+
+    iget-object v2, v1, Lbr;->a:Lbs;
+
+    iput-object v0, v2, Lbs;->d:Lbe;
+
+    .line 74
+    invoke-virtual {v1}, Lbr;->a()Lbs;
+
+    move-result-object v0
+
+    .line 75
+    invoke-virtual {p0, p1, v0}, Lcom/google/lens/sdk/LensApi;->a(Landroid/graphics/Bitmap;Lbs;)Z
+
+    move-result p1
+
+    return p1
+.end method
+
+.method public onPause()V
+    .registers 2
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->d:Laq;
+
+    .line 76
+    invoke-virtual {v0}, Laq;->b()V
+
+    return-void
+.end method
+
+.method public onResume()V
+    .registers 2
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    iget-object v0, p0, Lcom/google/lens/sdk/LensApi;->d:Laq;
+
+    .line 77
+    invoke-virtual {v0}, Laq;->a()V
+
+    return-void
+.end method
+
+.method public requestLensActivityPendingIntent(Lcom/google/lens/sdk/PendingIntentConsumer;)Z
+    .registers 3
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    .line 94
+    invoke-static {}, Lbs;->a()Lbr;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lbr;->a()Lbs;
+
+    move-result-object v0
+
+    invoke-virtual {p0, v0, p1}, Lcom/google/lens/sdk/LensApi;->a(Lbs;Lcom/google/lens/sdk/PendingIntentConsumer;)Z
+
+    move-result p1
+
+    return p1
+.end method
+
+.method public requestLensActivityPendingIntentWithBitmap(Landroid/graphics/Bitmap;Lcom/google/lens/sdk/PendingIntentConsumer;)Z
+    .registers 4
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    .line 95
+    invoke-static {}, Lbs;->a()Lbr;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p1}, Lbr;->a(Landroid/graphics/Bitmap;)V
+
+    invoke-virtual {v0}, Lbr;->a()Lbs;
+
+    move-result-object p1
+
+    .line 96
+    invoke-virtual {p0, p1, p2}, Lcom/google/lens/sdk/LensApi;->a(Lbs;Lcom/google/lens/sdk/PendingIntentConsumer;)Z
+
+    move-result p1
+
+    return p1
+.end method
+
+.method public requestLensActivityPendingIntentWithBitmapUri(Landroid/content/Context;Landroid/net/Uri;Lcom/google/lens/sdk/PendingIntentConsumer;)Z
+    .registers 6
+    .annotation build Landroidx/annotation/Keep;
+    .end annotation
+
+    if-nez p1, :cond_3
+
+    goto :goto_9
+
+    :cond_3
+    const-string v0, "com.google.android.googlequicksearchbox"
+
+    const/4 v1, 0x1
+
+    .line 97
+    invoke-virtual {p1, v0, p2, v1}, Landroid/content/Context;->grantUriPermission(Ljava/lang/String;Landroid/net/Uri;I)V
+
+    .line 98
+    :goto_9
+    invoke-static {}, Lbs;->a()Lbr;
+
+    move-result-object p1
+
+    iget-object v0, p1, Lbr;->a:Lbs;
+
+    iput-object p2, v0, Lbs;->a:Landroid/net/Uri;
+
+    invoke-virtual {p1}, Lbr;->a()Lbs;
+
+    move-result-object p1
+
+    .line 99
+    invoke-virtual {p0, p1, p3}, Lcom/google/lens/sdk/LensApi;->a(Lbs;Lcom/google/lens/sdk/PendingIntentConsumer;)Z
+
+    move-result p1
+
+    return p1
+.end method

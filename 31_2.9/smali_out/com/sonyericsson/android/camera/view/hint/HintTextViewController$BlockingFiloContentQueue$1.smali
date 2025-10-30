@@ -1,0 +1,139 @@
+.class Lcom/sonyericsson/android/camera/view/hint/HintTextViewController$BlockingFiloContentQueue$1;
+.super Ljava/lang/Object;
+.source "HintTextViewController.java"
+
+# interfaces
+.implements Ljava/util/Comparator;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/sonyericsson/android/camera/view/hint/HintTextViewController$BlockingFiloContentQueue;-><init>()V
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = null
+.end annotation
+
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Ljava/lang/Object;",
+        "Ljava/util/Comparator<",
+        "Lcom/sonyericsson/android/camera/view/hint/HintTextContent;",
+        ">;"
+    }
+.end annotation
+
+
+# direct methods
+.method constructor <init>()V
+    .registers 1
+
+    .line 117
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public compare(Lcom/sonyericsson/android/camera/view/hint/HintTextContent;Lcom/sonyericsson/android/camera/view/hint/HintTextContent;)I
+    .registers 8
+
+    .line 120
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/hint/HintTextContent;->getPriority()Lcom/sonyericsson/android/camera/view/hint/HintTextContent$HintPriority;
+
+    move-result-object v0
+
+    invoke-virtual {p2}, Lcom/sonyericsson/android/camera/view/hint/HintTextContent;->getPriority()Lcom/sonyericsson/android/camera/view/hint/HintTextContent$HintPriority;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/android/camera/view/hint/HintTextContent$HintPriority;->compareTo(Ljava/lang/Enum;)I
+
+    move-result v0
+
+    if-nez v0, :cond_42
+
+    .line 121
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/view/hint/HintTextContent;->equals(Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_42
+
+    .line 122
+    # getter for: Lcom/sonyericsson/android/camera/view/hint/HintTextViewController$BlockingFiloContentQueue;->sSequentialIndexMap:Ljava/util/Map;
+    invoke-static {}, Lcom/sonyericsson/android/camera/view/hint/HintTextViewController$BlockingFiloContentQueue;->access$200()Ljava/util/Map;
+
+    move-result-object v0
+
+    const-wide/high16 v1, -0x8000000000000000L
+
+    invoke-static {v1, v2}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
+
+    move-result-object v3
+
+    invoke-interface {v0, p1, v3}, Ljava/util/Map;->getOrDefault(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object p1
+
+    check-cast p1, Ljava/lang/Long;
+
+    invoke-virtual {p1}, Ljava/lang/Long;->longValue()J
+
+    move-result-wide v3
+
+    .line 123
+    # getter for: Lcom/sonyericsson/android/camera/view/hint/HintTextViewController$BlockingFiloContentQueue;->sSequentialIndexMap:Ljava/util/Map;
+    invoke-static {}, Lcom/sonyericsson/android/camera/view/hint/HintTextViewController$BlockingFiloContentQueue;->access$200()Ljava/util/Map;
+
+    move-result-object p1
+
+    invoke-static {v1, v2}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
+
+    move-result-object v0
+
+    invoke-interface {p1, p2, v0}, Ljava/util/Map;->getOrDefault(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object p1
+
+    check-cast p1, Ljava/lang/Long;
+
+    invoke-virtual {p1}, Ljava/lang/Long;->longValue()J
+
+    move-result-wide p1
+
+    cmp-long p1, v3, p1
+
+    if-gez p1, :cond_40
+
+    const/4 p1, 0x1
+
+    goto :goto_41
+
+    :cond_40
+    const/4 p1, -0x1
+
+    :goto_41
+    move v0, p1
+
+    :cond_42
+    return v0
+.end method
+
+.method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I
+    .registers 3
+
+    .line 117
+    check-cast p1, Lcom/sonyericsson/android/camera/view/hint/HintTextContent;
+
+    check-cast p2, Lcom/sonyericsson/android/camera/view/hint/HintTextContent;
+
+    invoke-virtual {p0, p1, p2}, Lcom/sonyericsson/android/camera/view/hint/HintTextViewController$BlockingFiloContentQueue$1;->compare(Lcom/sonyericsson/android/camera/view/hint/HintTextContent;Lcom/sonyericsson/android/camera/view/hint/HintTextContent;)I
+
+    move-result p1
+
+    return p1
+.end method

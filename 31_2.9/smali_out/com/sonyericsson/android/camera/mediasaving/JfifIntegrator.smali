@@ -1,0 +1,473 @@
+.class public Lcom/sonyericsson/android/camera/mediasaving/JfifIntegrator;
+.super Ljava/lang/Object;
+.source "JfifIntegrator.java"
+
+
+# static fields
+.field private static final M_DHT:I = 0xc4
+
+.field private static final M_DQT:I = 0xdb
+
+.field private static final M_MARKER:I = 0xff
+
+.field private static final M_SOI:I = 0xd8
+
+.field private static final M_SOS:I = 0xda
+
+.field public static final TAG:Ljava/lang/String; = "JfifIntegrator"
+
+
+# direct methods
+.method public constructor <init>()V
+    .registers 1
+
+    .line 16
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+.method public static integrate([B[B)I
+    .registers 22
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Lcom/sonyericsson/cameracommon/mediasaving/yuv2jpeg/IntegrationMakerException;
+        }
+    .end annotation
+
+    move-object/from16 v0, p0
+
+    move-object/from16 v1, p1
+
+    .line 35
+    array-length v2, v0
+
+    const/4 v3, 0x2
+
+    .line 38
+    new-array v4, v3, [B
+
+    const/4 v5, 0x0
+
+    move v6, v5
+
+    move v7, v6
+
+    move v8, v7
+
+    move v9, v8
+
+    move v10, v9
+
+    :goto_e
+    add-int/lit8 v11, v6, 0x1
+
+    const/16 v12, -0x28
+
+    const/16 v13, -0x26
+
+    const/16 v14, -0x3c
+
+    const/4 v15, -0x1
+
+    const/16 v17, 0x1
+
+    if-ge v11, v2, :cond_71
+
+    .line 52
+    aget-byte v18, v0, v6
+
+    aput-byte v18, v4, v5
+
+    .line 53
+    aget-byte v11, v0, v11
+
+    aput-byte v11, v4, v17
+
+    add-int/lit8 v6, v6, 0x2
+
+    .line 57
+    aget-byte v11, v4, v5
+
+    if-ne v15, v11, :cond_69
+
+    .line 62
+    aget-byte v11, v4, v17
+
+    if-ne v13, v11, :cond_2e
+
+    goto :goto_71
+
+    .line 64
+    :cond_2e
+    aget-byte v11, v4, v17
+
+    if-ne v12, v11, :cond_33
+
+    goto :goto_e
+
+    .line 70
+    :cond_33
+    new-array v11, v3, [B
+
+    .line 71
+    aget-byte v12, v0, v6
+
+    aput-byte v12, v11, v5
+
+    add-int/lit8 v12, v6, 0x1
+
+    .line 72
+    aget-byte v12, v0, v12
+
+    aput-byte v12, v11, v17
+
+    .line 73
+    new-instance v12, Ljava/math/BigInteger;
+
+    invoke-direct {v12, v11}, Ljava/math/BigInteger;-><init>([B)V
+
+    .line 74
+    invoke-virtual {v12}, Ljava/math/BigInteger;->intValue()I
+
+    move-result v11
+
+    .line 76
+    aget-byte v12, v4, v17
+
+    if-ne v14, v12, :cond_57
+
+    if-nez v9, :cond_50
+
+    move v12, v11
+
+    goto :goto_52
+
+    :cond_50
+    add-int/lit8 v12, v11, -0x2
+
+    :goto_52
+    add-int/2addr v9, v12
+
+    add-int/lit8 v12, v11, 0x2
+
+    add-int/2addr v7, v12
+
+    goto :goto_67
+
+    .line 81
+    :cond_57
+    aget-byte v12, v4, v17
+
+    const/16 v13, -0x25
+
+    if-ne v13, v12, :cond_67
+
+    if-nez v8, :cond_61
+
+    move v12, v11
+
+    goto :goto_63
+
+    :cond_61
+    add-int/lit8 v12, v11, -0x2
+
+    :goto_63
+    add-int/2addr v8, v12
+
+    add-int/lit8 v12, v11, 0x2
+
+    add-int/2addr v10, v12
+
+    :cond_67
+    :goto_67
+    add-int/2addr v6, v11
+
+    goto :goto_e
+
+    .line 58
+    :cond_69
+    new-instance v0, Lcom/sonyericsson/cameracommon/mediasaving/yuv2jpeg/IntegrationMakerException;
+
+    const-string v1, "No \'FF\' marker."
+
+    invoke-direct {v0, v1}, Lcom/sonyericsson/cameracommon/mediasaving/yuv2jpeg/IntegrationMakerException;-><init>(Ljava/lang/String;)V
+
+    throw v0
+
+    :cond_71
+    :goto_71
+    add-int/lit8 v6, v8, 0x2
+
+    .line 90
+    new-array v11, v6, [B
+
+    add-int/lit8 v12, v9, 0x2
+
+    .line 91
+    new-array v13, v12, [B
+
+    .line 94
+    aput-byte v15, v11, v5
+
+    const/16 v16, -0x25
+
+    .line 95
+    aput-byte v16, v11, v17
+
+    .line 96
+    aput-byte v15, v13, v5
+
+    .line 97
+    aput-byte v14, v13, v17
+
+    .line 99
+    invoke-static {v8}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+
+    move-result-object v14
+
+    .line 100
+    invoke-static {v9}, Ljava/lang/String;->valueOf(I)Ljava/lang/String;
+
+    move-result-object v15
+
+    .line 102
+    new-instance v3, Ljava/math/BigInteger;
+
+    invoke-direct {v3, v14}, Ljava/math/BigInteger;-><init>(Ljava/lang/String;)V
+
+    .line 103
+    invoke-virtual {v3}, Ljava/math/BigInteger;->toByteArray()[B
+
+    move-result-object v3
+
+    .line 104
+    aget-byte v14, v3, v5
+
+    const/16 v19, 0x2
+
+    aput-byte v14, v11, v19
+
+    .line 105
+    aget-byte v3, v3, v17
+
+    const/4 v14, 0x3
+
+    aput-byte v3, v11, v14
+
+    .line 107
+    new-instance v3, Ljava/math/BigInteger;
+
+    invoke-direct {v3, v15}, Ljava/math/BigInteger;-><init>(Ljava/lang/String;)V
+
+    .line 108
+    invoke-virtual {v3}, Ljava/math/BigInteger;->toByteArray()[B
+
+    move-result-object v3
+
+    .line 109
+    aget-byte v15, v3, v5
+
+    aput-byte v15, v13, v19
+
+    .line 110
+    aget-byte v3, v3, v17
+
+    aput-byte v3, v13, v14
+
+    sub-int v3, v2, v10
+
+    sub-int/2addr v3, v7
+
+    add-int/2addr v3, v8
+
+    add-int/lit8 v3, v3, 0x2
+
+    add-int/2addr v3, v9
+
+    add-int/lit8 v3, v3, 0x2
+
+    const/4 v7, 0x4
+
+    move v8, v5
+
+    move v9, v7
+
+    move v10, v9
+
+    move v7, v8
+
+    :goto_be
+    add-int/lit8 v14, v7, 0x1
+
+    if-ge v14, v2, :cond_142
+
+    .line 129
+    aget-byte v15, v0, v7
+
+    aput-byte v15, v4, v5
+
+    .line 130
+    aget-byte v14, v0, v14
+
+    aput-byte v14, v4, v17
+
+    add-int/lit8 v7, v7, 0x2
+
+    .line 133
+    aget-byte v14, v4, v5
+
+    const/4 v15, -0x1
+
+    if-ne v15, v14, :cond_13a
+
+    .line 137
+    aget-byte v14, v4, v17
+
+    const/16 v15, -0x26
+
+    if-ne v15, v14, :cond_e6
+
+    .line 141
+    invoke-static {v11, v5, v1, v8, v6}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
+
+    add-int/2addr v8, v6
+
+    .line 144
+    invoke-static {v13, v5, v1, v8, v12}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
+
+    add-int/2addr v8, v12
+
+    const/4 v4, 0x2
+
+    sub-int/2addr v7, v4
+
+    sub-int/2addr v2, v7
+
+    .line 148
+    invoke-static {v0, v7, v1, v8, v2}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
+
+    goto :goto_142
+
+    .line 151
+    :cond_e6
+    aget-byte v14, v4, v17
+
+    const/16 v15, -0x28
+
+    if-ne v15, v14, :cond_fb
+
+    add-int/lit8 v14, v7, -0x2
+
+    .line 153
+    aget-byte v18, v4, v5
+
+    aput-byte v18, v1, v14
+
+    add-int/lit8 v14, v7, -0x1
+
+    .line 154
+    aget-byte v18, v4, v17
+
+    aput-byte v18, v1, v14
+
+    add-int/lit8 v8, v8, 0x2
+
+    goto :goto_be
+
+    :cond_fb
+    const/4 v14, 0x2
+
+    .line 159
+    new-array v15, v14, [B
+
+    .line 160
+    aget-byte v19, v0, v7
+
+    aput-byte v19, v15, v5
+
+    add-int/lit8 v19, v7, 0x1
+
+    .line 161
+    aget-byte v19, v0, v19
+
+    aput-byte v19, v15, v17
+
+    .line 162
+    new-instance v5, Ljava/math/BigInteger;
+
+    invoke-direct {v5, v15}, Ljava/math/BigInteger;-><init>([B)V
+
+    .line 163
+    invoke-virtual {v5}, Ljava/math/BigInteger;->intValue()I
+
+    move-result v5
+
+    .line 165
+    aget-byte v15, v4, v17
+
+    const/16 v14, -0x3c
+
+    if-ne v14, v15, :cond_120
+
+    add-int/lit8 v15, v7, 0x2
+
+    add-int/lit8 v14, v5, -0x2
+
+    .line 166
+    invoke-static {v0, v15, v13, v9, v14}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
+
+    add-int/2addr v9, v14
+
+    goto :goto_137
+
+    .line 168
+    :cond_120
+    aget-byte v14, v4, v17
+
+    const/16 v15, -0x25
+
+    if-ne v15, v14, :cond_12f
+
+    add-int/lit8 v14, v7, 0x2
+
+    add-int/lit8 v15, v5, -0x2
+
+    .line 169
+    invoke-static {v0, v14, v11, v10, v15}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
+
+    add-int/2addr v10, v15
+
+    goto :goto_137
+
+    :cond_12f
+    add-int/lit8 v14, v7, -0x2
+
+    add-int/lit8 v15, v5, 0x2
+
+    .line 172
+    invoke-static {v0, v14, v1, v8, v15}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
+
+    add-int/2addr v8, v15
+
+    :goto_137
+    add-int/2addr v7, v5
+
+    const/4 v5, 0x0
+
+    goto :goto_be
+
+    .line 134
+    :cond_13a
+    new-instance v0, Lcom/sonyericsson/cameracommon/mediasaving/yuv2jpeg/IntegrationMakerException;
+
+    const-string v1, "No \'FF\' marker."
+
+    invoke-direct {v0, v1}, Lcom/sonyericsson/cameracommon/mediasaving/yuv2jpeg/IntegrationMakerException;-><init>(Ljava/lang/String;)V
+
+    throw v0
+
+    :cond_142
+    :goto_142
+    return v3
+.end method

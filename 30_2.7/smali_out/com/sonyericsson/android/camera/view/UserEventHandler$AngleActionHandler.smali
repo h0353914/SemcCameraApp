@@ -1,0 +1,1415 @@
+.class Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;
+.super Ljava/lang/Object;
+.source "UserEventHandler.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonyericsson/android/camera/view/UserEventHandler;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x2
+    name = "AngleActionHandler"
+.end annotation
+
+
+# instance fields
+.field private mCalculator:Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;
+
+.field private mCurrentVariable:Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+.field private mEventTicker:Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+.field private mSideTouchScrollDistance:I
+
+.field private mSlideMoveRatio:F
+
+.field private mZoomPrepared:Z
+
+.field final synthetic this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+
+# direct methods
+.method private constructor <init>(Lcom/sonyericsson/android/camera/view/UserEventHandler;)V
+    .registers 2
+
+    .line 2224
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    const/4 p1, 0x0
+
+    .line 2233
+    iput-boolean p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mZoomPrepared:Z
+
+    return-void
+.end method
+
+.method synthetic constructor <init>(Lcom/sonyericsson/android/camera/view/UserEventHandler;Lcom/sonyericsson/android/camera/view/UserEventHandler$1;)V
+    .registers 3
+
+    .line 2224
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;-><init>(Lcom/sonyericsson/android/camera/view/UserEventHandler;)V
+
+    return-void
+.end method
+
+.method static synthetic access$2100(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;)V
+    .registers 1
+
+    .line 2224
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->clear()V
+
+    return-void
+.end method
+
+.method static synthetic access$2200(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;)Z
+    .registers 1
+
+    .line 2224
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->prepareSlideZooming()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$2300(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;F)Z
+    .registers 2
+
+    .line 2224
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->performSlideZooming(F)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$2400(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;)Z
+    .registers 1
+
+    .line 2224
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->stopZooming()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$2500(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;F)Z
+    .registers 2
+
+    .line 2224
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->performRatioDesignationZooming(F)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$2600(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;Z)Z
+    .registers 2
+
+    .line 2224
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->prepareKeyZooming(Z)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$4200(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;)V
+    .registers 1
+
+    .line 2224
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->switchFrontAngle()V
+
+    return-void
+.end method
+
+.method static synthetic access$5600(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;)Z
+    .registers 1
+
+    .line 2224
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->preparePinchZooming()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$5700(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;F)Z
+    .registers 2
+
+    .line 2224
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->performPinchZooming(F)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$5800(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;)Z
+    .registers 1
+
+    .line 2224
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->isHandling()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$6800(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;)Z
+    .registers 1
+
+    .line 2224
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->prepareSideTouchZoom()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$6900(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;I)V
+    .registers 2
+
+    .line 2224
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->updateSideTouchZoomStrength(I)V
+
+    return-void
+.end method
+
+.method static synthetic access$7100(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;)I
+    .registers 1
+
+    .line 2224
+    iget p0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mSideTouchScrollDistance:I
+
+    return p0
+.end method
+
+.method static synthetic access$7200(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;[Ljava/lang/Object;)Z
+    .registers 2
+
+    .line 2224
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->performZoom([Ljava/lang/Object;)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$7300(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;Z)Z
+    .registers 2
+
+    .line 2224
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->performKeyZooming(Z)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$7400(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;)F
+    .registers 1
+
+    .line 2224
+    iget p0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mSlideMoveRatio:F
+
+    return p0
+.end method
+
+.method static synthetic access$7500(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;)Z
+    .registers 2
+
+    .line 2224
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->performFrontAngleChange(Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$7600(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;)Z
+    .registers 1
+
+    .line 2224
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->finishZoom()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method private clear()V
+    .registers 3
+
+    .line 2461
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mEventTicker:Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_a
+
+    .line 2462
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;->stop()V
+
+    .line 2463
+    iput-object v1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mEventTicker:Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+    .line 2465
+    :cond_a
+    iput-object v1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCurrentVariable:Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    .line 2466
+    iput-object v1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCalculator:Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;
+
+    return-void
+.end method
+
+.method private finishZoom()Z
+    .registers 5
+
+    .line 2440
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->isHandling()Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-nez v0, :cond_c
+
+    iget-boolean v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mZoomPrepared:Z
+
+    if-nez v0, :cond_c
+
+    return v1
+
+    .line 2443
+    :cond_c
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mStateMachine:Lcom/sonyericsson/android/camera/controller/StateMachine;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3800(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    move-result-object v0
+
+    sget-object v2, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ZOOM_FINISH:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    new-array v3, v1, [Ljava/lang/Object;
+
+    invoke-virtual {v0, v2, v3}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    .line 2444
+    iput-boolean v1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mZoomPrepared:Z
+
+    .line 2445
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->clear()V
+
+    const/4 v0, 0x1
+
+    return v0
+.end method
+
+.method private getFrontAngleStep(Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;)I
+    .registers 9
+
+    .line 2505
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;->WIDE:Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;
+
+    if-ne p1, v0, :cond_1f
+
+    .line 2506
+    sget-object p1, Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;->FRONT:Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    .line 2507
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->getWideZoomTargetRatio(Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;)F
+
+    move-result p1
+
+    .line 2508
+    sget-object v0, Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;->FRONT:Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    .line 2509
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->getMaxZoomRatio(Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;)F
+
+    move-result v0
+
+    float-to-double v1, p1
+
+    const-wide/high16 v3, 0x3ff0000000000000L    # 1.0
+
+    sub-double/2addr v1, v3
+
+    float-to-double v5, v0
+
+    sub-double/2addr v5, v3
+
+    div-double/2addr v1, v5
+
+    const-wide v3, 0x4064200000000000L    # 161.0
+
+    mul-double/2addr v1, v3
+
+    double-to-int p1, v1
+
+    goto :goto_21
+
+    :cond_1f
+    const/16 p1, 0x1c
+
+    :goto_21
+    return p1
+.end method
+
+.method private isHandling()Z
+    .registers 2
+
+    .line 2457
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCurrentVariable:Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    if-eqz v0, :cond_a
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCalculator:Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;
+
+    if-eqz v0, :cond_a
+
+    const/4 v0, 0x1
+
+    goto :goto_b
+
+    :cond_a
+    const/4 v0, 0x0
+
+    :goto_b
+    return v0
+.end method
+
+.method private isZoomAvailable()Z
+    .registers 3
+
+    .line 2450
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # invokes: Lcom/sonyericsson/android/camera/view/UserEventHandler;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$6400(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isFront()Z
+
+    move-result v0
+
+    if-nez v0, :cond_2e
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    .line 2451
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->isBokehEnabled()Z
+
+    move-result v0
+
+    if-nez v0, :cond_2e
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    .line 2452
+    # invokes: Lcom/sonyericsson/android/camera/view/UserEventHandler;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$6400(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->WIDE_PHOTO:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-eq v0, v1, :cond_2e
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    .line 2453
+    # invokes: Lcom/sonyericsson/android/camera/view/UserEventHandler;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$6400(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->WIDE_VIDEO:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-eq v0, v1, :cond_2e
+
+    const/4 v0, 0x1
+
+    goto :goto_2f
+
+    :cond_2e
+    const/4 v0, 0x0
+
+    :goto_2f
+    return v0
+.end method
+
+.method private performFrontAngleChange(Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;)Z
+    .registers 4
+
+    const/4 v0, 0x1
+
+    .line 2403
+    new-array v0, v0, [Ljava/lang/Object;
+
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->getFrontAngleStep(Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;)I
+
+    move-result p1
+
+    invoke-static {p1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object p1
+
+    const/4 v1, 0x0
+
+    aput-object p1, v0, v1
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->performZoom([Ljava/lang/Object;)Z
+
+    move-result p1
+
+    return p1
+.end method
+
+.method private performKeyZooming(Z)Z
+    .registers 5
+
+    .line 2369
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCalculator:Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;
+
+    instance-of v0, v0, Lcom/sonyericsson/android/camera/view/angle/KeyZoomStepCalculator;
+
+    if-nez v0, :cond_c
+
+    .line 2370
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->stopZooming()Z
+
+    .line 2371
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->prepareKeyZooming(Z)Z
+
+    :cond_c
+    const/4 p1, 0x1
+
+    .line 2373
+    new-array p1, p1, [Ljava/lang/Object;
+
+    const/4 v0, 0x0
+
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v1
+
+    invoke-static {v1, v2}, Ljava/lang/Long;->valueOf(J)Ljava/lang/Long;
+
+    move-result-object v1
+
+    aput-object v1, p1, v0
+
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->performZoom([Ljava/lang/Object;)Z
+
+    move-result p1
+
+    return p1
+.end method
+
+.method private performPinchZooming(F)Z
+    .registers 4
+
+    .line 2357
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCalculator:Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;
+
+    instance-of v0, v0, Lcom/sonyericsson/android/camera/view/angle/PinchZoomStepCalculator;
+
+    if-nez v0, :cond_c
+
+    .line 2360
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->stopZooming()Z
+
+    .line 2361
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->preparePinchZooming()Z
+
+    :cond_c
+    const/4 v0, 0x1
+
+    .line 2363
+    new-array v0, v0, [Ljava/lang/Object;
+
+    const/4 v1, 0x0
+
+    invoke-static {p1}, Ljava/lang/Float;->valueOf(F)Ljava/lang/Float;
+
+    move-result-object p1
+
+    aput-object p1, v0, v1
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->performZoom([Ljava/lang/Object;)Z
+
+    move-result p1
+
+    return p1
+.end method
+
+.method private performRatioDesignationZooming(F)Z
+    .registers 9
+
+    .line 2387
+    new-instance v6, Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    .line 2388
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->getMaxZoomStep()I
+
+    move-result v1
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    .line 2389
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->getMinZoomStep()I
+
+    move-result v2
+
+    float-to-int v3, p1
+
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    .line 2391
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->getZoomUiProxy()Lcom/sonyericsson/android/camera/view/ViewFinderImpl$ZoomUiUpdateProxy;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl$ZoomUiUpdateProxy;->getBaseStateNumber()F
+
+    move-result v4
+
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    .line 2392
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->getZoomUiProxy()Lcom/sonyericsson/android/camera/view/ViewFinderImpl$ZoomUiUpdateProxy;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl$ZoomUiUpdateProxy;->getZoomMagnificationCoefficient()F
+
+    move-result v5
+
+    move-object v0, v6
+
+    invoke-direct/range {v0 .. v5}, Lcom/sonyericsson/android/camera/view/angle/VariableIndex;-><init>(IIIFF)V
+
+    .line 2393
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mStateMachine:Lcom/sonyericsson/android/camera/controller/StateMachine;
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3800(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    move-result-object p1
+
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ZOOM_PERFORM:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    const/4 v1, 0x1
+
+    new-array v2, v1, [Ljava/lang/Object;
+
+    const/4 v3, 0x0
+
+    aput-object v6, v2, v3
+
+    invoke-virtual {p1, v0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    return v1
+.end method
+
+.method private performSlideZooming(F)Z
+    .registers 4
+
+    .line 2377
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCalculator:Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;
+
+    instance-of v0, v0, Lcom/sonyericsson/android/camera/view/angle/SlideZoomStepCalculator;
+
+    if-nez v0, :cond_c
+
+    .line 2380
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->stopZooming()Z
+
+    .line 2381
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->prepareSlideZooming()Z
+
+    :cond_c
+    const/4 v0, 0x1
+
+    .line 2383
+    new-array v0, v0, [Ljava/lang/Object;
+
+    const/4 v1, 0x0
+
+    invoke-static {p1}, Ljava/lang/Float;->valueOf(F)Ljava/lang/Float;
+
+    move-result-object p1
+
+    aput-object p1, v0, v1
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->performZoom([Ljava/lang/Object;)Z
+
+    move-result p1
+
+    return p1
+.end method
+
+.method private varargs performZoom([Ljava/lang/Object;)Z
+    .registers 7
+
+    .line 2407
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->isHandling()Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-nez v0, :cond_8
+
+    return v1
+
+    .line 2411
+    :cond_8
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCurrentVariable:Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/view/angle/VariableIndex;->getIndex()I
+
+    move-result v0
+
+    .line 2413
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCalculator:Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCurrentVariable:Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    invoke-interface {v2, v3, p1}, Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;->calculate(Lcom/sonyericsson/android/camera/view/angle/VariableIndex;[Ljava/lang/Object;)Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    move-result-object p1
+
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCurrentVariable:Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    .line 2415
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCurrentVariable:Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/angle/VariableIndex;->getIndex()I
+
+    move-result p1
+
+    const/4 v2, 0x1
+
+    if-eq v0, p1, :cond_23
+
+    move p1, v2
+
+    goto :goto_24
+
+    :cond_23
+    move p1, v1
+
+    :goto_24
+    if-eqz p1, :cond_38
+
+    .line 2418
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mStateMachine:Lcom/sonyericsson/android/camera/controller/StateMachine;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3800(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    move-result-object v0
+
+    sget-object v3, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ZOOM_PERFORM:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCurrentVariable:Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    aput-object v4, v2, v1
+
+    invoke-virtual {v0, v3, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    goto :goto_65
+
+    .line 2421
+    :cond_38
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_65
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->isSetupHeadupDisplayInvoked()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_65
+
+    .line 2423
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object v0
+
+    sget-object v3, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_ZOOM_CHANGED:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCurrentVariable:Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    .line 2425
+    invoke-virtual {v4}, Lcom/sonyericsson/android/camera/view/angle/VariableIndex;->getIndex()I
+
+    move-result v4
+
+    invoke-static {v4}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v4
+
+    aput-object v4, v2, v1
+
+    .line 2423
+    invoke-virtual {v0, v3, v2}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    :cond_65
+    :goto_65
+    return p1
+.end method
+
+.method private prepareFrontAngleChange(Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;)Z
+    .registers 9
+
+    .line 2286
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # invokes: Lcom/sonyericsson/android/camera/view/UserEventHandler;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$6400(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isFront()Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-nez v0, :cond_e
+
+    return v1
+
+    .line 2290
+    :cond_e
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mStateMachine:Lcom/sonyericsson/android/camera/controller/StateMachine;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3800(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isAngleEventReceivable()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_4e
+
+    .line 2291
+    new-instance v0, Lcom/sonyericsson/android/camera/view/angle/FrontAngleChangeCalculator;
+
+    invoke-direct {v0}, Lcom/sonyericsson/android/camera/view/angle/FrontAngleChangeCalculator;-><init>()V
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCalculator:Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;
+
+    .line 2292
+    new-instance v0, Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    const/16 v2, 0xa1
+
+    const/4 v3, 0x0
+
+    .line 2295
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->getFrontAngleStep(Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;)I
+
+    move-result v4
+
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    .line 2296
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->getZoomUiProxy()Lcom/sonyericsson/android/camera/view/ViewFinderImpl$ZoomUiUpdateProxy;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl$ZoomUiUpdateProxy;->getBaseStateNumber()F
+
+    move-result v5
+
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    .line 2297
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->getZoomUiProxy()Lcom/sonyericsson/android/camera/view/ViewFinderImpl$ZoomUiUpdateProxy;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl$ZoomUiUpdateProxy;->getZoomMagnificationCoefficient()F
+
+    move-result v6
+
+    move-object v1, v0
+
+    invoke-direct/range {v1 .. v6}, Lcom/sonyericsson/android/camera/view/angle/VariableIndex;-><init>(IIIFF)V
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCurrentVariable:Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    const/4 p1, 0x1
+
+    return p1
+
+    :cond_4e
+    return v1
+.end method
+
+.method private prepareKeyZooming(Z)Z
+    .registers 5
+
+    .line 2267
+    new-instance v0, Lcom/sonyericsson/android/camera/view/angle/KeyZoomStepCalculator;
+
+    invoke-direct {v0, p1}, Lcom/sonyericsson/android/camera/view/angle/KeyZoomStepCalculator;-><init>(Z)V
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->prepareZoom(Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_21
+
+    .line 2269
+    new-instance v0, Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+    const/4 v1, 0x0
+
+    invoke-direct {v0, v1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;-><init>(Lcom/sonyericsson/android/camera/view/UserEventHandler$1;)V
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mEventTicker:Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+    .line 2270
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mEventTicker:Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+    const/16 v1, 0x10
+
+    new-instance v2, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler$2;
+
+    invoke-direct {v2, p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler$2;-><init>(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;Z)V
+
+    invoke-virtual {v0, v1, v2}, Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;->start(ILcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker$OnEventTickedListener;)V
+
+    const/4 p1, 0x1
+
+    return p1
+
+    :cond_21
+    const/4 p1, 0x0
+
+    return p1
+.end method
+
+.method private preparePinchZooming()Z
+    .registers 3
+
+    .line 2244
+    invoke-static {}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->getInstance()Lcom/sonymobile/cameracommon/research/ResearchUtil;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonymobile/cameracommon/research/parameters/Event$zoomTrigger;->PINCH:Lcom/sonymobile/cameracommon/research/parameters/Event$zoomTrigger;
+
+    invoke-virtual {v1}, Lcom/sonymobile/cameracommon/research/parameters/Event$zoomTrigger;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->setZoomTrigger(Ljava/lang/String;)V
+
+    .line 2245
+    new-instance v0, Lcom/sonyericsson/android/camera/view/angle/PinchZoomStepCalculator;
+
+    invoke-direct {v0}, Lcom/sonyericsson/android/camera/view/angle/PinchZoomStepCalculator;-><init>()V
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->prepareZoom(Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;)Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method private prepareSideTouchZoom()Z
+    .registers 4
+
+    .line 2249
+    new-instance v0, Lcom/sonyericsson/android/camera/view/angle/SideTouchZoomStepCalculator;
+
+    invoke-direct {v0}, Lcom/sonyericsson/android/camera/view/angle/SideTouchZoomStepCalculator;-><init>()V
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->prepareZoom(Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;)Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_24
+
+    .line 2250
+    iput v1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mSideTouchScrollDistance:I
+
+    .line 2251
+    new-instance v0, Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+    const/4 v1, 0x0
+
+    invoke-direct {v0, v1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;-><init>(Lcom/sonyericsson/android/camera/view/UserEventHandler$1;)V
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mEventTicker:Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+    .line 2252
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mEventTicker:Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+    const/16 v1, 0x21
+
+    new-instance v2, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler$1;
+
+    invoke-direct {v2, p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler$1;-><init>(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;)V
+
+    invoke-virtual {v0, v1, v2}, Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;->start(ILcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker$OnEventTickedListener;)V
+
+    const/4 v0, 0x1
+
+    return v0
+
+    :cond_24
+    return v1
+.end method
+
+.method private prepareSlideZooming()Z
+    .registers 4
+
+    .line 2304
+    new-instance v0, Lcom/sonyericsson/android/camera/view/angle/SlideZoomStepCalculator;
+
+    invoke-direct {v0}, Lcom/sonyericsson/android/camera/view/angle/SlideZoomStepCalculator;-><init>()V
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->prepareZoom(Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_24
+
+    const/4 v0, 0x0
+
+    .line 2306
+    iput v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mSlideMoveRatio:F
+
+    .line 2307
+    new-instance v0, Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+    const/4 v1, 0x0
+
+    invoke-direct {v0, v1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;-><init>(Lcom/sonyericsson/android/camera/view/UserEventHandler$1;)V
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mEventTicker:Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+    .line 2308
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mEventTicker:Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+    const/16 v1, 0x21
+
+    new-instance v2, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler$3;
+
+    invoke-direct {v2, p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler$3;-><init>(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;)V
+
+    invoke-virtual {v0, v1, v2}, Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;->start(ILcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker$OnEventTickedListener;)V
+
+    const/4 v0, 0x1
+
+    return v0
+
+    :cond_24
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method private prepareZoom(Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;)Z
+    .registers 10
+
+    .line 2323
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->isHandling()Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_8
+
+    return v1
+
+    .line 2327
+    :cond_8
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->isZoomAvailable()Z
+
+    move-result v0
+
+    if-nez v0, :cond_18
+
+    .line 2329
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->notifyZoomOperationRejected()V
+
+    return v1
+
+    .line 2333
+    :cond_18
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mStateMachine:Lcom/sonyericsson/android/camera/controller/StateMachine;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3800(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isAngleEventReceivable()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_83
+
+    .line 2334
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCalculator:Lcom/sonyericsson/android/camera/view/angle/VariableIndex$Calculator;
+
+    .line 2335
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mStateMachine:Lcom/sonyericsson/android/camera/controller/StateMachine;
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3800(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getZoom()Ljava/lang/Float;
+
+    move-result-object p1
+
+    if-eqz p1, :cond_83
+
+    .line 2337
+    new-instance v0, Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    .line 2338
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {v2}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->getMaxZoomStep()I
+
+    move-result v3
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    .line 2339
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {v2}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->getMinZoomStep()I
+
+    move-result v4
+
+    .line 2340
+    invoke-virtual {p1}, Ljava/lang/Float;->floatValue()F
+
+    move-result v5
+
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    .line 2341
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->getZoomUiProxy()Lcom/sonyericsson/android/camera/view/ViewFinderImpl$ZoomUiUpdateProxy;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl$ZoomUiUpdateProxy;->getBaseStateNumber()F
+
+    move-result v6
+
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    .line 2342
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->getZoomUiProxy()Lcom/sonyericsson/android/camera/view/ViewFinderImpl$ZoomUiUpdateProxy;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl$ZoomUiUpdateProxy;->getZoomMagnificationCoefficient()F
+
+    move-result v7
+
+    move-object v2, v0
+
+    invoke-direct/range {v2 .. v7}, Lcom/sonyericsson/android/camera/view/angle/VariableIndex;-><init>(IIFFF)V
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCurrentVariable:Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    .line 2344
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mStateMachine:Lcom/sonyericsson/android/camera/controller/StateMachine;
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3800(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    move-result-object p1
+
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ZOOM_PREPARE:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    const/4 v2, 0x1
+
+    new-array v3, v2, [Ljava/lang/Object;
+
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCurrentVariable:Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    aput-object v4, v3, v1
+
+    invoke-virtual {p1, v0, v3}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    .line 2346
+    iput-boolean v2, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mZoomPrepared:Z
+
+    return v2
+
+    :cond_83
+    return v1
+.end method
+
+.method private stopZooming()Z
+    .registers 2
+
+    .line 2433
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->finishZoom()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_8
+
+    const/4 v0, 0x1
+
+    return v0
+
+    :cond_8
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method private switchFrontAngle()V
+    .registers 6
+
+    .line 2470
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$5000(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->FRONT_ANGLE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;
+
+    .line 2472
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->prepareFrontAngleChange(Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_62
+
+    .line 2473
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mStateMachine:Lcom/sonyericsson/android/camera/controller/StateMachine;
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3800(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    move-result-object v1
+
+    sget-object v2, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ANGLE_CHANGE_START:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    const/4 v3, 0x0
+
+    new-array v4, v3, [Ljava/lang/Object;
+
+    invoke-virtual {v1, v2, v4}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    .line 2475
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;->SUPER_WIDE:Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;
+
+    if-ne v0, v1, :cond_29
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;->WIDE:Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;
+
+    goto :goto_2b
+
+    :cond_29
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;->SUPER_WIDE:Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;
+
+    .line 2478
+    :goto_2b
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+    invoke-static {v2}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$5000(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v2
+
+    invoke-interface {v2, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->set(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+
+    .line 2479
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/UserEventHandler;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+    invoke-static {v2}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$3600(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    move-result-object v2
+
+    sget-object v4, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ANGLE_CHANGE_START:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    new-array v3, v3, [Ljava/lang/Object;
+
+    invoke-virtual {v2, v4, v3}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 2481
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->this$0:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    .line 2482
+    # invokes: Lcom/sonyericsson/android/camera/view/UserEventHandler;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+    invoke-static {v3}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$6400(Lcom/sonyericsson/android/camera/view/UserEventHandler;)Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v0, v1, v3}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->setSettingsValue(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+
+    .line 2484
+    new-instance v0, Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+    const/4 v2, 0x0
+
+    invoke-direct {v0, v2}, Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;-><init>(Lcom/sonyericsson/android/camera/view/UserEventHandler$1;)V
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mEventTicker:Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+    .line 2485
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mEventTicker:Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;
+
+    const/16 v2, 0x21
+
+    new-instance v3, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler$4;
+
+    invoke-direct {v3, p0, v1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler$4;-><init>(Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;)V
+
+    invoke-virtual {v0, v2, v3}, Lcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker;->start(ILcom/sonyericsson/android/camera/view/UserEventHandler$VariableUserEventTicker$OnEventTickedListener;)V
+
+    :cond_62
+    return-void
+.end method
+
+.method private updateSideTouchZoomStrength(I)V
+    .registers 2
+
+    .line 2399
+    iput p1, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mSideTouchScrollDistance:I
+
+    return-void
+.end method
+
+
+# virtual methods
+.method protected getCurrentAngle()I
+    .registers 2
+
+    .line 2517
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/UserEventHandler$AngleActionHandler;->mCurrentVariable:Lcom/sonyericsson/android/camera/view/angle/VariableIndex;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/view/angle/VariableIndex;->getIndex()I
+
+    move-result v0
+
+    return v0
+.end method

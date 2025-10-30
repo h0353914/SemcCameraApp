@@ -1,0 +1,224 @@
+.class Lcom/sonymobile/camera/faultdetector/a;
+.super Ljava/lang/Object;
+
+
+# static fields
+.field private static final a:Ljava/lang/String; = "AES/CBC/PKCS7Padding"
+
+.field private static final b:Ljava/lang/String; = "AES"
+
+.field private static final c:I = 0x10
+
+
+# direct methods
+.method constructor <init>()V
+    .registers 1
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+.method private static final a([B)Ljavax/crypto/SecretKey;
+    .registers 4
+
+    const/4 v0, 0x0
+
+    :try_start_1
+    array-length v1, p0
+
+    const/16 v2, 0x10
+
+    if-lt v1, v2, :cond_13
+
+    new-instance v1, Ljavax/crypto/spec/SecretKeySpec;
+
+    const-string v2, "AES"
+
+    invoke-direct {v1, p0, v2}, Ljavax/crypto/spec/SecretKeySpec;-><init>([BLjava/lang/String;)V
+    :try_end_d
+    .catch Ljava/lang/IllegalArgumentException; {:try_start_1 .. :try_end_d} :catch_f
+
+    move-object v0, v1
+
+    goto :goto_13
+
+    :catch_f
+    move-exception p0
+
+    invoke-virtual {p0}, Ljava/lang/IllegalArgumentException;->printStackTrace()V
+
+    :cond_13
+    :goto_13
+    return-object v0
+.end method
+
+.method private a(Ljava/lang/String;)[B
+    .registers 3
+
+    const/4 v0, 0x0
+
+    invoke-static {p1, v0}, Landroid/util/Base64;->decode(Ljava/lang/String;I)[B
+
+    move-result-object p1
+
+    return-object p1
+.end method
+
+
+# virtual methods
+.method a(Ljava/io/InputStream;Ljava/lang/String;)Ljava/io/InputStream;
+    .registers 10
+
+    const/4 v0, 0x0
+
+    if-nez p2, :cond_4
+
+    return-object v0
+
+    :cond_4
+    const/4 v1, 0x0
+
+    :try_start_5
+    invoke-virtual {p1}, Ljava/io/InputStream;->read()I
+
+    move-result v2
+
+    new-array v2, v2, [B
+    :try_end_b
+    .catch Ljava/lang/Exception; {:try_start_5 .. :try_end_b} :catch_60
+    .catchall {:try_start_5 .. :try_end_b} :catchall_5c
+
+    :try_start_b
+    invoke-virtual {p1, v2}, Ljava/io/InputStream;->read([B)I
+
+    new-instance v3, Ljavax/crypto/spec/IvParameterSpec;
+
+    invoke-direct {v3, v2}, Ljavax/crypto/spec/IvParameterSpec;-><init>([B)V
+
+    const-string v4, "AES/CBC/PKCS7Padding"
+
+    invoke-static {v4}, Ljavax/crypto/Cipher;->getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;
+
+    move-result-object v4
+
+    invoke-direct {p0, p2}, Lcom/sonymobile/camera/faultdetector/a;->a(Ljava/lang/String;)[B
+
+    move-result-object p2
+    :try_end_1d
+    .catch Ljava/lang/Exception; {:try_start_b .. :try_end_1d} :catch_59
+    .catchall {:try_start_b .. :try_end_1d} :catchall_56
+
+    :try_start_1d
+    invoke-static {p2}, Lcom/sonymobile/camera/faultdetector/a;->a([B)Ljavax/crypto/SecretKey;
+
+    move-result-object v5
+
+    const/4 v6, 0x2
+
+    invoke-virtual {v4, v6, v5, v3}, Ljavax/crypto/Cipher;->init(ILjava/security/Key;Ljava/security/spec/AlgorithmParameterSpec;)V
+
+    new-instance v3, Ljavax/crypto/CipherInputStream;
+
+    invoke-direct {v3, p1, v4}, Ljavax/crypto/CipherInputStream;-><init>(Ljava/io/InputStream;Ljavax/crypto/Cipher;)V
+
+    new-instance p1, Ljava/io/ByteArrayOutputStream;
+
+    invoke-direct {p1}, Ljava/io/ByteArrayOutputStream;-><init>()V
+
+    const/16 v4, 0x400
+
+    new-array v4, v4, [B
+
+    :goto_33
+    invoke-virtual {v3, v4}, Ljavax/crypto/CipherInputStream;->read([B)I
+
+    move-result v5
+
+    const/4 v6, -0x1
+
+    if-eq v5, v6, :cond_3e
+
+    invoke-virtual {p1, v4, v1, v5}, Ljava/io/ByteArrayOutputStream;->write([BII)V
+
+    goto :goto_33
+
+    :cond_3e
+    invoke-virtual {v3}, Ljavax/crypto/CipherInputStream;->close()V
+
+    new-instance v3, Ljava/io/ByteArrayInputStream;
+
+    invoke-virtual {p1}, Ljava/io/ByteArrayOutputStream;->toByteArray()[B
+
+    move-result-object v4
+
+    invoke-direct {v3, v4}, Ljava/io/ByteArrayInputStream;-><init>([B)V
+
+    invoke-virtual {p1}, Ljava/io/ByteArrayOutputStream;->close()V
+    :try_end_4d
+    .catch Ljava/lang/Exception; {:try_start_1d .. :try_end_4d} :catch_54
+    .catchall {:try_start_1d .. :try_end_4d} :catchall_6d
+
+    invoke-static {v2, v1}, Ljava/util/Arrays;->fill([BB)V
+
+    invoke-static {p2, v1}, Ljava/util/Arrays;->fill([BB)V
+
+    return-object v3
+
+    :catch_54
+    move-exception p1
+
+    goto :goto_63
+
+    :catchall_56
+    move-exception p1
+
+    move-object p2, v0
+
+    goto :goto_6e
+
+    :catch_59
+    move-exception p1
+
+    move-object p2, v0
+
+    goto :goto_63
+
+    :catchall_5c
+    move-exception p1
+
+    move-object p2, v0
+
+    move-object v2, p2
+
+    goto :goto_6e
+
+    :catch_60
+    move-exception p1
+
+    move-object p2, v0
+
+    move-object v2, p2
+
+    :goto_63
+    :try_start_63
+    invoke-virtual {p1}, Ljava/lang/Exception;->printStackTrace()V
+    :try_end_66
+    .catchall {:try_start_63 .. :try_end_66} :catchall_6d
+
+    invoke-static {v2, v1}, Ljava/util/Arrays;->fill([BB)V
+
+    invoke-static {p2, v1}, Ljava/util/Arrays;->fill([BB)V
+
+    return-object v0
+
+    :catchall_6d
+    move-exception p1
+
+    :goto_6e
+    invoke-static {v2, v1}, Ljava/util/Arrays;->fill([BB)V
+
+    invoke-static {p2, v1}, Ljava/util/Arrays;->fill([BB)V
+
+    throw p1
+.end method

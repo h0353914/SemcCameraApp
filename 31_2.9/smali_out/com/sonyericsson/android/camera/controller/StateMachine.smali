@@ -1,0 +1,13840 @@
+.class public Lcom/sonyericsson/android/camera/controller/StateMachine;
+.super Ljava/lang/Object;
+.source "StateMachine.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/sonyericsson/android/camera/controller/StateMachine$OneShotResult;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$OnPreviewStartedListenerImpl;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoRecordingPausing;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$ChangeCameraModeTask;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateFrontCameraSwitching;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$RequestStoreTask;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StartRecordingTask;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateWaitingPreProcessDone;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateFinalize;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateFatal;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateWarning;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StatePause;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateModeChanging;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoStore;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoCaptureWhileRecording;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoRecording;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoStopping;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateWaitForHighFrameRateVideoRecordingDone;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateHighFrameRateVideoRecordingInSuperSlowMotion;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateLowFrameRateVideoRecordingInSuperSlowMotion;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoBase;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCapture;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateBurstCaptureWaitForAfDone;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCapture;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateMultiFrameCapture;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$NextCaptureCondition;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCaptureWaitForAfDone;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoAfDone;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoAfSearch;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoWaitingTrackedObjectForAfStart;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateOperationRestricted;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateCropping;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StatePrepareForRecording;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoReadyForRecording;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateCaptureCountdown;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoReady;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$CameraKeyStatus;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoReady;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateRestartPreviewSession;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoBase;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateResumeAndCapture;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateResume;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateCameraSwitching;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$NotifyDelayedEventTask;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateInitialize;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateWaitingEvfPreparedByModeChange;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StateNone;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$State;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$SettingsController;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$OnStateChangedListener;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StartupAction;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;,
+        Lcom/sonyericsson/android/camera/controller/StateMachine$StorageStateAdapter;
+    }
+.end annotation
+
+
+# static fields
+.field private static final BURST_INTERVAL_TIME_MS:J = 0x5aL
+
+.field private static final COLOR_VALUE_MAX:I = 0xff
+
+.field private static final DISPLAY_FLASH_EXTRA_TIME_MS:J = 0x2bcL
+
+.field private static final DISPLAY_FLASH_EXTRA_TIME_MS_NOT_WAIT_AE:J = 0x1f4L
+
+.field private static final RESUME_TIMEOUT:I = 0x1b58
+
+.field private static final TAG:Ljava/lang/String; = "StateMachine"
+
+.field private static final TERMINATE_WAIT_TIME:I = 0xfa0
+
+.field private static final THREAD_NAME:Ljava/lang/String; = "RequestStore"
+
+.field private static final USE_PROGRESS_ON_PHOTO_THUMBNAIL:Z = false
+
+.field private static final USE_PROGRESS_ON_VIDEO_THUMBNAIL:Z = false
+
+.field private static final WIDE_ANGLE_SWITCH_RETRY_DELAY_TIME_MS:I = 0x32
+
+.field private static final WIDE_ANGLE_SWITCH_RETRY_TIMES:I = 0xa
+
+
+# instance fields
+.field private isPostChangeCameraTask:Z
+
+.field private final mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+.field private mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+.field private mChangeCameraModeTask:Lcom/sonyericsson/android/camera/controller/StateMachine$ChangeCameraModeTask;
+
+.field private mChapterThumbnail:Lcom/sonyericsson/android/camera/controller/ChapterThumbnail;
+
+.field private mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+.field private mCurrentSessionType:Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+.field private mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+.field private final mExecService:Ljava/util/concurrent/ExecutorService;
+
+.field private final mGestureShutter:Lcom/sonyericsson/android/camera/controller/GestureShutter;
+
+.field private final mGestureShutterHost:Lcom/sonyericsson/android/camera/controller/GestureShutter$ControllerHost;
+
+.field private final mHandler:Landroid/os/Handler;
+
+.field private mHideBlackScreen:Z
+
+.field private mHideBlackScreenFrameNum:I
+
+.field private mHighFrameRateVideoRecordingCountInSuperSlowMotion:I
+
+.field private mIsLaunchAndRecording:Z
+
+.field mIsSceneRecognitionValid:Z
+
+.field private mIsSdPermissionFinished:Z
+
+.field private mIsSemiAutoEnabled:Z
+
+.field private mIsVideoRecording:Z
+
+.field private mLastPhotoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+.field private final mLastSettings:Lcom/sonyericsson/android/camera/setting/LastSettings;
+
+.field private mLastSmileCaptureTakenTime:J
+
+.field private mLastStoreDataResult:Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;
+
+.field private mLastVideoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+.field private final mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+.field private mNotificationManager:Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager;
+
+.field private final mNotifyResumeTimeoutTask:Ljava/lang/Runnable;
+
+.field private mObjectTracking:Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;
+
+.field private final mOnStateChangedListenerSet:Ljava/util/Set;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/Set<",
+            "Lcom/sonyericsson/android/camera/controller/StateMachine$OnStateChangedListener;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+.field private mOnStoreCompletedListener:Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;
+
+.field private final mOnSuperSlowRecordingFinishedListener:Lcom/sonyericsson/android/camera/recorder/superslowrecorder/OnSuperSlowRecordingFinishedListener;
+
+.field private final mPendingTaskListForStandby:Ljava/util/List;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/List<",
+            "Ljava/lang/Runnable;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+.field private final mPhotoSavingRequestList:Ljava/util/List;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/List<",
+            "Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+.field private mPredictiveApplier:Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;
+
+.field private mPredictiveCaptureStoreInfo:Lcom/sonyericsson/cameracommon/contentsview/PredictiveCaptureStoreInfo;
+
+.field private mQrCodeScanner:Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager$QrCodeScanner;
+
+.field private mQrDetectionController:Lcom/sonyericsson/android/camera/qrdetection/QrDetectionController;
+
+.field private mQrResultListener:Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager$QrResultListener;
+
+.field private mRetryTimes:I
+
+.field private final mSettingController:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingApplicable;
+
+.field private mShutterFeedback:Lcom/sonyericsson/android/camera/view/feedback/ShutterFeedback;
+
+.field private mStartRecordingTask:Lcom/sonyericsson/android/camera/controller/StateMachine$StartRecordingTask;
+
+.field private mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+.field private mStorageStateListener:Lcom/sonyericsson/android/camera/controller/StateMachine$StorageStateAdapter;
+
+.field private mSuppressFlash:Z
+
+.field private final mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+.field private mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+.field private final mVirtualKeyEventDispatcher:Lcom/sonyericsson/android/camera/view/UserEventHandler$VirtualKeyEventDispatcher;
+
+
+# direct methods
+.method public constructor <init>(Lcom/sonyericsson/android/camera/CameraActivity;Lcom/sonyericsson/cameracommon/storage/Storage;Lcom/sonyericsson/android/camera/LaunchCondition;)V
+    .registers 7
+
+    .line 1049
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 270
+    new-instance v0, Landroid/os/Handler;
+
+    invoke-static {}, Landroid/os/Looper;->getMainLooper()Landroid/os/Looper;
+
+    move-result-object v1
+
+    invoke-direct {v0, v1}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    const/4 v0, 0x0
+
+    .line 273
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastPhotoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+    .line 274
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastVideoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+    .line 277
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    const-string v1, "RequestStore"
+
+    .line 281
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/util/ThreadUtil;->buildExecutor(Ljava/lang/String;)Ljava/util/concurrent/ExecutorService;
+
+    move-result-object v1
+
+    iput-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mExecService:Ljava/util/concurrent/ExecutorService;
+
+    const/4 v1, 0x0
+
+    .line 284
+    iput-boolean v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsVideoRecording:Z
+
+    .line 286
+    iput-boolean v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsLaunchAndRecording:Z
+
+    .line 288
+    iput-boolean v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->isPostChangeCameraTask:Z
+
+    const/4 v2, 0x1
+
+    .line 290
+    iput-boolean v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHideBlackScreen:Z
+
+    .line 292
+    iput v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHideBlackScreenFrameNum:I
+
+    .line 306
+    new-instance v2, Ljava/util/ArrayList;
+
+    invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
+
+    iput-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPhotoSavingRequestList:Ljava/util/List;
+
+    .line 309
+    new-instance v2, Lcom/sonyericsson/android/camera/controller/StateMachine$StateNone;
+
+    invoke-direct {v2, p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateNone;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    iput-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    .line 312
+    iput v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHighFrameRateVideoRecordingCountInSuperSlowMotion:I
+
+    .line 315
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastStoreDataResult:Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;
+
+    .line 323
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mChangeCameraModeTask:Lcom/sonyericsson/android/camera/controller/StateMachine$ChangeCameraModeTask;
+
+    .line 325
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStartRecordingTask:Lcom/sonyericsson/android/camera/controller/StateMachine$StartRecordingTask;
+
+    .line 330
+    new-instance v2, Ljava/util/ArrayList;
+
+    invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
+
+    iput-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPendingTaskListForStandby:Ljava/util/List;
+
+    .line 339
+    sget-object v2, Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;->SESSION_TYPE_NORMAL:Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+    iput-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentSessionType:Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+    .line 341
+    new-instance v2, Lcom/sonyericsson/android/camera/view/UserEventHandler$VirtualKeyEventDispatcher;
+
+    invoke-direct {v2}, Lcom/sonyericsson/android/camera/view/UserEventHandler$VirtualKeyEventDispatcher;-><init>()V
+
+    iput-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mVirtualKeyEventDispatcher:Lcom/sonyericsson/android/camera/view/UserEventHandler$VirtualKeyEventDispatcher;
+
+    .line 344
+    invoke-static {}, Lcom/sonyericsson/android/camera/view/feedback/ShutterFeedback;->createDefault()Lcom/sonyericsson/android/camera/view/feedback/ShutterFeedback;
+
+    move-result-object v2
+
+    iput-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mShutterFeedback:Lcom/sonyericsson/android/camera/view/feedback/ShutterFeedback;
+
+    .line 355
+    iput-boolean v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsSceneRecognitionValid:Z
+
+    .line 357
+    iput-boolean v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mSuppressFlash:Z
+
+    .line 367
+    new-instance v2, Lcom/sonyericsson/android/camera/controller/StateMachine$StorageStateAdapter;
+
+    invoke-direct {v2, p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$StorageStateAdapter;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    iput-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorageStateListener:Lcom/sonyericsson/android/camera/controller/StateMachine$StorageStateAdapter;
+
+    .line 386
+    iput-boolean v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsSdPermissionFinished:Z
+
+    .line 549
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$5;
+
+    invoke-direct {v1, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$5;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    iput-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mQrCodeScanner:Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager$QrCodeScanner;
+
+    .line 568
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$6;
+
+    invoke-direct {v1, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$6;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    iput-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mOnStoreCompletedListener:Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;
+
+    .line 650
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$8;
+
+    invoke-direct {v1, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$8;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    iput-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mGestureShutterHost:Lcom/sonyericsson/android/camera/controller/GestureShutter$ControllerHost;
+
+    .line 1038
+    new-instance v1, Ljava/util/concurrent/CopyOnWriteArraySet;
+
+    invoke-direct {v1}, Ljava/util/concurrent/CopyOnWriteArraySet;-><init>()V
+
+    iput-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mOnStateChangedListenerSet:Ljava/util/Set;
+
+    .line 1065
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$SettingsController;
+
+    invoke-direct {v1, p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$SettingsController;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    iput-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mSettingController:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingApplicable;
+
+    .line 3319
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$10;
+
+    invoke-direct {v1, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$10;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    iput-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mNotifyResumeTimeoutTask:Ljava/lang/Runnable;
+
+    .line 6897
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mChapterThumbnail:Lcom/sonyericsson/android/camera/controller/ChapterThumbnail;
+
+    .line 9989
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$15;
+
+    invoke-direct {v1, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$15;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    iput-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mOnSuperSlowRecordingFinishedListener:Lcom/sonyericsson/android/camera/recorder/superslowrecorder/OnSuperSlowRecordingFinishedListener;
+
+    const/16 v1, 0xa
+
+    .line 10571
+    iput v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mRetryTimes:I
+
+    .line 11207
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;
+
+    invoke-direct {v1, p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    iput-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPredictiveApplier:Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;
+
+    .line 1050
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    .line 1051
+    iput-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    .line 1052
+    iput-object p3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    .line 1054
+    new-instance p2, Lcom/sonyericsson/android/camera/controller/GestureShutter;
+
+    iget-object p3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mGestureShutterHost:Lcom/sonyericsson/android/camera/controller/GestureShutter$ControllerHost;
+
+    invoke-direct {p2, p3, v0}, Lcom/sonyericsson/android/camera/controller/GestureShutter;-><init>(Lcom/sonyericsson/android/camera/controller/GestureShutter$ControllerHost;Lcom/sonyericsson/android/camera/controller/GestureShutter$WindowHost;)V
+
+    iput-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mGestureShutter:Lcom/sonyericsson/android/camera/controller/GestureShutter;
+
+    .line 1055
+    new-instance p2, Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager;
+
+    iget-object p3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mQrCodeScanner:Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager$QrCodeScanner;
+
+    .line 1056
+    invoke-virtual {p3}, Lcom/sonyericsson/android/camera/CameraActivity;->getAutoPowerOffTimerController()Lcom/sonyericsson/android/camera/CameraActivity$AutoPowerOffTimerController;
+
+    move-result-object v1
+
+    invoke-direct {p2, p3, v0, v1}, Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager;-><init>(Landroid/content/Context;Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager$QrCodeScanner;Lcom/sonyericsson/android/camera/CameraActivity$AutoPowerOffTimerController;)V
+
+    iput-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mNotificationManager:Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager;
+
+    .line 1057
+    new-instance p2, Lcom/sonyericsson/android/camera/qrdetection/QrDetectionController;
+
+    iget-object p3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mQrResultListener:Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager$QrResultListener;
+
+    invoke-direct {p2, p3}, Lcom/sonyericsson/android/camera/qrdetection/QrDetectionController;-><init>(Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager$QrResultListener;)V
+
+    iput-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mQrDetectionController:Lcom/sonyericsson/android/camera/qrdetection/QrDetectionController;
+
+    .line 1059
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/CameraActivity;->getStoredSettings()Lcom/sonyericsson/android/camera/setting/StoredSettings;
+
+    move-result-object p2
+
+    invoke-interface {p2}, Lcom/sonyericsson/android/camera/setting/StoredSettings;->getUserSettings()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object p2
+
+    iput-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    .line 1060
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    iget-object p3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mSettingController:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingApplicable;
+
+    invoke-interface {p2, p3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->register(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingApplicable;)V
+
+    .line 1061
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/CameraActivity;->getStoredSettings()Lcom/sonyericsson/android/camera/setting/StoredSettings;
+
+    move-result-object p1
+
+    invoke-interface {p1}, Lcom/sonyericsson/android/camera/setting/StoredSettings;->getLastSettings()Lcom/sonyericsson/android/camera/setting/LastSettings;
+
+    move-result-object p1
+
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastSettings:Lcom/sonyericsson/android/camera/setting/LastSettings;
+
+    return-void
+.end method
+
+.method static synthetic access$10000(Lcom/sonyericsson/android/camera/controller/StateMachine;Landroid/graphics/Point;Landroid/graphics/RectF;Lcom/sonyericsson/cameracommon/focusview/FocusRectangles$FocusSetType;)V
+    .registers 4
+
+    .line 232
+    invoke-direct {p0, p1, p2, p3}, Lcom/sonyericsson/android/camera/controller/StateMachine;->setFocusPosition(Landroid/graphics/Point;Landroid/graphics/RectF;Lcom/sonyericsson/cameracommon/focusview/FocusRectangles$FocusSetType;)V
+
+    return-void
+.end method
+
+.method static synthetic access$10100(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->switchCamera(Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;)V
+
+    return-void
+.end method
+
+.method static synthetic access$10200(Lcom/sonyericsson/android/camera/controller/StateMachine;F)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->updateAmberBlueColor(F)V
+
+    return-void
+.end method
+
+.method static synthetic access$10300(Lcom/sonyericsson/android/camera/controller/StateMachine;F)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->updateBrightness(F)V
+
+    return-void
+.end method
+
+.method static synthetic access$10400(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isStorageFull(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$10500(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->notifyCoolingUltraLow(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$10600(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/configuration/parameters/FusionMode;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->updateFusionModeSetting(Lcom/sonyericsson/android/camera/configuration/parameters/FusionMode;)V
+
+    return-void
+.end method
+
+.method static synthetic access$10700(Lcom/sonyericsson/android/camera/controller/StateMachine;[Ljava/lang/Object;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->setZoomKeyTag([Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method static synthetic access$10800(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->setCurrentCapturingMode(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+
+    return-void
+.end method
+
+.method static synthetic access$10900(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->checkThermalWarning()V
+
+    return-void
+.end method
+
+.method static synthetic access$1100(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isStorageWritable(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$11000(Lcom/sonyericsson/android/camera/controller/StateMachine;)Ljava/util/List;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPendingTaskListForStandby:Ljava/util/List;
+
+    return-object p0
+.end method
+
+.method static synthetic access$11100(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isEnoughStorageSizeAvailableForOneShotVideo()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$11200(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->prepareRecording(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$11800(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->stopPlaySound()V
+
+    return-void
+.end method
+
+.method static synthetic access$12000(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->pauseAudioPlaybackForRecord()V
+
+    return-void
+.end method
+
+.method static synthetic access$12100(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/controller/StateMachine$StartRecordingTask;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStartRecordingTask:Lcom/sonyericsson/android/camera/controller/StateMachine$StartRecordingTask;
+
+    return-object p0
+.end method
+
+.method static synthetic access$12102(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$StartRecordingTask;)Lcom/sonyericsson/android/camera/controller/StateMachine$StartRecordingTask;
+    .registers 2
+
+    .line 232
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStartRecordingTask:Lcom/sonyericsson/android/camera/controller/StateMachine$StartRecordingTask;
+
+    return-object p1
+.end method
+
+.method static synthetic access$12200(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->doHandleRecordingError()V
+
+    return-void
+.end method
+
+.method static synthetic access$12300(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->switchAngleValue()V
+
+    return-void
+.end method
+
+.method static synthetic access$12400(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingApplicable;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mSettingController:Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingApplicable;
+
+    return-object p0
+.end method
+
+.method static synthetic access$12500(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->doStopZoom()V
+
+    return-void
+.end method
+
+.method static synthetic access$12600(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->onOneShotStoreCompleted(Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;)V
+
+    return-void
+.end method
+
+.method static synthetic access$12700(Lcom/sonyericsson/android/camera/controller/StateMachine;F)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->updateBokehStrength(F)V
+
+    return-void
+.end method
+
+.method static synthetic access$12800(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->restartPreviewSessionBeforeBurst(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$1300(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->switchSceneRecognition(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$13100(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->doCapture(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+
+    return-void
+.end method
+
+.method static synthetic access$13302(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/ChapterThumbnail;)Lcom/sonyericsson/android/camera/controller/ChapterThumbnail;
+    .registers 2
+
+    .line 232
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mChapterThumbnail:Lcom/sonyericsson/android/camera/controller/ChapterThumbnail;
+
+    return-object p1
+.end method
+
+.method static synthetic access$13400(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->doStopRecording(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$13502(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)Z
+    .registers 2
+
+    .line 232
+    iput-boolean p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsVideoRecording:Z
+
+    return p1
+.end method
+
+.method static synthetic access$13608(Lcom/sonyericsson/android/camera/controller/StateMachine;)I
+    .registers 3
+
+    .line 232
+    iget v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHighFrameRateVideoRecordingCountInSuperSlowMotion:I
+
+    add-int/lit8 v1, v0, 0x1
+
+    iput v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHighFrameRateVideoRecordingCountInSuperSlowMotion:I
+
+    return v0
+.end method
+
+.method static synthetic access$13700(Lcom/sonyericsson/android/camera/controller/StateMachine;[Ljava/lang/Object;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->pauseVideoRecording([Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method static synthetic access$13900(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+    .registers 1
+
+    .line 232
+    iget-boolean p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsLaunchAndRecording:Z
+
+    return p0
+.end method
+
+.method static synthetic access$13902(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)Z
+    .registers 2
+
+    .line 232
+    iput-boolean p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsLaunchAndRecording:Z
+
+    return p1
+.end method
+
+.method static synthetic access$1400(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->doStopObjectTracking()V
+
+    return-void
+.end method
+
+.method static synthetic access$14100(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendVideoChapterThumbnailToViewFinder()V
+
+    return-void
+.end method
+
+.method static synthetic access$14200(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->doPauseRecording()V
+
+    return-void
+.end method
+
+.method static synthetic access$14400(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->doCaptureWhileRecording()V
+
+    return-void
+.end method
+
+.method static synthetic access$14500(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->requestVideoSmileCapture()V
+
+    return-void
+.end method
+
+.method static synthetic access$14600(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    return-object p0
+.end method
+
+.method static synthetic access$14800(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->doResumeRecording()V
+
+    return-void
+.end method
+
+.method static synthetic access$14900(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;)V
+    .registers 3
+
+    .line 232
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->switchCamera(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;)V
+
+    return-void
+.end method
+
+.method static synthetic access$15000(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;Z)V
+    .registers 4
+
+    .line 232
+    invoke-direct {p0, p1, p2, p3}, Lcom/sonyericsson/android/camera/controller/StateMachine;->requestChangeModeTo(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$15100(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/setting/LastSettings;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastSettings:Lcom/sonyericsson/android/camera/setting/LastSettings;
+
+    return-object p0
+.end method
+
+.method static synthetic access$15200(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->removeChangeCameraModeTask()V
+
+    return-void
+.end method
+
+.method static synthetic access$15300(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->removeStartRecordingTask()V
+
+    return-void
+.end method
+
+.method static synthetic access$15500(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->cleanupPendingState()V
+
+    return-void
+.end method
+
+.method static synthetic access$15700(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->storeSavingRequestList()V
+
+    return-void
+.end method
+
+.method static synthetic access$1602(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager$QrResultListener;)Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager$QrResultListener;
+    .registers 2
+
+    .line 232
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mQrResultListener:Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager$QrResultListener;
+
+    return-object p1
+.end method
+
+.method static synthetic access$16200(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeLogicCamera()V
+
+    return-void
+.end method
+
+.method static synthetic access$16400(Lcom/sonyericsson/android/camera/controller/StateMachine;I)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->updateRecordingProgress(I)V
+
+    return-void
+.end method
+
+.method static synthetic access$16700(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->startRecording()V
+
+    return-void
+.end method
+
+.method static synthetic access$16800(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)Z
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isNeedRepairRequestId(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$1700(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->calculateRemainStorage()V
+
+    return-void
+.end method
+
+.method static synthetic access$17000(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->storePicture(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+
+    return-void
+.end method
+
+.method static synthetic access$17100(Lcom/sonyericsson/android/camera/controller/StateMachine;)Ljava/util/List;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPhotoSavingRequestList:Ljava/util/List;
+
+    return-object p0
+.end method
+
+.method static synthetic access$17400(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeAngleValue(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+
+    return-void
+.end method
+
+.method static synthetic access$1800(Lcom/sonyericsson/android/camera/controller/StateMachine;)Landroid/os/Handler;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    return-object p0
+.end method
+
+.method static synthetic access$1900(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;Landroid/graphics/Bitmap;)V
+    .registers 3
+
+    .line 232
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->finishOneShot(Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;Landroid/graphics/Bitmap;)V
+
+    return-void
+.end method
+
+.method static synthetic access$200(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/view/ViewFinder;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    return-object p0
+.end method
+
+.method static synthetic access$2000(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isLazyInitializationRunning()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$2100(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/CameraActivity;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    return-object p0
+.end method
+
+.method static synthetic access$2200(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/setting/UserSettings;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    return-object p0
+.end method
+
+.method static synthetic access$2300(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/configuration/parameters/SelfTimer;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->updatePhotoSelftimer(Lcom/sonyericsson/android/camera/configuration/parameters/SelfTimer;)V
+
+    return-void
+.end method
+
+.method static synthetic access$2500(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->setIsSceneRecognitionValid(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$2600(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->showBlackScreen()V
+
+    return-void
+.end method
+
+.method static synthetic access$2700(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    return-object p0
+.end method
+
+.method static synthetic access$2800(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->showBlackScreen(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$2900(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Z)V
+    .registers 3
+
+    .line 232
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->requestResizeEvf(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$3000(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mObjectTracking:Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;
+
+    return-object p0
+.end method
+
+.method static synthetic access$3002(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;)Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;
+    .registers 2
+
+    .line 232
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mObjectTracking:Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;
+
+    return-object p1
+.end method
+
+.method static synthetic access$3100(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->switchVideoFaceDetection()V
+
+    return-void
+.end method
+
+.method static synthetic access$3200(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+    .registers 1
+
+    .line 232
+    iget-boolean p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsSemiAutoEnabled:Z
+
+    return p0
+.end method
+
+.method static synthetic access$3202(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)Z
+    .registers 2
+
+    .line 232
+    iput-boolean p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsSemiAutoEnabled:Z
+
+    return p1
+.end method
+
+.method static synthetic access$3300(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isVideo()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$3400(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/recorder/RecordingProfile;
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->createRecordingProfile()Lcom/sonyericsson/android/camera/recorder/RecordingProfile;
+
+    move-result-object p0
+
+    return-object p0
+.end method
+
+.method static synthetic access$3500(Lcom/sonyericsson/android/camera/controller/StateMachine;)I
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getOrientation()I
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$3600(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->publishCameraStatus()V
+
+    return-void
+.end method
+
+.method static synthetic access$3700(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isTouchAeEnabled()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$3800(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/qrdetection/QrDetectionController;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mQrDetectionController:Lcom/sonyericsson/android/camera/qrdetection/QrDetectionController;
+
+    return-object p0
+.end method
+
+.method static synthetic access$3900(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->preparePositionConverter()V
+
+    return-void
+.end method
+
+.method static synthetic access$400(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/controller/GestureShutter;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mGestureShutter:Lcom/sonyericsson/android/camera/controller/GestureShutter;
+
+    return-object p0
+.end method
+
+.method static synthetic access$4100(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+    .registers 3
+
+    .line 232
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method static synthetic access$4200(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->cancelAutoFocus(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$4400(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)Lcom/sonyericsson/android/camera/controller/StateMachine$NotifyDelayedEventTask;
+    .registers 3
+
+    .line 232
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->notifyDelayedEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)Lcom/sonyericsson/android/camera/controller/StateMachine$NotifyDelayedEventTask;
+
+    move-result-object p0
+
+    return-object p0
+.end method
+
+.method static synthetic access$4500(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isCurrentStorageExternal()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$4600(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->requestStorePicture(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+
+    return-void
+.end method
+
+.method static synthetic access$4700(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastStoreDataResult:Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;
+
+    return-object p0
+.end method
+
+.method static synthetic access$4702(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;)Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;
+    .registers 2
+
+    .line 232
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastStoreDataResult:Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;
+
+    return-object p1
+.end method
+
+.method static synthetic access$4800(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPredictiveApplier:Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;
+
+    return-object p0
+.end method
+
+.method static synthetic access$500(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object p0
+
+    return-object p0
+.end method
+
+.method static synthetic access$5100(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastPhotoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+    return-object p0
+.end method
+
+.method static synthetic access$5102(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+    .registers 2
+
+    .line 232
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastPhotoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+    return-object p1
+.end method
+
+.method static synthetic access$5200(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastVideoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+    return-object p0
+.end method
+
+.method static synthetic access$5202(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;)Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+    .registers 2
+
+    .line 232
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastVideoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+    return-object p1
+.end method
+
+.method static synthetic access$5300(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentSessionType:Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+    return-object p0
+.end method
+
+.method static synthetic access$5302(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;)Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+    .registers 2
+
+    .line 232
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentSessionType:Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+    return-object p1
+.end method
+
+.method static synthetic access$5400(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->onPredictiveCaptureStoreComplete(Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;)V
+
+    return-void
+.end method
+
+.method static synthetic access$5900(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+    .registers 1
+
+    .line 232
+    iget-boolean p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->isPostChangeCameraTask:Z
+
+    return p0
+.end method
+
+.method static synthetic access$600(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->checkSaveDestinationCanBeChange(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$6000(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeToStandby()V
+
+    return-void
+.end method
+
+.method static synthetic access$6100(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeCameraIfNeeded(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$6200(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/view/feedback/ShutterFeedback;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mShutterFeedback:Lcom/sonyericsson/android/camera/view/feedback/ShutterFeedback;
+
+    return-object p0
+.end method
+
+.method static synthetic access$6202(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/view/feedback/ShutterFeedback;)Lcom/sonyericsson/android/camera/view/feedback/ShutterFeedback;
+    .registers 2
+
+    .line 232
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mShutterFeedback:Lcom/sonyericsson/android/camera/view/feedback/ShutterFeedback;
+
+    return-object p1
+.end method
+
+.method static synthetic access$6400(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->hasRemainSavingRequest()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$6700(Lcom/sonyericsson/android/camera/controller/StateMachine;)Ljava/lang/Runnable;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mNotifyResumeTimeoutTask:Ljava/lang/Runnable;
+
+    return-object p0
+.end method
+
+.method static synthetic access$6800(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isFusionMonitoringNeeded()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$6900(Lcom/sonyericsson/android/camera/controller/StateMachine;ZLcom/sonyericsson/android/camera/controller/StateMachine$StartupAction;)V
+    .registers 3
+
+    .line 232
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->startFastCapture(ZLcom/sonyericsson/android/camera/controller/StateMachine$StartupAction;)V
+
+    return-void
+.end method
+
+.method static synthetic access$700(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/LaunchCondition;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    return-object p0
+.end method
+
+.method static synthetic access$7100(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/controller/StateMachine$StorageStateAdapter;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorageStateListener:Lcom/sonyericsson/android/camera/controller/StateMachine$StorageStateAdapter;
+
+    return-object p0
+.end method
+
+.method static synthetic access$7200(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/view/UserEventHandler$VirtualKeyEventDispatcher;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mVirtualKeyEventDispatcher:Lcom/sonyericsson/android/camera/view/UserEventHandler$VirtualKeyEventDispatcher;
+
+    return-object p0
+.end method
+
+.method static synthetic access$7300(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->initGeoTagManager()V
+
+    return-void
+.end method
+
+.method static synthetic access$7400(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->initSideSenseSetting()V
+
+    return-void
+.end method
+
+.method static synthetic access$7902(Lcom/sonyericsson/android/camera/controller/StateMachine;I)I
+    .registers 2
+
+    .line 232
+    iput p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHideBlackScreenFrameNum:I
+
+    return p1
+.end method
+
+.method static synthetic access$800(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    return-object p0
+.end method
+
+.method static synthetic access$8000(Lcom/sonyericsson/android/camera/controller/StateMachine;)I
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getSensorOrientation()I
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$8200(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mNotificationManager:Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager;
+
+    return-object p0
+.end method
+
+.method static synthetic access$8300(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$NotifyDelayedEventTask;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->removeDelayedEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$NotifyDelayedEventTask;)V
+
+    return-void
+.end method
+
+.method static synthetic access$8400(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->doChangeAngle()V
+
+    return-void
+.end method
+
+.method static synthetic access$8500([Ljava/lang/Object;ILjava/lang/Class;Ljava/lang/Object;)Ljava/lang/Object;
+    .registers 4
+
+    .line 232
+    invoke-static {p0, p1, p2, p3}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getEventParam([Ljava/lang/Object;ILjava/lang/Class;Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object p0
+
+    return-object p0
+.end method
+
+.method static synthetic access$8700(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isStorageReady()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$8800(Lcom/sonyericsson/android/camera/controller/StateMachine;[Ljava/lang/Object;)Z
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->startAutoFocus([Ljava/lang/Object;)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$8900(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->shouldRestartSessionBeforeCapture()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$900(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/cameracommon/storage/Storage;
+    .registers 1
+
+    .line 232
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    return-object p0
+.end method
+
+.method static synthetic access$9000(Lcom/sonyericsson/android/camera/controller/StateMachine;)Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getNextSessionTypeForCapture()Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+    move-result-object p0
+
+    return-object p0
+.end method
+
+.method static synthetic access$9100(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->setSuppressFlash(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$9300(Lcom/sonyericsson/android/camera/controller/StateMachine;)Z
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isHighQualityBurstAvailable()Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$9400(Lcom/sonyericsson/android/camera/controller/StateMachine;ZZ)Z
+    .registers 3
+
+    .line 232
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->checkBurstConditions(ZZ)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method static synthetic access$9500(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->showCannotBurstInDarkCondition(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$9600(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+    .registers 1
+
+    .line 232
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->requestPhotoSmileCapture()V
+
+    return-void
+.end method
+
+.method static synthetic access$9700(Lcom/sonyericsson/android/camera/controller/StateMachine;Landroid/graphics/Point;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->doChangeSelectedFace(Landroid/graphics/Point;)V
+
+    return-void
+.end method
+
+.method static synthetic access$9800(Lcom/sonyericsson/android/camera/controller/StateMachine;Landroid/graphics/Rect;)V
+    .registers 2
+
+    .line 232
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->doStartObjectTracking(Landroid/graphics/Rect;)V
+
+    return-void
+.end method
+
+.method private calculateRemainStorage()V
+    .registers 6
+
+    .line 10827
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    if-eqz v0, :cond_39
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    if-eqz v0, :cond_39
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    if-eqz v0, :cond_39
+
+    .line 10828
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v0
+
+    if-nez v0, :cond_13
+
+    goto :goto_39
+
+    .line 10834
+    :cond_13
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v0
+
+    .line 10835
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    invoke-interface {v1, v0}, Lcom/sonyericsson/cameracommon/storage/Storage;->getRemainStorage(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)J
+
+    move-result-wide v1
+
+    const-wide/32 v3, 0xf000
+
+    cmp-long v1, v1, v3
+
+    if-gtz v1, :cond_38
+
+    .line 10838
+    sget-object v1, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_STORAGE_ERROR:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    const/4 v2, 0x2
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    const/4 v3, 0x0
+
+    aput-object v0, v2, v3
+
+    const/4 v3, 0x1
+
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    .line 10839
+    invoke-interface {v4, v0}, Lcom/sonyericsson/cameracommon/storage/Storage;->getCurrentState(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Lcom/sonyericsson/cameracommon/storage/Storage$StorageState;
+
+    move-result-object v0
+
+    aput-object v0, v2, v3
+
+    .line 10838
+    invoke-virtual {p0, v1, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    :cond_38
+    return-void
+
+    :cond_39
+    :goto_39
+    return-void
+.end method
+
+.method private canInvokePhotoSelfTimer()Z
+    .registers 2
+
+    .line 11003
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isLazyInitializationRunning()Z
+
+    move-result v0
+
+    if-nez v0, :cond_18
+
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isPhotoSelfTimerEnabled()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_18
+
+    .line 11004
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v0
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isStorageWritable(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_18
+
+    const/4 v0, 0x1
+
+    goto :goto_19
+
+    :cond_18
+    const/4 v0, 0x0
+
+    :goto_19
+    return v0
+.end method
+
+.method private cancelAutoFocus(Z)V
+    .registers 3
+
+    if-eqz p1, :cond_7
+
+    .line 9459
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->resetFocusModeAndCommit()V
+
+    .line 9461
+    :cond_7
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    const/4 v0, 0x0
+
+    invoke-interface {p1, v0}, Lcom/sonyericsson/android/camera/view/ViewFinder;->setDisplayFlashRequired(Z)V
+
+    .line 9462
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    const/16 v0, 0xff
+
+    invoke-interface {p1, v0, v0, v0}, Lcom/sonyericsson/android/camera/view/ViewFinder;->setDisplayFlashColor(III)V
+
+    .line 9463
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->cancelAutoFocus()V
+
+    return-void
+.end method
+
+.method private changeAngleValue(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+    .registers 2
+
+    return-void
+.end method
+
+.method private changeCameraIfNeeded(Z)V
+    .registers 3
+
+    .line 9271
+    sget-boolean p1, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz p1, :cond_d
+
+    const-string p1, "invoked E"
+
+    filled-new-array {p1}, [Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 9274
+    :cond_d
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object p1
+
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->shouldChangeLogicCamera(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)Z
+
+    move-result p1
+
+    if-eqz p1, :cond_21
+
+    .line 9275
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$11;
+
+    invoke-direct {v0, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$11;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    invoke-virtual {p1, v0}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    :cond_21
+    return-void
+.end method
+
+.method private changeLogicCamera()V
+    .registers 5
+
+    .line 9287
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoked E"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 9288
+    :cond_d
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->stopPreviewSynchronized()V
+
+    .line 9289
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->closeCamera()V
+
+    .line 9290
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/FastCapture;->LAUNCH_ONLY:Lcom/sonyericsson/android/camera/configuration/parameters/FastCapture;
+
+    .line 9291
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    .line 9290
+    invoke-virtual {v0, v1, v2, v3}, Lcom/sonyericsson/android/camera/CameraActivity;->prepareCameraDeviceHandler(Lcom/sonyericsson/android/camera/configuration/parameters/FastCapture;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/setting/UserSettings;)Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;
+
+    .line 9292
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/view/ViewFinder;->notifyOnEvfPrepared()V
+
+    .line 9293
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->switchVideoFaceDetection()V
+
+    const/4 v0, 0x0
+
+    .line 9294
+    iput-boolean v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->isPostChangeCameraTask:Z
+
+    return-void
+.end method
+
+.method private changeModeTo(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;Z)V
+    .registers 12
+
+    .line 9189
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    if-eqz v0, :cond_2a
+
+    new-array v0, v1, [Ljava/lang/String;
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "invoke request:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    const-string v4, ", current:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 9190
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    aput-object v3, v0, v2
+
+    .line 9189
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 9192
+    :cond_2a
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_CAPTURING_MODE_CHANGING:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    new-array v4, v2, [Ljava/lang/Object;
+
+    invoke-interface {v0, v3, v4}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 9194
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->doStopObjectTracking()V
+
+    .line 9196
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->stopAutoFlashMonitoring()V
+
+    .line 9197
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->stopAutoHdrMonitoring()V
+
+    .line 9198
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->stopAutoNightMonitoring()V
+
+    .line 9199
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->stopFinishBurstMonitoring()V
+
+    .line 9200
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/setting/UserSettings;->resetTempParameters()V
+
+    .line 9204
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/view/ViewFinder;->clearMessageDialog()V
+
+    .line 9207
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 9208
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v5, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->CAPTURING_MODE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 9209
+    invoke-interface {v4, v5}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v4
+
+    check-cast v4, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    iget-object v5, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    iget-object v6, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastSettings:Lcom/sonyericsson/android/camera/setting/LastSettings;
+
+    iget-object v7, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    .line 9210
+    invoke-interface {v7}, Lcom/sonyericsson/android/camera/LaunchCondition;->isOneShot()Z
+
+    move-result v7
+
+    .line 9208
+    invoke-virtual {v3, v4, v5, v6, v7}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->savePreloadSettings(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/setting/UserSettings;Lcom/sonyericsson/android/camera/setting/LastSettings;Z)V
+
+    .line 9212
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastSettings:Lcom/sonyericsson/android/camera/setting/LastSettings;
+
+    invoke-virtual {v3}, Lcom/sonyericsson/android/camera/setting/LastSettings;->clearZoomInfo()V
+
+    .line 9213
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v3
+
+    .line 9214
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->setCurrentCapturingMode(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+
+    if-nez p3, :cond_8e
+
+    .line 9217
+    invoke-virtual {p0, v3, v0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->needChangeCameraId(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_8c
+
+    goto :goto_8e
+
+    :cond_8c
+    move v0, v2
+
+    goto :goto_8f
+
+    :cond_8e
+    :goto_8e
+    move v0, v1
+
+    .line 9218
+    :goto_8f
+    sget-boolean v3, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v3, :cond_b3
+
+    new-array v1, v1, [Ljava/lang/String;
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "needChangeCameraId:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    const-string v4, ", forceChangeCamera:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3, p3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p3
+
+    aput-object p3, v1, v2
+
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_b3
+    const/4 p3, 0x0
+
+    if-nez v0, :cond_cf
+
+    .line 9223
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateWaitingEvfPreparedByModeChange;
+
+    invoke-direct {v0, p0, p3}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateWaitingEvfPreparedByModeChange;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array v1, v2, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    .line 9225
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$ChangeCameraModeTask;
+
+    invoke-direct {v0, p0, p1, p2, p3}, Lcom/sonyericsson/android/camera/controller/StateMachine$ChangeCameraModeTask;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mChangeCameraModeTask:Lcom/sonyericsson/android/camera/controller/StateMachine$ChangeCameraModeTask;
+
+    .line 9227
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mChangeCameraModeTask:Lcom/sonyericsson/android/camera/controller/StateMachine$ChangeCameraModeTask;
+
+    invoke-virtual {p1, p2}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    goto :goto_f4
+
+    .line 9229
+    :cond_cf
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {p2}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->stopPreviewSynchronized()V
+
+    .line 9230
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {p2}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->closeCamera()V
+
+    .line 9231
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/FastCapture;->LAUNCH_ONLY:Lcom/sonyericsson/android/camera/configuration/parameters/FastCapture;
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    invoke-virtual {p2, v0, p1, v1}, Lcom/sonyericsson/android/camera/CameraActivity;->prepareCameraDeviceHandler(Lcom/sonyericsson/android/camera/configuration/parameters/FastCapture;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/setting/UserSettings;)Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;
+
+    move-result-object p1
+
+    .line 9233
+    new-instance p2, Lcom/sonyericsson/android/camera/controller/StateMachine$StateCameraSwitching;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/FastCapture;->LAUNCH_ONLY:Lcom/sonyericsson/android/camera/configuration/parameters/FastCapture;
+
+    invoke-direct {p2, p0, p1, v0, p3}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateCameraSwitching;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;Lcom/sonyericsson/android/camera/configuration/parameters/FastCapture;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array p1, v2, [Ljava/lang/Object;
+
+    invoke-direct {p0, p2, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    .line 9234
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {p1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->notifyOnEvfPrepared()V
+
+    :goto_f4
+    return-void
+.end method
+
+.method private varargs declared-synchronized changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+    .registers 7
+
+    monitor-enter p0
+
+    .line 8958
+    :try_start_1
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_39
+
+    const/4 v0, 0x1
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "invoke current:"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {v3}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v3, ", to:"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 8959
+    invoke-virtual {p1}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    aput-object v2, v0, v1
+
+    .line 8958
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 8962
+    :cond_39
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->exit()V
+
+    .line 8965
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    .line 8968
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mOnStateChangedListenerSet:Ljava/util/Set;
+
+    invoke-interface {p1}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
+
+    move-result-object p1
+
+    :goto_46
+    invoke-interface {p1}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_5c
+
+    invoke-interface {p1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/controller/StateMachine$OnStateChangedListener;
+
+    .line 8969
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v1
+
+    invoke-interface {v0, v1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$OnStateChangedListener;->onStateChanged(Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;[Ljava/lang/Object;)V
+
+    goto :goto_46
+
+    .line 8973
+    :cond_5c
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->entry()V
+    :try_end_61
+    .catchall {:try_start_1 .. :try_end_61} :catchall_63
+
+    .line 8974
+    monitor-exit p0
+
+    return-void
+
+    :catchall_63
+    move-exception p1
+
+    monitor-exit p0
+
+    throw p1
+.end method
+
+.method private changeToStandby()V
+    .registers 4
+
+    .line 11052
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isVideo()Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_12
+
+    .line 11053
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoReady;
+
+    invoke-direct {v0, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoReady;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    goto :goto_1d
+
+    .line 11055
+    :cond_12
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoReady;
+
+    const/4 v2, 0x1
+
+    invoke-direct {v0, p0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoReady;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    :goto_1d
+    return-void
+.end method
+
+.method private checkBurstConditions(ZZ)Z
+    .registers 6
+
+    .line 11619
+    sget-object v0, Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;->INTERNAL:Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isStorageWritable(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-nez v0, :cond_a
+
+    return v1
+
+    .line 11623
+    :cond_a
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->getRemainSavingPhotoRequestCount()I
+
+    move-result v0
+
+    if-lez v0, :cond_13
+
+    return v1
+
+    .line 11632
+    :cond_13
+    invoke-static {}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->isBurstSupportedInLowLight()Z
+
+    move-result v0
+
+    if-nez v0, :cond_27
+
+    .line 11633
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SCENE_RECOGNITION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-ne v0, v2, :cond_27
+
+    if-nez p1, :cond_27
+
+    .line 11635
+    invoke-direct {p0, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->showCannotBurstInDarkCondition(Z)V
+
+    return v1
+
+    :cond_27
+    const/4 p1, 0x1
+
+    return p1
+.end method
+
+.method private checkCallback(Lcom/sonyericsson/cameracommon/storage/RequestFactory$RequestBuilder;)V
+    .registers 3
+
+    .line 10324
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mOnStoreCompletedListener:Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;
+
+    invoke-virtual {p1, v0}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$RequestBuilder;->addCallback(Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;)V
+
+    return-void
+.end method
+
+.method private checkSaveDestinationCanBeChange(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+    .registers 3
+
+    .line 11440
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$cameracommon$storage$Storage$StorageType:[I
+
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;->ordinal()I
+
+    move-result p1
+
+    aget p1, v0, p1
+
+    packed-switch p1, :pswitch_data_1c
+
+    const/4 p1, 0x0
+
+    return p1
+
+    .line 11444
+    :pswitch_d
+    sget-object p1, Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;->INTERNAL:Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isStorageWritable(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+
+    move-result p1
+
+    return p1
+
+    .line 11442
+    :pswitch_14
+    sget-object p1, Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;->EXTERNAL_CARD:Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isStorageWritable(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+
+    move-result p1
+
+    return p1
+
+    nop
+
+    :pswitch_data_1c
+    .packed-switch 0x1
+        :pswitch_14
+        :pswitch_d
+    .end packed-switch
+.end method
+
+.method private checkThermalWarning()V
+    .registers 3
+
+    .line 11318
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-ne v0, v1, :cond_9
+
+    return-void
+
+    .line 11323
+    :cond_9
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCameraId()Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->isPowerSavingSupported(Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_33
+
+    .line 11324
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->isThermalWarningReceived()Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_24
+
+    .line 11325
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_HEATED_OVER_COOLING_ULTRA_LOW:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-virtual {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    goto :goto_33
+
+    .line 11326
+    :cond_24
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->isThermalWarningExtraState()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_33
+
+    .line 11327
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_HEATED_OVER_COOLING_LOW:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-virtual {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    :cond_33
+    :goto_33
+    return-void
+.end method
+
+.method private cleanupPendingState()V
+    .registers 3
+
+    .line 11407
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SELF_TIMER:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/SelfTimer;
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->updatePhotoSelftimer(Lcom/sonyericsson/android/camera/configuration/parameters/SelfTimer;)V
+
+    return-void
+.end method
+
+.method private createRecordingProfile()Lcom/sonyericsson/android/camera/recorder/RecordingProfile;
+    .registers 6
+
+    .line 11713
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 11714
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_HDR:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;
+
+    .line 11715
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_STABILIZER:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 11716
+    invoke-interface {v2, v3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v2
+
+    check-cast v2, Lcom/sonyericsson/android/camera/configuration/parameters/VideoStabilizer;
+
+    .line 11717
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v4, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v3, v4}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v3
+
+    check-cast v3, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    .line 11719
+    sget-object v4, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->STANDARD_SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    if-ne v3, v4, :cond_30
+
+    .line 11720
+    invoke-virtual {v3}, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->getVideoSize()Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    move-result-object v0
+
+    .line 11723
+    :cond_30
+    new-instance v4, Lcom/sonyericsson/android/camera/recorder/RecordingProfile$Builder;
+
+    invoke-direct {v4}, Lcom/sonyericsson/android/camera/recorder/RecordingProfile$Builder;-><init>()V
+
+    .line 11724
+    invoke-virtual {v4, v0}, Lcom/sonyericsson/android/camera/recorder/RecordingProfile$Builder;->videoSize(Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;)Lcom/sonyericsson/android/camera/recorder/RecordingProfile$Builder;
+
+    move-result-object v0
+
+    .line 11725
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/android/camera/recorder/RecordingProfile$Builder;->videoHdr(Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;)Lcom/sonyericsson/android/camera/recorder/RecordingProfile$Builder;
+
+    move-result-object v0
+
+    .line 11726
+    invoke-virtual {v0, v2}, Lcom/sonyericsson/android/camera/recorder/RecordingProfile$Builder;->videoStabilizer(Lcom/sonyericsson/android/camera/configuration/parameters/VideoStabilizer;)Lcom/sonyericsson/android/camera/recorder/RecordingProfile$Builder;
+
+    move-result-object v0
+
+    .line 11727
+    invoke-virtual {v0, v3}, Lcom/sonyericsson/android/camera/recorder/RecordingProfile$Builder;->slowMotion(Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;)Lcom/sonyericsson/android/camera/recorder/RecordingProfile$Builder;
+
+    move-result-object v0
+
+    .line 11728
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/recorder/RecordingProfile$Builder;->build()Lcom/sonyericsson/android/camera/recorder/RecordingProfile;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method private createTakenStatusCommon(Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;Landroid/graphics/Rect;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+    .registers 22
+
+    move-object/from16 v0, p0
+
+    .line 10042
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v2
+
+    .line 10045
+    invoke-direct/range {p0 .. p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getOrientation()I
+
+    move-result v4
+
+    .line 10049
+    iget-object v1, v0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {v1}, Lcom/sonyericsson/android/camera/LaunchCondition;->isOneShot()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1a
+
+    iget-object v1, v0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    .line 10050
+    invoke-static {v1}, Lcom/sonyericsson/cameracommon/utility/PermissionsUtil;->areCallerGeoPermissionsGranted(Landroid/app/Activity;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_2e
+
+    .line 10051
+    :cond_1a
+    iget-object v1, v0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/CameraActivity;->getGeoTagManager()Lcom/sonyericsson/cameracommon/mediasaving/location/GeotagManager;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_2e
+
+    .line 10052
+    iget-object v1, v0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/CameraActivity;->getGeoTagManager()Lcom/sonyericsson/cameracommon/mediasaving/location/GeotagManager;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/sonyericsson/cameracommon/mediasaving/location/GeotagManager;->getCurrentLocation()Landroid/location/Location;
+
+    move-result-object v1
+
+    move-object v5, v1
+
+    goto :goto_30
+
+    :cond_2e
+    const/4 v1, 0x0
+
+    move-object v5, v1
+
+    .line 10059
+    :goto_30
+    sget-object v1, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$cameracommon$storage$SavingTaskManager$SavedFileType:[I
+
+    invoke-virtual/range {p1 .. p1}, Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;->ordinal()I
+
+    move-result v6
+
+    aget v1, v1, v6
+
+    const/4 v6, 0x1
+
+    const/4 v7, 0x0
+
+    packed-switch v1, :pswitch_data_78
+
+    move v13, v7
+
+    goto :goto_50
+
+    .line 10068
+    :pswitch_3f
+    iget-object v1, v0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {v1}, Lcom/sonyericsson/android/camera/LaunchCondition;->shouldAddToMediaStore()Z
+
+    move-result v1
+
+    move v13, v1
+
+    goto :goto_50
+
+    .line 10064
+    :pswitch_47
+    iget-object v1, v0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {v1}, Lcom/sonyericsson/android/camera/LaunchCondition;->shouldAddToMediaStore()Z
+
+    move-result v1
+
+    move v13, v1
+
+    goto :goto_50
+
+    :pswitch_4f
+    move v13, v6
+
+    .line 10075
+    :goto_50
+    new-instance v15, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    .line 10079
+    invoke-virtual/range {p2 .. p2}, Landroid/graphics/Rect;->width()I
+
+    move-result v8
+
+    .line 10080
+    invoke-virtual/range {p2 .. p2}, Landroid/graphics/Rect;->height()I
+
+    move-result v9
+
+    const-string v12, ""
+
+    iget-object v1, v0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    .line 10087
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v1
+
+    sget-object v10, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->STATE_RESUME_AND_CAPTURE:Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    if-ne v1, v10, :cond_68
+
+    move v14, v6
+
+    goto :goto_69
+
+    :cond_68
+    move v14, v7
+
+    :goto_69
+    move-object v1, v15
+
+    move v6, v8
+
+    move v7, v9
+
+    move-object/from16 v8, p3
+
+    move-object/from16 v9, p4
+
+    move-object/from16 v10, p1
+
+    move-object/from16 v11, p5
+
+    invoke-direct/range {v1 .. v14}, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;-><init>(JILandroid/location/Location;IILjava/lang/String;Ljava/lang/String;Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;Ljava/lang/String;Ljava/lang/String;ZZ)V
+
+    return-object v15
+
+    :pswitch_data_78
+    .packed-switch 0x1
+        :pswitch_4f
+        :pswitch_47
+        :pswitch_3f
+        :pswitch_3f
+    .end packed-switch
+.end method
+
+.method private createVideoSavingRequest(ZLcom/sonyericsson/android/camera/recorder/RecordingProfile;)Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+    .registers 15
+
+    .line 10148
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 10150
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v1
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-ne v1, v2, :cond_26
+
+    .line 10151
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v1
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    .line 10152
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->STANDARD_SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    if-ne v1, v2, :cond_26
+
+    .line 10153
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->getVideoSize()Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    move-result-object v0
+
+    .line 10163
+    :cond_26
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v3
+
+    invoke-interface {v1, v2, v3, p2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->getMaxVideoSize(Lcom/sonyericsson/cameracommon/storage/Storage;Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;Lcom/sonyericsson/android/camera/recorder/RecordingProfile;)Lcom/sonyericsson/android/camera/util/MaxVideoSize;
+
+    move-result-object v1
+
+    .line 10164
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/util/MaxVideoSize;->getMaxFileSize()J
+
+    move-result-wide v2
+
+    .line 10165
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/util/MaxVideoSize;->getMaxDuration()I
+
+    move-result v1
+
+    int-to-long v4, v1
+
+    .line 10167
+    invoke-virtual {p2}, Lcom/sonyericsson/android/camera/recorder/RecordingProfile;->getMime()Ljava/lang/String;
+
+    move-result-object v9
+
+    .line 10168
+    invoke-virtual {p2}, Lcom/sonyericsson/android/camera/recorder/RecordingProfile;->getExtension()Ljava/lang/String;
+
+    move-result-object v10
+
+    const/4 p2, 0x0
+
+    .line 10171
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v1
+
+    sget-object v6, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-ne v1, v6, :cond_5a
+
+    .line 10172
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object p2
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {p2, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object p2
+
+    invoke-virtual {p2}, Ljava/lang/Object;->toString()Ljava/lang/String;
+
+    move-result-object p2
+
+    .line 10175
+    :cond_5a
+    new-instance v1, Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+    sget-object v7, Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;->VIDEO:Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;
+
+    .line 10178
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->getVideoRect()Landroid/graphics/Rect;
+
+    move-result-object v8
+
+    const/4 v11, 0x0
+
+    move-object v6, p0
+
+    .line 10176
+    invoke-direct/range {v6 .. v11}, Lcom/sonyericsson/android/camera/controller/StateMachine;->createTakenStatusCommon(Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;Landroid/graphics/Rect;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    move-result-object v0
+
+    new-instance v6, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusVideo;
+
+    invoke-direct {v6, v4, v5, v2, v3}, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusVideo;-><init>(JJ)V
+
+    invoke-direct {v1, v0, v6}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;-><init>(Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusVideo;)V
+
+    .line 10185
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mOnStoreCompletedListener:Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;
+
+    invoke-virtual {v1, v0}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;->addCallback(Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;)V
+
+    .line 10186
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/LaunchCondition;->isOneShotVideo()Z
+
+    move-result v0
+
+    invoke-virtual {v1, v0}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;->setOneShot(Z)V
+
+    .line 10187
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/LaunchCondition;->getExtraOutput()Landroid/net/Uri;
+
+    move-result-object v0
+
+    invoke-virtual {v1, v0}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;->setExtraOutput(Landroid/net/Uri;)V
+
+    .line 10190
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v2
+
+    invoke-virtual {v1, p1, p2, v0, v2}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;->setSlowMotion(ZLjava/lang/String;Lcom/sonyericsson/cameracommon/storage/Storage;Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)V
+
+    .line 10191
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object p1
+
+    invoke-virtual {v1, p1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;->setStorageType(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)V
+
+    return-object v1
+.end method
+
+.method private doCapture(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+    .registers 6
+
+    .line 9529
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastPhotoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+    .line 9530
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastPhotoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+    if-eqz p1, :cond_49
+
+    .line 9531
+    sget-boolean p1, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz p1, :cond_13
+
+    const-string p1, "invoke doCapture"
+
+    filled-new-array {p1}, [Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 9533
+    :cond_13
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastPhotoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+    invoke-virtual {p1, v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->applySavingRequest(Lcom/sonyericsson/cameracommon/storage/RequestFactory$RequestBuilder;)V
+
+    .line 9534
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastPhotoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentSessionType:Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+    invoke-virtual {p1, v0, v1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->takePicture(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;)Lcom/sonyericsson/android/camera/view/feedback/ShutterFeedback;
+
+    move-result-object p1
+
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mShutterFeedback:Lcom/sonyericsson/android/camera/view/feedback/ShutterFeedback;
+
+    .line 9536
+    invoke-static {}, Lcom/sonyericsson/android/camera/device/virtual/FinalImageSaver;->getFinalImageSaver()Lcom/sonyericsson/android/camera/device/virtual/FinalImageSaver;
+
+    move-result-object p1
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mOnStoreCompletedListener:Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;
+
+    invoke-virtual {p1, v0, v1}, Lcom/sonyericsson/android/camera/device/virtual/FinalImageSaver;->setOnStoreCompletedListener(Lcom/sonyericsson/cameracommon/storage/Storage;Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;)V
+
+    .line 9538
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_REQUEST_UPDATE_SETTING_CHANGE_ACCEPTABILITY:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v1, 0x1
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    const/4 v2, 0x0
+
+    .line 9540
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isSettingChangeAcceptable()Z
+
+    move-result v3
+
+    invoke-static {v3}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object v3
+
+    aput-object v3, v1, v2
+
+    .line 9538
+    invoke-interface {p1, v0, v1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 9542
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendResearchCaptureEvents()V
+
+    :cond_49
+    return-void
+.end method
+
+.method private doCaptureWhileRecording()V
+    .registers 4
+
+    .line 9557
+    sget-object v0, Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;->PHOTO_DURING_REC:Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;
+
+    invoke-virtual {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->createPhotoSavingRequest(Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;)Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_29
+
+    .line 9559
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    const/4 v2, 0x0
+
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->getRequestId(Z)I
+
+    move-result v1
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->setRequestId(I)V
+
+    .line 9561
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v1, v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->applySavingRequest(Lcom/sonyericsson/cameracommon/storage/RequestFactory$RequestBuilder;)V
+
+    .line 9562
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    if-eqz v1, :cond_1e
+
+    .line 9563
+    invoke-virtual {v1, v2}, Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;->stopAnimation(Z)V
+
+    .line 9565
+    :cond_1e
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    const/4 v2, 0x1
+
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->onShutterDone(Z)V
+
+    .line 9568
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v1, v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->captureWhileRecording(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+
+    :cond_29
+    return-void
+.end method
+
+.method private doChangeAngle()V
+    .registers 3
+
+    .line 10576
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_f
+
+    const-string v0, "StateMachine"
+
+    const-string v1, "doChangeAngle"
+
+    .line 10577
+    filled-new-array {v0, v1}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10580
+    :cond_f
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateCropping;
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v1
+
+    invoke-direct {v0, p0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateCropping;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;)V
+
+    const/4 v1, 0x0
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method private doChangeSelectedFace(Landroid/graphics/Point;)V
+    .registers 6
+
+    .line 9395
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mObjectTracking:Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;->stop()V
+
+    .line 9398
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_FOCUS_POSITION_RELEASED_BY_SELECT_FACE:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v2, 0x0
+
+    new-array v3, v2, [Ljava/lang/Object;
+
+    invoke-interface {v0, v1, v3}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 9402
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_FACE_DETECTION_STARTED:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    invoke-interface {v0, v1, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 9406
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    iget v1, p1, Landroid/graphics/Point;->x:I
+
+    iget p1, p1, Landroid/graphics/Point;->y:I
+
+    invoke-virtual {v0, v1, p1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->setSelectedFacePosition(II)V
+
+    .line 9409
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isTouchAeEnabled()Z
+
+    move-result p1
+
+    if-eqz p1, :cond_37
+
+    .line 9410
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    const/4 v0, 0x0
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->METERING:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 9411
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/Metering;
+
+    .line 9410
+    invoke-virtual {p1, v0, v1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->setMeteringAreaAndCommit(Landroid/graphics/Rect;Lcom/sonyericsson/android/camera/configuration/parameters/Metering;)V
+
+    :cond_37
+    return-void
+.end method
+
+.method private doFastestCapture()V
+    .registers 5
+
+    .line 9315
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v0
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isStorageWritable(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x0
+
+    if-nez v0, :cond_17
+
+    .line 9317
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateWarning;
+
+    invoke-direct {v0, p0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateWarning;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    return-void
+
+    .line 9321
+    :cond_17
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$device$CameraDeviceHandler$PreProcessState:[I
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v3}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->getPreProcessState()Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$PreProcessState;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$PreProcessState;->ordinal()I
+
+    move-result v3
+
+    aget v0, v0, v3
+
+    packed-switch v0, :pswitch_data_9e
+
+    .line 9368
+    new-instance v0, Ljava/lang/IllegalStateException;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "Un-Expected state:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    .line 9369
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->getPreProcessState()Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$PreProcessState;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-direct {v0, v1}, Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V
+
+    throw v0
+
+    .line 9350
+    :pswitch_45
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCapture;
+
+    invoke-direct {v0, p0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCapture;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    goto :goto_9c
+
+    .line 9324
+    :pswitch_50
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isBypassCameraSupported()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_63
+
+    .line 9327
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCapture;
+
+    invoke-direct {v0, p0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCapture;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    goto :goto_9c
+
+    .line 9329
+    :cond_63
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCaptureWaitForAfDone;
+
+    const/4 v3, 0x1
+
+    invoke-direct {v0, p0, v3, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCaptureWaitForAfDone;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;ZLcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    goto :goto_9c
+
+    .line 9356
+    :pswitch_6f
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCapture;
+
+    invoke-direct {v0, p0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCapture;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    goto :goto_9c
+
+    .line 9345
+    :pswitch_7a
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCapture;
+
+    invoke-direct {v0, p0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCapture;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    goto :goto_9c
+
+    .line 9336
+    :pswitch_85
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isBypassCameraSupported()Z
+
+    move-result v0
+
+    if-nez v0, :cond_92
+
+    .line 9338
+    sget-object v0, Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;->PHOTO:Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;
+
+    invoke-virtual {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->createPhotoSavingRequest(Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;)Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+    .line 9340
+    :cond_92
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCapture;
+
+    invoke-direct {v0, p0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoCapture;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    :goto_9c
+    :pswitch_9c
+    return-void
+
+    nop
+
+    :pswitch_data_9e
+    .packed-switch 0x1
+        :pswitch_85
+        :pswitch_7a
+        :pswitch_6f
+        :pswitch_50
+        :pswitch_45
+        :pswitch_9c
+        :pswitch_9c
+    .end packed-switch
+.end method
+
+.method private doHandleRecordingError()V
+    .registers 5
+
+    .line 9985
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;->ERROR_UNKNOWN:Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;
+
+    const/4 v2, 0x0
+
+    new-array v3, v2, [Ljava/lang/Object;
+
+    invoke-interface {v0, v1, v3}, Lcom/sonyericsson/android/camera/view/ViewFinder;->showMessageDialog(Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;[Ljava/lang/Object;)V
+
+    .line 9986
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateWarning;
+
+    const/4 v1, 0x0
+
+    invoke-direct {v0, p0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateWarning;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array v1, v2, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method private doLaunchAndRecording()V
+    .registers 5
+
+    .line 9303
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoReadyForRecording;
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    const/4 v3, 0x0
+
+    invoke-direct {v0, p0, v2, v1, v3}, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoReadyForRecording;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;ZZLcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-static {v2}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object v3
+
+    aput-object v3, v1, v2
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    .line 9304
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_START_RECORDING:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    new-array v1, v2, [Ljava/lang/Object;
+
+    invoke-virtual {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method private doPauseRecording()V
+    .registers 3
+
+    .line 9973
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->pauseRecording()V
+
+    .line 9974
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoRecordingPausing;
+
+    const/4 v1, 0x0
+
+    invoke-direct {v0, p0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoRecordingPausing;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    const/4 v1, 0x0
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method private doResumeRecording()V
+    .registers 3
+
+    .line 9979
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->resumeRecording()V
+
+    .line 9980
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoRecording;
+
+    const/4 v1, 0x0
+
+    invoke-direct {v0, p0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoRecording;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    const/4 v1, 0x0
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method private doStartObjectTracking(Landroid/graphics/Rect;)V
+    .registers 3
+
+    .line 11108
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v0
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isStorageWritable(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_f
+
+    .line 11110
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mObjectTracking:Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;
+
+    invoke-virtual {v0, p1}, Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;->start(Landroid/graphics/Rect;)V
+
+    :cond_f
+    return-void
+.end method
+
+.method private doStopObjectTracking()V
+    .registers 4
+
+    .line 11115
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mObjectTracking:Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;->stop()V
+
+    .line 11117
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_FOCUS_POSITION_RELEASED_EXCEPT_FACE:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v2, 0x0
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    invoke-interface {v0, v1, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method private doStopRecording(Z)V
+    .registers 6
+
+    .line 9941
+    sget-object v0, Lcom/sonyericsson/android/camera/util/PerfLog;->STOP_REC:Lcom/sonyericsson/android/camera/util/PerfLog;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/util/PerfLog;->begin()V
+
+    .line 9943
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    if-eqz v0, :cond_c
+
+    .line 9944
+    invoke-virtual {v0}, Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;->enableClick()V
+
+    .line 9952
+    :cond_c
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0, p1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->stopRecording(Z)Ljava/util/Optional;
+
+    move-result-object p1
+
+    .line 9953
+    invoke-virtual {p1}, Ljava/util/Optional;->isPresent()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_4d
+
+    .line 9955
+    invoke-static {}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->getInstance()Lcom/sonymobile/cameracommon/research/ResearchUtil;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastVideoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+    iget-object v1, v1, Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;->mCommonStatus:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget v1, v1, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->orientation:I
+
+    invoke-virtual {v0, v1}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->setOrientation(I)V
+
+    .line 9957
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->sendEventSettings()V
+
+    .line 9958
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonymobile/cameracommon/research/parameters/Event$Category;->SETTINGS_VIDEO:Lcom/sonymobile/cameracommon/research/parameters/Event$Category;
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->sendSemiAutoSettingValues(Lcom/sonymobile/cameracommon/research/parameters/Event$Category;)V
+
+    .line 9960
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonymobile/cameracommon/research/parameters/Event$CaptureOperation;->RECORDING:Lcom/sonymobile/cameracommon/research/parameters/Event$CaptureOperation;
+
+    .line 9962
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentRecordingStopOperation()Lcom/sonymobile/cameracommon/research/parameters/Event$StopOperation;
+
+    move-result-object v2
+
+    .line 9963
+    invoke-virtual {p1}, Ljava/util/Optional;->get()Ljava/lang/Object;
+
+    move-result-object p1
+
+    check-cast p1, Ljava/lang/Long;
+
+    invoke-virtual {p1}, Ljava/lang/Long;->intValue()I
+
+    move-result p1
+
+    const/4 v3, 0x0
+
+    .line 9960
+    invoke-virtual {v0, v1, v2, p1, v3}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->sendRecordingEvent(Lcom/sonymobile/cameracommon/research/parameters/Event$UserOperation;Lcom/sonymobile/cameracommon/research/parameters/Event$StopOperation;IZ)V
+
+    .line 9967
+    :cond_4d
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {p1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->onCaptureDone()V
+
+    .line 9969
+    sget-object p1, Lcom/sonyericsson/android/camera/util/PerfLog;->STOP_REC:Lcom/sonyericsson/android/camera/util/PerfLog;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/util/PerfLog;->end()V
+
+    return-void
+.end method
+
+.method private doStopZoom()V
+    .registers 1
+
+    return-void
+.end method
+
+.method private finishOneShot(Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;Landroid/graphics/Bitmap;)V
+    .registers 10
+
+    .line 10518
+    new-instance v6, Lcom/sonyericsson/android/camera/controller/StateMachine$OneShotResult;
+
+    iget-object v1, p1, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->uri:Landroid/net/Uri;
+
+    iget-object v2, p1, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->storeResult:Lcom/sonyericsson/cameracommon/mediasaving/MediaSavingResult;
+
+    iget-object v3, p1, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->savingRequest:Lcom/sonyericsson/cameracommon/storage/SavingRequest;
+
+    const/4 v5, 0x0
+
+    move-object v0, v6
+
+    move-object v4, p2
+
+    invoke-direct/range {v0 .. v5}, Lcom/sonyericsson/android/camera/controller/StateMachine$OneShotResult;-><init>(Landroid/net/Uri;Lcom/sonyericsson/cameracommon/mediasaving/MediaSavingResult;Lcom/sonyericsson/cameracommon/storage/SavingRequest;Landroid/graphics/Bitmap;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    .line 10520
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {p1, v6}, Lcom/sonyericsson/android/camera/CameraActivity;->finishOneShot(Lcom/sonyericsson/android/camera/controller/StateMachine$OneShotResult;)V
+
+    return-void
+.end method
+
+.method private getCameraId(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+    .registers 3
+
+    .line 10926
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$configuration$parameters$CapturingMode:[I
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->ordinal()I
+
+    move-result p1
+
+    aget p1, v0, p1
+
+    packed-switch p1, :pswitch_data_18
+
+    .line 10941
+    :pswitch_b
+    sget-object p1, Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;->BACK:Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    return-object p1
+
+    .line 10936
+    :pswitch_e
+    sget-object p1, Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;->WIDE:Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    return-object p1
+
+    .line 10929
+    :pswitch_11
+    sget-object p1, Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;->SAT:Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    return-object p1
+
+    .line 10933
+    :pswitch_14
+    sget-object p1, Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;->FRONT:Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    return-object p1
+
+    nop
+
+    :pswitch_data_18
+    .packed-switch 0x1
+        :pswitch_14
+        :pswitch_14
+        :pswitch_11
+        :pswitch_b
+        :pswitch_b
+        :pswitch_b
+        :pswitch_e
+        :pswitch_14
+        :pswitch_e
+        :pswitch_11
+    .end packed-switch
+.end method
+
+.method private getCurrentRecordingStopOperation()Lcom/sonymobile/cameracommon/research/parameters/Event$StopOperation;
+    .registers 2
+
+    .line 9931
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->isAlreadyHighTemperature()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_b
+
+    .line 9932
+    sget-object v0, Lcom/sonymobile/cameracommon/research/parameters/Event$StopOperation;->THERMAL_STOP:Lcom/sonymobile/cameracommon/research/parameters/Event$StopOperation;
+
+    return-object v0
+
+    .line 9933
+    :cond_b
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->isAlreadyBcl()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_16
+
+    .line 9934
+    sget-object v0, Lcom/sonymobile/cameracommon/research/parameters/Event$StopOperation;->LOWBATTERY_STOP:Lcom/sonymobile/cameracommon/research/parameters/Event$StopOperation;
+
+    return-object v0
+
+    .line 9936
+    :cond_16
+    sget-object v0, Lcom/sonymobile/cameracommon/research/parameters/Event$StopOperation;->USER_STOP:Lcom/sonymobile/cameracommon/research/parameters/Event$StopOperation;
+
+    return-object v0
+.end method
+
+.method private getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+    .registers 4
+
+    .line 11453
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/LaunchCondition;->isOneShot()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_f
+
+    .line 11454
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/LaunchCondition;->getStorageTypeForOneshot()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v0
+
+    return-object v0
+
+    .line 11456
+    :cond_f
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->DESTINATION_TO_SAVE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 11457
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/DestinationToSave;
+
+    if-nez v0, :cond_2b
+
+    .line 11459
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/LaunchCondition;->getCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    .line 11460
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->DESTINATION_TO_SAVE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v1, v0, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/DestinationToSave;
+
+    .line 11463
+    :cond_2b
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/DestinationToSave;->getType()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method private static getEventParam([Ljava/lang/Object;ILjava/lang/Class;Ljava/lang/Object;)Ljava/lang/Object;
+    .registers 5
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "<T:",
+            "Ljava/lang/Object;",
+            ">([",
+            "Ljava/lang/Object;",
+            "I",
+            "Ljava/lang/Class<",
+            "TT;>;TT;)TT;"
+        }
+    .end annotation
+
+    if-eqz p0, :cond_10
+
+    .line 11694
+    array-length v0, p0
+
+    if-le v0, p1, :cond_10
+
+    aget-object v0, p0, p1
+
+    .line 11696
+    invoke-virtual {p2, v0}, Ljava/lang/Class;->isInstance(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_10
+
+    .line 11697
+    aget-object p0, p0, p1
+
+    return-object p0
+
+    :cond_10
+    if-nez p0, :cond_1c
+
+    const-string p0, "Specified parameter is empty."
+
+    .line 11700
+    filled-new-array {p0}, [Ljava/lang/String;
+
+    move-result-object p0
+
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    goto :goto_3e
+
+    .line 11702
+    :cond_1c
+    array-length v0, p0
+
+    if-gt v0, p1, :cond_29
+
+    const-string p0, "Specified parameter count is too short"
+
+    .line 11703
+    filled-new-array {p0}, [Ljava/lang/String;
+
+    move-result-object p0
+
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    goto :goto_3e
+
+    .line 11704
+    :cond_29
+    aget-object p0, p0, p1
+
+    invoke-virtual {p0}, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+
+    move-result-object p0
+
+    invoke-virtual {p0, p2}, Ljava/lang/Class;->isInstance(Ljava/lang/Object;)Z
+
+    move-result p0
+
+    if-nez p0, :cond_3e
+
+    const-string p0, "Specified parameter type is missmatch."
+
+    .line 11705
+    filled-new-array {p0}, [Ljava/lang/String;
+
+    move-result-object p0
+
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_3e
+    :goto_3e
+    return-object p3
+.end method
+
+.method private getNextSessionTypeForCapture()Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+    .registers 2
+
+    .line 4357
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isStillHDROn()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_b
+
+    .line 4358
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;->SESSION_TYPE_HDR:Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+    return-object v0
+
+    .line 4359
+    :cond_b
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isNightPortrait()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_16
+
+    .line 4360
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;->SESSION_TYPE_NIGHT_PORTRAIT:Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+    return-object v0
+
+    .line 4361
+    :cond_16
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isNormalLight()Z
+
+    move-result v0
+
+    if-nez v0, :cond_21
+
+    .line 4362
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;->SESSION_TYPE_LOW_LIGHT:Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+    return-object v0
+
+    .line 4363
+    :cond_21
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isWalkingCondition()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_2c
+
+    .line 4364
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;->SESSION_TYPE_WALKING:Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+    return-object v0
+
+    .line 4366
+    :cond_2c
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;->SESSION_TYPE_NORMAL:Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+    return-object v0
+.end method
+
+.method private getOrientation()I
+    .registers 7
+
+    .line 10000
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->getSensorOrientationDegree()I
+
+    move-result v0
+
+    .line 10001
+    invoke-static {v0}, Lcom/sonyericsson/cameracommon/utility/RotationUtil;->getNormalizedRotation(I)I
+
+    move-result v0
+
+    .line 10003
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->getCameraInfo()Lcom/sonyericsson/android/camera/device/CameraInfo;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_82
+
+    .line 10004
+    iget-object v2, v1, Lcom/sonyericsson/android/camera/device/CameraInfo;->facing:Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    if-nez v2, :cond_17
+
+    goto :goto_82
+
+    .line 10007
+    :cond_17
+    sget-boolean v2, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v2, :cond_61
+
+    const/4 v2, 0x1
+
+    .line 10008
+    new-array v3, v2, [Ljava/lang/String;
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "ORIENTATION:sensorOrientation:"
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v4
+
+    const/4 v5, 0x0
+
+    aput-object v4, v3, v5
+
+    invoke-static {v3}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    const/4 v3, 0x2
+
+    .line 10009
+    new-array v3, v3, [Ljava/lang/String;
+
+    const-string v4, "ORIENTATION:cameraOrientation"
+
+    aput-object v4, v3, v5
+
+    iget v4, v1, Lcom/sonyericsson/android/camera/device/CameraInfo;->orientation:I
+
+    .line 10010
+    invoke-static {v4}, Lcom/sonyericsson/cameracommon/utility/RotationUtil;->orientationToString(I)Ljava/lang/String;
+
+    move-result-object v4
+
+    aput-object v4, v3, v2
+
+    .line 10009
+    invoke-static {v3}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10011
+    new-array v2, v2, [Ljava/lang/String;
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "ORIENTATION:cameraFacing:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v4, v1, Lcom/sonyericsson/android/camera/device/CameraInfo;->facing:Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    aput-object v3, v2, v5
+
+    invoke-static {v2}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10019
+    :cond_61
+    sget-object v2, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$device$CameraInfo$CameraId:[I
+
+    iget-object v3, v1, Lcom/sonyericsson/android/camera/device/CameraInfo;->facing:Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    invoke-virtual {v3}, Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;->ordinal()I
+
+    move-result v3
+
+    aget v2, v2, v3
+
+    packed-switch v2, :pswitch_data_86
+
+    .line 10028
+    iget v1, v1, Lcom/sonyericsson/android/camera/device/CameraInfo;->orientation:I
+
+    add-int/2addr v1, v0
+
+    rem-int/lit16 v1, v1, 0x168
+
+    goto :goto_81
+
+    .line 10025
+    :pswitch_74
+    iget v1, v1, Lcom/sonyericsson/android/camera/device/CameraInfo;->orientation:I
+
+    add-int/lit16 v1, v1, 0x168
+
+    sub-int/2addr v1, v0
+
+    rem-int/lit16 v1, v1, 0x168
+
+    goto :goto_81
+
+    .line 10021
+    :pswitch_7c
+    iget v1, v1, Lcom/sonyericsson/android/camera/device/CameraInfo;->orientation:I
+
+    add-int/2addr v1, v0
+
+    rem-int/lit16 v1, v1, 0x168
+
+    :goto_81
+    return v1
+
+    :cond_82
+    :goto_82
+    const/16 v0, 0x5a
+
+    return v0
+
+    nop
+
+    :pswitch_data_86
+    .packed-switch 0x1
+        :pswitch_7c
+        :pswitch_74
+        :pswitch_74
+    .end packed-switch
+.end method
+
+.method private getSensorOrientation()I
+    .registers 6
+
+    .line 10850
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->getLastDetectedOrientation()Lcom/sonyericsson/android/camera/CameraActivity$LayoutOrientation;
+
+    move-result-object v0
+
+    .line 10852
+    sget-object v1, Lcom/sonyericsson/android/camera/CameraActivity$LayoutOrientation;->Portrait:Lcom/sonyericsson/android/camera/CameraActivity$LayoutOrientation;
+
+    const/4 v2, 0x1
+
+    if-ne v0, v1, :cond_d
+
+    move v0, v2
+
+    goto :goto_e
+
+    :cond_d
+    const/4 v0, 0x2
+
+    .line 10858
+    :goto_e
+    sget-boolean v1, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v1, :cond_2b
+
+    new-array v1, v2, [Ljava/lang/String;
+
+    const/4 v2, 0x0
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "getOrientation: sensor orientation:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    aput-object v3, v1, v2
+
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_2b
+    return v0
+.end method
+
+.method private hasRemainSavingRequest()Z
+    .registers 2
+
+    .line 11354
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->getRemainPrevSavingRequestCount()I
+
+    move-result v0
+
+    if-lez v0, :cond_a
+
+    const/4 v0, 0x1
+
+    goto :goto_b
+
+    :cond_a
+    const/4 v0, 0x0
+
+    :goto_b
+    return v0
+.end method
+
+.method private initGeoTagManager()V
+    .registers 5
+
+    .line 11363
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->getGeoTagManager()Lcom/sonyericsson/cameracommon/mediasaving/location/GeotagManager;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_3f
+
+    .line 11367
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->getGeoTagManager()Lcom/sonyericsson/cameracommon/mediasaving/location/GeotagManager;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/cameracommon/mediasaving/location/GeotagManager;->isGeotagPermissionGranted()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_25
+
+    .line 11368
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/Geotag;->ON:Lcom/sonyericsson/android/camera/configuration/parameters/Geotag;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->set(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+
+    .line 11369
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->getGeoTagManager()Lcom/sonyericsson/cameracommon/mediasaving/location/GeotagManager;
+
+    move-result-object v0
+
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/cameracommon/mediasaving/location/GeotagManager;->setIsGeotagPermissionGranted(Z)V
+
+    .line 11372
+    :cond_25
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->getGeoTagManager()Lcom/sonyericsson/cameracommon/mediasaving/location/GeotagManager;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    .line 11373
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/CameraActivity;->isAllowToUseLocation()Z
+
+    move-result v3
+
+    .line 11372
+    invoke-virtual {v0, v1, v2, v3}, Lcom/sonyericsson/cameracommon/mediasaving/location/GeotagManager;->initGeotag(Landroid/app/Activity;Lcom/sonyericsson/android/camera/setting/UserSettings;Z)Z
+
+    .line 11374
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->getGeoTagManager()Lcom/sonyericsson/cameracommon/mediasaving/location/GeotagManager;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/cameracommon/mediasaving/location/GeotagManager;->notifyStatus()V
+
+    :cond_3f
+    return-void
+.end method
+
+.method private initSideSenseSetting()V
+    .registers 3
+
+    const/4 v0, 0x1
+
+    .line 11379
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/SettingUtil;->isSideSenseEnabled(Z)Z
+
+    move-result v0
+
+    if-nez v0, :cond_e
+
+    .line 11380
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/SideSense;->OFF:Lcom/sonyericsson/android/camera/configuration/parameters/SideSense;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->set(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+
+    :cond_e
+    return-void
+.end method
+
+.method private isAllSnapshotCompleted()Z
+    .registers 2
+
+    .line 843
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->getRemainSavingPhotoRequestCount()I
+
+    move-result v0
+
+    if-nez v0, :cond_a
+
+    const/4 v0, 0x1
+
+    goto :goto_b
+
+    :cond_a
+    const/4 v0, 0x0
+
+    :goto_b
+    return v0
+.end method
+
+.method private isBokehMonitoringNeeded()Z
+    .registers 2
+
+    .line 11606
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCameraId()Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->isBokehSupported(Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_c
+
+    const/4 v0, 0x1
+
+    return v0
+
+    :cond_c
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method private isBurstByCameraKeyEnabled()Z
+    .registers 3
+
+    .line 10994
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->CAMERA_KEY:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/CameraKey;->BURST_SHOT:Lcom/sonyericsson/android/camera/configuration/parameters/CameraKey;
+
+    if-ne v0, v1, :cond_e
+
+    const/4 v0, 0x1
+
+    goto :goto_f
+
+    :cond_e
+    const/4 v0, 0x0
+
+    :goto_f
+    return v0
+.end method
+
+.method private isCurrentStorageExternal()Z
+    .registers 3
+
+    .line 11467
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v0
+
+    .line 11468
+    sget-object v1, Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;->EXTERNAL_CARD:Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    if-ne v0, v1, :cond_a
+
+    const/4 v0, 0x1
+
+    goto :goto_b
+
+    :cond_a
+    const/4 v0, 0x0
+
+    :goto_b
+    return v0
+.end method
+
+.method private isEnoughStorageSizeAvailableForOneShotVideo()Z
+    .registers 10
+
+    .line 11184
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/LaunchCondition;->isOneShotVideo()Z
+
+    move-result v0
+
+    const/4 v1, 0x1
+
+    if-nez v0, :cond_a
+
+    return v1
+
+    .line 11188
+    :cond_a
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 11189
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_HDR:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;
+
+    .line 11190
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_STABILIZER:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 11191
+    invoke-interface {v0, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/VideoStabilizer;
+
+    .line 11192
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v0
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    .line 11193
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v2
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-ne v2, v3, :cond_43
+
+    .line 11194
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->STANDARD_SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    if-ne v0, v2, :cond_43
+
+    .line 11195
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->getVideoSize()Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 11197
+    :cond_43
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->createRecordingProfile()Lcom/sonyericsson/android/camera/recorder/RecordingProfile;
+
+    move-result-object v0
+
+    .line 11198
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v4
+
+    invoke-interface {v2, v3, v4, v0}, Lcom/sonyericsson/android/camera/setting/UserSettings;->getMaxVideoSize(Lcom/sonyericsson/cameracommon/storage/Storage;Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;Lcom/sonyericsson/android/camera/recorder/RecordingProfile;)Lcom/sonyericsson/android/camera/util/MaxVideoSize;
+
+    move-result-object v2
+
+    .line 11199
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/util/MaxVideoSize;->getMaxDuration()I
+
+    move-result v3
+
+    const/4 v4, 0x0
+
+    if-lez v3, :cond_65
+
+    .line 11200
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/util/MaxVideoSize;->getMaxDuration()I
+
+    move-result v0
+
+    const/16 v2, 0x3e8
+
+    if-lt v0, v2, :cond_63
+
+    goto :goto_64
+
+    :cond_63
+    move v1, v4
+
+    :goto_64
+    return v1
+
+    .line 11201
+    :cond_65
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/util/MaxVideoSize;->getMaxFileSize()J
+
+    move-result-wide v5
+
+    const-wide/16 v7, 0x0
+
+    cmp-long v3, v5, v7
+
+    if-lez v3, :cond_81
+
+    .line 11202
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/util/MaxVideoSize;->getMaxFileSize()J
+
+    move-result-wide v2
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/recorder/RecordingProfile;->getMinFileSize()J
+
+    move-result-wide v5
+
+    const-wide/16 v7, 0x400
+
+    mul-long/2addr v5, v7
+
+    cmp-long v0, v2, v5
+
+    if-ltz v0, :cond_7f
+
+    goto :goto_80
+
+    :cond_7f
+    move v1, v4
+
+    :goto_80
+    return v1
+
+    :cond_81
+    return v1
+.end method
+
+.method private isFusionMonitoringNeeded()Z
+    .registers 7
+
+    .line 11588
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/FusionMode;->getOptions(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)[Lcom/sonyericsson/android/camera/configuration/parameters/FusionMode;
+
+    move-result-object v0
+
+    .line 11589
+    array-length v1, v0
+
+    const/4 v2, 0x0
+
+    move v3, v2
+
+    :goto_b
+    if-ge v3, v1, :cond_18
+
+    aget-object v4, v0, v3
+
+    .line 11590
+    sget-object v5, Lcom/sonyericsson/android/camera/configuration/parameters/FusionMode;->OFF:Lcom/sonyericsson/android/camera/configuration/parameters/FusionMode;
+
+    if-eq v4, v5, :cond_15
+
+    const/4 v0, 0x1
+
+    return v0
+
+    :cond_15
+    add-int/lit8 v3, v3, 0x1
+
+    goto :goto_b
+
+    :cond_18
+    return v2
+.end method
+
+.method private isHighQualityBurstAvailable()Z
+    .registers 2
+
+    .line 10227
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isBurstAvaliable()Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method private isLazyInitializationRunning()Z
+    .registers 2
+
+    .line 10999
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->isLazyInitializationRunning()Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method private isMultiFrameSupportedForWalking()Z
+    .registers 3
+
+    .line 4342
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    if-eqz v0, :cond_10
+
+    .line 4343
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v0
+
+    const v1, 0x7f050009
+
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getBoolean(I)Z
+
+    move-result v0
+
+    return v0
+
+    :cond_10
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method private isNeedRepairRequestId(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)Z
+    .registers 5
+
+    .line 11563
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->getRequestId()I
+
+    move-result v0
+
+    const/4 v1, -0x1
+
+    if-ne v0, v1, :cond_16
+
+    .line 11565
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->getCaptureIdForPredictiveCapture()I
+
+    move-result v0
+
+    const/4 v2, 0x1
+
+    if-ne v0, v1, :cond_f
+
+    return v2
+
+    .line 11570
+    :cond_f
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->isPredictiveCaptureCover()Z
+
+    move-result p1
+
+    if-eqz p1, :cond_16
+
+    return v2
+
+    :cond_16
+    const/4 p1, 0x0
+
+    return p1
+.end method
+
+.method private isPhotoSelfTimerEnabled()Z
+    .registers 3
+
+    .line 10990
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/view/ViewFinder;->getPhotoSelfTimerSetting()Lcom/sonyericsson/android/camera/configuration/parameters/SelfTimer;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/SelfTimer;->OFF:Lcom/sonyericsson/android/camera/configuration/parameters/SelfTimer;
+
+    if-eq v0, v1, :cond_c
+
+    const/4 v0, 0x1
+
+    goto :goto_d
+
+    :cond_c
+    const/4 v0, 0x0
+
+    :goto_d
+    return v0
+.end method
+
+.method private isSmoothZoomEnabled()Z
+    .registers 2
+
+    .line 10982
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isCameraFront()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_a
+
+    const/4 v0, 0x0
+
+    return v0
+
+    :cond_a
+    const/4 v0, 0x1
+
+    return v0
+.end method
+
+.method private isStorageFull(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+    .registers 3
+
+    .line 11424
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    invoke-interface {v0, p1}, Lcom/sonyericsson/cameracommon/storage/Storage;->getCurrentState(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Lcom/sonyericsson/cameracommon/storage/Storage$StorageState;
+
+    move-result-object p1
+
+    .line 11425
+    sget-object v0, Lcom/sonyericsson/cameracommon/storage/Storage$StorageState;->FULL:Lcom/sonyericsson/cameracommon/storage/Storage$StorageState;
+
+    if-ne p1, v0, :cond_c
+
+    const/4 p1, 0x1
+
+    goto :goto_d
+
+    :cond_c
+    const/4 p1, 0x0
+
+    :goto_d
+    return p1
+.end method
+
+.method private isStorageReady()Z
+    .registers 2
+
+    .line 9449
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    invoke-interface {v0}, Lcom/sonyericsson/cameracommon/storage/Storage;->isStorageActivated()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_14
+
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v0
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isStorageWritable(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_14
+
+    const/4 v0, 0x1
+
+    return v0
+
+    .line 9452
+    :cond_14
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_21
+
+    const-string v0, "Storage is not ready"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_21
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method private isStorageWritable(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+    .registers 3
+    .param p1    # Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+        .annotation build Landroidx/annotation/NonNull;
+        .end annotation
+    .end param
+
+    .line 11416
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    invoke-interface {v0, p1}, Lcom/sonyericsson/cameracommon/storage/Storage;->getCurrentState(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Lcom/sonyericsson/cameracommon/storage/Storage$StorageState;
+
+    move-result-object p1
+
+    if-eqz p1, :cond_10
+
+    .line 11417
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/storage/Storage$StorageState;->isWritable()Z
+
+    move-result p1
+
+    if-eqz p1, :cond_10
+
+    const/4 p1, 0x1
+
+    goto :goto_11
+
+    :cond_10
+    const/4 p1, 0x0
+
+    :goto_11
+    return p1
+.end method
+
+.method private isTouchAeEnabled()Z
+    .registers 4
+
+    .line 9374
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCameraId()Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->isTouchAeSupported(Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;)Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-nez v0, :cond_c
+
+    return v1
+
+    .line 9378
+    :cond_c
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->TOUCH_CAPTURE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/parameters/TouchCapture;->ON:Lcom/sonyericsson/android/camera/configuration/parameters/TouchCapture;
+
+    if-ne v0, v2, :cond_19
+
+    return v1
+
+    .line 9382
+    :cond_19
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SCENE_RECOGNITION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-eq v0, v2, :cond_31
+
+    .line 9383
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SUPERIOR_FRONT:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-eq v0, v2, :cond_31
+
+    .line 9384
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->NORMAL:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-ne v0, v2, :cond_3f
+
+    .line 9385
+    :cond_31
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->TOUCH_INTENTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/parameters/TouchIntention;->FOCUS_AND_EXPOSURE:Lcom/sonyericsson/android/camera/configuration/parameters/TouchIntention;
+
+    if-ne v0, v2, :cond_3f
+
+    const/4 v0, 0x1
+
+    return v0
+
+    :cond_3f
+    return v1
+.end method
+
+.method private isVideo()Z
+    .registers 3
+
+    .line 699
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->getType()I
+
+    move-result v0
+
+    const/4 v1, 0x2
+
+    if-ne v0, v1, :cond_d
+
+    const/4 v0, 0x1
+
+    goto :goto_e
+
+    :cond_d
+    const/4 v0, 0x0
+
+    :goto_e
+    return v0
+.end method
+
+.method private moveToCameraNotAvailable()V
+    .registers 4
+
+    const-string v0, ".startFastCapture():[Camera not available]"
+
+    .line 10864
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->e([Ljava/lang/String;)V
+
+    .line 10866
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;->ERROR_IN_USE_BY_ANOTHER_APPLICATION:Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;
+
+    const/4 v2, 0x0
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    invoke-interface {v0, v1, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->showMessageDialog(Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;[Ljava/lang/Object;)V
+
+    .line 10868
+    invoke-static {}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->getInstance()Lcom/sonymobile/cameracommon/research/ResearchUtil;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->sendCameraNotAvailableEvent()V
+
+    return-void
+.end method
+
+.method private notifyCoolingUltraLow(Z)V
+    .registers 4
+
+    .line 11072
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    if-eqz v0, :cond_7
+
+    .line 11073
+    invoke-interface {v0, p1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->onNotifyCoolingUltraLow(Z)V
+
+    .line 11076
+    :cond_7
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->setUltraLowPower()V
+
+    .line 11077
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    if-eqz p1, :cond_28
+
+    invoke-interface {p1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->isSetupHeadupDisplayInvoked()Z
+
+    move-result p1
+
+    if-eqz p1, :cond_28
+
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    .line 11078
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isObjectTrackingRunning()Z
+
+    move-result p1
+
+    if-eqz p1, :cond_28
+
+    .line 11079
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_FOCUS_POSITION_RELEASED_EXCEPT_FACE:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v1, 0x0
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-interface {p1, v0, v1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 11083
+    :cond_28
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mObjectTracking:Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;->stop()V
+
+    .line 11085
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mGestureShutter:Lcom/sonyericsson/android/camera/controller/GestureShutter;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/controller/GestureShutter;->handlePreviewStopped()V
+
+    return-void
+.end method
+
+.method private varargs notifyDelayedEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)Lcom/sonyericsson/android/camera/controller/StateMachine$NotifyDelayedEventTask;
+    .registers 6
+
+    .line 2853
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$NotifyDelayedEventTask;
+
+    const/4 v1, 0x0
+
+    invoke-direct {v0, p0, p1, p2, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$NotifyDelayedEventTask;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    .line 2854
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    const-wide/16 v1, 0x64
+
+    invoke-virtual {p1, v0, v1, v2}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
+
+    return-object v0
+.end method
+
+.method private onOneShotStoreCompleted(Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;)V
+    .registers 3
+
+    .line 10508
+    iget-object v0, p1, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->savingRequest:Lcom/sonyericsson/cameracommon/storage/SavingRequest;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->getExtraOutput()Landroid/net/Uri;
+
+    move-result-object v0
+
+    if-nez v0, :cond_c
+
+    .line 10510
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->requestLoadStoredPicture(Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;)V
+
+    goto :goto_10
+
+    :cond_c
+    const/4 v0, 0x0
+
+    .line 10513
+    invoke-direct {p0, p1, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->finishOneShot(Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;Landroid/graphics/Bitmap;)V
+
+    :goto_10
+    return-void
+.end method
+
+.method private onPredictiveCaptureStoreComplete(Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;)V
+    .registers 4
+
+    .line 10879
+    sget-object v0, Lcom/sonyericsson/android/camera/util/PerfLog;->BURST_STORE_COMPLETE:Lcom/sonyericsson/android/camera/util/PerfLog;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/util/PerfLog;->transit()V
+
+    .line 10880
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPredictiveCaptureStoreInfo:Lcom/sonyericsson/cameracommon/contentsview/PredictiveCaptureStoreInfo;
+
+    if-eqz v0, :cond_1e
+
+    .line 10881
+    iget-object v0, p1, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->savingRequest:Lcom/sonyericsson/cameracommon/storage/SavingRequest;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->getSaveTimeForPredictiveCapture()Ljava/lang/String;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPredictiveCaptureStoreInfo:Lcom/sonyericsson/cameracommon/contentsview/PredictiveCaptureStoreInfo;
+
+    .line 10882
+    invoke-virtual {v1}, Lcom/sonyericsson/cameracommon/contentsview/PredictiveCaptureStoreInfo;->getCaptureTime()Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 10881
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_1e
+
+    const/4 v0, 0x0
+
+    .line 10883
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPredictiveCaptureStoreInfo:Lcom/sonyericsson/cameracommon/contentsview/PredictiveCaptureStoreInfo;
+
+    .line 10887
+    :cond_1e
+    new-instance v0, Landroid/content/Intent;
+
+    const-string v1, "com.sonyericsson.android.camera.intent.action.PREDICTIVE_CAPTURE_SAVE_COMPLETED"
+
+    invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+
+    const-string v1, "com.sonyericsson.android.camera.extra.PREDICTIVE_CAPTURE_DIRECTORY_PATH"
+
+    .line 10889
+    iget-object p1, p1, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->savingRequest:Lcom/sonyericsson/cameracommon/storage/SavingRequest;
+
+    .line 10891
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->getFilePath()Ljava/lang/String;
+
+    move-result-object p1
+
+    .line 10890
+    invoke-static {p1}, Lcom/sonyericsson/cameracommon/storage/PredictiveCapturePathBuilder;->getPredictiveCaptureGroupIdPath(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object p1
+
+    .line 10889
+    invoke-virtual {v0, v1, p1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
+
+    .line 10892
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {p1, v0}, Lcom/sonyericsson/android/camera/CameraActivity;->sendBroadcast(Landroid/content/Intent;)V
+
+    return-void
+.end method
+
+.method private onRecordingError(Ljava/lang/RuntimeException;)V
+    .registers 5
+
+    const-string v0, "Start recording failed."
+
+    .line 9686
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/util/CamLog;->w(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    .line 9687
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    if-eqz p1, :cond_c
+
+    .line 9688
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;->enableClick()V
+
+    .line 9691
+    :cond_c
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isCurrentStorageExternal()Z
+
+    move-result p1
+
+    if-eqz p1, :cond_2f
+
+    .line 9692
+    sget-object p1, Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;->EXTERNAL_CARD:Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isStorageWritable(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+
+    move-result p1
+
+    if-nez p1, :cond_2f
+
+    .line 9693
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;->COULD_NOT_START_RECORDING:Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;
+
+    const/4 v1, 0x0
+
+    new-array v2, v1, [Ljava/lang/Object;
+
+    invoke-interface {p1, v0, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->showMessageDialog(Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;[Ljava/lang/Object;)V
+
+    .line 9694
+    new-instance p1, Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoReady;
+
+    invoke-direct {p1, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoReady;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    new-array v0, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, p1, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    return-void
+
+    :cond_2f
+    return-void
+.end method
+
+.method private pauseAudioPlaybackForRecord()V
+    .registers 2
+
+    .line 11095
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->pauseAudioPlayback()V
+
+    return-void
+.end method
+
+.method private varargs pauseVideoRecording([Ljava/lang/Object;)V
+    .registers 5
+
+    const/4 v0, 0x0
+
+    .line 11345
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->doStopRecording(Z)V
+
+    .line 11346
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePause;
+
+    aget-object v0, p1, v0
+
+    check-cast v0, Ljava/lang/Boolean;
+
+    invoke-virtual {v0}, Ljava/lang/Boolean;->booleanValue()Z
+
+    move-result v0
+
+    const/4 v2, 0x0
+
+    invoke-direct {v1, p0, v0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePause;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;ZLcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    invoke-direct {p0, v1, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public static final preload()V
+    .registers 0
+
+    return-void
+.end method
+
+.method private preparePositionConverter()V
+    .registers 7
+
+    .line 9084
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getPreviewRect()Landroid/graphics/Rect;
+
+    move-result-object v0
+
+    .line 9085
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    .line 9087
+    invoke-virtual {v0}, Landroid/graphics/Rect;->width()I
+
+    move-result v2
+
+    int-to-float v2, v2
+
+    invoke-virtual {v0}, Landroid/graphics/Rect;->height()I
+
+    move-result v3
+
+    int-to-float v3, v3
+
+    div-float/2addr v2, v3
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    .line 9088
+    invoke-virtual {v3}, Lcom/sonyericsson/android/camera/CameraActivity;->getScreenAspect()Lcom/sonyericsson/android/camera/view/baselayout/LayoutDependencyResolver$ScreenAspect;
+
+    move-result-object v3
+
+    .line 9085
+    invoke-static {v1, v2, v3}, Lcom/sonyericsson/android/camera/view/baselayout/LayoutDependencyResolver;->getSurfaceViewRect(Landroid/content/Context;FLcom/sonyericsson/android/camera/view/baselayout/LayoutDependencyResolver$ScreenAspect;)Landroid/graphics/Rect;
+
+    move-result-object v1
+
+    .line 9089
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCameraId()Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    move-result-object v2
+
+    invoke-static {v2}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->getActiveArraySize(Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;)Landroid/graphics/Rect;
+
+    move-result-object v2
+
+    .line 9091
+    invoke-static {}, Lcom/sonyericsson/cameracommon/utility/PositionConverter;->getInstance()Lcom/sonyericsson/cameracommon/utility/PositionConverter;
+
+    move-result-object v3
+
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v5, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->CAPTURING_MODE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 9092
+    invoke-interface {v4, v5}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v4
+
+    check-cast v4, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    invoke-virtual {v4}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isFront()Z
+
+    move-result v4
+
+    .line 9091
+    invoke-virtual {v3, v4, v1, v0, v2}, Lcom/sonyericsson/cameracommon/utility/PositionConverter;->init(ZLandroid/graphics/Rect;Landroid/graphics/Rect;Landroid/graphics/Rect;)V
+
+    .line 9094
+    invoke-static {}, Lcom/sonyericsson/cameracommon/utility/PositionConverter;->getInstance()Lcom/sonyericsson/cameracommon/utility/PositionConverter;
+
+    move-result-object v2
+
+    .line 9095
+    invoke-virtual {v1}, Landroid/graphics/Rect;->width()I
+
+    move-result v3
+
+    .line 9096
+    invoke-virtual {v1}, Landroid/graphics/Rect;->height()I
+
+    move-result v1
+
+    .line 9094
+    invoke-virtual {v2, v3, v1}, Lcom/sonyericsson/cameracommon/utility/PositionConverter;->setSurfaceSize(II)V
+
+    .line 9097
+    invoke-static {}, Lcom/sonyericsson/cameracommon/utility/PositionConverter;->getInstance()Lcom/sonyericsson/cameracommon/utility/PositionConverter;
+
+    move-result-object v1
+
+    .line 9098
+    invoke-virtual {v0}, Landroid/graphics/Rect;->width()I
+
+    move-result v2
+
+    .line 9099
+    invoke-virtual {v0}, Landroid/graphics/Rect;->height()I
+
+    move-result v0
+
+    .line 9097
+    invoke-virtual {v1, v2, v0}, Lcom/sonyericsson/cameracommon/utility/PositionConverter;->setPreviewSize(II)V
+
+    return-void
+.end method
+
+.method private prepareRecording(Z)V
+    .registers 15
+
+    .line 9573
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 9574
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_HDR:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;
+
+    .line 9575
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_STABILIZER:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 9576
+    invoke-interface {v2, v3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v2
+
+    check-cast v2, Lcom/sonyericsson/android/camera/configuration/parameters/VideoStabilizer;
+
+    .line 9577
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v2, v3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v2
+
+    check-cast v2, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    .line 9578
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v3
+
+    sget-object v4, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-ne v3, v4, :cond_38
+
+    .line 9579
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->STANDARD_SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    if-ne v2, v3, :cond_38
+
+    .line 9580
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->getVideoSize()Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    move-result-object v0
+
+    .line 9582
+    :cond_38
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->createRecordingProfile()Lcom/sonyericsson/android/camera/recorder/RecordingProfile;
+
+    move-result-object v7
+
+    .line 9584
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastPhotoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+    if-eqz v3, :cond_42
+
+    if-nez p1, :cond_48
+
+    .line 9585
+    :cond_42
+    invoke-direct {p0, p1, v7}, Lcom/sonyericsson/android/camera/controller/StateMachine;->createVideoSavingRequest(ZLcom/sonyericsson/android/camera/recorder/RecordingProfile;)Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+    move-result-object p1
+
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastVideoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+    .line 9590
+    :cond_48
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v3}, Lcom/sonyericsson/android/camera/CameraActivity;->getOrientation()I
+
+    move-result v3
+
+    invoke-interface {p1, v3}, Lcom/sonyericsson/android/camera/view/ViewFinder;->setRecordingOrientation(I)V
+
+    .line 9593
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastVideoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+    const/4 v9, 0x1
+
+    const/4 v10, 0x0
+
+    if-eqz p1, :cond_e6
+
+    .line 9597
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object p1
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-ne p1, v3, :cond_63
+
+    move p1, v10
+
+    goto :goto_6a
+
+    .line 9600
+    :cond_63
+    sget-object p1, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->MMS:Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    if-ne v0, p1, :cond_69
+
+    move p1, v9
+
+    goto :goto_6a
+
+    :cond_69
+    move p1, v10
+
+    :goto_6a
+    if-nez p1, :cond_77
+
+    .line 9603
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    invoke-interface {p1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->isLimitForSizeOrDuration()Z
+
+    move-result p1
+
+    if-eqz p1, :cond_75
+
+    goto :goto_77
+
+    :cond_75
+    move p1, v10
+
+    goto :goto_78
+
+    :cond_77
+    :goto_77
+    move p1, v9
+
+    :goto_78
+    if-nez p1, :cond_88
+
+    .line 9605
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->CAPTURING_MODE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 9606
+    invoke-interface {v0, v3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-eq v0, v3, :cond_88
+
+    move v0, v9
+
+    goto :goto_89
+
+    :cond_88
+    move v0, v10
+
+    .line 9609
+    :goto_89
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v4, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_REQUEST_PREPARE_RECORDING_INDICATOR:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v5, 0x4
+
+    new-array v5, v5, [Ljava/lang/Object;
+
+    iget-object v6, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastVideoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+    iget-object v6, v6, Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;->mVideoStatus:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusVideo;
+
+    iget-wide v11, v6, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusVideo;->maxDurationMills:J
+
+    long-to-int v6, v11
+
+    .line 9611
+    invoke-static {v6}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v6
+
+    aput-object v6, v5, v10
+
+    .line 9612
+    invoke-static {p1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p1
+
+    aput-object p1, v5, v9
+
+    const/4 p1, 0x2
+
+    .line 9613
+    invoke-static {v0}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object v0
+
+    aput-object v0, v5, p1
+
+    const/4 p1, 0x3
+
+    aput-object v1, v5, p1
+
+    .line 9609
+    invoke-interface {v3, v4, v5}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 9620
+    :try_start_b0
+    sget-object p1, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$configuration$parameters$SlowMotion:[I
+
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->ordinal()I
+
+    move-result v0
+
+    aget p1, p1, v0
+
+    packed-switch p1, :pswitch_data_f6
+
+    .line 9628
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    goto :goto_ca
+
+    .line 9623
+    :pswitch_be
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastVideoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+    .line 9624
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->shouldPlayShutterSound()Z
+
+    move-result v1
+
+    invoke-virtual {p1, v0, v1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->updateRecorder(Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;Z)V
+
+    goto :goto_e7
+
+    .line 9629
+    :goto_ca
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v0
+
+    const/16 v1, 0xa
+
+    invoke-interface {p1, v0, v1}, Lcom/sonyericsson/cameracommon/storage/Storage;->createNotifier(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;I)Lcom/sonyericsson/cameracommon/storage/Storage$StorageWriteNotifier;
+
+    move-result-object v8
+
+    .line 9631
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastVideoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+    iget-object v5, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mOnSuperSlowRecordingFinishedListener:Lcom/sonyericsson/android/camera/recorder/superslowrecorder/OnSuperSlowRecordingFinishedListener;
+
+    .line 9634
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->shouldPlayShutterSound()Z
+
+    move-result v6
+
+    .line 9632
+    invoke-virtual/range {v3 .. v8}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->prepareRecorder(Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;Lcom/sonyericsson/android/camera/recorder/superslowrecorder/OnSuperSlowRecordingFinishedListener;ZLcom/sonyericsson/android/camera/recorder/RecordingProfile;Lcom/sonyericsson/cameracommon/storage/Storage$StorageWriteNotifier;)V
+    :try_end_e1
+    .catch Ljava/lang/RuntimeException; {:try_start_b0 .. :try_end_e1} :catch_e2
+
+    goto :goto_e7
+
+    :catch_e2
+    move-exception p1
+
+    .line 9641
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->onRecordingError(Ljava/lang/RuntimeException;)V
+
+    :cond_e6
+    move v9, v10
+
+    :goto_e7
+    if-nez v9, :cond_f4
+
+    .line 9647
+    new-instance p1, Lcom/sonyericsson/android/camera/controller/StateMachine$StateWarning;
+
+    const/4 v0, 0x0
+
+    invoke-direct {p1, p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateWarning;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array v0, v10, [Ljava/lang/Object;
+
+    invoke-direct {p0, p1, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    :cond_f4
+    return-void
+
+    nop
+
+    :pswitch_data_f6
+    .packed-switch 0x2
+        :pswitch_be
+        :pswitch_be
+    .end packed-switch
+.end method
+
+.method private prepareZoom()V
+    .registers 1
+
+    return-void
+.end method
+
+.method private publishCameraStatus()V
+    .registers 6
+
+    .line 1938
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    .line 1939
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->getParameters()Lcom/sonyericsson/android/camera/device/CameraParameters;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_1a4
+
+    .line 1941
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->CAPTURING_MODE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 1942
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    .line 1943
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->getCameraId()Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    move-result-object v1
+
+    .line 1944
+    new-instance v2, Lcom/sonyericsson/cameracommon/status/EachCameraStatusPublisher;
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-direct {v2, v3, v1}, Lcom/sonyericsson/cameracommon/status/EachCameraStatusPublisher;-><init>(Landroid/content/Context;Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;)V
+
+    .line 1946
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isVideo()Z
+
+    move-result v3
+
+    invoke-virtual {v2, v0, v1, v3}, Lcom/sonyericsson/cameracommon/status/EachCameraStatusPublisher;->putFromParameter(Lcom/sonyericsson/android/camera/device/CameraParameters;Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;Z)Lcom/sonyericsson/cameracommon/status/EachCameraStatusPublisher;
+
+    .line 1947
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isVideo()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_4f
+
+    .line 1948
+    new-instance v0, Lcom/sonyericsson/cameracommon/status/eachcamera/PhotoLight;
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->PHOTO_LIGHT:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 1949
+    invoke-interface {v1, v3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/PhotoLight;->ON:Lcom/sonyericsson/android/camera/configuration/parameters/PhotoLight;
+
+    invoke-virtual {v1, v3}, Ljava/lang/Object;->equals(Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_47
+
+    sget-object v1, Lcom/sonyericsson/cameracommon/status/eachcamera/PhotoLight$Value;->ON:Lcom/sonyericsson/cameracommon/status/eachcamera/PhotoLight$Value;
+
+    goto :goto_49
+
+    :cond_47
+    sget-object v1, Lcom/sonyericsson/cameracommon/status/eachcamera/PhotoLight$Value;->OFF:Lcom/sonyericsson/cameracommon/status/eachcamera/PhotoLight$Value;
+
+    :goto_49
+    invoke-direct {v0, v1}, Lcom/sonyericsson/cameracommon/status/eachcamera/PhotoLight;-><init>(Lcom/sonyericsson/cameracommon/status/eachcamera/PhotoLight$Value;)V
+
+    .line 1948
+    invoke-virtual {v2, v0}, Lcom/sonyericsson/cameracommon/status/EachCameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    .line 1956
+    :cond_4f
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-ne v0, v1, :cond_133
+
+    .line 1957
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$configuration$parameters$SlowMotion:[I
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v1
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v1, v3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->ordinal()I
+
+    move-result v1
+
+    aget v0, v0, v1
+
+    packed-switch v0, :pswitch_data_1a6
+
+    goto/16 :goto_1a4
+
+    .line 1980
+    :pswitch_70
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 1981
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 1982
+    new-instance v1, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoResolution;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->getVideoRect()Landroid/graphics/Rect;
+
+    move-result-object v3
+
+    invoke-direct {v1, v3}, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoResolution;-><init>(Landroid/graphics/Rect;)V
+
+    invoke-virtual {v2, v1}, Lcom/sonyericsson/cameracommon/status/EachCameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v1
+
+    new-instance v2, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoRecordingFps;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;->HDR_OFF:Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;
+
+    .line 1983
+    invoke-static {v0, v3}, Lcom/sonyericsson/android/camera/recorder/RecordingProfile;->getVideoFrameRate(Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;)I
+
+    move-result v0
+
+    invoke-direct {v2, v0}, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoRecordingFps;-><init>(I)V
+
+    invoke-virtual {v1, v2}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_STABILIZER:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 1986
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    .line 1987
+    invoke-interface {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;->getValue()Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 1985
+    invoke-static {v1}, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoStabilizerStatus;->fromCameraParameter(Ljava/lang/String;)Lcom/sonyericsson/cameracommon/status/eachcamera/VideoStabilizerStatus;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    new-instance v1, Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion;
+
+    sget-object v2, Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion$Value;->ON:Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion$Value;
+
+    invoke-direct {v1, v2}, Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion;-><init>(Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion$Value;)V
+
+    .line 1988
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    new-instance v1, Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/parameters/BacklightCorrection;->OFF:Lcom/sonyericsson/android/camera/configuration/parameters/BacklightCorrection;
+
+    .line 1993
+    invoke-static {v2}, Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr;->fromCameraParameter(Lcom/sonyericsson/android/camera/configuration/parameters/BacklightCorrection;)Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr$Value;
+
+    move-result-object v2
+
+    invoke-direct {v1, v2}, Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr;-><init>(Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr$Value;)V
+
+    .line 1991
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    .line 1994
+    invoke-virtual {v0}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->publish()V
+
+    goto/16 :goto_1a4
+
+    .line 1959
+    :pswitch_c9
+    new-instance v0, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoResolution;
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 1961
+    invoke-interface {v1, v3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    .line 1962
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->getVideoSize()Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->getVideoRect()Landroid/graphics/Rect;
+
+    move-result-object v1
+
+    invoke-direct {v0, v1}, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoResolution;-><init>(Landroid/graphics/Rect;)V
+
+    .line 1960
+    invoke-virtual {v2, v0}, Lcom/sonyericsson/cameracommon/status/EachCameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    new-instance v1, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoRecordingFps;
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 1964
+    invoke-interface {v2, v3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v2
+
+    check-cast v2, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    .line 1965
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->getVideoSize()Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    move-result-object v2
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;->HDR_OFF:Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;
+
+    .line 1963
+    invoke-static {v2, v3}, Lcom/sonyericsson/android/camera/recorder/RecordingProfile;->getVideoFrameRate(Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;)I
+
+    move-result v2
+
+    invoke-direct {v1, v2}, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoRecordingFps;-><init>(I)V
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_STABILIZER:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 1968
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    .line 1969
+    invoke-interface {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;->getValue()Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 1967
+    invoke-static {v1}, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoStabilizerStatus;->fromCameraParameter(Ljava/lang/String;)Lcom/sonyericsson/cameracommon/status/eachcamera/VideoStabilizerStatus;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    new-instance v1, Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion;
+
+    sget-object v2, Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion$Value;->OFF:Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion$Value;
+
+    invoke-direct {v1, v2}, Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion;-><init>(Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion$Value;)V
+
+    .line 1970
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    new-instance v1, Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/parameters/BacklightCorrection;->OFF:Lcom/sonyericsson/android/camera/configuration/parameters/BacklightCorrection;
+
+    .line 1975
+    invoke-static {v2}, Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr;->fromCameraParameter(Lcom/sonyericsson/android/camera/configuration/parameters/BacklightCorrection;)Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr$Value;
+
+    move-result-object v2
+
+    invoke-direct {v1, v2}, Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr;-><init>(Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr$Value;)V
+
+    .line 1973
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    .line 1976
+    invoke-virtual {v0}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->publish()V
+
+    goto :goto_1a4
+
+    .line 1998
+    :cond_133
+    new-instance v0, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoResolution;
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 1999
+    invoke-interface {v1, v3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->getVideoRect()Landroid/graphics/Rect;
+
+    move-result-object v1
+
+    invoke-direct {v0, v1}, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoResolution;-><init>(Landroid/graphics/Rect;)V
+
+    .line 1998
+    invoke-virtual {v2, v0}, Lcom/sonyericsson/cameracommon/status/EachCameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    new-instance v1, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoRecordingFps;
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 2001
+    invoke-interface {v2, v3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v2
+
+    check-cast v2, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v4, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_HDR:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 2003
+    invoke-interface {v3, v4}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v3
+
+    check-cast v3, Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;
+
+    .line 2000
+    invoke-static {v2, v3}, Lcom/sonyericsson/android/camera/recorder/RecordingProfile;->getVideoFrameRate(Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;)I
+
+    move-result v2
+
+    invoke-direct {v1, v2}, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoRecordingFps;-><init>(I)V
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_STABILIZER:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 2005
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    .line 2006
+    invoke-interface {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;->getValue()Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 2004
+    invoke-static {v1}, Lcom/sonyericsson/cameracommon/status/eachcamera/VideoStabilizerStatus;->fromCameraParameter(Ljava/lang/String;)Lcom/sonyericsson/cameracommon/status/eachcamera/VideoStabilizerStatus;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    new-instance v1, Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion;
+
+    sget-object v2, Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion$Value;->OFF:Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion$Value;
+
+    invoke-direct {v1, v2}, Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion;-><init>(Lcom/sonyericsson/cameracommon/status/eachcamera/SlowMotion$Value;)V
+
+    .line 2007
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    new-instance v1, Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr;
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_BRIGHTNESS:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 2012
+    invoke-interface {v2, v3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v2
+
+    check-cast v2, Lcom/sonyericsson/android/camera/configuration/parameters/BacklightCorrection;
+
+    invoke-static {v2}, Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr;->fromCameraParameter(Lcom/sonyericsson/android/camera/configuration/parameters/BacklightCorrection;)Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr$Value;
+
+    move-result-object v2
+
+    invoke-direct {v1, v2}, Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr;-><init>(Lcom/sonyericsson/cameracommon/status/eachcamera/Hdr$Value;)V
+
+    .line 2010
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    .line 2014
+    invoke-virtual {v0}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->publish()V
+
+    :cond_1a4
+    :goto_1a4
+    return-void
+
+    nop
+
+    :pswitch_data_1a6
+    .packed-switch 0x1
+        :pswitch_c9
+        :pswitch_70
+        :pswitch_70
+    .end packed-switch
+.end method
+
+.method private removeChangeCameraModeTask()V
+    .registers 3
+
+    .line 10747
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mChangeCameraModeTask:Lcom/sonyericsson/android/camera/controller/StateMachine$ChangeCameraModeTask;
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
+
+    return-void
+.end method
+
+.method private removeDelayedEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$NotifyDelayedEventTask;)V
+    .registers 3
+
+    .line 2859
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    invoke-virtual {v0, p1}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
+
+    return-void
+.end method
+
+.method private removeStartRecordingTask()V
+    .registers 3
+
+    .line 9892
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStartRecordingTask:Lcom/sonyericsson/android/camera/controller/StateMachine$StartRecordingTask;
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
+
+    return-void
+.end method
+
+.method private requestChangeModeTo(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;)V
+    .registers 4
+
+    const/4 v0, 0x0
+
+    .line 9795
+    invoke-direct {p0, p1, p2, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->requestChangeModeTo(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;Z)V
+
+    return-void
+.end method
+
+.method private requestChangeModeTo(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;Z)V
+    .registers 11
+
+    .line 9799
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    if-ne v0, p1, :cond_2a
+
+    .line 9800
+    sget-boolean p1, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-nez p1, :cond_b
+
+    return-void
+
+    .line 9801
+    :cond_b
+    new-instance p1, Ljava/lang/IllegalArgumentException;
+
+    new-instance p2, Ljava/lang/StringBuilder;
+
+    invoke-direct {p2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string p3, "The specified mode is already set, mode:"
+
+    invoke-virtual {p2, p3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 9803
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object p3
+
+    invoke-virtual {p3}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->name()Ljava/lang/String;
+
+    move-result-object p3
+
+    invoke-virtual {p2, p3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p2
+
+    invoke-direct {p1, p2}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V
+
+    throw p1
+
+    .line 9807
+    :cond_2a
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$configuration$parameters$CapturingMode:[I
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->ordinal()I
+
+    move-result v1
+
+    aget v0, v0, v1
+
+    packed-switch v0, :pswitch_data_92
+
+    :pswitch_35
+    goto :goto_90
+
+    .line 9818
+    :pswitch_36
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendResearchSameActivityEvent(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+
+    .line 9821
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->CAPTURING_MODE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 9822
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastSettings:Lcom/sonyericsson/android/camera/setting/LastSettings;
+
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    .line 9823
+    invoke-interface {v4}, Lcom/sonyericsson/android/camera/LaunchCondition;->isOneShot()Z
+
+    move-result v4
+
+    .line 9821
+    invoke-virtual {v0, v1, v2, v3, v4}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->savePreloadSettings(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/setting/UserSettings;Lcom/sonyericsson/android/camera/setting/LastSettings;Z)V
+
+    .line 9825
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isFusionMonitoringNeeded()Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x0
+
+    const/4 v3, 0x1
+
+    if-eqz v0, :cond_6e
+
+    .line 9826
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->stopFusionMonitoring()V
+
+    .line 9827
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v4, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_REQUEST_UPDATE_FUSION_CONDITION:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    new-array v5, v3, [Ljava/lang/Object;
+
+    move-object v6, v1
+
+    check-cast v6, Lcom/sonyericsson/android/camera/device/CameraParameters$FusionResult;
+
+    aput-object v6, v5, v2
+
+    invoke-interface {v0, v4, v5}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 9831
+    :cond_6e
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isBokehMonitoringNeeded()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_8d
+
+    .line 9832
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->stopBokehMonitoring()V
+
+    .line 9833
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPredictiveApplier:Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;
+
+    sget-object v4, Lcom/sonyericsson/android/camera/configuration/parameters/Bokeh;->ON:Lcom/sonyericsson/android/camera/configuration/parameters/Bokeh;
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;->leaveSuppressor(Ljava/lang/Object;)V
+    invoke-static {v0, v4}, Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;->access$4900(Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;Ljava/lang/Object;)V
+
+    .line 9834
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v4, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_REQUEST_UPDATE_BOKEH_CONDITION:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    new-array v3, v3, [Ljava/lang/Object;
+
+    check-cast v1, Lcom/sonyericsson/android/camera/device/CameraParameters$BokehResult;
+
+    aput-object v1, v3, v2
+
+    invoke-interface {v0, v4, v3}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 9839
+    :cond_8d
+    invoke-direct {p0, p1, p2, p3}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeModeTo(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;Z)V
+
+    :goto_90
+    return-void
+
+    nop
+
+    :pswitch_data_92
+    .packed-switch 0x1
+        :pswitch_36
+        :pswitch_36
+        :pswitch_36
+        :pswitch_36
+        :pswitch_36
+        :pswitch_35
+        :pswitch_36
+        :pswitch_36
+        :pswitch_36
+        :pswitch_36
+    .end packed-switch
+.end method
+
+.method private requestLoadStoredPicture(Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;)V
+    .registers 6
+
+    .line 615
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_2e
+
+    const/4 v0, 0x1
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "invoke uri:"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v3, p1, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->uri:Landroid/net/Uri;
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    const-string v3, ", OneShot:"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    .line 616
+    invoke-interface {v3}, Lcom/sonyericsson/android/camera/LaunchCondition;->isOneShot()Z
+
+    move-result v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    aput-object v2, v0, v1
+
+    .line 615
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 617
+    :cond_2e
+    sget-object v0, Lcom/sonyericsson/android/camera/util/PerfLog;->BYPASSCAMERA_ON_STORE_COMPLETE:Lcom/sonyericsson/android/camera/util/PerfLog;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/util/PerfLog;->transit()V
+
+    .line 619
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    iget-object v1, p1, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->uri:Landroid/net/Uri;
+
+    iget-object v2, p1, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->savingRequest:Lcom/sonyericsson/cameracommon/storage/SavingRequest;
+
+    iget-object v2, v2, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget v2, v2, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->orientation:I
+
+    new-instance v3, Lcom/sonyericsson/android/camera/controller/StateMachine$7;
+
+    invoke-direct {v3, p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$7;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;)V
+
+    invoke-interface {v0, v1, v2, v3}, Lcom/sonyericsson/cameracommon/storage/Storage;->requestLoad(Landroid/net/Uri;ILcom/sonyericsson/cameracommon/storage/Storage$OnLoadCompletedListener;)V
+
+    return-void
+.end method
+
+.method private requestPhotoSmileCapture()V
+    .registers 3
+
+    .line 10336
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SMILE_CAPTURE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/SmileCapture;
+
+    .line 10337
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/SmileCapture;->getIntValue()I
+
+    move-result v0
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->requestSmileCapture(I)V
+
+    return-void
+.end method
+
+.method private requestResizeEvf(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Z)V
+    .registers 10
+
+    .line 2029
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->STATE_PAUSE:Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    if-ne v0, v1, :cond_d
+
+    if-eqz p2, :cond_d
+
+    return-void
+
+    .line 2036
+    :cond_d
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isVideo()Z
+
+    move-result v0
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x2
+
+    const/4 v3, 0x0
+
+    if-eqz v0, :cond_6b
+
+    .line 2037
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-ne p1, v0, :cond_2d
+
+    .line 2038
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v4, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, p1, v4}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object p1
+
+    check-cast p1, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    .line 2039
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->getVideoSize()Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->getVideoRect()Landroid/graphics/Rect;
+
+    move-result-object p1
+
+    goto :goto_48
+
+    .line 2041
+    :cond_2d
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v4, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, p1, v4}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 2042
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->getVideoRect()Landroid/graphics/Rect;
+
+    move-result-object v0
+
+    .line 2043
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v5, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_HDR:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 2044
+    invoke-interface {v4, p1, v5}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object p1
+
+    check-cast p1, Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;
+
+    sget-object v4, Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;->HDR_ON:Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;
+
+    move-object p1, v0
+
+    .line 2046
+    :goto_48
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/device/PlatformDependencyResolver;->getVideoPreviewSize(Landroid/graphics/Rect;)Landroid/graphics/Rect;
+
+    move-result-object p1
+
+    .line 2047
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v4, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_REQUEST_RESIZE_EVF_SCOPE:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    new-instance v5, Landroid/graphics/Rect;
+
+    .line 2048
+    invoke-virtual {p1}, Landroid/graphics/Rect;->width()I
+
+    move-result v6
+
+    invoke-virtual {p1}, Landroid/graphics/Rect;->height()I
+
+    move-result p1
+
+    invoke-direct {v5, v3, v3, v6, p1}, Landroid/graphics/Rect;-><init>(IIII)V
+
+    aput-object v5, v2, v3
+
+    .line 2049
+    invoke-static {p2}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p1
+
+    aput-object p1, v2, v1
+
+    .line 2047
+    invoke-interface {v0, v4, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    goto :goto_a3
+
+    .line 2051
+    :cond_6b
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v4, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->RESOLUTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, p1, v4}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;
+
+    .line 2052
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;->getPictureRect()Landroid/graphics/Rect;
+
+    move-result-object v0
+
+    .line 2053
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v4, p1, v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->getPreviewRect(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Landroid/graphics/Rect;)Landroid/graphics/Rect;
+
+    move-result-object p1
+
+    if-eqz p1, :cond_a3
+
+    .line 2055
+    invoke-static {p1, v3}, Lcom/sonyericsson/android/camera/device/PlatformDependencyResolver;->getSurfaceSize(Landroid/graphics/Rect;Z)Landroid/util/Size;
+
+    move-result-object p1
+
+    .line 2056
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v4, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_REQUEST_RESIZE_EVF_SCOPE:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    new-instance v5, Landroid/graphics/Rect;
+
+    .line 2057
+    invoke-virtual {p1}, Landroid/util/Size;->getWidth()I
+
+    move-result v6
+
+    invoke-virtual {p1}, Landroid/util/Size;->getHeight()I
+
+    move-result p1
+
+    invoke-direct {v5, v3, v3, v6, p1}, Landroid/graphics/Rect;-><init>(IIII)V
+
+    aput-object v5, v2, v3
+
+    .line 2058
+    invoke-static {p2}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p1
+
+    aput-object p1, v2, v1
+
+    .line 2056
+    invoke-interface {v0, v4, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    :cond_a3
+    :goto_a3
+    return-void
+.end method
+
+.method private requestSmileCapture(I)V
+    .registers 6
+
+    .line 10354
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    instance-of v0, v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateCaptureCountdown;
+
+    if-eqz v0, :cond_27
+
+    .line 10355
+    sget-boolean p1, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz p1, :cond_26
+
+    const/4 p1, 0x1
+
+    new-array p1, p1, [Ljava/lang/String;
+
+    const/4 v0, 0x0
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "requestSmileCapture abort by:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    aput-object v1, p1, v0
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_26
+    return-void
+
+    .line 10360
+    :cond_27
+    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
+
+    move-result-wide v0
+
+    iget-wide v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastSmileCaptureTakenTime:J
+
+    sub-long/2addr v0, v2
+
+    const-wide/16 v2, 0x3e8
+
+    cmp-long v0, v0, v2
+
+    if-lez v0, :cond_49
+
+    .line 10364
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/view/ViewFinder;->getSelectedFaceSmileScore()I
+
+    move-result v0
+
+    if-ge p1, v0, :cond_49
+
+    .line 10365
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mVirtualKeyEventDispatcher:Lcom/sonyericsson/android/camera/view/UserEventHandler$VirtualKeyEventDispatcher;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/view/UserEventHandler$VirtualKeyEvent;->SMILE_CAPTURE:Lcom/sonyericsson/android/camera/view/UserEventHandler$VirtualKeyEvent;
+
+    invoke-virtual {p1, v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$VirtualKeyEventDispatcher;->sendVirtualKeyEvent(Lcom/sonyericsson/android/camera/view/UserEventHandler$VirtualKeyEvent;)Z
+
+    .line 10366
+    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
+
+    move-result-wide v0
+
+    iput-wide v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastSmileCaptureTakenTime:J
+
+    :cond_49
+    return-void
+.end method
+
+.method private declared-synchronized requestStorePicture(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+    .registers 4
+
+    monitor-enter p0
+
+    .line 10472
+    :try_start_1
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isNeedRepairRequestId(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_15
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    if-eqz v0, :cond_15
+
+    .line 10473
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    const/4 v1, 0x0
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->getRequestId(Z)I
+
+    move-result v0
+
+    invoke-virtual {p1, v0}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->setRequestId(I)V
+
+    .line 10477
+    :cond_15
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$RequestStoreTask;
+
+    const/4 v1, 0x0
+
+    invoke-direct {v0, p0, p1, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$RequestStoreTask;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    .line 10479
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mExecService:Ljava/util/concurrent/ExecutorService;
+
+    invoke-interface {p1, v0}, Ljava/util/concurrent/ExecutorService;->execute(Ljava/lang/Runnable;)V
+    :try_end_20
+    .catchall {:try_start_1 .. :try_end_20} :catchall_22
+
+    .line 10480
+    monitor-exit p0
+
+    return-void
+
+    :catchall_22
+    move-exception p1
+
+    monitor-exit p0
+
+    throw p1
+.end method
+
+.method private declared-synchronized requestStoreVideo(Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;)V
+    .registers 6
+
+    monitor-enter p0
+
+    if-nez p1, :cond_5
+
+    .line 10483
+    monitor-exit p0
+
+    return-void
+
+    .line 10485
+    :cond_5
+    :try_start_5
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_f
+
+    .line 10486
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;->stopAnimation(Z)V
+
+    .line 10490
+    :cond_f
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    if-eqz v0, :cond_1c
+
+    .line 10491
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->getRequestId(Z)I
+
+    move-result v0
+
+    invoke-virtual {p1, v0}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;->setRequestId(I)V
+
+    .line 10495
+    :cond_1c
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v2
+
+    invoke-virtual {p1, v2, v3}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;->setDateTaken(J)V
+
+    .line 10497
+    invoke-static {p1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory;->createSavingRequest(Lcom/sonyericsson/cameracommon/storage/RequestFactory$RequestBuilder;)Lcom/sonyericsson/cameracommon/storage/SavingRequest;
+
+    move-result-object p1
+
+    .line 10500
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->getStorageType()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mOnStoreCompletedListener:Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;
+
+    invoke-interface {v0, p1, v2, v3}, Lcom/sonyericsson/cameracommon/storage/Storage;->requestStore(Lcom/sonyericsson/cameracommon/storage/SavingRequest;Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;)Z
+
+    .line 10503
+    sget-object p1, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_STORE_REQUESTED:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    new-array v0, v1, [Ljava/lang/Object;
+
+    invoke-virtual {p0, p1, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+    :try_end_39
+    .catchall {:try_start_5 .. :try_end_39} :catchall_3b
+
+    .line 10504
+    monitor-exit p0
+
+    return-void
+
+    :catchall_3b
+    move-exception p1
+
+    monitor-exit p0
+
+    throw p1
+.end method
+
+.method private requestVideoSmileCapture()V
+    .registers 3
+
+    .line 10341
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SMILE_CAPTURE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSmileCapture;
+
+    .line 10342
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSmileCapture;->getIntValue()I
+
+    move-result v0
+
+    .line 10341
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->requestSmileCapture(I)V
+
+    return-void
+.end method
+
+.method private restartPreviewSessionBeforeBurst(Z)V
+    .registers 4
+
+    if-eqz p1, :cond_6
+
+    const/4 p1, 0x1
+
+    .line 11745
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->cancelAutoFocus(Z)V
+
+    .line 11747
+    :cond_6
+    new-instance p1, Lcom/sonyericsson/android/camera/controller/StateMachine$21;
+
+    invoke-direct {p1, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$21;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    .line 11755
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateRestartPreviewSession;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;->SESSION_TYPE_NORMAL:Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+    invoke-direct {v0, p0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateRestartPreviewSession;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;)V
+
+    .line 11756
+    invoke-virtual {v0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateRestartPreviewSession;->setPendingTask(Ljava/lang/Runnable;)Lcom/sonyericsson/android/camera/controller/StateMachine$StateRestartPreviewSession;
+
+    move-result-object p1
+
+    const/4 v0, 0x0
+
+    new-array v0, v0, [Ljava/lang/Object;
+
+    .line 11755
+    invoke-direct {p0, p1, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method private sendResearchCaptureEvents()V
+    .registers 3
+
+    .line 9547
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->sendEventSettings()V
+
+    .line 9548
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonymobile/cameracommon/research/parameters/Event$Category;->SETTINGS_PHOTO:Lcom/sonymobile/cameracommon/research/parameters/Event$Category;
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->sendSemiAutoSettingValues(Lcom/sonymobile/cameracommon/research/parameters/Event$Category;)V
+
+    .line 9549
+    invoke-static {}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->getInstance()Lcom/sonymobile/cameracommon/research/ResearchUtil;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastPhotoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+    iget-object v1, v1, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->mCommonStatus:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget v1, v1, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->orientation:I
+
+    invoke-virtual {v0, v1}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->setOrientation(I)V
+
+    .line 9551
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonymobile/cameracommon/research/parameters/Event$Category;->SETTINGS_PHOTO:Lcom/sonymobile/cameracommon/research/parameters/Event$Category;
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->sendSemiAutoSettingValues(Lcom/sonymobile/cameracommon/research/parameters/Event$Category;)V
+
+    .line 9552
+    invoke-static {}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->getInstance()Lcom/sonymobile/cameracommon/research/ResearchUtil;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->setTimeCaptureStart()V
+
+    return-void
+.end method
+
+.method private sendResearchSameActivityEvent(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+    .registers 4
+
+    .line 11060
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->clearAllSettings()V
+
+    .line 11061
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->clearTemporarySettingValues()V
+
+    .line 11062
+    invoke-static {}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->getInstance()Lcom/sonymobile/cameracommon/research/ResearchUtil;
+
+    move-result-object v0
+
+    const/4 v1, 0x1
+
+    invoke-virtual {v0, v1}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->onPause(Z)V
+
+    .line 11063
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/LaunchTrigger;->SAME_ACTIVITY:Lcom/sonyericsson/android/camera/LaunchTrigger;
+
+    invoke-virtual {v0, v1, p1}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->sendView(Lcom/sonyericsson/android/camera/LaunchTrigger;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+
+    return-void
+.end method
+
+.method private sendVideoChapterThumbnailToViewFinder()V
+    .registers 6
+
+    .line 6900
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mChapterThumbnail:Lcom/sonyericsson/android/camera/controller/ChapterThumbnail;
+
+    if-eqz v0, :cond_2b
+
+    .line 6901
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/view/ViewFinder;->isHeadUpDisplayReady()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_2b
+
+    .line 6902
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastVideoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+    if-eqz v0, :cond_19
+
+    .line 6903
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mChapterThumbnail:Lcom/sonyericsson/android/camera/controller/ChapterThumbnail;
+
+    iget-object v0, v0, Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;->mCommonStatus:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget v0, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->orientation:I
+
+    invoke-virtual {v1, v0}, Lcom/sonyericsson/android/camera/controller/ChapterThumbnail;->setOrientation(I)V
+
+    .line 6906
+    :cond_19
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_ADD_VIDEO_CHAPTER:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v2, 0x1
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    const/4 v3, 0x0
+
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mChapterThumbnail:Lcom/sonyericsson/android/camera/controller/ChapterThumbnail;
+
+    aput-object v4, v2, v3
+
+    invoke-interface {v0, v1, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    const/4 v0, 0x0
+
+    .line 6909
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mChapterThumbnail:Lcom/sonyericsson/android/camera/controller/ChapterThumbnail;
+
+    :cond_2b
+    return-void
+.end method
+
+.method private setCurrentCapturingMode(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+    .registers 4
+
+    .line 10976
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v0
+
+    invoke-interface {v0, p1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->changeCapturingMode(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+
+    .line 10977
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object v0
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1, p1}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->setSettingsValue(Lcom/sonyericsson/android/camera/setting/UserSettings;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+
+    return-void
+.end method
+
+.method private setFocusPosition(Landroid/graphics/Point;Landroid/graphics/RectF;Lcom/sonyericsson/cameracommon/focusview/FocusRectangles$FocusSetType;)V
+    .registers 7
+
+    .line 9475
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SMILE_CAPTURE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {p2, v0}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object p2
+
+    check-cast p2, Lcom/sonyericsson/android/camera/configuration/parameters/SmileCapture;
+
+    .line 9476
+    invoke-virtual {p2}, Lcom/sonyericsson/android/camera/configuration/parameters/SmileCapture;->isSmileCaptureOn()Z
+
+    move-result p2
+
+    if-nez p2, :cond_98
+
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SHUTTER_TRIGGER:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 9477
+    invoke-interface {p2, v0}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object p2
+
+    check-cast p2, Lcom/sonyericsson/android/camera/configuration/parameters/ShutterTrigger;
+
+    invoke-virtual {p2}, Lcom/sonyericsson/android/camera/configuration/parameters/ShutterTrigger;->isGestureShutterOn()Z
+
+    move-result p2
+
+    if-eqz p2, :cond_22
+
+    goto/16 :goto_98
+
+    .line 9481
+    :cond_22
+    sget-object p2, Lcom/sonyericsson/cameracommon/focusview/FocusRectangles$FocusSetType;->RELEASE:Lcom/sonyericsson/cameracommon/focusview/FocusRectangles$FocusSetType;
+
+    if-ne p3, p2, :cond_59
+
+    .line 9482
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {p2, p1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->getPosition(Landroid/graphics/Point;)Landroid/graphics/Rect;
+
+    move-result-object p2
+
+    .line 9484
+    invoke-virtual {p2}, Landroid/graphics/Rect;->isEmpty()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_33
+
+    return-void
+
+    .line 9488
+    :cond_33
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->FOCUS_RANGE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/FocusRange;->AF:Lcom/sonyericsson/android/camera/configuration/parameters/FocusRange;
+
+    if-ne v0, v1, :cond_44
+
+    .line 9494
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0, p2}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->setFocusPositionAndCommit(Landroid/graphics/Rect;)V
+
+    .line 9497
+    :cond_44
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isTouchAeEnabled()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_59
+
+    .line 9498
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->METERING:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 9499
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/Metering;
+
+    .line 9498
+    invoke-virtual {v0, p2, v1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->setMeteringAreaAndCommit(Landroid/graphics/Rect;Lcom/sonyericsson/android/camera/configuration/parameters/Metering;)V
+
+    .line 9503
+    :cond_59
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->FOCUS_RANGE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {p2, v0}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object p2
+
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/FocusRange;->AF:Lcom/sonyericsson/android/camera/configuration/parameters/FocusRange;
+
+    const/4 v1, 0x0
+
+    if-eq p2, v0, :cond_88
+
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->TOUCH_INTENTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 9504
+    invoke-interface {p2, v0}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object p2
+
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/TouchIntention;->FOCUS_AND_EXPOSURE:Lcom/sonyericsson/android/camera/configuration/parameters/TouchIntention;
+
+    if-eq p2, v0, :cond_88
+
+    .line 9506
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object p2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->TOUCH_CAPTURE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {p1, p2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object p1
+
+    sget-object p2, Lcom/sonyericsson/android/camera/configuration/parameters/TouchCapture;->ON:Lcom/sonyericsson/android/camera/configuration/parameters/TouchCapture;
+
+    if-eq p1, p2, :cond_97
+
+    .line 9508
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object p2, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_TOUCHFOCUS_REJECT:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    new-array p3, v1, [Ljava/lang/Object;
+
+    invoke-interface {p1, p2, p3}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    goto :goto_97
+
+    .line 9514
+    :cond_88
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_FOCUS_POSITION_SELECTED:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v2, 0x2
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    aput-object p1, v2, v1
+
+    const/4 p1, 0x1
+
+    aput-object p3, v2, p1
+
+    invoke-interface {p2, v0, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    :cond_97
+    :goto_97
+    return-void
+
+    :cond_98
+    :goto_98
+    return-void
+.end method
+
+.method private setIsSceneRecognitionValid(Z)V
+    .registers 2
+
+    .line 11139
+    iput-boolean p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsSceneRecognitionValid:Z
+
+    return-void
+.end method
+
+.method private setSuppressFlash(Z)V
+    .registers 2
+
+    .line 364
+    iput-boolean p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mSuppressFlash:Z
+
+    return-void
+.end method
+
+.method private varargs setZoomKeyTag([Ljava/lang/Object;)V
+    .registers 4
+
+    .line 11764
+    array-length v0, p1
+
+    const/4 v1, 0x1
+
+    if-le v0, v1, :cond_12
+
+    .line 11765
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    aget-object p1, p1, v1
+
+    check-cast p1, Ljava/lang/Boolean;
+
+    invoke-virtual {p1}, Ljava/lang/Boolean;->booleanValue()Z
+
+    move-result p1
+
+    invoke-virtual {v0, p1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->setZoomKeyTag(Z)V
+
+    goto :goto_18
+
+    .line 11767
+    :cond_12
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    const/4 v0, 0x0
+
+    invoke-virtual {p1, v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->setZoomKeyTag(Z)V
+
+    :goto_18
+    return-void
+.end method
+
+.method private shouldChangeLogicCamera(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)Z
+    .registers 6
+
+    .line 9266
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_1e
+
+    const/4 v0, 0x1
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, " invoked capturingMode : "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    aput-object p1, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_1e
+    return v1
+.end method
+
+.method private shouldRestartSessionBeforeCapture()Z
+    .registers 2
+
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method private showBlackScreen()V
+    .registers 2
+
+    const/4 v0, 0x0
+
+    .line 8926
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->showBlackScreen(Z)V
+
+    return-void
+.end method
+
+.method private showBlackScreen(Z)V
+    .registers 4
+
+    .line 8930
+    iput-boolean p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHideBlackScreen:Z
+
+    .line 8931
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_SHOW_BLACK_SCREEN:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v1, 0x0
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-interface {p1, v0, v1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method private showCannotBurstInDarkCondition(Z)V
+    .registers 6
+
+    if-eqz p1, :cond_11
+
+    .line 11644
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_BURST_REJECTED:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v1, 0x1
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    const/4 v2, 0x0
+
+    sget-object v3, Lcom/sonyericsson/android/camera/view/ViewFinder$BurstRejectedReason;->CANNOT_BURST_IN_DARK_CONDITION:Lcom/sonyericsson/android/camera/view/ViewFinder$BurstRejectedReason;
+
+    aput-object v3, v1, v2
+
+    invoke-interface {p1, v0, v1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    :cond_11
+    return-void
+.end method
+
+.method private varargs startAutoFocus([Ljava/lang/Object;)Z
+    .registers 6
+
+    .line 9421
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    if-eqz v0, :cond_c
+
+    .line 9422
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isStorageReady()Z
+
+    move-result v0
+
+    if-nez v0, :cond_c
+
+    const/4 p1, 0x0
+
+    return p1
+
+    .line 9426
+    :cond_c
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    const/4 v1, 0x1
+
+    if-eqz v0, :cond_4a
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->shouldShowDisplayFlash()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_4a
+
+    .line 9427
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {p1, v1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->setDisplayFlashRequired(Z)V
+
+    .line 9428
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    const/16 v0, 0xd0
+
+    const/16 v2, 0xc8
+
+    const/16 v3, 0xaa
+
+    invoke-interface {p1, v0, v2, v3}, Lcom/sonyericsson/android/camera/view/ViewFinder;->setDisplayFlashColor(III)V
+
+    .line 9430
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {p1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->showDisplayFlashScreen()V
+
+    .line 9431
+    sget-boolean p1, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz p1, :cond_3d
+
+    const-string p1, "StateMachine"
+
+    const-string v0, "to sure screenBrightness is max, so wait 700 ms to do autofoucs"
+
+    .line 9432
+    filled-new-array {p1, v0}, [Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 9434
+    :cond_3d
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$12;
+
+    invoke-direct {v0, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$12;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    const-wide/16 v2, 0x2bc
+
+    invoke-virtual {p1, v0, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
+
+    goto :goto_4f
+
+    .line 9443
+    :cond_4a
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0, p1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->autoFocus([Ljava/lang/Object;)V
+
+    :goto_4f
+    return v1
+.end method
+
+.method private startFastCapture(ZLcom/sonyericsson/android/camera/controller/StateMachine$StartupAction;)V
+    .registers 6
+
+    .line 8980
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isFront()Z
+
+    move-result v0
+
+    if-nez v0, :cond_21
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isNeedResetZoomStatus()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_11
+
+    goto :goto_21
+
+    .line 8984
+    :cond_11
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastSettings:Lcom/sonyericsson/android/camera/setting/LastSettings;
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/android/camera/setting/LastSettings;->getLatestZoomRatio(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)F
+
+    move-result v0
+
+    .line 8985
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v1, v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->setZoom(F)V
+
+    goto :goto_2c
+
+    .line 8981
+    :cond_21
+    :goto_21
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastSettings:Lcom/sonyericsson/android/camera/setting/LastSettings;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/setting/LastSettings;->clearZoomInfo()V
+
+    .line 8982
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->setZoom(F)V
+
+    .line 8988
+    :goto_2c
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->preparePositionConverter()V
+
+    .line 8990
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->requestPostLazyInitializationTaskExecute()V
+
+    .line 8993
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->awaitSetupAllReady()Z
+
+    move-result v0
+
+    if-nez v0, :cond_45
+
+    const-string v0, "Setup failed"
+
+    .line 8995
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->e([Ljava/lang/String;)V
+
+    .line 8998
+    :cond_45
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/view/ViewFinder;->isHeadUpDisplayReady()Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x1
+
+    if-eqz v0, :cond_65
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isTutorialNeededToBeShownForCurrentMode()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_65
+
+    .line 8999
+    new-instance p1, Lcom/sonyericsson/android/camera/controller/StateMachine$StateOperationRestricted;
+
+    const/4 p2, 0x0
+
+    invoke-direct {p1, p0, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateOperationRestricted;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array p2, v2, [Ljava/lang/Object;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/view/ViewFinder$UiComponentKind;->TUTORIAL:Lcom/sonyericsson/android/camera/view/ViewFinder$UiComponentKind;
+
+    aput-object v0, p2, v1
+
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    goto :goto_83
+
+    :cond_65
+    if-eqz p1, :cond_68
+
+    return-void
+
+    .line 9004
+    :cond_68
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isVideo()Z
+
+    move-result p1
+
+    if-eqz p1, :cond_79
+
+    .line 9005
+    new-instance p1, Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoReady;
+
+    invoke-direct {p1, p0, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoReady;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$StartupAction;)V
+
+    new-array p2, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    goto :goto_83
+
+    .line 9007
+    :cond_79
+    new-instance p1, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoReady;
+
+    invoke-direct {p1, p0, v2, v2, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$StatePhotoReady;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;ZZLcom/sonyericsson/android/camera/controller/StateMachine$StartupAction;)V
+
+    new-array p2, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    :goto_83
+    return-void
+.end method
+
+.method private startRecording()V
+    .registers 7
+
+    const/4 v0, 0x1
+
+    const/4 v1, 0x0
+
+    .line 9655
+    :try_start_2
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    if-eqz v2, :cond_b
+
+    .line 9656
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    invoke-virtual {v2}, Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;->disableClick()V
+
+    .line 9658
+    :cond_b
+    iget-boolean v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsLaunchAndRecording:Z
+
+    if-nez v2, :cond_1c
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v2
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-eq v2, v3, :cond_1c
+
+    .line 9659
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->requestOnePreviewFrame()V
+
+    .line 9661
+    :cond_1c
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->startRecording()V
+
+    .line 9663
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isSettingChangeAcceptable()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_36
+
+    .line 9664
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_REQUEST_UPDATE_SETTING_CHANGE_ACCEPTABILITY:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    new-array v4, v0, [Ljava/lang/Object;
+
+    .line 9666
+    invoke-static {v1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object v5
+
+    aput-object v5, v4, v1
+
+    .line 9664
+    invoke-interface {v2, v3, v4}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 9669
+    :cond_36
+    sget-object v2, Lcom/sonyericsson/android/camera/util/PerfLog;->ON_RECORDING_STARTED:Lcom/sonyericsson/android/camera/util/PerfLog;
+
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/util/PerfLog;->transit()V
+
+    .line 9672
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastVideoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+    invoke-direct {p0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->updateDateTaken(Lcom/sonyericsson/cameracommon/storage/RequestFactory$RequestBuilder;)V
+    :try_end_40
+    .catch Ljava/lang/RuntimeException; {:try_start_2 .. :try_end_40} :catch_41
+
+    goto :goto_46
+
+    :catch_41
+    move-exception v0
+
+    .line 9676
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->onRecordingError(Ljava/lang/RuntimeException;)V
+
+    move v0, v1
+
+    :goto_46
+    if-eqz v0, :cond_4c
+
+    .line 9679
+    invoke-direct {p0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->transitionToRecordingState(Z)V
+
+    goto :goto_57
+
+    .line 9681
+    :cond_4c
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateWarning;
+
+    const/4 v2, 0x0
+
+    invoke-direct {v0, p0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateWarning;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    :goto_57
+    return-void
+.end method
+
+.method private stopPlaySound()V
+    .registers 2
+
+    .line 10250
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->stopPlayingSound()V
+
+    return-void
+.end method
+
+.method private storePicture(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+    .registers 5
+
+    .line 10373
+    iget-object v0, p1, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->mCommonStatus:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v0, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->savedFileType:Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;
+
+    sget-object v1, Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;->PHOTO_BOKEN:Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;
+
+    if-ne v0, v1, :cond_36
+
+    .line 10374
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->isUsingProcessingMediaAPI()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_23
+
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->isSmallJpegData()Z
+
+    move-result v0
+
+    if-nez v0, :cond_15
+
+    goto :goto_23
+
+    .line 10379
+    :cond_15
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_36
+
+    const-string v0, "No bokeh info when small image data callback"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    goto :goto_36
+
+    .line 10375
+    :cond_23
+    :goto_23
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->getImageData()[B
+
+    move-result-object v0
+
+    iget-object v1, p1, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->mCommonStatus:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget v1, v1, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->width:I
+
+    iget-object v2, p1, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->mCommonStatus:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget v2, v2, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->height:I
+
+    invoke-static {v0, v1, v2}, Lcom/sonyericsson/android/camera/device/xmp/XMPController;->addXMPInfo([BII)[B
+
+    move-result-object v0
+
+    .line 10377
+    invoke-virtual {p1, v0}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->setImageData([B)V
+
+    .line 10383
+    :cond_36
+    :goto_36
+    invoke-static {p1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory;->createSavingRequest(Lcom/sonyericsson/cameracommon/storage/RequestFactory$RequestBuilder;)Lcom/sonyericsson/cameracommon/storage/SavingRequest;
+
+    move-result-object p1
+
+    .line 10386
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPredictiveApplier:Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;->entrySuppressor(Ljava/lang/Object;)V
+    invoke-static {v0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;->access$7700(Lcom/sonyericsson/android/camera/controller/StateMachine$SuitablePredictiveApplier;Ljava/lang/Object;)V
+
+    .line 10388
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->getStorageType()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mOnStoreCompletedListener:Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;
+
+    invoke-interface {v0, p1, v1, v2}, Lcom/sonyericsson/cameracommon/storage/Storage;->requestStore(Lcom/sonyericsson/cameracommon/storage/SavingRequest;Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;)Z
+
+    return-void
+.end method
+
+.method private storeSavingRequestList()V
+    .registers 8
+
+    .line 8936
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    if-eqz v0, :cond_24
+
+    new-array v0, v1, [Ljava/lang/String;
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "invoke mPhotoSavingRequestList.size():"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPhotoSavingRequestList:Ljava/util/List;
+
+    .line 8937
+    invoke-interface {v4}, Ljava/util/List;->size()I
+
+    move-result v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    aput-object v3, v0, v2
+
+    .line 8936
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 8939
+    :cond_24
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPhotoSavingRequestList:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->isEmpty()Z
+
+    move-result v0
+
+    if-nez v0, :cond_7c
+
+    .line 8941
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPhotoSavingRequestList:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v0
+
+    :goto_32
+    invoke-interface {v0}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v3
+
+    if-eqz v3, :cond_77
+
+    invoke-interface {v0}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v3
+
+    check-cast v3, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+    .line 8943
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {v4, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->getRequestId(Z)I
+
+    move-result v4
+
+    invoke-virtual {v3, v4}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->setRequestId(I)V
+
+    .line 8946
+    sget-boolean v4, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v4, :cond_67
+
+    new-array v4, v1, [Ljava/lang/String;
+
+    new-instance v5, Ljava/lang/StringBuilder;
+
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v6, "storePicture() requestId:"
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->getRequestId()I
+
+    move-result v6
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v5
+
+    aput-object v5, v4, v2
+
+    invoke-static {v4}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 8947
+    :cond_67
+    invoke-static {v3}, Lcom/sonyericsson/cameracommon/storage/RequestFactory;->createSavingRequest(Lcom/sonyericsson/cameracommon/storage/RequestFactory$RequestBuilder;)Lcom/sonyericsson/cameracommon/storage/SavingRequest;
+
+    move-result-object v3
+
+    .line 8948
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mStorage:Lcom/sonyericsson/cameracommon/storage/Storage;
+
+    invoke-virtual {v3}, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->getStorageType()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v5
+
+    iget-object v6, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mOnStoreCompletedListener:Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;
+
+    invoke-interface {v4, v3, v5, v6}, Lcom/sonyericsson/cameracommon/storage/Storage;->requestStore(Lcom/sonyericsson/cameracommon/storage/SavingRequest;Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;)Z
+
+    goto :goto_32
+
+    .line 8953
+    :cond_77
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPhotoSavingRequestList:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->clear()V
+
+    :cond_7c
+    return-void
+.end method
+
+.method private submitBackgroundTask(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+    .registers 4
+
+    const-string v0, "StateMachine"
+
+    const-string v1, "submitBackgroundTask"
+
+    .line 10588
+    invoke-static {v0, v1}, Lcom/sonyericsson/cameracommon/utility/SwitchLogger;->d(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 10589
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mExecService:Ljava/util/concurrent/ExecutorService;
+
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$16;
+
+    invoke-direct {v1, p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$16;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+
+    invoke-interface {v0, v1}, Ljava/util/concurrent/ExecutorService;->submit(Ljava/lang/Runnable;)Ljava/util/concurrent/Future;
+
+    return-void
+.end method
+
+.method private switchAngleValue()V
+    .registers 1
+
+    return-void
+.end method
+
+.method private switchCamera(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;)V
+    .registers 10
+
+    .line 9157
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    if-eqz v0, :cond_1e
+
+    new-array v0, v1, [Ljava/lang/String;
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "invoke requestMode:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    aput-object v3, v0, v2
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 9158
+    :cond_1e
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendResearchSameActivityEvent(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+
+    .line 9161
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v4, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->CAPTURING_MODE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 9162
+    invoke-interface {v3, v4}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v3
+
+    check-cast v3, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    iget-object v5, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastSettings:Lcom/sonyericsson/android/camera/setting/LastSettings;
+
+    iget-object v6, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    .line 9163
+    invoke-interface {v6}, Lcom/sonyericsson/android/camera/LaunchCondition;->isOneShot()Z
+
+    move-result v6
+
+    .line 9161
+    invoke-virtual {v0, v3, v4, v5, v6}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->savePreloadSettings(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/setting/UserSettings;Lcom/sonyericsson/android/camera/setting/LastSettings;Z)V
+
+    .line 9168
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->releaseRecorder()V
+
+    .line 9170
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isFusionMonitoringNeeded()Z
+
+    move-result v0
+
+    const/4 v3, 0x0
+
+    if-eqz v0, :cond_5d
+
+    .line 9171
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->stopFusionMonitoring()V
+
+    .line 9172
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v4, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_REQUEST_UPDATE_FUSION_CONDITION:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    new-array v5, v1, [Ljava/lang/Object;
+
+    move-object v6, v3
+
+    check-cast v6, Lcom/sonyericsson/android/camera/device/CameraParameters$FusionResult;
+
+    aput-object v6, v5, v2
+
+    invoke-interface {v0, v4, v5}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 9176
+    :cond_5d
+    invoke-direct {p0, p1, p2, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeModeTo(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;Z)V
+
+    .line 9177
+    invoke-direct {p0, p1, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->requestResizeEvf(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Z)V
+
+    .line 9179
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    new-instance v4, Lcom/sonyericsson/android/camera/controller/StateMachine$OnPreviewStartedListenerImpl;
+
+    invoke-direct {v4, p0, v2, v3}, Lcom/sonyericsson/android/camera/controller/StateMachine$OnPreviewStartedListenerImpl;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;ZLcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    invoke-virtual {v0, v4}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->setOnPreviewStartedListener(Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$OnPreviewStartedListener;)V
+
+    .line 9181
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_CAPTURING_MODE_CHANGED:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v4, 0x3
+
+    new-array v4, v4, [Ljava/lang/Object;
+
+    aput-object p1, v4, v2
+
+    sget-object p1, Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;->NONE:Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;
+
+    .line 9182
+    invoke-virtual {p2, p1}, Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;->equals(Ljava/lang/Object;)Z
+
+    move-result p1
+
+    xor-int/2addr p1, v1
+
+    invoke-static {p1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p1
+
+    aput-object p1, v4, v1
+
+    const/4 p1, 0x2
+
+    aput-object p2, v4, p1
+
+    .line 9181
+    invoke-interface {v0, v3, v4}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 9183
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object p1
+
+    sget-object p2, Lcom/sonyericsson/android/camera/LaunchTrigger;->SAME_ACTIVITY:Lcom/sonyericsson/android/camera/LaunchTrigger;
+
+    .line 9184
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    .line 9183
+    invoke-virtual {p1, p2, v0}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->sendView(Lcom/sonyericsson/android/camera/LaunchTrigger;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+
+    return-void
+.end method
+
+.method private switchCamera(Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;)V
+    .registers 6
+
+    .line 9103
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_22
+
+    const/4 v0, 0x1
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "invoke current:"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    aput-object v2, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 9105
+    :cond_22
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    .line 9108
+    sget-object v1, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$configuration$parameters$CapturingMode:[I
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->ordinal()I
+
+    move-result v2
+
+    aget v1, v1, v2
+
+    packed-switch v1, :pswitch_data_48
+
+    :pswitch_31
+    goto :goto_43
+
+    .line 9134
+    :pswitch_32
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->VIDEO:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    goto :goto_43
+
+    .line 9131
+    :pswitch_35
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->FRONT_VIDEO:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    goto :goto_43
+
+    .line 9119
+    :pswitch_38
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->FRONT_PHOTO:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    goto :goto_43
+
+    .line 9112
+    :pswitch_3b
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SUPERIOR_FRONT:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    goto :goto_43
+
+    .line 9123
+    :pswitch_3e
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->NORMAL:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    goto :goto_43
+
+    .line 9115
+    :pswitch_41
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SCENE_RECOGNITION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    .line 9138
+    :goto_43
+    invoke-direct {p0, v0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->switchCamera(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/view/animation/AnimationRequest$AnimationType;)V
+
+    return-void
+
+    nop
+
+    :pswitch_data_48
+    .packed-switch 0x1
+        :pswitch_41
+        :pswitch_3e
+        :pswitch_3b
+        :pswitch_38
+        :pswitch_35
+        :pswitch_31
+        :pswitch_3b
+        :pswitch_32
+        :pswitch_35
+        :pswitch_35
+    .end packed-switch
+.end method
+
+.method private switchSceneRecognition(Z)V
+    .registers 3
+
+    .line 11143
+    iget-boolean v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsSceneRecognitionValid:Z
+
+    if-eqz v0, :cond_c
+
+    if-eqz p1, :cond_c
+
+    .line 11144
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->startSceneRecognition()V
+
+    goto :goto_11
+
+    .line 11146
+    :cond_c
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->stopSceneRecognition()V
+
+    :goto_11
+    return-void
+.end method
+
+.method private switchVideoFaceDetection()V
+    .registers 4
+
+    .line 11151
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 11152
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_HDR:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;
+
+    .line 11155
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v2
+
+    invoke-static {v2, v0, v1}, Lcom/sonyericsson/android/camera/parameter/dependency/DependencyCheckUtil;->isFaceDetectionAvailable(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_24
+
+    .line 11156
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->startFaceDetection()V
+
+    goto :goto_29
+
+    .line 11158
+    :cond_24
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->stopFaceDetection()V
+
+    :goto_29
+    return-void
+.end method
+
+.method private transitionToRecordingState(Z)V
+    .registers 5
+
+    .line 9752
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    if-eqz p1, :cond_7
+
+    .line 9753
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/CameraActivity;->disableAutoPowerOffTimer()V
+
+    :cond_7
+    const/4 p1, 0x0
+
+    .line 9756
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mChapterThumbnail:Lcom/sonyericsson/android/camera/controller/ChapterThumbnail;
+
+    .line 9761
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    if-eqz v0, :cond_71
+
+    .line 9762
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$configuration$parameters$CapturingMode:[I
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->ordinal()I
+
+    move-result v1
+
+    aget v0, v0, v1
+
+    const/4 v1, 0x5
+
+    const/4 v2, 0x0
+
+    if-eq v0, v1, :cond_32
+
+    const/16 p1, 0x8
+
+    if-eq v0, p1, :cond_27
+
+    const/16 p1, 0xa
+
+    if-eq v0, p1, :cond_27
+
+    goto :goto_71
+
+    .line 9787
+    :cond_27
+    new-instance p1, Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoRecording;
+
+    invoke-direct {p1, p0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoRecording;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+
+    new-array v0, v2, [Ljava/lang/Object;
+
+    invoke-direct {p0, p1, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    goto :goto_71
+
+    .line 9764
+    :cond_32
+    iput v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHighFrameRateVideoRecordingCountInSuperSlowMotion:I
+
+    .line 9765
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    .line 9767
+    sget-object v1, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$configuration$parameters$SlowMotion:[I
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->ordinal()I
+
+    move-result v0
+
+    aget v0, v1, v0
+
+    packed-switch v0, :pswitch_data_72
+
+    goto :goto_71
+
+    .line 9778
+    :pswitch_4c
+    new-instance p1, Lcom/sonyericsson/android/camera/controller/StateMachine$StateHighFrameRateVideoRecordingInSuperSlowMotion;
+
+    invoke-direct {p1, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateHighFrameRateVideoRecordingInSuperSlowMotion;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    new-array v0, v2, [Ljava/lang/Object;
+
+    invoke-direct {p0, p1, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    .line 9779
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {p1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->startSlowMotionFeedbackAnimation()V
+
+    goto :goto_71
+
+    .line 9769
+    :pswitch_5c
+    new-instance p1, Lcom/sonyericsson/android/camera/controller/StateMachine$StateLowFrameRateVideoRecordingInSuperSlowMotion;
+
+    invoke-direct {p1, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateLowFrameRateVideoRecordingInSuperSlowMotion;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    new-array v0, v2, [Ljava/lang/Object;
+
+    invoke-direct {p0, p1, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    goto :goto_71
+
+    .line 9774
+    :pswitch_67
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoRecording;
+
+    invoke-direct {v0, p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$StateVideoRecording;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$1;)V
+
+    new-array p1, v2, [Ljava/lang/Object;
+
+    invoke-direct {p0, v0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->changeTo(Lcom/sonyericsson/android/camera/controller/StateMachine$State;[Ljava/lang/Object;)V
+
+    :cond_71
+    :goto_71
+    return-void
+
+    :pswitch_data_72
+    .packed-switch 0x1
+        :pswitch_67
+        :pswitch_5c
+        :pswitch_4c
+    .end packed-switch
+.end method
+
+.method private updateAmberBlueColor(F)V
+    .registers 8
+
+    const/4 v0, -0x7
+
+    int-to-float v1, v0
+
+    const/16 v2, 0xe
+
+    int-to-float v2, v2
+
+    mul-float/2addr v2, p1
+
+    add-float/2addr v1, v2
+
+    float-to-double v1, v1
+
+    .line 11017
+    invoke-static {v1, v2}, Ljava/lang/Math;->ceil(D)D
+
+    move-result-wide v1
+
+    double-to-int v1, v1
+
+    .line 11019
+    sget-boolean v2, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v2, :cond_44
+
+    const/4 v2, 0x1
+
+    new-array v2, v2, [Ljava/lang/String;
+
+    const/4 v3, 0x0
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "invoke color-changed slider:"
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v4, p1}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+
+    const-string p1, ", min:"
+
+    invoke-virtual {v4, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string p1, ", max:"
+
+    invoke-virtual {v4, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const/4 p1, 0x7
+
+    invoke-virtual {v4, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string p1, ", value:"
+
+    invoke-virtual {v4, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v4, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    aput-object p1, v2, v3
+
+    invoke-static {v2}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 11024
+    :cond_44
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {p1, v1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->setAmberBlueColorAndCommit(I)V
+
+    .line 11026
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object p1
+
+    invoke-virtual {p1, v1}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->setSemiAutoSettingAmberBlueValue(I)V
+
+    return-void
+.end method
+
+.method private updateBokehStrength(F)V
+    .registers 5
+
+    .line 11047
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->BOKEH:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    const/high16 v2, 0x42c80000    # 100.0f
+
+    mul-float/2addr v2, p1
+
+    float-to-int v2, v2
+
+    invoke-interface {v0, v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->setInt(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;I)V
+
+    .line 11048
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0, p1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->setBokehStrengthAndCommit(F)V
+
+    return-void
+.end method
+
+.method private updateBrightness(F)V
+    .registers 9
+
+    .line 11031
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCameraId()Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    move-result-object v0
+
+    .line 11030
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->getCameraCapability(Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;)Lcom/sonyericsson/android/camera/util/capability/CameraCapabilityList;
+
+    move-result-object v0
+
+    .line 11032
+    iget-object v1, v0, Lcom/sonyericsson/android/camera/util/capability/CameraCapabilityList;->EV_MIN:Lcom/sonyericsson/android/camera/util/capability/CapabilityItem;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/util/capability/CapabilityItem;->get()Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Ljava/lang/Integer;
+
+    invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
+
+    move-result v1
+
+    .line 11033
+    iget-object v0, v0, Lcom/sonyericsson/android/camera/util/capability/CameraCapabilityList;->EV_MAX:Lcom/sonyericsson/android/camera/util/capability/CapabilityItem;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/util/capability/CapabilityItem;->get()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/lang/Integer;
+
+    invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
+
+    move-result v0
+
+    int-to-float v2, v1
+
+    sub-int v3, v0, v1
+
+    int-to-float v3, v3
+
+    mul-float/2addr v3, p1
+
+    add-float/2addr v2, v3
+
+    float-to-double v2, v2
+
+    .line 11034
+    invoke-static {v2, v3}, Ljava/lang/Math;->ceil(D)D
+
+    move-result-wide v2
+
+    double-to-int v2, v2
+
+    .line 11036
+    sget-boolean v3, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v3, :cond_62
+
+    const/4 v3, 0x1
+
+    new-array v3, v3, [Ljava/lang/String;
+
+    const/4 v4, 0x0
+
+    new-instance v5, Ljava/lang/StringBuilder;
+
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v6, "invoke brightness-changed slider:"
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v5, p1}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
+
+    const-string p1, ", min:"
+
+    invoke-virtual {v5, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v5, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string p1, ", max:"
+
+    invoke-virtual {v5, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v5, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string p1, ", value:"
+
+    invoke-virtual {v5, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v5, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    aput-object p1, v3, v4
+
+    invoke-static {v3}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 11041
+    :cond_62
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {p1, v2}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->setBrightnessAndCommit(I)V
+
+    .line 11043
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object p1
+
+    invoke-virtual {p1, v2}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->setSemiAutoSettingBrightnessValue(I)V
+
+    return-void
+.end method
+
+.method private updateDateTaken(Lcom/sonyericsson/cameracommon/storage/RequestFactory$RequestBuilder;)V
+    .registers 4
+
+    if-eqz p1, :cond_9
+
+    .line 10198
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v0
+
+    invoke-virtual {p1, v0, v1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$RequestBuilder;->setDateTaken(J)V
+
+    :cond_9
+    return-void
+.end method
+
+.method private updateFusionModeSetting(Lcom/sonyericsson/android/camera/configuration/parameters/FusionMode;)V
+    .registers 6
+
+    .line 9862
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->FUSION_MODE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/FusionMode;
+
+    if-ne p1, v0, :cond_d
+
+    return-void
+
+    .line 9868
+    :cond_d
+    sget-object v1, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$configuration$parameters$CapturingMode:[I
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->ordinal()I
+
+    move-result v2
+
+    aget v1, v1, v2
+
+    const/4 v2, 0x4
+
+    if-eq v1, v2, :cond_32
+
+    const/16 v2, 0xa
+
+    if-eq v1, v2, :cond_21
+
+    goto :goto_60
+
+    .line 9880
+    :cond_21
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    invoke-interface {v1, p1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->set(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+
+    .line 9881
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object v1
+
+    .line 9882
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v2
+
+    .line 9881
+    invoke-virtual {v1, v0, p1, v2}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->setSettingsValue(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+
+    goto :goto_60
+
+    .line 9870
+    :cond_32
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->ISO:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/Iso;
+
+    .line 9871
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    invoke-interface {v2, p1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->set(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;)V
+
+    .line 9872
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->ISO:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v2, v3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v2
+
+    if-eq v1, v2, :cond_55
+
+    .line 9873
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_ISO_CHANGED_BY_FUSION:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v3, 0x0
+
+    new-array v3, v3, [Ljava/lang/Object;
+
+    .line 9874
+    invoke-interface {v1, v2, v3}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 9876
+    :cond_55
+    invoke-static {}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->getInstance()Lcom/sonyericsson/android/camera/research/LocalResearchUtil;
+
+    move-result-object v1
+
+    .line 9877
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v2
+
+    .line 9876
+    invoke-virtual {v1, v0, p1, v2}, Lcom/sonyericsson/android/camera/research/LocalResearchUtil;->setSettingsValue(Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)V
+
+    :goto_60
+    return-void
+.end method
+
+.method private updatePhotoSelftimer(Lcom/sonyericsson/android/camera/configuration/parameters/SelfTimer;)V
+    .registers 5
+
+    .line 11132
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    if-eqz v0, :cond_11
+
+    .line 11133
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->CAPTURING_MODE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 11134
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    .line 11133
+    invoke-interface {v0, v1, p1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->setSelfTimer(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/configuration/parameters/SelfTimer;)V
+
+    :cond_11
+    return-void
+.end method
+
+.method private updateRecordingProgress(I)V
+    .registers 6
+
+    .line 9911
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    if-eqz v0, :cond_24
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/view/ViewFinder;->isSetupHeadupDisplayInvoked()Z
+
+    move-result v0
+
+    if-nez v0, :cond_b
+
+    goto :goto_24
+
+    .line 9916
+    :cond_b
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    if-eqz v0, :cond_12
+
+    .line 9917
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->disableAutoPowerOffTimer()V
+
+    .line 9921
+    :cond_12
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_RECORDING_PROGRESS:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v2, 0x1
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    const/4 v3, 0x0
+
+    .line 9923
+    invoke-static {p1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object p1
+
+    aput-object p1, v2, v3
+
+    .line 9921
+    invoke-interface {v0, v1, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    return-void
+
+    :cond_24
+    :goto_24
+    return-void
+.end method
+
+
+# virtual methods
+.method public addOnStateChangedListener(Lcom/sonyericsson/android/camera/controller/StateMachine$OnStateChangedListener;)V
+    .registers 3
+
+    .line 1042
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mOnStateChangedListenerSet:Ljava/util/Set;
+
+    invoke-interface {v0, p1}, Ljava/util/Set;->add(Ljava/lang/Object;)Z
+
+    return-void
+.end method
+
+.method public canApplicationBeFinished()Z
+    .registers 3
+
+    .line 10947
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    monitor-enter v0
+
+    .line 10948
+    :try_start_3
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v1
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->canApplicationBeFinished()Z
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->access$17500(Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;)Z
+
+    move-result v1
+
+    .line 10949
+    monitor-exit v0
+
+    return v1
+
+    :catchall_f
+    move-exception v1
+
+    monitor-exit v0
+    :try_end_11
+    .catchall {:try_start_3 .. :try_end_11} :catchall_f
+
+    throw v1
+.end method
+
+.method public canHandleAsynchronizedTask()Z
+    .registers 2
+
+    .line 9888
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    iget-object v0, v0, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->mCaptureState:Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->canHandleAsynchronizedTask()Z
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->access$16600(Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;)Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public createPhotoSavingRequest(Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;)Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+    .registers 10
+
+    .line 10106
+    sget-object v0, Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;->BURST:Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;
+
+    if-eq p1, v0, :cond_24
+
+    sget-object v0, Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;->PHOTO:Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;
+
+    if-eq p1, v0, :cond_24
+
+    sget-object v0, Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;->PHOTO_DURING_REC:Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;
+
+    if-ne p1, v0, :cond_d
+
+    goto :goto_24
+
+    .line 10109
+    :cond_d
+    new-instance v0, Ljava/lang/IllegalArgumentException;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "Unexpected type:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-direct {v0, p1}, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V
+
+    throw v0
+
+    .line 10112
+    :cond_24
+    :goto_24
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isBokehOn()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_3b
+
+    .line 10113
+    sget-boolean p1, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz p1, :cond_39
+
+    const-string p1, "Update saving request: set saved file type as boken"
+
+    filled-new-array {p1}, [Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10114
+    :cond_39
+    sget-object p1, Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;->PHOTO_BOKEN:Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;
+
+    .line 10117
+    :cond_3b
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->RESOLUTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;
+
+    .line 10119
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isFront()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_53
+
+    .line 10120
+    sget-object v1, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusPhoto$Facing;->FRONT:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusPhoto$Facing;
+
+    move-object v6, v1
+
+    goto :goto_56
+
+    .line 10122
+    :cond_53
+    sget-object v1, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusPhoto$Facing;->BACK:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusPhoto$Facing;
+
+    move-object v6, v1
+
+    .line 10125
+    :goto_56
+    new-instance v7, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;
+
+    .line 10128
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;->getPictureRect()Landroid/graphics/Rect;
+
+    move-result-object v2
+
+    const-string v3, "image/jpeg"
+
+    const-string v4, ".JPG"
+
+    const/4 v5, 0x0
+
+    move-object v0, p0
+
+    move-object v1, p1
+
+    .line 10126
+    invoke-direct/range {v0 .. v5}, Lcom/sonyericsson/android/camera/controller/StateMachine;->createTakenStatusCommon(Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;Landroid/graphics/Rect;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    move-result-object v0
+
+    new-instance v1, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusPhoto;
+
+    invoke-direct {v1, v6}, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusPhoto;-><init>(Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusPhoto$Facing;)V
+
+    const/4 v2, 0x0
+
+    invoke-direct {v7, v0, v1, v2}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;-><init>(Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusPhoto;Z)V
+
+    .line 10135
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mOnStoreCompletedListener:Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;
+
+    invoke-virtual {v7, v0}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->addCallback(Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;)V
+
+    .line 10136
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/LaunchCondition;->isOneShotPhoto()Z
+
+    move-result v0
+
+    invoke-virtual {v7, v0}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->setOneShot(Z)V
+
+    .line 10138
+    sget-object v0, Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;->BURST:Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;
+
+    if-ne p1, v0, :cond_88
+
+    .line 10139
+    sget-object p1, Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;->INTERNAL:Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    invoke-virtual {v7, p1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->setStorageType(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)V
+
+    goto :goto_8f
+
+    .line 10141
+    :cond_88
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object p1
+
+    invoke-virtual {v7, p1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->setStorageType(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)V
+
+    .line 10143
+    :goto_8f
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {p1}, Lcom/sonyericsson/android/camera/LaunchCondition;->getExtraOutput()Landroid/net/Uri;
+
+    move-result-object p1
+
+    invoke-virtual {v7, p1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->setExtraOutput(Landroid/net/Uri;)V
+
+    return-object v7
+.end method
+
+.method public getCurrentCameraId()Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+    .registers 2
+
+    .line 10922
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCameraId(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public declared-synchronized getCurrentCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+    .registers 2
+    .annotation runtime Ljava/lang/Deprecated;
+    .end annotation
+
+    monitor-enter p0
+
+    .line 11011
+    :try_start_1
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v0
+    :try_end_7
+    .catchall {:try_start_1 .. :try_end_7} :catchall_9
+
+    monitor-exit p0
+
+    return-object v0
+
+    :catchall_9
+    move-exception v0
+
+    monitor-exit p0
+
+    throw v0
+.end method
+
+.method public getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+    .registers 3
+
+    .line 10914
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->CAPTURING_MODE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    if-nez v0, :cond_13
+
+    .line 10915
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/LaunchCondition;->getCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    return-object v0
+
+    .line 10917
+    :cond_13
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->CAPTURING_MODE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    return-object v0
+.end method
+
+.method public getCurrentSessionType()Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+    .registers 2
+
+    .line 11760
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentSessionType:Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;
+
+    return-object v0
+.end method
+
+.method public getFrontAngleValue()Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;
+    .registers 3
+
+    .line 9149
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    if-eqz v0, :cond_d
+
+    .line 9150
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->FRONT_ANGLE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;
+
+    return-object v0
+
+    .line 9152
+    :cond_d
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;->WIDE:Lcom/sonyericsson/android/camera/configuration/parameters/FrontAngle;
+
+    return-object v0
+.end method
+
+.method public getLaunchCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+    .registers 2
+
+    .line 11176
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/LaunchCondition;->getCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public getPredictiveCaptureStoreInfo()Lcom/sonyericsson/cameracommon/contentsview/PredictiveCaptureStoreInfo;
+    .registers 2
+
+    .line 11314
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPredictiveCaptureStoreInfo:Lcom/sonyericsson/cameracommon/contentsview/PredictiveCaptureStoreInfo;
+
+    return-object v0
+.end method
+
+.method public getPreviewRect()Landroid/graphics/Rect;
+    .registers 5
+
+    .line 10811
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->CAPTURING_MODE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    .line 10813
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isVideo()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1f
+
+    .line 10814
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 10815
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->getVideoRect()Landroid/graphics/Rect;
+
+    move-result-object v1
+
+    goto :goto_2d
+
+    .line 10817
+    :cond_1f
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->RESOLUTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;
+
+    .line 10818
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;->getPictureRect()Landroid/graphics/Rect;
+
+    move-result-object v1
+
+    .line 10820
+    :goto_2d
+    invoke-static {}, Lcom/sonyericsson/cameracommon/utility/LayoutOrientationResolver;->getInstance()Lcom/sonyericsson/cameracommon/utility/LayoutOrientationResolver;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    .line 10822
+    invoke-virtual {v3, v0, v1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->getPreviewRect(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Landroid/graphics/Rect;)Landroid/graphics/Rect;
+
+    move-result-object v0
+
+    .line 10821
+    invoke-virtual {v2, v0}, Lcom/sonyericsson/cameracommon/utility/LayoutOrientationResolver;->getRectAccordingToLayoutOrientation(Landroid/graphics/Rect;)Landroid/graphics/Rect;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+    .registers 2
+
+    .line 1031
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    return-object v0
+.end method
+
+.method public getVirtualKeyEventDispatcher()Lcom/sonyericsson/android/camera/view/UserEventHandler$VirtualKeyEventDispatcher;
+    .registers 2
+
+    .line 11687
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mVirtualKeyEventDispatcher:Lcom/sonyericsson/android/camera/view/UserEventHandler$VirtualKeyEventDispatcher;
+
+    return-object v0
+.end method
+
+.method public getZoom()Ljava/lang/Float;
+    .registers 2
+
+    .line 1035
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->getZoom()Ljava/lang/Float;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public getZoomDialZoomValue()F
+    .registers 2
+
+    .line 411
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/view/ViewFinder;->getZoomValue()F
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public getZoomStep()I
+    .registers 2
+
+    .line 415
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/view/ViewFinder;->getZoomStep()I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public hideDisplayFlashScreen()V
+    .registers 3
+
+    .line 402
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$4;
+
+    invoke-direct {v1, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$4;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method
+
+.method public declared-synchronized isAngleEventReceivable()Z
+    .registers 3
+
+    monitor-enter p0
+
+    .line 11668
+    :try_start_1
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$controller$StateMachine$CaptureState:[I
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->ordinal()I
+
+    move-result v1
+
+    aget v0, v0, v1
+    :try_end_f
+    .catchall {:try_start_1 .. :try_end_f} :catchall_18
+
+    packed-switch v0, :pswitch_data_1c
+
+    const/4 v0, 0x0
+
+    .line 11679
+    monitor-exit p0
+
+    return v0
+
+    :pswitch_15
+    const/4 v0, 0x1
+
+    .line 11676
+    monitor-exit p0
+
+    return v0
+
+    :catchall_18
+    move-exception v0
+
+    monitor-exit p0
+
+    throw v0
+
+    nop
+
+    :pswitch_data_1c
+    .packed-switch 0x2
+        :pswitch_15
+        :pswitch_15
+        :pswitch_15
+        :pswitch_15
+        :pswitch_15
+        :pswitch_15
+        :pswitch_15
+    .end packed-switch
+.end method
+
+.method public isCaptureAcceptable()Z
+    .registers 7
+
+    .line 9521
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isBGProcessingRestricted()Z
+
+    move-result v0
+
+    .line 9522
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isFinishBurstDone()Z
+
+    move-result v1
+
+    const/4 v2, 0x1
+
+    .line 9523
+    new-array v3, v2, [Ljava/lang/String;
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "isBGProcessingRestricted:"
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    const-string v5, ", isFinishBurstDone:"
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v4, v1}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v4
+
+    const/4 v5, 0x0
+
+    aput-object v4, v3, v5
+
+    invoke-static {v3}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    if-nez v0, :cond_33
+
+    if-eqz v1, :cond_33
+
+    goto :goto_34
+
+    :cond_33
+    move v2, v5
+
+    :goto_34
+    return v2
+.end method
+
+.method public isCurrentStorageWritable()Z
+    .registers 2
+
+    .line 11472
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v0
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isStorageWritable(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public declared-synchronized isDialogOpened()Z
+    .registers 3
+
+    monitor-enter p0
+
+    .line 839
+    :try_start_1
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->STATE_OPERATION_RESTRICTED:Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+    :try_end_9
+    .catchall {:try_start_1 .. :try_end_9} :catchall_10
+
+    if-ne v0, v1, :cond_d
+
+    const/4 v0, 0x1
+
+    goto :goto_e
+
+    :cond_d
+    const/4 v0, 0x0
+
+    :goto_e
+    monitor-exit p0
+
+    return v0
+
+    :catchall_10
+    move-exception v0
+
+    monitor-exit p0
+
+    throw v0
+.end method
+
+.method public isInFocusStatus()Z
+    .registers 3
+
+    .line 9852
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->STATE_BURST_CAPTURE_WAIT_FOR_AF_DONE:Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    if-eq v0, v1, :cond_2b
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    .line 9853
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->STATE_PHOTO_AF_SEARCH:Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    if-eq v0, v1, :cond_2b
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    .line 9854
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->STATE_PHOTO_AF_DONE:Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    if-eq v0, v1, :cond_2b
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    .line 9855
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->STATE_PHOTO_CAPTURE_WAIT_FOR_AF_DONE:Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    if-ne v0, v1, :cond_29
+
+    goto :goto_2b
+
+    :cond_29
+    const/4 v0, 0x0
+
+    return v0
+
+    :cond_2b
+    :goto_2b
+    const/4 v0, 0x1
+
+    return v0
+.end method
+
+.method public isMenuAvailable()Z
+    .registers 2
+
+    .line 10959
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v0
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->isMenuAvailable()Z
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->access$17600(Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;)Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public isNeedResetZoomStatus()Z
+    .registers 7
+
+    .line 9029
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->getStoredSettings()Lcom/sonyericsson/android/camera/setting/StoredSettings;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/setting/StoredSettings;->getLastSettings()Lcom/sonyericsson/android/camera/setting/LastSettings;
+
+    move-result-object v0
+
+    .line 9030
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v1
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 9031
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 9032
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v2
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    const/4 v4, 0x0
+
+    if-ne v2, v3, :cond_28
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/setting/LastSettings;->getLatestVideoSize()Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    move-result-object v2
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->HD_120FPS:Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    if-ne v2, v3, :cond_28
+
+    return v4
+
+    .line 9038
+    :cond_28
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v2
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    const/4 v5, 0x1
+
+    if-eq v2, v3, :cond_3a
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/setting/LastSettings;->getLatestVideoSize()Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    move-result-object v2
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->HD_120FPS:Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    if-ne v2, v3, :cond_3a
+
+    return v5
+
+    .line 9042
+    :cond_3a
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isVideo()Z
+
+    move-result v2
+
+    if-nez v2, :cond_45
+
+    return v4
+
+    .line 9046
+    :cond_45
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/setting/LastSettings;->getLatestVideoSize()Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    move-result-object v2
+
+    .line 9047
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v3
+
+    invoke-virtual {v0, v3}, Lcom/sonyericsson/android/camera/setting/LastSettings;->getLatestZoomRatio(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)F
+
+    move-result v0
+
+    if-nez v2, :cond_54
+
+    return v5
+
+    .line 9052
+    :cond_54
+    sget-object v3, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$configuration$parameters$VideoSize:[I
+
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->ordinal()I
+
+    move-result v2
+
+    aget v2, v3, v2
+
+    packed-switch v2, :pswitch_data_72
+
+    .line 9063
+    sget-object v2, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$configuration$parameters$VideoSize:[I
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->ordinal()I
+
+    move-result v1
+
+    aget v1, v2, v1
+
+    packed-switch v1, :pswitch_data_84
+
+    goto :goto_71
+
+    :pswitch_6b
+    const/4 v1, 0x0
+
+    cmpg-float v0, v0, v1
+
+    if-gtz v0, :cond_71
+
+    move v4, v5
+
+    :cond_71
+    :goto_71
+    :pswitch_71
+    return v4
+
+    :pswitch_data_72
+    .packed-switch 0x1
+        :pswitch_71
+        :pswitch_71
+        :pswitch_71
+        :pswitch_71
+        :pswitch_71
+        :pswitch_71
+        :pswitch_71
+    .end packed-switch
+
+    :pswitch_data_84
+    .packed-switch 0x1
+        :pswitch_6b
+        :pswitch_6b
+        :pswitch_6b
+        :pswitch_6b
+        :pswitch_6b
+        :pswitch_6b
+        :pswitch_6b
+    .end packed-switch
+.end method
+
+.method public isRecording()Z
+    .registers 2
+
+    .line 10968
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    if-eqz v0, :cond_d
+
+    .line 10969
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v0
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->isRecording()Z
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->access$15800(Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;)Z
+
+    move-result v0
+
+    return v0
+
+    :cond_d
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method public isRestartPreviewSessionState()Z
+    .registers 4
+
+    .line 3387
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_f
+
+    .line 3388
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object v0
+
+    sget-object v2, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->STATE_RESTART_PREVIEW_SESSION:Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    if-ne v0, v2, :cond_e
+
+    const/4 v1, 0x1
+
+    :cond_e
+    return v1
+
+    :cond_f
+    return v1
+.end method
+
+.method public isSettingChangeAcceptable()Z
+    .registers 2
+
+    .line 11655
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isLazyInitializationRunning()Z
+
+    move-result v0
+
+    if-nez v0, :cond_f
+
+    .line 11656
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isAllSnapshotCompleted()Z
+
+    move-result v0
+
+    if-nez v0, :cond_d
+
+    goto :goto_f
+
+    :cond_d
+    const/4 v0, 0x1
+
+    return v0
+
+    :cond_f
+    :goto_f
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method public isSuperNightMode()Z
+    .registers 4
+
+    .line 11772
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isSuperiorAuto()Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_2f
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    .line 11773
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isBokehOn()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_14
+
+    goto :goto_2f
+
+    .line 11776
+    :cond_14
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->NIGHT:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/NightMode;
+
+    .line 11777
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/parameters/NightMode;->AUTO:Lcom/sonyericsson/android/camera/configuration/parameters/NightMode;
+
+    if-ne v0, v2, :cond_29
+
+    .line 11778
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isAutoNightDetected()Z
+
+    move-result v0
+
+    return v0
+
+    .line 11780
+    :cond_29
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/parameters/NightMode;->ON:Lcom/sonyericsson/android/camera/configuration/parameters/NightMode;
+
+    if-ne v0, v2, :cond_2e
+
+    const/4 v1, 0x1
+
+    :cond_2e
+    return v1
+
+    :cond_2f
+    :goto_2f
+    return v1
+.end method
+
+.method public isSuppressFlash()Z
+    .registers 2
+
+    .line 360
+    iget-boolean v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mSuppressFlash:Z
+
+    return v0
+.end method
+
+.method public isThermalWarningState()Z
+    .registers 2
+
+    .line 11337
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    if-nez v0, :cond_6
+
+    const/4 v0, 0x0
+
+    goto :goto_a
+
+    :cond_6
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->isThermalWarningState()Z
+
+    move-result v0
+
+    :goto_a
+    return v0
+.end method
+
+.method public isTutorialNeededToBeShownForCurrentMode()Z
+    .registers 7
+
+    .line 11514
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/LaunchCondition;->isOneShot()Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_a
+
+    return v1
+
+    .line 11517
+    :cond_a
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->getStoredSettings()Lcom/sonyericsson/android/camera/setting/StoredSettings;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/setting/StoredSettings;->getMessageSettings()Lcom/sonyericsson/android/camera/setting/MessageSettings;
+
+    move-result-object v0
+
+    .line 11518
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v2
+
+    .line 11520
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isFront()Z
+
+    move-result v3
+
+    if-eqz v3, :cond_41
+
+    .line 11521
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isVideo()Z
+
+    move-result v3
+
+    if-eqz v3, :cond_38
+
+    .line 11522
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->getCameraId()Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    move-result-object v2
+
+    invoke-static {v2}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->isEyeDetectionSupported(Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_37
+
+    .line 11523
+    sget-object v1, Lcom/sonyericsson/android/camera/setting/MessageType;->TUTORIAL_EYE_GUIDE:Lcom/sonyericsson/android/camera/setting/MessageType;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/MessageSettings;->isNeverShow(Lcom/sonyericsson/android/camera/setting/MessageType;)Z
+
+    move-result v0
+
+    xor-int/lit8 v0, v0, 0x1
+
+    return v0
+
+    :cond_37
+    return v1
+
+    .line 11528
+    :cond_38
+    sget-object v1, Lcom/sonyericsson/android/camera/setting/MessageType;->TUTORIAL_HAND_SHUTTER:Lcom/sonyericsson/android/camera/setting/MessageType;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/MessageSettings;->isNeverShow(Lcom/sonyericsson/android/camera/setting/MessageType;)Z
+
+    move-result v0
+
+    xor-int/lit8 v0, v0, 0x1
+
+    return v0
+
+    .line 11531
+    :cond_41
+    sget-object v3, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$configuration$parameters$SlowMotion:[I
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v4
+
+    sget-object v5, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v4, v5}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v4
+
+    check-cast v4, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    invoke-virtual {v4}, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->ordinal()I
+
+    move-result v4
+
+    aget v3, v3, v4
+
+    packed-switch v3, :pswitch_data_ae
+
+    .line 11542
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isVideo()Z
+
+    move-result v3
+
+    if-eqz v3, :cond_95
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    invoke-interface {v3}, Lcom/sonyericsson/android/camera/LaunchCondition;->isOneShotVideo()Z
+
+    move-result v3
+
+    if-nez v3, :cond_95
+
+    .line 11543
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->getCameraId()Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    move-result-object v3
+
+    invoke-static {v3}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->isHighSensitivityFusionSupported(Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_95
+
+    .line 11544
+    sget-object v1, Lcom/sonyericsson/android/camera/setting/MessageType;->TUTORIAL_VIDEO_FUSION:Lcom/sonyericsson/android/camera/setting/MessageType;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/MessageSettings;->isNeverShow(Lcom/sonyericsson/android/camera/setting/MessageType;)Z
+
+    move-result v0
+
+    goto :goto_92
+
+    .line 11536
+    :pswitch_77
+    sget-object v1, Lcom/sonyericsson/android/camera/setting/MessageType;->TUTORIAL_SUPER_SLOW_MOTION_SHOT:Lcom/sonyericsson/android/camera/setting/MessageType;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/MessageSettings;->isNeverShow(Lcom/sonyericsson/android/camera/setting/MessageType;)Z
+
+    move-result v0
+
+    xor-int/lit8 v0, v0, 0x1
+
+    return v0
+
+    .line 11533
+    :pswitch_80
+    sget-object v1, Lcom/sonyericsson/android/camera/setting/MessageType;->TUTORIAL_SUPER_SLOW_MOTION:Lcom/sonyericsson/android/camera/setting/MessageType;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/MessageSettings;->isNeverShow(Lcom/sonyericsson/android/camera/setting/MessageType;)Z
+
+    move-result v0
+
+    xor-int/lit8 v0, v0, 0x1
+
+    return v0
+
+    .line 11539
+    :pswitch_89
+    sget-object v1, Lcom/sonyericsson/android/camera/setting/MessageType;->TUTORIAL_STANDARD_SLOW_MOTION:Lcom/sonyericsson/android/camera/setting/MessageType;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/MessageSettings;->isNeverShow(Lcom/sonyericsson/android/camera/setting/MessageType;)Z
+
+    move-result v0
+
+    xor-int/lit8 v0, v0, 0x1
+
+    return v0
+
+    :goto_92
+    xor-int/lit8 v0, v0, 0x1
+
+    return v0
+
+    .line 11547
+    :cond_95
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->WIDE_PHOTO:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-ne v2, v3, :cond_ac
+
+    .line 11548
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->getCameraId()Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    move-result-object v2
+
+    invoke-static {v2}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->isDistortionCorrectionSupported(Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_ac
+
+    .line 11549
+    sget-object v1, Lcom/sonyericsson/android/camera/setting/MessageType;->FEATURE_LENS_CORRECTION:Lcom/sonyericsson/android/camera/setting/MessageType;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/MessageSettings;->isNeverShow(Lcom/sonyericsson/android/camera/setting/MessageType;)Z
+
+    move-result v0
+
+    xor-int/lit8 v0, v0, 0x1
+
+    return v0
+
+    :cond_ac
+    return v1
+
+    nop
+
+    :pswitch_data_ae
+    .packed-switch 0x1
+        :pswitch_89
+        :pswitch_80
+        :pswitch_77
+    .end packed-switch
+.end method
+
+.method public isVideoRecording()Z
+    .registers 2
+
+    .line 9848
+    iget-boolean v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsVideoRecording:Z
+
+    return v0
+.end method
+
+.method public isVideoSizeOrResolutionChanged()Z
+    .registers 6
+
+    .line 9013
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->getStoredSettings()Lcom/sonyericsson/android/camera/setting/StoredSettings;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/setting/StoredSettings;->getLastSettings()Lcom/sonyericsson/android/camera/setting/LastSettings;
+
+    move-result-object v0
+
+    .line 9014
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v1
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 9015
+    invoke-interface {v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 9016
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v2
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    const/4 v4, 0x0
+
+    if-ne v2, v3, :cond_28
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/setting/LastSettings;->getLatestVideoSize()Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    move-result-object v2
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->HD_120FPS:Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    if-ne v2, v3, :cond_28
+
+    return v4
+
+    .line 9020
+    :cond_28
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v2
+
+    sget-object v3, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->RESOLUTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v2, v3}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v2
+
+    check-cast v2, Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;
+
+    .line 9021
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isVideo()Z
+
+    move-result v3
+
+    if-eqz v3, :cond_44
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/setting/LastSettings;->getLatestVideoSize()Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    move-result-object v3
+
+    if-ne v1, v3, :cond_54
+
+    .line 9022
+    :cond_44
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isMainPhoto()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_56
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/setting/LastSettings;->getLatestPhotoSize()Lcom/sonyericsson/android/camera/configuration/parameters/Resolution;
+
+    move-result-object v0
+
+    if-eq v2, v0, :cond_56
+
+    :cond_54
+    const/4 v0, 0x1
+
+    return v0
+
+    :cond_56
+    return v4
+.end method
+
+.method public needChangeCameraId(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;)Z
+    .registers 8
+
+    .line 9242
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->getCameraId()Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    move-result-object v0
+
+    invoke-virtual {p3}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->getCameraId()Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    move-result-object v1
+
+    const/4 v2, 0x0
+
+    const/4 v3, 0x1
+
+    if-ne v0, v1, :cond_78
+
+    .line 9244
+    invoke-virtual {p3}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isFront()Z
+
+    move-result v0
+
+    if-nez v0, :cond_79
+
+    .line 9245
+    invoke-virtual {p3}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isVideo()Z
+
+    move-result p3
+
+    if-eqz p3, :cond_4a
+
+    .line 9246
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object p2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {p1, p2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object p1
+
+    check-cast p1, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 9247
+    sget-boolean p2, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz p2, :cond_3e
+
+    new-array p2, v3, [Ljava/lang/String;
+
+    new-instance p3, Ljava/lang/StringBuilder;
+
+    invoke-direct {p3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v0, "Target video size is :"
+
+    invoke-virtual {p3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p3, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p3
+
+    aput-object p3, p2, v2
+
+    invoke-static {p2}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 9249
+    :cond_3e
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->is4KVideo()Z
+
+    move-result p2
+
+    if-nez p2, :cond_48
+
+    sget-object p2, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->FULL_HD_60FPS:Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    if-ne p1, p2, :cond_79
+
+    :cond_48
+    move v2, v3
+
+    goto :goto_79
+
+    .line 9254
+    :cond_4a
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->isVideo()Z
+
+    move-result p1
+
+    if-eqz p1, :cond_79
+
+    .line 9255
+    invoke-virtual {p2}, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->is4KVideo()Z
+
+    move-result p1
+
+    if-nez p1, :cond_5a
+
+    sget-object p1, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->FULL_HD_60FPS:Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    if-ne p2, p1, :cond_79
+
+    .line 9257
+    :cond_5a
+    sget-boolean p1, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz p1, :cond_76
+
+    new-array p1, v3, [Ljava/lang/String;
+
+    new-instance p3, Ljava/lang/StringBuilder;
+
+    invoke-direct {p3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v0, "Previous video size is :"
+
+    invoke-virtual {p3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p3, p2}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p2
+
+    aput-object p2, p1, v2
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_76
+    move v2, v3
+
+    goto :goto_79
+
+    :cond_78
+    move v2, v3
+
+    :cond_79
+    :goto_79
+    return v2
+.end method
+
+.method public notifySceneRecognitionDisabled()V
+    .registers 6
+
+    .line 11163
+    new-instance v0, Lcom/sonyericsson/android/camera/device/CameraParameters$SceneRecognitionResult;
+
+    invoke-direct {v0}, Lcom/sonyericsson/android/camera/device/CameraParameters$SceneRecognitionResult;-><init>()V
+
+    const/4 v1, 0x0
+
+    .line 11164
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/device/CameraParameterConverter$SceneMode;->getSceneMode(I)Lcom/sonyericsson/android/camera/device/CameraParameterConverter$SceneMode;
+
+    move-result-object v2
+
+    iput-object v2, v0, Lcom/sonyericsson/android/camera/device/CameraParameters$SceneRecognitionResult;->sceneMode:Lcom/sonyericsson/android/camera/device/CameraParameterConverter$SceneMode;
+
+    .line 11167
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/device/CameraParameters$DeviceStabilityCondition;->getCondition(I)Lcom/sonyericsson/android/camera/device/CameraParameters$DeviceStabilityCondition;
+
+    move-result-object v2
+
+    iput-object v2, v0, Lcom/sonyericsson/android/camera/device/CameraParameters$SceneRecognitionResult;->deviceStabilityCondition:Lcom/sonyericsson/android/camera/device/CameraParameters$DeviceStabilityCondition;
+
+    .line 11169
+    iput-boolean v1, v0, Lcom/sonyericsson/android/camera/device/CameraParameters$SceneRecognitionResult;->isMacroRange:Z
+
+    .line 11170
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_DETECTED_SCENE_CHANGED:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v4, 0x1
+
+    new-array v4, v4, [Ljava/lang/Object;
+
+    aput-object v0, v4, v1
+
+    invoke-interface {v2, v3, v4}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public onAutoFlashResultChanged(Z)V
+    .registers 5
+
+    .line 10532
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10533
+    :cond_d
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;->EVENT_ON_AUTO_FLASH_CHANGED:Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;
+
+    const/4 v1, 0x1
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    const/4 v2, 0x0
+
+    invoke-static {p1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p1
+
+    aput-object p1, v1, v2
+
+    invoke-virtual {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendStaticEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public onAutoFocusDone(Z)V
+    .registers 5
+
+    .line 10221
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_AUTO_FOCUS_DONE:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    const/4 v1, 0x2
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-static {p1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p1
+
+    const/4 v2, 0x0
+
+    aput-object p1, v1, v2
+
+    .line 10222
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isHighQualityBurstAvailable()Z
+
+    move-result p1
+
+    invoke-static {p1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p1
+
+    const/4 v2, 0x1
+
+    aput-object p1, v1, v2
+
+    .line 10221
+    invoke-virtual {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    .line 10223
+    sget-object p1, Lcom/sonyericsson/android/camera/util/PerfLog;->AUTO_FOCUS_DONE:Lcom/sonyericsson/android/camera/util/PerfLog;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/util/PerfLog;->transit()V
+
+    return-void
+.end method
+
+.method public onAutoFocusDone(ZZZIII)V
+    .registers 12
+
+    .line 10236
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x1
+
+    if-eqz v0, :cond_2e
+
+    new-array v0, v2, [Ljava/lang/String;
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "invoke isHighQualityBurstAvailable:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3, p1}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    const-string v4, ", isAfSuccessed:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3, p2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    const-string v4, ", requireDisplayFlash:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3, p3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    aput-object v3, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10239
+    :cond_2e
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    if-eqz v0, :cond_3a
+
+    .line 10240
+    invoke-interface {v0, p3}, Lcom/sonyericsson/android/camera/view/ViewFinder;->setDisplayFlashRequired(Z)V
+
+    .line 10241
+    iget-object p3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {p3, p4, p5, p6}, Lcom/sonyericsson/android/camera/view/ViewFinder;->setDisplayFlashColor(III)V
+
+    .line 10243
+    :cond_3a
+    invoke-static {}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->getInstance()Lcom/sonymobile/cameracommon/research/ResearchUtil;
+
+    move-result-object p3
+
+    invoke-virtual {p3}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->setTimeAfDone()V
+
+    .line 10244
+    sget-object p3, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_AUTO_FOCUS_DONE:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    const/4 p4, 0x2
+
+    new-array p4, p4, [Ljava/lang/Object;
+
+    invoke-static {p2}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p2
+
+    aput-object p2, p4, v1
+
+    .line 10245
+    invoke-static {p1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p1
+
+    aput-object p1, p4, v2
+
+    .line 10244
+    invoke-virtual {p0, p3, p4}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    .line 10246
+    sget-object p1, Lcom/sonyericsson/android/camera/util/PerfLog;->AUTO_FOCUS_DONE:Lcom/sonyericsson/android/camera/util/PerfLog;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/util/PerfLog;->transit()V
+
+    return-void
+.end method
+
+.method public onAutoHdrResultChanged(Z)V
+    .registers 5
+
+    .line 10537
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10538
+    :cond_d
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;->EVENT_ON_AUTO_HDR_CHANGED:Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;
+
+    const/4 v1, 0x1
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    const/4 v2, 0x0
+
+    invoke-static {p1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p1
+
+    aput-object p1, v1, v2
+
+    invoke-virtual {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendStaticEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public onAutoNightResultChanged(Z)V
+    .registers 5
+
+    .line 10542
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10543
+    :cond_d
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;->EVENT_ON_AUTO_NIGHT_CHANGED:Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;
+
+    const/4 v1, 0x1
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    const/4 v2, 0x0
+
+    invoke-static {p1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p1
+
+    aput-object p1, v1, v2
+
+    invoke-virtual {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendStaticEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public onCaptureRequested(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;Z)V
+    .registers 5
+
+    .line 379
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$2;
+
+    invoke-direct {v1, p0, p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$2;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;Z)V
+
+    const-wide/16 p1, 0x5a
+
+    invoke-virtual {v0, v1, p1, p2}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
+
+    return-void
+.end method
+
+.method public onCropRegionReady()V
+    .registers 3
+
+    .line 10671
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10672
+    :cond_d
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$17;
+
+    invoke-direct {v1, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$17;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/android/camera/CameraActivity;->runOnUiThread(Ljava/lang/Runnable;)V
+
+    return-void
+.end method
+
+.method public onDeviceError(Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$ErrorCode;)V
+    .registers 4
+
+    .line 10725
+    sget-boolean p1, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz p1, :cond_d
+
+    const-string p1, "invoke"
+
+    filled-new-array {p1}, [Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10729
+    :cond_d
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    const-string v0, "power"
+
+    invoke-virtual {p1, v0}, Lcom/sonyericsson/android/camera/CameraActivity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object p1
+
+    check-cast p1, Landroid/os/PowerManager;
+
+    const/4 v0, 0x1
+
+    .line 10730
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->setDeviceError(Z)V
+
+    .line 10732
+    invoke-virtual {p1}, Landroid/os/PowerManager;->isScreenOn()Z
+
+    move-result p1
+
+    if-eqz p1, :cond_35
+
+    const-string p1, "ERROR:[Screen backlight is ON."
+
+    .line 10734
+    filled-new-array {p1}, [Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->e([Ljava/lang/String;)V
+
+    .line 10735
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;->ERROR_IN_USE_BY_ANOTHER_APPLICATION:Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;
+
+    const/4 v1, 0x0
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-interface {p1, v0, v1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->showMessageDialog(Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;[Ljava/lang/Object;)V
+
+    goto :goto_43
+
+    :cond_35
+    const-string p1, "ERROR:[Screen backlight is OFF. Force close application.]"
+
+    .line 10740
+    filled-new-array {p1}, [Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->e([Ljava/lang/String;)V
+
+    .line 10742
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/CameraActivity;->finishAndKillProcess()V
+
+    :goto_43
+    return-void
+.end method
+
+.method public onFaceDetected(Lcom/sonyericsson/android/camera/device/CameraParameters$FaceDetectionResult;)V
+    .registers 5
+
+    .line 10547
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10548
+    :cond_d
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->isThermalWarningReceived()Z
+
+    move-result v0
+
+    if-nez v0, :cond_34
+
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v0
+
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isStorageWritable(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_34
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    .line 10549
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->isObjectTrackingRunning()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_28
+
+    goto :goto_34
+
+    .line 10552
+    :cond_28
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;->EVENT_ON_FACE_DETECTED:Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;
+
+    const/4 v1, 0x1
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    const/4 v2, 0x0
+
+    aput-object p1, v1, v2
+
+    invoke-virtual {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendStaticEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;[Ljava/lang/Object;)V
+
+    return-void
+
+    :cond_34
+    :goto_34
+    return-void
+.end method
+
+.method public onFirstPreviewFrameReceived()V
+    .registers 2
+
+    .line 10683
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_d
+    return-void
+.end method
+
+.method public onInitialAutoFocusDone(Z)V
+    .registers 7
+
+    .line 10210
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x1
+
+    if-eqz v0, :cond_1e
+
+    new-array v0, v2, [Ljava/lang/String;
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "invoke success:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3, p1}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    aput-object v3, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10215
+    :cond_1e
+    invoke-static {}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->getInstance()Lcom/sonymobile/cameracommon/research/ResearchUtil;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->setTimeAfDone()V
+
+    .line 10216
+    invoke-static {}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->getInstance()Lcom/sonymobile/cameracommon/research/ResearchUtil;
+
+    move-result-object v0
+
+    sget-object v3, Lcom/sonymobile/cameracommon/research/parameters/Event$CaptureTrigger;->FAST_CAPTURING_LAUNCH:Lcom/sonymobile/cameracommon/research/parameters/Event$CaptureTrigger;
+
+    invoke-virtual {v0, v3}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->setCaptureTrigger(Lcom/sonymobile/cameracommon/research/parameters/Event$CaptureTrigger;)V
+
+    .line 10217
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_INITIAL_AUTO_FOCUS_DONE:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    invoke-static {p1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p1
+
+    aput-object p1, v2, v1
+
+    invoke-virtual {p0, v0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public onLogicalCameraModeChanged(Z)V
+    .registers 4
+
+    .line 2086
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$9;
+
+    invoke-direct {v1, p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$9;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Z)V
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/android/camera/CameraActivity;->runOnUiThread(Ljava/lang/Runnable;)V
+
+    return-void
+.end method
+
+.method public onObjectLost(Lcom/sonyericsson/android/camera/device/CameraParameters$ObjectTrackingResult;)V
+    .registers 5
+
+    .line 10564
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10565
+    :cond_d
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->isThermalWarningReceived()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_16
+
+    return-void
+
+    .line 10568
+    :cond_16
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;->EVENT_ON_OBJECT_TRACKING_LOST:Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;
+
+    const/4 v1, 0x1
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    const/4 v2, 0x0
+
+    aput-object p1, v1, v2
+
+    invoke-virtual {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendStaticEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public onObjectTracked(Lcom/sonyericsson/android/camera/device/CameraParameters$ObjectTrackingResult;)V
+    .registers 5
+
+    .line 10556
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10557
+    :cond_d
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->isThermalWarningReceived()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_16
+
+    return-void
+
+    .line 10560
+    :cond_16
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;->EVENT_ON_OBJECT_TRACKED:Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;
+
+    const/4 v1, 0x1
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    const/4 v2, 0x0
+
+    aput-object p1, v1, v2
+
+    invoke-virtual {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendStaticEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public onPreShutterDone(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+    .registers 5
+
+    .line 10255
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->checkCallback(Lcom/sonyericsson/cameracommon/storage/RequestFactory$RequestBuilder;)V
+
+    .line 10257
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_PRE_SHUTTER_DONE:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    const/4 v1, 0x1
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    const/4 v2, 0x0
+
+    aput-object p1, v1, v2
+
+    invoke-virtual {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public onPreTakePictureDone(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+    .registers 5
+
+    .line 10288
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10290
+    :cond_d
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->checkCallback(Lcom/sonyericsson/cameracommon/storage/RequestFactory$RequestBuilder;)V
+
+    .line 10293
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_PRE_TAKE_PICTURE_DONE:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    const/4 v1, 0x1
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    const/4 v2, 0x0
+
+    aput-object p1, v1, v2
+
+    invoke-virtual {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    .line 10298
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentStorage()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object v0
+
+    invoke-virtual {p1, v0}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->setStorageType(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)V
+
+    return-void
+.end method
+
+.method public onPrepareBurstDone(Z)V
+    .registers 7
+
+    .line 10319
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x1
+
+    if-eqz v0, :cond_1e
+
+    new-array v0, v2, [Ljava/lang/String;
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "invoke isSuccess:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3, p1}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    aput-object v3, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10320
+    :cond_1e
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_PREPARE_BURST_DONE:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    invoke-static {p1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p1
+
+    aput-object p1, v2, v1
+
+    invoke-virtual {p0, v0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public onPreviewFrameReceived(I)V
+    .registers 6
+
+    .line 10687
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_28
+
+    const/4 v0, 0x1
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "invoke frameNum :"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string v3, ", mHideBlackScreenFrameNum: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget v3, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHideBlackScreenFrameNum:I
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    aput-object v2, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10689
+    :cond_28
+    iget v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHideBlackScreenFrameNum:I
+
+    if-ne p1, v0, :cond_3a
+
+    .line 10690
+    iget-boolean p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHideBlackScreen:Z
+
+    if-eqz p1, :cond_3a
+
+    .line 10691
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$18;
+
+    invoke-direct {v0, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$18;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    invoke-virtual {p1, v0}, Lcom/sonyericsson/android/camera/CameraActivity;->runOnUiThread(Ljava/lang/Runnable;)V
+
+    :cond_3a
+    return-void
+.end method
+
+.method public onPreviewSessionConfigured(Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;)V
+    .registers 4
+
+    .line 370
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$1;
+
+    invoke-direct {v1, p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$1;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Lcom/sonyericsson/android/camera/controller/StateMachine$SessionType;)V
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method
+
+.method public onPreviewSteady()V
+    .registers 3
+
+    .line 393
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$3;
+
+    invoke-direct {v1, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$3;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method
+
+.method public onRecordError(II)V
+    .registers 6
+
+    const/4 v0, 0x1
+
+    .line 9713
+    new-array v0, v0, [Ljava/lang/String;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "ERROR:MediaRecorder ("
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string p1, ", "
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string p1, ")"
+
+    invoke-virtual {v1, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    const/4 p2, 0x0
+
+    aput-object p1, v0, p2
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->e([Ljava/lang/String;)V
+
+    .line 9714
+    iput-boolean p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsVideoRecording:Z
+
+    .line 9716
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    new-instance p2, Lcom/sonyericsson/android/camera/controller/StateMachine$14;
+
+    invoke-direct {p2, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$14;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    invoke-virtual {p1, p2}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method
+
+.method public onRecordFinished(Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;)V
+    .registers 4
+
+    .line 9734
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    if-eqz v0, :cond_7
+
+    .line 9735
+    invoke-virtual {v0}, Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;->enableClick()V
+
+    .line 9738
+    :cond_7
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->onVideoRecordingDone()V
+
+    .line 9741
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->requestStoreVideo(Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;)V
+
+    .line 9743
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object p1
+
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    if-ne p1, v0, :cond_2c
+
+    .line 9744
+    invoke-static {}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->getInstance()Lcom/sonymobile/cameracommon/research/ResearchUtil;
+
+    move-result-object p1
+
+    .line 9745
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getUserSetting()Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    move-result-object v0
+
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SLOW_MOTION:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;->getValue()Ljava/lang/String;
+
+    move-result-object v0
+
+    iget v1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHighFrameRateVideoRecordingCountInSuperSlowMotion:I
+
+    .line 9744
+    invoke-virtual {p1, v0, v1}, Lcom/sonymobile/cameracommon/research/ResearchUtil;->sendSlowMotionEvent(Ljava/lang/String;I)V
+
+    :cond_2c
+    return-void
+.end method
+
+.method public onRecordProgress(J)V
+    .registers 7
+
+    .line 9701
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_1e
+
+    const/4 v0, 0x1
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "invoke progressMillis:"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2, p1, p2}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    aput-object v2, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_1e
+    long-to-int p1, p1
+
+    .line 9703
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/StateMachine$13;
+
+    invoke-direct {v0, p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$13;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;I)V
+
+    invoke-virtual {p2, v0}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method
+
+.method public onRecordingRestricted()V
+    .registers 4
+
+    .line 10715
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_RECORDING_RESTRICTED:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    const/4 v1, 0x0
+
+    new-array v2, v1, [Ljava/lang/Object;
+
+    invoke-virtual {p0, v0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    .line 10716
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 10717
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->is4KVideo()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_22
+
+    .line 10718
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;->RECORDING_RESTRICTED_DURING_SCREEN_RECORDING_FOR_4K:Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-interface {v0, v2, v1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->showMessageDialog(Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;[Ljava/lang/Object;)V
+
+    goto :goto_2b
+
+    .line 10720
+    :cond_22
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v2, Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;->RECORDING_RESTRICTED_DURING_SCREEN_RECORDING_FOR_FHD60:Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-interface {v0, v2, v1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->showMessageDialog(Lcom/sonyericsson/android/camera/view/messagedialog/DialogId;[Ljava/lang/Object;)V
+
+    :goto_2b
+    return-void
+.end method
+
+.method public onSceneModeChanged(Lcom/sonyericsson/android/camera/device/CameraParameters$SceneRecognitionResult;)V
+    .registers 5
+
+    .line 10524
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10525
+    :cond_d
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mActivity:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraActivity;->isThermalWarningReceived()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_16
+
+    return-void
+
+    .line 10528
+    :cond_16
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;->EVENT_ON_SCENE_MODE_CHANGED:Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;
+
+    const/4 v1, 0x1
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    const/4 v2, 0x0
+
+    aput-object p1, v1, v2
+
+    invoke-virtual {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendStaticEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public onShutterDone(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;IZ)V
+    .registers 9
+
+    .line 10268
+    sget-object v0, Lcom/sonyericsson/android/camera/util/PerfLog;->ON_SHUTTER_DONE:Lcom/sonyericsson/android/camera/util/PerfLog;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/util/PerfLog;->transit()V
+
+    .line 10269
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x1
+
+    if-eqz v0, :cond_2b
+
+    new-array v0, v2, [Ljava/lang/String;
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "invoke captureNum:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string v4, ", isAfSuccessed:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3, p3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    aput-object v3, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_2b
+    if-le p2, v2, :cond_3b
+
+    if-eqz p1, :cond_3b
+
+    .line 10272
+    new-instance v0, Lcom/sonyericsson/cameracommon/contentsview/PredictiveCaptureStoreInfo;
+
+    .line 10273
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;->getSaveTimeForPredictiveCapture()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-direct {v0, p2, v3}, Lcom/sonyericsson/cameracommon/contentsview/PredictiveCaptureStoreInfo;-><init>(ILjava/lang/String;)V
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPredictiveCaptureStoreInfo:Lcom/sonyericsson/cameracommon/contentsview/PredictiveCaptureStoreInfo;
+
+    goto :goto_3e
+
+    :cond_3b
+    const/4 p2, 0x0
+
+    .line 10276
+    iput-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mPredictiveCaptureStoreInfo:Lcom/sonyericsson/cameracommon/contentsview/PredictiveCaptureStoreInfo;
+
+    .line 10278
+    :goto_3e
+    sget-object p2, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_SHUTTER_DONE:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    const/4 v0, 0x2
+
+    new-array v0, v0, [Ljava/lang/Object;
+
+    aput-object p1, v0, v1
+
+    .line 10279
+    invoke-static {p3}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p1
+
+    aput-object p1, v0, v2
+
+    .line 10278
+    invoke-virtual {p0, p2, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public onStartPreScan()V
+    .registers 3
+
+    .line 10206
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_PRE_SCAN_STARTED:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    const/4 v1, 0x0
+
+    new-array v1, v1, [Ljava/lang/Object;
+
+    invoke-virtual {p0, v0, v1}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public onStartRecordingFailed()V
+    .registers 3
+
+    .line 10705
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10706
+    :cond_d
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$19;
+
+    invoke-direct {v1, p0}, Lcom/sonyericsson/android/camera/controller/StateMachine$19;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method
+
+.method public onTakePictureDone(Lcom/sonyericsson/cameracommon/storage/RequestFactory$PhotoSavingRequestBuilder;)V
+    .registers 8
+
+    .line 10307
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x1
+
+    if-eqz v0, :cond_22
+
+    new-array v0, v2, [Ljava/lang/String;
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "invoke, "
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
+
+    move-result-wide v4
+
+    invoke-virtual {v3, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    aput-object v3, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10309
+    :cond_22
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_TAKE_PICTURE_DONE:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    aput-object p1, v2, v1
+
+    invoke-virtual {p0, v0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public onVideoRecordingDone()V
+    .registers 3
+
+    .line 10328
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_d
+    const/4 v0, 0x0
+
+    .line 10329
+    iput-boolean v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsVideoRecording:Z
+
+    .line 10332
+    sget-object v1, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_VIDEO_RECORDING_DONE:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    new-array v0, v0, [Ljava/lang/Object;
+
+    invoke-virtual {p0, v1, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+.method public onZoomChange(I)V
+    .registers 6
+
+    .line 10655
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 10662
+    :cond_d
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    if-eqz v0, :cond_28
+
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/view/ViewFinder;->isSetupHeadupDisplayInvoked()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_28
+
+    .line 10664
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_ZOOM_CHANGED:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v2, 0x1
+
+    new-array v2, v2, [Ljava/lang/Object;
+
+    const/4 v3, 0x0
+
+    .line 10666
+    invoke-static {p1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object p1
+
+    aput-object p1, v2, v3
+
+    .line 10664
+    invoke-interface {v0, v1, v2}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    :cond_28
+    return-void
+.end method
+
+.method public releaseContentsViewController()V
+    .registers 2
+
+    .line 703
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 704
+    :cond_d
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    if-eqz v0, :cond_14
+
+    .line 705
+    invoke-virtual {v0}, Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;->clearContents()V
+
+    :cond_14
+    const/4 v0, 0x0
+
+    .line 707
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    return-void
+.end method
+
+.method public removeOnStateChangedListener(Lcom/sonyericsson/android/camera/controller/StateMachine$OnStateChangedListener;)V
+    .registers 3
+
+    .line 1046
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mOnStateChangedListenerSet:Ljava/util/Set;
+
+    invoke-interface {v0, p1}, Ljava/util/Set;->remove(Ljava/lang/Object;)Z
+
+    return-void
+.end method
+
+.method public varargs declared-synchronized sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+    .registers 8
+
+    monitor-enter p0
+
+    .line 8414
+    :try_start_1
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    if-eqz v0, :cond_29
+
+    new-array v0, v1, [Ljava/lang/String;
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "invoke TransitterEvent:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    const-string v4, ", current state:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    aput-object v3, v0, v2
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 8417
+    :cond_29
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$controller$StateMachine$TransitterEvent:[I
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->ordinal()I
+
+    move-result p1
+
+    aget p1, v0, p1
+
+    packed-switch p1, :pswitch_data_2be
+
+    goto/16 :goto_2b8
+
+    .line 8783
+    :pswitch_36
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handlePreviewSteady([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8779
+    :pswitch_3d
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleSlowMotionChanged([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8775
+    :pswitch_44
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleVideoSizeChanged([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8771
+    :pswitch_4b
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleResolutionChanged([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8767
+    :pswitch_52
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handlePreviewSessionConfigured([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8763
+    :pswitch_59
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleFinishZoom([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8759
+    :pswitch_60
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handlePerformZoom([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8755
+    :pswitch_67
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handlePrepareZoom([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8751
+    :pswitch_6e
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleChangeCapturingMode([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8747
+    :pswitch_75
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnStorageReadyStateChanged([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8743
+    :pswitch_7c
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleFusionConditionChanged([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8739
+    :pswitch_83
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleRequestUpdateHighSensitivityFusionMode([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8735
+    :pswitch_8a
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleTriggerSlowMotion([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8731
+    :pswitch_91
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handlePauseRecording([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8727
+    :pswitch_98
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleResumeRecording([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8723
+    :pswitch_9f
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleStopRecording([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8719
+    :pswitch_a6
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleStartRecording([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8715
+    :pswitch_ad
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleRecordReady([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8711
+    :pswitch_b4
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleCaptureCancel([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8707
+    :pswitch_bb
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleCaptureBurst([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8703
+    :pswitch_c2
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleCapture([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8699
+    :pswitch_c9
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleStartCaptureCountDown([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8695
+    :pswitch_d0
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleCaptureReady([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8691
+    :pswitch_d7
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleRequestUpdateVideoHdr([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8687
+    :pswitch_de
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleChangeAngleStart([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8683
+    :pswitch_e5
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleHighFameRateRecordingDone([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8679
+    :pswitch_ec
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleSlowMotionFeedbackAnimationEnd([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8675
+    :pswitch_f3
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleStopRecordingSlowMotion([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8671
+    :pswitch_fa
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnCameraDeviceClosed([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8667
+    :pswitch_101
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnCameraDeviceOpened([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8663
+    :pswitch_108
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleSelfTimerCancel([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8659
+    :pswitch_10f
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleBokehConditionChanged([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8655
+    :pswitch_116
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnBokehStrengthChanged([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8651
+    :pswitch_11d
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnBokehDisabled([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8647
+    :pswitch_124
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnBokehEnabled([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8643
+    :pswitch_12b
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnBrightnessChanged([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8639
+    :pswitch_132
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnAmberBlueColorChanged([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8635
+    :pswitch_139
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnSemiAutoDisabled([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8631
+    :pswitch_140
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnSemiAutoEnabled([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8627
+    :pswitch_147
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleCancelTouchedPosition([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8623
+    :pswitch_14e
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleSwitchCamera([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8619
+    :pswitch_155
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnContinuousPreviewFrameUpdated([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8615
+    :pswitch_15c
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnOnePreviewFrameUpdated([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8609
+    :pswitch_163
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnPredictiveCaptureGroupStoreCompleted([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8605
+    :pswitch_16a
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnBurstStoreCompleted([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8601
+    :pswitch_171
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnBurstShutterDone([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8595
+    :pswitch_178
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleStartAfAfterObjectTracked([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8591
+    :pswitch_17f
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleDeselectObjectPosition([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8587
+    :pswitch_186
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleSetSelectedObjectPosition([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8583
+    :pswitch_18d
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleChangeSelectedFace([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8579
+    :pswitch_194
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnRecordingError([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8575
+    :pswitch_19b
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnRecordingStartWaitDone([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8571
+    :pswitch_1a2
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleRequestSetupHeadUpDisplay([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8567
+    :pswitch_1a9
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleSetTouchedPosition([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8563
+    :pswitch_1b0
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleStorageMounted([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8559
+    :pswitch_1b7
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleStorageError([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8555
+    :pswitch_1be
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleDialogClosed([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8551
+    :pswitch_1c5
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleDialogOpened([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8547
+    :pswitch_1cc
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleClearFocus([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8543
+    :pswitch_1d3
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleFinishTransitionOperation([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8539
+    :pswitch_1da
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleStartTransitionOperation([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8535
+    :pswitch_1e1
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleKeyMenu([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8531
+    :pswitch_1e8
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnStoreCompleted([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8527
+    :pswitch_1ef
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnStoreRequested([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8523
+    :pswitch_1f6
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleTouchContentProgress()V
+
+    goto/16 :goto_2b8
+
+    .line 8519
+    :pswitch_1fd
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOn4KVideoRecordingRestricted([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8515
+    :pswitch_204
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnVideoRecordingDone([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8511
+    :pswitch_20b
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnTakePictureDone([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8507
+    :pswitch_212
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnPreTakePictureDone([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8503
+    :pswitch_219
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnPrepareBurstDone([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8499
+    :pswitch_220
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnShutterDone([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8495
+    :pswitch_227
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnCaptureRequested([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8491
+    :pswitch_22e
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnPreShutterDone([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8487
+    :pswitch_235
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnAutoFocusDone([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8483
+    :pswitch_23c
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleStartPreScan([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8479
+    :pswitch_243
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnInitialAutoFocusDone([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8475
+    :pswitch_24a
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnEvfPrepared([Ljava/lang/Object;)V
+
+    goto/16 :goto_2b8
+
+    .line 8471
+    :pswitch_251
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnHeatedOverNormal([Ljava/lang/Object;)V
+
+    goto :goto_2b8
+
+    .line 8467
+    :pswitch_257
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnHeatedOverCritical([Ljava/lang/Object;)V
+
+    goto :goto_2b8
+
+    .line 8462
+    :pswitch_25d
+    aget-object p1, p2, v2
+
+    check-cast p1, Ljava/lang/Integer;
+
+    invoke-virtual {p1}, Ljava/lang/Integer;->intValue()I
+
+    move-result p1
+
+    .line 8463
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    new-array v0, v1, [Ljava/lang/Object;
+
+    invoke-static {p1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object p1
+
+    aput-object p1, v0, v2
+
+    invoke-virtual {p2, v0}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnReachBatteryLevelChanged([Ljava/lang/Object;)V
+
+    goto :goto_2b8
+
+    .line 8458
+    :pswitch_273
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    new-array p2, v2, [Ljava/lang/Object;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnReachBatteryLow([Ljava/lang/Object;)V
+
+    goto :goto_2b8
+
+    .line 8454
+    :pswitch_27b
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    new-array p2, v2, [Ljava/lang/Object;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnReachBatteryLimit([Ljava/lang/Object;)V
+
+    goto :goto_2b8
+
+    .line 8451
+    :pswitch_283
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnHeatedOverCoolingUltraLow([Ljava/lang/Object;)V
+
+    goto :goto_2b8
+
+    .line 8447
+    :pswitch_289
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnHeatedOverCoolingLow([Ljava/lang/Object;)V
+
+    goto :goto_2b8
+
+    .line 8443
+    :pswitch_28f
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnHeatedOverWarningExtra([Ljava/lang/Object;)V
+
+    goto :goto_2b8
+
+    .line 8439
+    :pswitch_295
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnHeatedOverWarning([Ljava/lang/Object;)V
+
+    goto :goto_2b8
+
+    .line 8435
+    :pswitch_29b
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleFinalize([Ljava/lang/Object;)V
+
+    goto :goto_2b8
+
+    .line 8431
+    :pswitch_2a1
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handlePause([Ljava/lang/Object;)V
+
+    goto :goto_2b8
+
+    .line 8427
+    :pswitch_2a7
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleResumeTimeout([Ljava/lang/Object;)V
+
+    goto :goto_2b8
+
+    .line 8423
+    :pswitch_2ad
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleResume([Ljava/lang/Object;)V
+
+    goto :goto_2b8
+
+    .line 8419
+    :pswitch_2b3
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleInitialize([Ljava/lang/Object;)V
+    :try_end_2b8
+    .catchall {:try_start_1 .. :try_end_2b8} :catchall_2ba
+
+    .line 8790
+    :goto_2b8
+    monitor-exit p0
+
+    return-void
+
+    :catchall_2ba
+    move-exception p1
+
+    monitor-exit p0
+
+    throw p1
+
+    nop
+
+    :pswitch_data_2be
+    .packed-switch 0x1
+        :pswitch_2b3
+        :pswitch_2ad
+        :pswitch_2a7
+        :pswitch_2a1
+        :pswitch_29b
+        :pswitch_295
+        :pswitch_28f
+        :pswitch_289
+        :pswitch_283
+        :pswitch_27b
+        :pswitch_273
+        :pswitch_25d
+        :pswitch_257
+        :pswitch_251
+        :pswitch_24a
+        :pswitch_243
+        :pswitch_23c
+        :pswitch_235
+        :pswitch_22e
+        :pswitch_227
+        :pswitch_220
+        :pswitch_219
+        :pswitch_212
+        :pswitch_20b
+        :pswitch_204
+        :pswitch_1fd
+        :pswitch_1f6
+        :pswitch_1ef
+        :pswitch_1e8
+        :pswitch_1e1
+        :pswitch_1da
+        :pswitch_1d3
+        :pswitch_1cc
+        :pswitch_1c5
+        :pswitch_1be
+        :pswitch_1b7
+        :pswitch_1b0
+        :pswitch_1a9
+        :pswitch_1a2
+        :pswitch_19b
+        :pswitch_194
+        :pswitch_18d
+        :pswitch_186
+        :pswitch_17f
+        :pswitch_178
+        :pswitch_171
+        :pswitch_16a
+        :pswitch_163
+        :pswitch_15c
+        :pswitch_155
+        :pswitch_14e
+        :pswitch_147
+        :pswitch_140
+        :pswitch_139
+        :pswitch_132
+        :pswitch_12b
+        :pswitch_124
+        :pswitch_11d
+        :pswitch_116
+        :pswitch_10f
+        :pswitch_108
+        :pswitch_101
+        :pswitch_fa
+        :pswitch_f3
+        :pswitch_ec
+        :pswitch_e5
+        :pswitch_de
+        :pswitch_d7
+        :pswitch_d0
+        :pswitch_c9
+        :pswitch_c2
+        :pswitch_bb
+        :pswitch_b4
+        :pswitch_ad
+        :pswitch_a6
+        :pswitch_9f
+        :pswitch_98
+        :pswitch_91
+        :pswitch_8a
+        :pswitch_83
+        :pswitch_7c
+        :pswitch_75
+        :pswitch_6e
+        :pswitch_67
+        :pswitch_60
+        :pswitch_59
+        :pswitch_52
+        :pswitch_4b
+        :pswitch_44
+        :pswitch_3d
+        :pswitch_36
+    .end packed-switch
+.end method
+
+.method public varargs declared-synchronized sendStaticEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;[Ljava/lang/Object;)V
+    .registers 10
+
+    monitor-enter p0
+
+    .line 8794
+    :try_start_1
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    if-eqz v0, :cond_29
+
+    new-array v0, v1, [Ljava/lang/String;
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "invoke StaticEvent:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    const-string v4, ", current state:"
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v4, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    aput-object v3, v0, v2
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 8797
+    :cond_29
+    sget-object v0, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$controller$StateMachine$StaticEvent:[I
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$StaticEvent;->ordinal()I
+
+    move-result p1
+
+    aget p1, v0, p1
+
+    packed-switch p1, :pswitch_data_160
+
+    goto/16 :goto_15b
+
+    .line 8913
+    :pswitch_36
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mQrDetectionController:Lcom/sonyericsson/android/camera/qrdetection/QrDetectionController;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/qrdetection/QrDetectionController;->isPreviewing()Z
+
+    move-result p1
+
+    if-nez p1, :cond_15b
+
+    .line 8914
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mQrDetectionController:Lcom/sonyericsson/android/camera/qrdetection/QrDetectionController;
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object p2
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLaunchCondition:Lcom/sonyericsson/android/camera/LaunchCondition;
+
+    .line 8915
+    invoke-interface {v0}, Lcom/sonyericsson/android/camera/LaunchCondition;->isOneShot()Z
+
+    move-result v0
+
+    .line 8914
+    invoke-virtual {p1, p2, v0}, Lcom/sonyericsson/android/camera/qrdetection/QrDetectionController;->handlePreviewStarted(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Z)V
+
+    goto/16 :goto_15b
+
+    .line 8909
+    :pswitch_4f
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mNotificationManager:Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager;->handleWifiResult()V
+
+    goto/16 :goto_15b
+
+    .line 8905
+    :pswitch_56
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnPreviewStarted([Ljava/lang/Object;)V
+
+    goto/16 :goto_15b
+
+    .line 8901
+    :pswitch_5d
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnRecordingStarted([Ljava/lang/Object;)V
+
+    goto/16 :goto_15b
+
+    .line 8896
+    :pswitch_64
+    aget-object p1, p2, v2
+
+    check-cast p1, Ljava/lang/Boolean;
+
+    check-cast p1, Ljava/lang/Boolean;
+
+    invoke-virtual {p1}, Ljava/lang/Boolean;->booleanValue()Z
+
+    move-result p1
+
+    .line 8897
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mGestureShutter:Lcom/sonyericsson/android/camera/controller/GestureShutter;
+
+    invoke-virtual {p2, p1}, Lcom/sonyericsson/android/camera/controller/GestureShutter;->handleSettingsChanged(Z)V
+
+    goto/16 :goto_15b
+
+    .line 8891
+    :pswitch_75
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnObjectLost([Ljava/lang/Object;)V
+
+    goto/16 :goto_15b
+
+    .line 8884
+    :pswitch_7c
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_ON_LAZY_INITIALIZATION_TASK_RUN:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    new-array v1, v2, [Ljava/lang/Object;
+
+    invoke-interface {p1, v0, v1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 8887
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnLazyInitializationTaskRun([Ljava/lang/Object;)V
+
+    goto/16 :goto_15b
+
+    .line 8880
+    :pswitch_8c
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnOrientationChanged([Ljava/lang/Object;)V
+
+    goto/16 :goto_15b
+
+    .line 8876
+    :pswitch_93
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnObjectTracked([Ljava/lang/Object;)V
+
+    goto/16 :goto_15b
+
+    .line 8872
+    :pswitch_9a
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnFaceDetected([Ljava/lang/Object;)V
+
+    goto/16 :goto_15b
+
+    .line 8868
+    :pswitch_a1
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnAutoNightChanged([Ljava/lang/Object;)V
+
+    goto/16 :goto_15b
+
+    .line 8864
+    :pswitch_a8
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnAutoHdrChanged([Ljava/lang/Object;)V
+
+    goto/16 :goto_15b
+
+    .line 8860
+    :pswitch_af
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnAutoFlashChanged([Ljava/lang/Object;)V
+
+    goto/16 :goto_15b
+
+    .line 8856
+    :pswitch_b6
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->handleOnSceneModeChanged([Ljava/lang/Object;)V
+
+    goto/16 :goto_15b
+
+    .line 8814
+    :pswitch_bd
+    sget-object p1, Lcom/sonyericsson/android/camera/controller/StateMachine$22;->$SwitchMap$com$sonyericsson$android$camera$view$ViewFinder$HeadUpDisplaySetupState:[I
+
+    aget-object p2, p2, v2
+
+    check-cast p2, Lcom/sonyericsson/android/camera/view/ViewFinder$HeadUpDisplaySetupState;
+
+    invoke-virtual {p2}, Lcom/sonyericsson/android/camera/view/ViewFinder$HeadUpDisplaySetupState;->ordinal()I
+
+    move-result p2
+
+    aget p1, p1, p2
+
+    packed-switch p1, :pswitch_data_184
+
+    goto :goto_12b
+
+    .line 8825
+    :pswitch_cd
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object p2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_SIZE:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 8826
+    invoke-interface {p1, p2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object p1
+
+    check-cast p1, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;
+
+    .line 8827
+    iget-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    sget-object v0, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->VIDEO_HDR:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    .line 8828
+    invoke-interface {p2, v0}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object p2
+
+    check-cast p2, Lcom/sonyericsson/android/camera/configuration/parameters/VideoHdr;
+
+    if-eqz p1, :cond_eb
+
+    .line 8829
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/configuration/parameters/VideoSize;->isConstraint()Z
+
+    move-result p1
+
+    if-eqz p1, :cond_eb
+
+    move p1, v1
+
+    goto :goto_ec
+
+    :cond_eb
+    move p1, v2
+
+    .line 8830
+    :goto_ec
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    sget-object v3, Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;->EVENT_REQUEST_PREPARE_RECORDING_INDICATOR:Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;
+
+    const/4 v4, 0x4
+
+    new-array v4, v4, [Ljava/lang/Object;
+
+    iget-object v5, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mLastVideoSavingRequest:Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;
+
+    iget-object v5, v5, Lcom/sonyericsson/cameracommon/storage/RequestFactory$VideoSavingRequestBuilder;->mVideoStatus:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusVideo;
+
+    iget-wide v5, v5, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusVideo;->maxDurationMills:J
+
+    long-to-int v5, v5
+
+    .line 8833
+    invoke-static {v5}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v5
+
+    aput-object v5, v4, v2
+
+    .line 8835
+    invoke-static {p1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object p1
+
+    aput-object p1, v4, v1
+
+    const/4 p1, 0x2
+
+    .line 8836
+    invoke-static {v1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object v5
+
+    aput-object v5, v4, p1
+
+    const/4 p1, 0x3
+
+    aput-object p2, v4, p1
+
+    .line 8830
+    invoke-interface {v0, v3, v4}, Lcom/sonyericsson/android/camera/view/ViewFinder;->sendViewUpdateEvent(Lcom/sonyericsson/android/camera/view/ViewFinder$ViewUpdateEvent;[Ljava/lang/Object;)V
+
+    .line 8840
+    invoke-direct {p0, v2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->updateRecordingProgress(I)V
+
+    .line 8841
+    iget-boolean p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mIsLaunchAndRecording:Z
+
+    if-nez p1, :cond_12b
+
+    .line 8842
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->requestOnePreviewFrame()V
+
+    goto :goto_12b
+
+    .line 8818
+    :pswitch_120
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    invoke-interface {p1}, Lcom/sonyericsson/android/camera/view/ViewFinder;->isMessageDialogOpened()Z
+
+    move-result p1
+
+    if-nez p1, :cond_12b
+
+    .line 8819
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->calculateRemainStorage()V
+
+    .line 8849
+    :cond_12b
+    :goto_12b
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->isFusionMonitoringNeeded()Z
+
+    move-result p1
+
+    if-eqz p1, :cond_15b
+
+    .line 8850
+    sget-object p1, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_ON_FUSION_CONDITION_CHANGED:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
+
+    new-array p2, v1, [Ljava/lang/Object;
+
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    .line 8851
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->getLatestFusionResult()Lcom/sonyericsson/android/camera/device/CameraParameters$FusionResult;
+
+    move-result-object v0
+
+    aput-object v0, p2, v2
+
+    .line 8850
+    invoke-virtual {p0, p1, p2}, Lcom/sonyericsson/android/camera/controller/StateMachine;->sendEvent(Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;[Ljava/lang/Object;)V
+
+    goto :goto_15b
+
+    .line 8802
+    :pswitch_141
+    aget-object p1, p2, v2
+
+    check-cast p1, Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    .line 8803
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCurrentState:Lcom/sonyericsson/android/camera/controller/StateMachine$State;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$State;->getCaptureState()Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;
+
+    move-result-object p1
+
+    # invokes: Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->isRecording()Z
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;->access$15800(Lcom/sonyericsson/android/camera/controller/StateMachine$CaptureState;)Z
+
+    move-result p1
+
+    if-eqz p1, :cond_158
+
+    .line 8805
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mContentsViewController:Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/contentsview/ContentsViewController;->disableClick()V
+
+    .line 8808
+    :cond_158
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->storeSavingRequestList()V
+    :try_end_15b
+    .catchall {:try_start_1 .. :try_end_15b} :catchall_15d
+
+    .line 8923
+    :cond_15b
+    :goto_15b
+    monitor-exit p0
+
+    return-void
+
+    :catchall_15d
+    move-exception p1
+
+    monitor-exit p0
+
+    throw p1
+
+    :pswitch_data_160
+    .packed-switch 0x1
+        :pswitch_141
+        :pswitch_bd
+        :pswitch_b6
+        :pswitch_af
+        :pswitch_a8
+        :pswitch_a1
+        :pswitch_9a
+        :pswitch_93
+        :pswitch_8c
+        :pswitch_7c
+        :pswitch_75
+        :pswitch_64
+        :pswitch_5d
+        :pswitch_56
+        :pswitch_4f
+        :pswitch_36
+    .end packed-switch
+
+    :pswitch_data_184
+    .packed-switch 0x1
+        :pswitch_120
+        :pswitch_120
+        :pswitch_cd
+    .end packed-switch
+.end method
+
+.method public setDependencies(Lcom/sonyericsson/android/camera/view/ViewFinder;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;)V
+    .registers 4
+
+    .line 2074
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 2075
+    :cond_d
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mViewFinder:Lcom/sonyericsson/android/camera/view/ViewFinder;
+
+    .line 2076
+    iput-object p2, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    .line 2077
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mNotificationManager:Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager;
+
+    invoke-virtual {v0, p1}, Lcom/sonyericsson/android/camera/qrdetection/CameraNotificationManager;->setViewFinder(Lcom/sonyericsson/android/camera/view/ViewFinder;)V
+
+    .line 2078
+    new-instance v0, Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;
+
+    invoke-direct {v0, p1, p2, p0}, Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;-><init>(Lcom/sonyericsson/android/camera/view/ViewFinder;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;Lcom/sonyericsson/android/camera/controller/StateMachine;)V
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mObjectTracking:Lcom/sonyericsson/android/camera/controller/ObjectTrackingManager;
+
+    return-void
+.end method
+
+.method public setGestureShutterWindowHost(Lcom/sonyericsson/android/camera/controller/GestureShutter$WindowHost;)V
+    .registers 3
+
+    .line 11122
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "invoke"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 11123
+    :cond_d
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mGestureShutter:Lcom/sonyericsson/android/camera/controller/GestureShutter;
+
+    invoke-virtual {v0, p1}, Lcom/sonyericsson/android/camera/controller/GestureShutter;->setWindowHost(Lcom/sonyericsson/android/camera/controller/GestureShutter$WindowHost;)V
+
+    return-void
+.end method
+
+.method public shouldPlayShutterSound()Z
+    .registers 4
+
+    .line 11102
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mUserSettings:Lcom/sonyericsson/android/camera/setting/UserSettings;
+
+    .line 11103
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/controller/StateMachine;->getCurrentCapturingMode()Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;
+
+    move-result-object v1
+
+    sget-object v2, Lcom/sonyericsson/android/camera/configuration/UserSettingKey;->SHUTTER_SOUND:Lcom/sonyericsson/android/camera/configuration/UserSettingKey;
+
+    invoke-interface {v0, v1, v2}, Lcom/sonyericsson/android/camera/setting/UserSettings;->get(Lcom/sonyericsson/android/camera/configuration/parameters/CapturingMode;Lcom/sonyericsson/android/camera/configuration/UserSettingKey;)Lcom/sonyericsson/android/camera/configuration/parameters/UserSettingValue;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/configuration/parameters/ShutterSound;
+
+    .line 11104
+    sget-object v1, Lcom/sonyericsson/android/camera/configuration/parameters/ShutterSound;->OFF:Lcom/sonyericsson/android/camera/configuration/parameters/ShutterSound;
+
+    if-eq v0, v1, :cond_14
+
+    const/4 v0, 0x1
+
+    goto :goto_15
+
+    :cond_14
+    const/4 v0, 0x0
+
+    :goto_15
+    return v0
+.end method
+
+.method public unselectedFaceID()V
+    .registers 2
+
+    .line 389
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->unselectedFaceID()V
+
+    return-void
+.end method
+
+.method public updatedDebugInfoInViewFinder(Ljava/lang/String;)V
+    .registers 4
+
+    .line 11732
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/controller/StateMachine;->mHandler:Landroid/os/Handler;
+
+    new-instance v1, Lcom/sonyericsson/android/camera/controller/StateMachine$20;
+
+    invoke-direct {v1, p0, p1}, Lcom/sonyericsson/android/camera/controller/StateMachine$20;-><init>(Lcom/sonyericsson/android/camera/controller/StateMachine;Ljava/lang/String;)V
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method

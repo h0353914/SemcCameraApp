@@ -1,0 +1,231 @@
+.class final Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;
+.super Ljava/lang/Object;
+.source "SimpleIqControlView.java"
+
+# interfaces
+.implements Landroid/view/Choreographer$FrameCallback;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x1a
+    name = "OpacityReductionTask"
+.end annotation
+
+
+# static fields
+.field private static final DELAY:J = 0xbb8L
+
+.field private static final DELTA:F = -0.5f
+
+.field private static final DURATION:J = 0x12cL
+
+.field private static final SOURCE_ALPHA:F = 1.0f
+
+.field private static final TARGET_ALPHA:F = 0.5f
+
+
+# instance fields
+.field private final mChoreographer:Landroid/view/Choreographer;
+
+.field private mStarted:Z
+
+.field private mStartedTime:J
+
+.field private final mTargetView:Ljava/lang/ref/WeakReference;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/lang/ref/WeakReference<",
+            "Landroid/view/View;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+
+# direct methods
+.method constructor <init>(Landroid/view/View;)V
+    .registers 3
+
+    .line 525
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 526
+    new-instance v0, Ljava/lang/ref/WeakReference;
+
+    invoke-direct {v0, p1}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;->mTargetView:Ljava/lang/ref/WeakReference;
+
+    .line 527
+    invoke-static {}, Landroid/view/Choreographer;->getInstance()Landroid/view/Choreographer;
+
+    move-result-object p1
+
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;->mChoreographer:Landroid/view/Choreographer;
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public doFrame(J)V
+    .registers 9
+
+    .line 532
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;->mTargetView:Ljava/lang/ref/WeakReference;
+
+    invoke-virtual {p1}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+
+    move-result-object p1
+
+    check-cast p1, Landroid/view/View;
+
+    .line 533
+    iget-boolean p2, p0, Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;->mStarted:Z
+
+    if-eqz p2, :cond_3e
+
+    if-nez p1, :cond_f
+
+    goto :goto_3e
+
+    .line 539
+    :cond_f
+    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
+
+    move-result-wide v0
+
+    iget-wide v2, p0, Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;->mStartedTime:J
+
+    sub-long/2addr v0, v2
+
+    const-wide/16 v2, 0xbb8
+
+    cmp-long p2, v0, v2
+
+    const-wide/16 v4, 0x12c
+
+    if-gtz p2, :cond_21
+
+    const-wide/16 v0, 0x0
+
+    goto :goto_27
+
+    :cond_21
+    sub-long/2addr v0, v2
+
+    cmp-long p2, v0, v4
+
+    if-lez p2, :cond_27
+
+    move-wide v0, v4
+
+    :cond_27
+    :goto_27
+    const/high16 p2, 0x3f800000    # 1.0f
+
+    const/high16 v2, -0x41000000    # -0.5f
+
+    long-to-float v3, v0
+
+    mul-float/2addr v3, v2
+
+    const/high16 v2, 0x43960000    # 300.0f
+
+    div-float/2addr v3, v2
+
+    add-float/2addr v3, p2
+
+    .line 549
+    invoke-virtual {p1, v3}, Landroid/view/View;->setAlpha(F)V
+
+    cmp-long p1, v0, v4
+
+    if-gez p1, :cond_3d
+
+    .line 552
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;->mChoreographer:Landroid/view/Choreographer;
+
+    invoke-virtual {p1, p0}, Landroid/view/Choreographer;->postFrameCallback(Landroid/view/Choreographer$FrameCallback;)V
+
+    :cond_3d
+    return-void
+
+    :cond_3e
+    :goto_3e
+    return-void
+.end method
+
+.method public start()V
+    .registers 4
+
+    .line 557
+    iget-boolean v0, p0, Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;->mStarted:Z
+
+    const/4 v1, 0x1
+
+    if-eqz v0, :cond_8
+
+    .line 559
+    invoke-virtual {p0, v1}, Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;->stop(Z)V
+
+    .line 561
+    :cond_8
+    iput-boolean v1, p0, Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;->mStarted:Z
+
+    .line 562
+    invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
+
+    move-result-wide v0
+
+    iput-wide v0, p0, Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;->mStartedTime:J
+
+    .line 563
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;->mChoreographer:Landroid/view/Choreographer;
+
+    const-wide/16 v1, 0xbb8
+
+    invoke-virtual {v0, p0, v1, v2}, Landroid/view/Choreographer;->postFrameCallbackDelayed(Landroid/view/Choreographer$FrameCallback;J)V
+
+    return-void
+.end method
+
+.method public stop(Z)V
+    .registers 3
+
+    const/4 v0, 0x0
+
+    .line 567
+    iput-boolean v0, p0, Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;->mStarted:Z
+
+    .line 568
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;->mChoreographer:Landroid/view/Choreographer;
+
+    invoke-virtual {v0, p0}, Landroid/view/Choreographer;->removeFrameCallback(Landroid/view/Choreographer$FrameCallback;)V
+
+    if-eqz p1, :cond_19
+
+    .line 570
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/view/overlaycontrol/simpleiqcontrol/SimpleIqControlView$OpacityReductionTask;->mTargetView:Ljava/lang/ref/WeakReference;
+
+    invoke-virtual {p1}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+
+    move-result-object p1
+
+    check-cast p1, Landroid/view/View;
+
+    if-eqz p1, :cond_19
+
+    const/high16 v0, 0x3f800000    # 1.0f
+
+    .line 572
+    invoke-virtual {p1, v0}, Landroid/view/View;->setAlpha(F)V
+
+    :cond_19
+    return-void
+.end method

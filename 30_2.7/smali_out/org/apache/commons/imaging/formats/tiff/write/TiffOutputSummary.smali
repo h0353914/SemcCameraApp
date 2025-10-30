@@ -1,0 +1,246 @@
+.class Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary;
+.super Ljava/lang/Object;
+.source "TiffOutputSummary.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary$OffsetItem;
+    }
+.end annotation
+
+
+# instance fields
+.field public final byteOrder:Ljava/nio/ByteOrder;
+
+.field public final directoryTypeMap:Ljava/util/Map;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/Map<",
+            "Ljava/lang/Integer;",
+            "Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputDirectory;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+.field private final imageDataItems:Ljava/util/List;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/List<",
+            "Lorg/apache/commons/imaging/formats/tiff/write/ImageDataOffsets;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+.field private final offsetItems:Ljava/util/List;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/List<",
+            "Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary$OffsetItem;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+.field public final rootDirectory:Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputDirectory;
+
+
+# direct methods
+.method public constructor <init>(Ljava/nio/ByteOrder;Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputDirectory;Ljava/util/Map;)V
+    .registers 5
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/nio/ByteOrder;",
+            "Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputDirectory;",
+            "Ljava/util/Map<",
+            "Ljava/lang/Integer;",
+            "Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputDirectory;",
+            ">;)V"
+        }
+    .end annotation
+
+    .line 36
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 31
+    new-instance v0, Ljava/util/ArrayList;
+
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+
+    iput-object v0, p0, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary;->offsetItems:Ljava/util/List;
+
+    .line 32
+    new-instance v0, Ljava/util/ArrayList;
+
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+
+    iput-object v0, p0, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary;->imageDataItems:Ljava/util/List;
+
+    .line 37
+    iput-object p1, p0, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary;->byteOrder:Ljava/nio/ByteOrder;
+
+    .line 38
+    iput-object p2, p0, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary;->rootDirectory:Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputDirectory;
+
+    .line 39
+    iput-object p3, p0, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary;->directoryTypeMap:Ljava/util/Map;
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public add(Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputItem;Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputField;)V
+    .registers 5
+
+    .line 56
+    iget-object v0, p0, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary;->offsetItems:Ljava/util/List;
+
+    new-instance v1, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary$OffsetItem;
+
+    invoke-direct {v1, p1, p2}, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary$OffsetItem;-><init>(Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputItem;Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputField;)V
+
+    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    return-void
+.end method
+
+.method public addTiffImageData(Lorg/apache/commons/imaging/formats/tiff/write/ImageDataOffsets;)V
+    .registers 3
+
+    .line 78
+    iget-object v0, p0, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary;->imageDataItems:Ljava/util/List;
+
+    invoke-interface {v0, p1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    return-void
+.end method
+
+.method public updateOffsets(Ljava/nio/ByteOrder;)V
+    .registers 9
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Lorg/apache/commons/imaging/ImageWriteException;
+        }
+    .end annotation
+
+    .line 60
+    iget-object v0, p0, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary;->offsetItems:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v0
+
+    :goto_6
+    invoke-interface {v0}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_29
+
+    invoke-interface {v0}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary$OffsetItem;
+
+    .line 61
+    sget-object v2, Lorg/apache/commons/imaging/formats/tiff/fieldtypes/FieldType;->LONG:Lorg/apache/commons/imaging/formats/tiff/fieldtypes/FieldTypeLong;
+
+    iget-object v3, v1, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary$OffsetItem;->item:Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputItem;
+
+    invoke-virtual {v3}, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputItem;->getOffset()J
+
+    move-result-wide v3
+
+    long-to-int v3, v3
+
+    invoke-static {v3}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3, p1}, Lorg/apache/commons/imaging/formats/tiff/fieldtypes/FieldTypeLong;->writeData(Ljava/lang/Object;Ljava/nio/ByteOrder;)[B
+
+    move-result-object v2
+
+    .line 63
+    iget-object v1, v1, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary$OffsetItem;->itemOffsetField:Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputField;
+
+    invoke-virtual {v1, v2}, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputField;->setData([B)V
+
+    goto :goto_6
+
+    .line 66
+    :cond_29
+    iget-object v0, p0, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputSummary;->imageDataItems:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v0
+
+    :goto_2f
+    invoke-interface {v0}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_5f
+
+    invoke-interface {v0}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Lorg/apache/commons/imaging/formats/tiff/write/ImageDataOffsets;
+
+    const/4 v2, 0x0
+
+    .line 67
+    :goto_3c
+    iget-object v3, v1, Lorg/apache/commons/imaging/formats/tiff/write/ImageDataOffsets;->outputItems:[Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputItem;
+
+    array-length v3, v3
+
+    if-ge v2, v3, :cond_51
+
+    .line 68
+    iget-object v3, v1, Lorg/apache/commons/imaging/formats/tiff/write/ImageDataOffsets;->outputItems:[Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputItem;
+
+    aget-object v3, v3, v2
+
+    .line 69
+    iget-object v4, v1, Lorg/apache/commons/imaging/formats/tiff/write/ImageDataOffsets;->imageDataOffsets:[I
+
+    invoke-virtual {v3}, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputItem;->getOffset()J
+
+    move-result-wide v5
+
+    long-to-int v3, v5
+
+    aput v3, v4, v2
+
+    add-int/lit8 v2, v2, 0x1
+
+    goto :goto_3c
+
+    .line 72
+    :cond_51
+    iget-object v2, v1, Lorg/apache/commons/imaging/formats/tiff/write/ImageDataOffsets;->imageDataOffsetsField:Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputField;
+
+    sget-object v3, Lorg/apache/commons/imaging/formats/tiff/fieldtypes/FieldType;->LONG:Lorg/apache/commons/imaging/formats/tiff/fieldtypes/FieldTypeLong;
+
+    iget-object v1, v1, Lorg/apache/commons/imaging/formats/tiff/write/ImageDataOffsets;->imageDataOffsets:[I
+
+    invoke-virtual {v3, v1, p1}, Lorg/apache/commons/imaging/formats/tiff/fieldtypes/FieldTypeLong;->writeData(Ljava/lang/Object;Ljava/nio/ByteOrder;)[B
+
+    move-result-object v1
+
+    invoke-virtual {v2, v1}, Lorg/apache/commons/imaging/formats/tiff/write/TiffOutputField;->setData([B)V
+
+    goto :goto_2f
+
+    :cond_5f
+    return-void
+.end method

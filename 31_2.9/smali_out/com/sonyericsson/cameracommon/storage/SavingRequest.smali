@@ -1,0 +1,749 @@
+.class public abstract Lcom/sonyericsson/cameracommon/storage/SavingRequest;
+.super Ljava/lang/Object;
+.source "SavingRequest.java"
+
+
+# static fields
+.field public static final TAG:Ljava/lang/String; = "SavingRequest"
+
+
+# instance fields
+.field public final common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+.field private mFinalRequest:Z
+
+.field public mIsNecessaryMediaUpload:Z
+
+.field private mIsOneShot:Z
+
+.field private mStorageType:Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+
+# direct methods
+.method public constructor <init>(Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;)V
+    .registers 3
+
+    .line 54
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    const/4 v0, 0x0
+
+    .line 43
+    iput-boolean v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->mIsOneShot:Z
+
+    .line 68
+    iput-boolean v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->mIsNecessaryMediaUpload:Z
+
+    .line 55
+    iput-object p1, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    return-void
+.end method
+
+.method public constructor <init>(Lcom/sonyericsson/cameracommon/storage/SavingRequest;)V
+    .registers 3
+
+    .line 63
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    const/4 v0, 0x0
+
+    .line 43
+    iput-boolean v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->mIsOneShot:Z
+
+    .line 68
+    iput-boolean v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->mIsNecessaryMediaUpload:Z
+
+    .line 64
+    new-instance v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object p1, p1, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    invoke-direct {v0, p1}, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;-><init>(Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;)V
+
+    iput-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    return-void
+.end method
+
+.method public constructor <init>(Lcom/sonyericsson/cameracommon/storage/SavingRequest;I)V
+    .registers 20
+
+    move-object/from16 v0, p0
+
+    move-object/from16 v1, p1
+
+    .line 83
+    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+
+    const/4 v2, 0x0
+
+    .line 43
+    iput-boolean v2, v0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->mIsOneShot:Z
+
+    .line 68
+    iput-boolean v2, v0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->mIsNecessaryMediaUpload:Z
+
+    .line 84
+    new-instance v2, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v3, v1, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-wide v4, v3, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mDateTaken:J
+
+    iget-object v3, v1, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v7, v3, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->location:Landroid/location/Location;
+
+    iget-object v3, v1, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget v8, v3, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->width:I
+
+    iget-object v3, v1, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget v9, v3, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->height:I
+
+    iget-object v3, v1, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v10, v3, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mimeType:Ljava/lang/String;
+
+    iget-object v3, v1, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v11, v3, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->fileExtension:Ljava/lang/String;
+
+    iget-object v3, v1, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v12, v3, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->savedFileType:Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;
+
+    iget-object v3, v1, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v13, v3, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mFilePath:Ljava/lang/String;
+
+    iget-object v3, v1, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v14, v3, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->cropValue:Ljava/lang/String;
+
+    iget-object v3, v1, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-boolean v15, v3, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->addToMediaStore:Z
+
+    iget-object v3, v1, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-boolean v6, v3, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->takenByFastCapture:Z
+
+    move-object v3, v2
+
+    move/from16 v16, v6
+
+    move/from16 v6, p2
+
+    invoke-direct/range {v3 .. v16}, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;-><init>(JILandroid/location/Location;IILjava/lang/String;Ljava/lang/String;Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;Ljava/lang/String;Ljava/lang/String;ZZ)V
+
+    iput-object v2, v0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    .line 97
+    iget-object v2, v0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v1, v1, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v1, v1, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mCallbacks:Ljava/util/List;
+
+    iput-object v1, v2, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mCallbacks:Ljava/util/List;
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public addCallback(Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;)V
+    .registers 4
+
+    .line 102
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v0, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mCallbacks:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v0
+
+    :cond_8
+    invoke-interface {v0}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1d
+
+    invoke-interface {v0}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Ljava/lang/ref/WeakReference;
+
+    .line 103
+    invoke-virtual {v1}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;
+
+    if-ne v1, p1, :cond_8
+
+    return-void
+
+    .line 108
+    :cond_1d
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v0, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mCallbacks:Ljava/util/List;
+
+    new-instance v1, Ljava/lang/ref/WeakReference;
+
+    invoke-direct {v1, p1}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
+
+    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    return-void
+.end method
+
+.method public getCaptureIdForPredictiveCapture()I
+    .registers 2
+
+    .line 160
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget v0, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mCaptureIdForPredictiveCapture:I
+
+    return v0
+.end method
+
+.method public getDateTaken()J
+    .registers 3
+
+    .line 130
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-wide v0, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mDateTaken:J
+
+    return-wide v0
+.end method
+
+.method public getExtraOutput()Landroid/net/Uri;
+    .registers 2
+
+    .line 139
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v0, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mExtraOutput:Landroid/net/Uri;
+
+    return-object v0
+.end method
+
+.method public getFilePath()Ljava/lang/String;
+    .registers 2
+
+    .line 121
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v0, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mFilePath:Ljava/lang/String;
+
+    return-object v0
+.end method
+
+.method public getIsNecessaryMediaUpload()Z
+    .registers 2
+
+    .line 73
+    iget-boolean v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->mIsNecessaryMediaUpload:Z
+
+    return v0
+.end method
+
+.method public getRequestId()I
+    .registers 2
+
+    .line 112
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget v0, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mRequestId:I
+
+    return v0
+.end method
+
+.method public getSaveTimeForPredictiveCapture()Ljava/lang/String;
+    .registers 2
+
+    .line 152
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v0, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mSaveTimeForPredictiveCapture:Ljava/lang/String;
+
+    return-object v0
+.end method
+
+.method public getSavedFileType()Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;
+    .registers 2
+
+    .line 172
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v0, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->savedFileType:Lcom/sonyericsson/cameracommon/storage/SavingTaskManager$SavedFileType;
+
+    return-object v0
+.end method
+
+.method public getStorageType()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+    .registers 2
+
+    .line 46
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->mStorageType:Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    return-object v0
+.end method
+
+.method public isFinalInSavingGroup()Z
+    .registers 2
+
+    .line 176
+    iget-boolean v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->mFinalRequest:Z
+
+    return v0
+.end method
+
+.method public isOneShot()Z
+    .registers 2
+
+    .line 184
+    iget-boolean v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->mIsOneShot:Z
+
+    return v0
+.end method
+
+.method public isPredictiveCaptureCover()Z
+    .registers 2
+
+    .line 148
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-boolean v0, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mIsPredictiveCaptureCover:Z
+
+    return v0
+.end method
+
+.method public log()V
+    .registers 2
+
+    .line 234
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->log()V
+
+    return-void
+.end method
+
+.method public notifyStoreFailed(Lcom/sonyericsson/cameracommon/mediasaving/MediaSavingResult;)V
+    .registers 8
+
+    .line 193
+    new-instance v0, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;
+
+    sget-object v1, Lcom/sonyericsson/cameracommon/mediasaving/MediaSavingResult;->FAIL:Lcom/sonyericsson/cameracommon/mediasaving/MediaSavingResult;
+
+    sget-object v2, Landroid/net/Uri;->EMPTY:Landroid/net/Uri;
+
+    invoke-direct {v0, v1, v2, p0}, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;-><init>(Lcom/sonyericsson/cameracommon/mediasaving/MediaSavingResult;Landroid/net/Uri;Lcom/sonyericsson/cameracommon/storage/SavingRequest;)V
+
+    .line 194
+    iget-object v1, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v1, v1, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mCallbacks:Ljava/util/List;
+
+    invoke-interface {v1}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v1
+
+    :goto_11
+    invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_30
+
+    invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Ljava/lang/ref/WeakReference;
+
+    .line 195
+    invoke-virtual {v2}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;
+
+    if-nez v2, :cond_26
+
+    return-void
+
+    .line 199
+    :cond_26
+    iget-object v3, v0, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->uri:Landroid/net/Uri;
+
+    iget-object v4, v0, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->savingRequest:Lcom/sonyericsson/cameracommon/storage/SavingRequest;
+
+    iget v5, p1, Lcom/sonyericsson/cameracommon/mediasaving/MediaSavingResult;->mResultCode:I
+
+    invoke-interface {v2, v3, v4, v5}, Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;->onStoreFailed(Landroid/net/Uri;Lcom/sonyericsson/cameracommon/storage/SavingRequest;I)V
+
+    goto :goto_11
+
+    :cond_30
+    return-void
+.end method
+
+.method public notifyStoreResult(Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;)V
+    .registers 6
+
+    .line 209
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "notifyStoreResult E"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 210
+    :cond_d
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iget-object v0, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mCallbacks:Ljava/util/List;
+
+    invoke-interface {v0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v0
+
+    :goto_15
+    invoke-interface {v0}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_64
+
+    invoke-interface {v0}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Ljava/lang/ref/WeakReference;
+
+    .line 211
+    invoke-virtual {v1}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;
+
+    if-nez v1, :cond_37
+
+    .line 213
+    sget-boolean p1, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz p1, :cond_36
+
+    const-string p1, "notifyStoreResult X - 1"
+
+    filled-new-array {p1}, [Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_36
+    return-void
+
+    :cond_37
+    if-nez p1, :cond_43
+
+    const-string p1, "notifyStoreResult X - 1 result is null"
+
+    .line 218
+    filled-new-array {p1}, [Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->e([Ljava/lang/String;)V
+
+    return-void
+
+    .line 221
+    :cond_43
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->isSuccess()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_57
+
+    .line 222
+    iget-object v2, p1, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->uri:Landroid/net/Uri;
+
+    iget-object v3, p1, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->savingRequest:Lcom/sonyericsson/cameracommon/storage/SavingRequest;
+
+    iget-object p1, p1, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->savingRequest:Lcom/sonyericsson/cameracommon/storage/SavingRequest;
+
+    .line 223
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->getStorageType()Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    move-result-object p1
+
+    .line 222
+    invoke-interface {v1, v2, v3, p1}, Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;->onStoreCompleted(Landroid/net/Uri;Lcom/sonyericsson/cameracommon/storage/SavingRequest;Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)V
+
+    goto :goto_62
+
+    .line 226
+    :cond_57
+    iget-object v2, p1, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->uri:Landroid/net/Uri;
+
+    iget-object v3, p1, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->savingRequest:Lcom/sonyericsson/cameracommon/storage/SavingRequest;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/mediasaving/StoreDataResult;->getResultCode()I
+
+    move-result p1
+
+    invoke-interface {v1, v2, v3, p1}, Lcom/sonyericsson/cameracommon/storage/Storage$OnStoreCompletedListener;->onStoreFailed(Landroid/net/Uri;Lcom/sonyericsson/cameracommon/storage/SavingRequest;I)V
+
+    :goto_62
+    const/4 p1, 0x0
+
+    goto :goto_15
+
+    :cond_64
+    return-void
+.end method
+
+.method public setCaptureIdForPredictiveCapture(I)V
+    .registers 3
+
+    .line 164
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iput p1, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mCaptureIdForPredictiveCapture:I
+
+    return-void
+.end method
+
+.method public setDateTaken(J)V
+    .registers 7
+
+    .line 134
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_1e
+
+    const/4 v0, 0x1
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "getDateTaken: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2, p1, p2}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    aput-object v2, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 135
+    :cond_1e
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iput-wide p1, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mDateTaken:J
+
+    return-void
+.end method
+
+.method public setExtraOutput(Landroid/net/Uri;)V
+    .registers 6
+
+    .line 143
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_1e
+
+    const/4 v0, 0x1
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "setExtraOutput: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    aput-object v2, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 144
+    :cond_1e
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iput-object p1, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mExtraOutput:Landroid/net/Uri;
+
+    return-void
+.end method
+
+.method public setFilePath(Ljava/lang/String;)V
+    .registers 6
+
+    .line 125
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_1e
+
+    const/4 v0, 0x1
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "setFilePath: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    aput-object v2, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 126
+    :cond_1e
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iput-object p1, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mFilePath:Ljava/lang/String;
+
+    return-void
+.end method
+
+.method public setFinalInSavingGroup(Z)V
+    .registers 2
+
+    .line 168
+    iput-boolean p1, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->mFinalRequest:Z
+
+    return-void
+.end method
+
+.method public setIsNecessaryMediaUpload(Z)V
+    .registers 2
+
+    .line 70
+    iput-boolean p1, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->mIsNecessaryMediaUpload:Z
+
+    return-void
+.end method
+
+.method public setOneShot(Z)V
+    .registers 2
+
+    .line 180
+    iput-boolean p1, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->mIsOneShot:Z
+
+    return-void
+.end method
+
+.method public setRequestId(I)V
+    .registers 6
+
+    .line 116
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_1e
+
+    const/4 v0, 0x1
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "setRequestId: "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    aput-object v2, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 117
+    :cond_1e
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iput p1, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mRequestId:I
+
+    return-void
+.end method
+
+.method public setSaveTimeForPredictiveCapture(Ljava/lang/String;)V
+    .registers 3
+
+    .line 156
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->common:Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;
+
+    iput-object p1, v0, Lcom/sonyericsson/cameracommon/mediasaving/takenstatus/TakenStatusCommon;->mSaveTimeForPredictiveCapture:Ljava/lang/String;
+
+    return-void
+.end method
+
+.method setStorageType(Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;)V
+    .registers 2
+
+    .line 41
+    iput-object p1, p0, Lcom/sonyericsson/cameracommon/storage/SavingRequest;->mStorageType:Lcom/sonyericsson/cameracommon/storage/Storage$StorageType;
+
+    return-void
+.end method

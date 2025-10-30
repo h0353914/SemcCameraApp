@@ -1,0 +1,605 @@
+.class public Lcom/sonyericsson/android/camera/recorder/RecorderFactory;
+.super Ljava/lang/Object;
+.source "RecorderFactory.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;
+    }
+.end annotation
+
+
+# static fields
+.field private static MIN_VIDEO_DURATION_MILLIS:J = 0xbb8L
+
+
+# direct methods
+.method static constructor <clinit>()V
+    .registers 0
+
+    return-void
+.end method
+
+.method public constructor <init>()V
+    .registers 1
+
+    .line 34
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+.method public static create(Landroid/content/Context;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Landroid/os/Handler;Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;IILcom/sonyericsson/android/camera/device/CameraDeviceHandler2Interface;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;)Lcom/sonyericsson/android/camera/recorder/RecorderController;
+    .registers 19
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/content/Context;",
+            "Lcom/sonyericsson/android/camera/recorder/utility/Accessor<",
+            "Lcom/sonyericsson/android/camera/device/CameraActionSound;",
+            ">;",
+            "Lcom/sonyericsson/android/camera/recorder/utility/Accessor<",
+            "Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;",
+            ">;",
+            "Landroid/os/Handler;",
+            "Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;",
+            "II",
+            "Lcom/sonyericsson/android/camera/device/CameraDeviceHandler2Interface;",
+            "Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;",
+            ")",
+            "Lcom/sonyericsson/android/camera/recorder/RecorderController;"
+        }
+    .end annotation
+
+    if-eqz p2, :cond_3e
+
+    .line 80
+    sget-object v0, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$1;->$SwitchMap$com$sonyericsson$android$camera$configuration$parameters$SlowMotion:[I
+
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mSlowMotion:Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+    invoke-static {p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$000(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/configuration/parameters/SlowMotion;->ordinal()I
+
+    move-result v1
+
+    aget v0, v0, v1
+
+    packed-switch v0, :pswitch_data_60
+
+    .line 108
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mListener:Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;
+    invoke-static {p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$100(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;
+
+    move-result-object v3
+
+    .line 110
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mProgressNotificationIntervalMillis:I
+    invoke-static {p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$200(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)I
+
+    move-result v5
+
+    .line 111
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mVideoStabilizer:Ljava/lang/String;
+    invoke-static {p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$300(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "intelligent_active"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v6
+
+    .line 113
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mIsShutterSoundOn:Z
+    invoke-static {p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$400(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Z
+
+    move-result v7
+
+    move-object v0, p0
+
+    move-object v1, p1
+
+    move-object v2, p2
+
+    move-object v4, p3
+
+    move-object/from16 v8, p7
+
+    move-object/from16 v9, p8
+
+    .line 104
+    invoke-static/range {v0 .. v9}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory;->createDefaultRecorderWithBypassCamera(Landroid/content/Context;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;Landroid/os/Handler;IZZLcom/sonyericsson/android/camera/device/CameraDeviceHandler2Interface;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;)Lcom/sonyericsson/android/camera/recorder/RecorderController;
+
+    move-result-object v0
+
+    return-object v0
+
+    .line 92
+    :pswitch_34
+    invoke-static/range {p0 .. p6}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory;->createSuperSlowShot(Landroid/content/Context;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Landroid/os/Handler;Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;II)Lcom/sonyericsson/android/camera/recorder/RecorderController;
+
+    move-result-object v0
+
+    return-object v0
+
+    .line 82
+    :pswitch_39
+    invoke-static/range {p0 .. p6}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory;->createSuperSlow(Landroid/content/Context;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Landroid/os/Handler;Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;II)Lcom/sonyericsson/android/camera/recorder/superslowrecorder/SuperSlowRecorderController;
+
+    move-result-object v0
+
+    return-object v0
+
+    .line 121
+    :cond_3e
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mListener:Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;
+    invoke-static {p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$100(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;
+
+    move-result-object v3
+
+    .line 123
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mProgressNotificationIntervalMillis:I
+    invoke-static {p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$200(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)I
+
+    move-result v5
+
+    .line 124
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mVideoStabilizer:Ljava/lang/String;
+    invoke-static {p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$300(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "intelligent_active"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v6
+
+    .line 126
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mIsShutterSoundOn:Z
+    invoke-static {p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$400(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Z
+
+    move-result v7
+
+    move-object v1, p0
+
+    move-object v2, p1
+
+    move-object v4, p3
+
+    move-object/from16 v8, p7
+
+    move-object/from16 v9, p8
+
+    .line 118
+    invoke-static/range {v1 .. v9}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory;->createDefaultRecorder(Landroid/content/Context;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;Landroid/os/Handler;IZZLcom/sonyericsson/android/camera/device/CameraDeviceHandler2Interface;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;)Lcom/sonyericsson/android/camera/recorder/RecorderController;
+
+    move-result-object v0
+
+    return-object v0
+
+    :pswitch_data_60
+    .packed-switch 0x1
+        :pswitch_39
+        :pswitch_34
+    .end packed-switch
+.end method
+
+.method public static createDefaultRecorder(Landroid/content/Context;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;Landroid/os/Handler;IZZLcom/sonyericsson/android/camera/device/CameraDeviceHandler2Interface;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;)Lcom/sonyericsson/android/camera/recorder/RecorderController;
+    .registers 21
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/content/Context;",
+            "Lcom/sonyericsson/android/camera/recorder/utility/Accessor<",
+            "Lcom/sonyericsson/android/camera/device/CameraActionSound;",
+            ">;",
+            "Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;",
+            "Landroid/os/Handler;",
+            "IZZ",
+            "Lcom/sonyericsson/android/camera/device/CameraDeviceHandler2Interface;",
+            "Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;",
+            ")",
+            "Lcom/sonyericsson/android/camera/recorder/RecorderController;"
+        }
+    .end annotation
+
+    const/4 v0, 0x1
+
+    .line 252
+    new-array v0, v0, [Ljava/lang/String;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "Create recorder : CameraRecorderController progress-interval:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move/from16 v2, p4
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string v3, " intelligent-active:"
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move/from16 v10, p5
+
+    invoke-virtual {v1, v10}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    const-string v3, " shutter-sound:"
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move/from16 v11, p6
+
+    invoke-virtual {v1, v11}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    const/4 v3, 0x0
+
+    aput-object v1, v0, v3
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 257
+    new-instance v0, Lcom/sonyericsson/android/camera/recorder/defaultrecorder/CameraRecorderController;
+
+    new-instance v6, Lcom/sonyericsson/android/camera/recorder/defaultrecorder/DefaultRecorder;
+
+    const/4 v1, 0x2
+
+    move-object/from16 v4, p7
+
+    move-object/from16 v5, p8
+
+    invoke-direct {v6, v1, v3, v4, v5}, Lcom/sonyericsson/android/camera/recorder/defaultrecorder/DefaultRecorder;-><init>(IZLcom/sonyericsson/android/camera/device/CameraDeviceHandler2Interface;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;)V
+
+    move-object v3, v0
+
+    move-object v4, p0
+
+    move-object v5, p1
+
+    move-object v7, p2
+
+    move-object v8, p3
+
+    move/from16 v9, p4
+
+    invoke-direct/range {v3 .. v11}, Lcom/sonyericsson/android/camera/recorder/defaultrecorder/CameraRecorderController;-><init>(Landroid/content/Context;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/RecorderInterface;Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;Landroid/os/Handler;IZZ)V
+
+    return-object v0
+.end method
+
+.method private static createDefaultRecorderWithBypassCamera(Landroid/content/Context;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;Landroid/os/Handler;IZZLcom/sonyericsson/android/camera/device/CameraDeviceHandler2Interface;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;)Lcom/sonyericsson/android/camera/recorder/RecorderController;
+    .registers 26
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/content/Context;",
+            "Lcom/sonyericsson/android/camera/recorder/utility/Accessor<",
+            "Lcom/sonyericsson/android/camera/device/CameraActionSound;",
+            ">;",
+            "Lcom/sonyericsson/android/camera/recorder/utility/Accessor<",
+            "Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;",
+            ">;",
+            "Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;",
+            "Landroid/os/Handler;",
+            "IZZ",
+            "Lcom/sonyericsson/android/camera/device/CameraDeviceHandler2Interface;",
+            "Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;",
+            ")",
+            "Lcom/sonyericsson/android/camera/recorder/RecorderController;"
+        }
+    .end annotation
+
+    move/from16 v14, p6
+
+    const/4 v0, 0x1
+
+    .line 205
+    new-array v0, v0, [Ljava/lang/String;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "Create recorder : DefaultRecorderControllerWithBypassCamera progress-interval:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move/from16 v9, p5
+
+    invoke-virtual {v1, v9}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string v2, " intelligent-active:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1, v14}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    const-string v2, " shutter-sound:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move/from16 v13, p7
+
+    invoke-virtual {v1, v13}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    const/4 v2, 0x0
+
+    aput-object v1, v0, v2
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 212
+    new-instance v15, Lcom/sonyericsson/android/camera/recorder/defaultrecorder/DefaultRecorderController;
+
+    new-instance v4, Lcom/sonyericsson/android/camera/recorder/defaultrecorder/DefaultRecorder;
+
+    const/4 v0, 0x2
+
+    move-object/from16 v1, p8
+
+    move-object/from16 v2, p9
+
+    invoke-direct {v4, v0, v14, v1, v2}, Lcom/sonyericsson/android/camera/recorder/defaultrecorder/DefaultRecorder;-><init>(IZLcom/sonyericsson/android/camera/device/CameraDeviceHandler2Interface;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;)V
+
+    sget-wide v6, Lcom/sonyericsson/android/camera/recorder/RecorderFactory;->MIN_VIDEO_DURATION_MILLIS:J
+
+    const/4 v10, 0x1
+
+    const/4 v11, 0x1
+
+    const/4 v12, 0x1
+
+    move-object v0, v15
+
+    move-object/from16 v1, p0
+
+    move-object/from16 v2, p1
+
+    move-object/from16 v3, p2
+
+    move-object/from16 v5, p3
+
+    move-object/from16 v8, p4
+
+    invoke-direct/range {v0 .. v14}, Lcom/sonyericsson/android/camera/recorder/defaultrecorder/DefaultRecorderController;-><init>(Landroid/content/Context;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/RecorderInterface;Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;JLandroid/os/Handler;IZZZZZ)V
+
+    return-object v15
+.end method
+
+.method private static createSuperSlow(Landroid/content/Context;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Landroid/os/Handler;Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;II)Lcom/sonyericsson/android/camera/recorder/superslowrecorder/SuperSlowRecorderController;
+    .registers 21
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/content/Context;",
+            "Lcom/sonyericsson/android/camera/recorder/utility/Accessor<",
+            "Lcom/sonyericsson/android/camera/device/CameraActionSound;",
+            ">;",
+            "Lcom/sonyericsson/android/camera/recorder/utility/Accessor<",
+            "Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;",
+            ">;",
+            "Landroid/os/Handler;",
+            "Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;",
+            "II)",
+            "Lcom/sonyericsson/android/camera/recorder/superslowrecorder/SuperSlowRecorderController;"
+        }
+    .end annotation
+
+    const/4 v0, 0x1
+
+    .line 144
+    new-array v0, v0, [Ljava/lang/String;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "Create recorder : SuperSlowRecorderController progress-interval:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 145
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mProgressNotificationIntervalMillis:I
+    invoke-static/range {p4 .. p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$200(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)I
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string v2, " shutter-sound:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 146
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mIsShutterSoundOn:Z
+    invoke-static/range {p4 .. p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$400(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Z
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    const/4 v2, 0x0
+
+    aput-object v1, v0, v2
+
+    .line 144
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 147
+    new-instance v0, Lcom/sonyericsson/android/camera/recorder/superslowrecorder/SuperSlowRecorderController;
+
+    .line 151
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mListener:Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;
+    invoke-static/range {p4 .. p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$100(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;
+
+    move-result-object v7
+
+    .line 152
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mOnSuperSlowRecordingFinishedListener:Lcom/sonyericsson/android/camera/recorder/superslowrecorder/OnSuperSlowRecordingFinishedListener;
+    invoke-static/range {p4 .. p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$500(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Lcom/sonyericsson/android/camera/recorder/superslowrecorder/OnSuperSlowRecordingFinishedListener;
+
+    move-result-object v8
+
+    .line 154
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mProgressNotificationIntervalMillis:I
+    invoke-static/range {p4 .. p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$200(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)I
+
+    move-result v10
+
+    .line 155
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mIsShutterSoundOn:Z
+    invoke-static/range {p4 .. p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$400(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Z
+
+    move-result v11
+
+    move-object v3, v0
+
+    move-object v4, p0
+
+    move-object v5, p1
+
+    move-object/from16 v6, p2
+
+    move-object/from16 v9, p3
+
+    move/from16 v12, p5
+
+    move/from16 v13, p6
+
+    invoke-direct/range {v3 .. v13}, Lcom/sonyericsson/android/camera/recorder/superslowrecorder/SuperSlowRecorderController;-><init>(Landroid/content/Context;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;Lcom/sonyericsson/android/camera/recorder/superslowrecorder/OnSuperSlowRecordingFinishedListener;Landroid/os/Handler;IZII)V
+
+    return-object v0
+.end method
+
+.method private static createSuperSlowShot(Landroid/content/Context;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Landroid/os/Handler;Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;II)Lcom/sonyericsson/android/camera/recorder/RecorderController;
+    .registers 21
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/content/Context;",
+            "Lcom/sonyericsson/android/camera/recorder/utility/Accessor<",
+            "Lcom/sonyericsson/android/camera/device/CameraActionSound;",
+            ">;",
+            "Lcom/sonyericsson/android/camera/recorder/utility/Accessor<",
+            "Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;",
+            ">;",
+            "Landroid/os/Handler;",
+            "Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;",
+            "II)",
+            "Lcom/sonyericsson/android/camera/recorder/RecorderController;"
+        }
+    .end annotation
+
+    const/4 v0, 0x1
+
+    .line 172
+    new-array v0, v0, [Ljava/lang/String;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "Create recorder : SuperSlowShotRecorderController progress-interval:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 173
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mProgressNotificationIntervalMillis:I
+    invoke-static/range {p4 .. p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$200(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)I
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string v2, " shutter-sound:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 174
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mIsShutterSoundOn:Z
+    invoke-static/range {p4 .. p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$400(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Z
+
+    move-result v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    const/4 v2, 0x0
+
+    aput-object v1, v0, v2
+
+    .line 172
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 175
+    new-instance v0, Lcom/sonyericsson/android/camera/recorder/superslowrecorder/SuperSlowShotRecorderController;
+
+    .line 179
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mListener:Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;
+    invoke-static/range {p4 .. p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$100(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;
+
+    move-result-object v7
+
+    .line 180
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mOnSuperSlowRecordingFinishedListener:Lcom/sonyericsson/android/camera/recorder/superslowrecorder/OnSuperSlowRecordingFinishedListener;
+    invoke-static/range {p4 .. p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$500(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Lcom/sonyericsson/android/camera/recorder/superslowrecorder/OnSuperSlowRecordingFinishedListener;
+
+    move-result-object v8
+
+    .line 182
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mProgressNotificationIntervalMillis:I
+    invoke-static/range {p4 .. p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$200(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)I
+
+    move-result v10
+
+    .line 183
+    # getter for: Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->mIsShutterSoundOn:Z
+    invoke-static/range {p4 .. p4}, Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;->access$400(Lcom/sonyericsson/android/camera/recorder/RecorderFactory$Parameters;)Z
+
+    move-result v11
+
+    move-object v3, v0
+
+    move-object v4, p0
+
+    move-object v5, p1
+
+    move-object/from16 v6, p2
+
+    move-object/from16 v9, p3
+
+    move/from16 v12, p5
+
+    move/from16 v13, p6
+
+    invoke-direct/range {v3 .. v13}, Lcom/sonyericsson/android/camera/recorder/superslowrecorder/SuperSlowShotRecorderController;-><init>(Landroid/content/Context;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/utility/Accessor;Lcom/sonyericsson/android/camera/recorder/RecorderController$RecorderListener;Lcom/sonyericsson/android/camera/recorder/superslowrecorder/OnSuperSlowRecordingFinishedListener;Landroid/os/Handler;IZII)V
+
+    return-object v0
+.end method

@@ -1,0 +1,1157 @@
+.class public Lcom/sonyericsson/cameracommon/storage/ImageLoader;
+.super Ljava/lang/Object;
+.source "ImageLoader.java"
+
+
+# static fields
+.field private static final FIRST_REDUCE_RATIO_FULL_IMG:I = 0x2
+
+.field private static final FULL_SIZE_MAX_LENGTH:I = 0x401
+
+.field public static final TAG:Ljava/lang/String; = "ImageLoader"
+
+
+# instance fields
+.field private final mContext:Landroid/content/Context;
+
+.field private final mImageData:[B
+
+.field private final mOption:Landroid/graphics/BitmapFactory$Options;
+
+.field private final mOrientation:I
+
+.field private final mUri:Landroid/net/Uri;
+
+
+# direct methods
+.method public constructor <init>(Landroid/content/Context;Landroid/net/Uri;I)V
+    .registers 4
+
+    .line 77
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 78
+    iput-object p1, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mContext:Landroid/content/Context;
+
+    .line 79
+    iput-object p2, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mUri:Landroid/net/Uri;
+
+    const/4 p1, 0x0
+
+    .line 80
+    iput-object p1, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mImageData:[B
+
+    .line 81
+    iput p3, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mOrientation:I
+
+    .line 82
+    new-instance p1, Landroid/graphics/BitmapFactory$Options;
+
+    invoke-direct {p1}, Landroid/graphics/BitmapFactory$Options;-><init>()V
+
+    iput-object p1, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mOption:Landroid/graphics/BitmapFactory$Options;
+
+    return-void
+.end method
+
+.method public constructor <init>(Landroid/content/Context;[BI)V
+    .registers 4
+
+    .line 91
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 92
+    iput-object p1, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mContext:Landroid/content/Context;
+
+    const/4 p1, 0x0
+
+    .line 93
+    iput-object p1, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mUri:Landroid/net/Uri;
+
+    .line 94
+    iput-object p2, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mImageData:[B
+
+    .line 95
+    iput p3, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mOrientation:I
+
+    .line 96
+    new-instance p1, Landroid/graphics/BitmapFactory$Options;
+
+    invoke-direct {p1}, Landroid/graphics/BitmapFactory$Options;-><init>()V
+
+    iput-object p1, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mOption:Landroid/graphics/BitmapFactory$Options;
+
+    return-void
+.end method
+
+.method private calcBounds(Ljava/io/InputStream;Landroid/graphics/BitmapFactory$Options;)V
+    .registers 6
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/InvalidObjectException;,
+            Ljava/io/FileNotFoundException;
+        }
+    .end annotation
+
+    .line 177
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "calcBounds()"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_d
+    const/4 v0, 0x2
+
+    .line 180
+    iput v0, p2, Landroid/graphics/BitmapFactory$Options;->inSampleSize:I
+
+    const/4 v0, 0x1
+
+    .line 181
+    iput-boolean v0, p2, Landroid/graphics/BitmapFactory$Options;->inJustDecodeBounds:Z
+
+    .line 182
+    sget-object v1, Landroid/graphics/Bitmap$Config;->RGB_565:Landroid/graphics/Bitmap$Config;
+
+    iput-object v1, p2, Landroid/graphics/BitmapFactory$Options;->inPreferredConfig:Landroid/graphics/Bitmap$Config;
+
+    .line 185
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->decodeStream(Ljava/io/InputStream;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/Bitmap;
+
+    move-result-object p0
+
+    if-eqz p0, :cond_26
+
+    .line 186
+    invoke-virtual {p0}, Landroid/graphics/Bitmap;->isRecycled()Z
+
+    move-result p1
+
+    if-nez p1, :cond_26
+
+    .line 187
+    invoke-virtual {p0}, Landroid/graphics/Bitmap;->recycle()V
+
+    .line 189
+    :cond_26
+    iget p0, p2, Landroid/graphics/BitmapFactory$Options;->outWidth:I
+
+    const/4 p1, -0x1
+
+    if-eq p0, p1, :cond_8c
+
+    iget p0, p2, Landroid/graphics/BitmapFactory$Options;->outHeight:I
+
+    if-ne p0, p1, :cond_30
+
+    goto :goto_8c
+
+    .line 194
+    :cond_30
+    sget-boolean p0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    const/4 p1, 0x0
+
+    if-eqz p0, :cond_4f
+
+    new-array p0, v0, [Ljava/lang/String;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "BMP out height:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget v2, p2, Landroid/graphics/BitmapFactory$Options;->outHeight:I
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    aput-object v1, p0, p1
+
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 195
+    :cond_4f
+    sget-boolean p0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz p0, :cond_6d
+
+    new-array p0, v0, [Ljava/lang/String;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "BMP out width:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget v2, p2, Landroid/graphics/BitmapFactory$Options;->outWidth:I
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    aput-object v1, p0, p1
+
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 196
+    :cond_6d
+    sget-boolean p0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz p0, :cond_8b
+
+    new-array p0, v0, [Ljava/lang/String;
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "Scale ratio:"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget p2, p2, Landroid/graphics/BitmapFactory$Options;->inSampleSize:I
+
+    invoke-virtual {v0, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p2
+
+    aput-object p2, p0, p1
+
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_8b
+    return-void
+
+    :cond_8c
+    :goto_8c
+    const-string p0, "Bitmap read error"
+
+    .line 190
+    filled-new-array {p0}, [Ljava/lang/String;
+
+    move-result-object p0
+
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/util/CamLog;->e([Ljava/lang/String;)V
+
+    .line 191
+    new-instance p0, Ljava/io/InvalidObjectException;
+
+    const-string p1, "Failed to calculate bounds of bitmap"
+
+    invoke-direct {p0, p1}, Ljava/io/InvalidObjectException;-><init>(Ljava/lang/String;)V
+
+    throw p0
+.end method
+
+.method private calcRatio(Landroid/graphics/BitmapFactory$Options;II)I
+    .registers 6
+
+    .line 289
+    iget p0, p1, Landroid/graphics/BitmapFactory$Options;->outWidth:I
+
+    mul-int/2addr p0, p2
+
+    .line 290
+    iget p1, p1, Landroid/graphics/BitmapFactory$Options;->outHeight:I
+
+    mul-int/2addr p1, p2
+
+    add-int p2, p0, p3
+
+    const/4 v0, 0x1
+
+    sub-int/2addr p2, v0
+
+    .line 292
+    div-int/2addr p2, p3
+
+    add-int v1, p1, p3
+
+    sub-int/2addr v1, v0
+
+    .line 293
+    div-int/2addr v1, p3
+
+    .line 294
+    invoke-static {v1, p2}, Ljava/lang/Math;->max(II)I
+
+    move-result p2
+
+    if-nez p2, :cond_23
+
+    .line 297
+    sget-boolean p0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz p0, :cond_22
+
+    const-string p0, "Full size image loading ratio: error"
+
+    filled-new-array {p0}, [Ljava/lang/String;
+
+    move-result-object p0
+
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_22
+    return v0
+
+    :cond_23
+    if-le p2, v0, :cond_2d
+
+    .line 302
+    div-int/2addr p0, p2
+
+    if-gt p0, p3, :cond_2b
+
+    div-int/2addr p1, p2
+
+    if-le p1, p3, :cond_2d
+
+    :cond_2b
+    add-int/lit8 p2, p2, -0x1
+
+    .line 307
+    :cond_2d
+    sget-boolean p0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz p0, :cond_4a
+
+    new-array p0, v0, [Ljava/lang/String;
+
+    const/4 p1, 0x0
+
+    new-instance p3, Ljava/lang/StringBuilder;
+
+    invoke-direct {p3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v0, "Full size image loading ratio:"
+
+    invoke-virtual {p3, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p3, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p3
+
+    aput-object p3, p0, p1
+
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_4a
+    return p2
+.end method
+
+.method private decodeStream(Ljava/io/InputStream;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/Bitmap;
+    .registers 4
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/FileNotFoundException;
+        }
+    .end annotation
+
+    .line 264
+    new-instance p0, Landroid/graphics/Rect;
+
+    const/4 v0, 0x0
+
+    invoke-direct {p0, v0, v0, v0, v0}, Landroid/graphics/Rect;-><init>(IIII)V
+
+    .line 268
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_13
+
+    const-string v0, "Loading full size image started"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 269
+    :cond_13
+    invoke-static {p1, p0, p2}, Landroid/graphics/BitmapFactory;->decodeStream(Ljava/io/InputStream;Landroid/graphics/Rect;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/Bitmap;
+
+    move-result-object p0
+
+    .line 270
+    sget-boolean p1, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz p1, :cond_24
+
+    const-string p1, "Loading full size image finished"
+
+    filled-new-array {p1}, [Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_24
+    return-object p0
+.end method
+
+.method private loadFullSize(Ljava/io/InputStream;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/Bitmap;
+    .registers 12
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/FileNotFoundException;,
+            Ljava/io/InvalidObjectException;
+        }
+    .end annotation
+
+    .line 219
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "loadFullSize()"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_d
+    const/4 v0, 0x0
+
+    .line 222
+    iput-boolean v0, p2, Landroid/graphics/BitmapFactory$Options;->inJustDecodeBounds:Z
+
+    .line 223
+    iput-boolean v0, p2, Landroid/graphics/BitmapFactory$Options;->inDither:Z
+
+    .line 224
+    sget-object v1, Landroid/graphics/Bitmap$Config;->ARGB_8888:Landroid/graphics/Bitmap$Config;
+
+    iput-object v1, p2, Landroid/graphics/BitmapFactory$Options;->inPreferredConfig:Landroid/graphics/Bitmap$Config;
+
+    .line 226
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->decodeStream(Ljava/io/InputStream;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/Bitmap;
+
+    move-result-object p1
+
+    if-nez p1, :cond_2d
+
+    const-string p0, "loadFullSize: Decode read error"
+
+    .line 228
+    filled-new-array {p0}, [Ljava/lang/String;
+
+    move-result-object p0
+
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/util/CamLog;->e([Ljava/lang/String;)V
+
+    .line 229
+    new-instance p0, Ljava/io/InvalidObjectException;
+
+    const-string p1, "Failed to decode full size image"
+
+    invoke-direct {p0, p1}, Ljava/io/InvalidObjectException;-><init>(Ljava/lang/String;)V
+
+    throw p0
+
+    :cond_2d
+    const/4 p2, 0x2
+
+    .line 232
+    new-array p2, p2, [Ljava/lang/String;
+
+    const-string v1, "loadFullSize: mOrientation"
+
+    aput-object v1, p2, v0
+
+    const/4 v1, 0x1
+
+    iget v2, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mOrientation:I
+
+    invoke-static {v2}, Lcom/sonyericsson/cameracommon/utility/RotationUtil;->orientationToString(I)Ljava/lang/String;
+
+    move-result-object v2
+
+    aput-object v2, p2, v1
+
+    invoke-static {p2}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 234
+    iget p2, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mOrientation:I
+
+    if-eqz p2, :cond_79
+
+    .line 236
+    new-instance v7, Landroid/graphics/Matrix;
+
+    invoke-direct {v7}, Landroid/graphics/Matrix;-><init>()V
+
+    .line 237
+    invoke-virtual {p1}, Landroid/graphics/Bitmap;->getWidth()I
+
+    move-result p2
+
+    int-to-float p2, p2
+
+    const/high16 v1, 0x40000000    # 2.0f
+
+    div-float/2addr p2, v1
+
+    .line 238
+    invoke-virtual {p1}, Landroid/graphics/Bitmap;->getHeight()I
+
+    move-result v2
+
+    int-to-float v2, v2
+
+    div-float/2addr v2, v1
+
+    .line 239
+    iget p0, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mOrientation:I
+
+    int-to-float p0, p0
+
+    invoke-virtual {v7, p0, p2, v2}, Landroid/graphics/Matrix;->setRotate(FFF)V
+
+    const/4 v3, 0x0
+
+    const/4 v4, 0x0
+
+    .line 240
+    invoke-virtual {p1}, Landroid/graphics/Bitmap;->getWidth()I
+
+    move-result v5
+
+    invoke-virtual {p1}, Landroid/graphics/Bitmap;->getHeight()I
+
+    move-result v6
+
+    const/4 v8, 0x0
+
+    move-object v2, p1
+
+    invoke-static/range {v2 .. v8}, Landroid/graphics/Bitmap;->createBitmap(Landroid/graphics/Bitmap;IIIILandroid/graphics/Matrix;Z)Landroid/graphics/Bitmap;
+
+    move-result-object p0
+
+    .line 241
+    invoke-virtual {p1}, Landroid/graphics/Bitmap;->recycle()V
+
+    .line 244
+    sget-object p1, Landroid/graphics/Bitmap$Config;->ARGB_8888:Landroid/graphics/Bitmap$Config;
+
+    invoke-virtual {p0, p1, v0}, Landroid/graphics/Bitmap;->copy(Landroid/graphics/Bitmap$Config;Z)Landroid/graphics/Bitmap;
+
+    move-result-object p1
+
+    .line 245
+    invoke-virtual {p0}, Landroid/graphics/Bitmap;->recycle()V
+
+    :cond_79
+    return-object p1
+.end method
+
+
+# virtual methods
+.method public load()Landroid/graphics/Bitmap;
+    .registers 10
+
+    .line 104
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "Loading full size image started"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_d
+    const/4 v0, 0x0
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x1
+
+    .line 109
+    :try_start_10
+    sget-boolean v3, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v3, :cond_2e
+
+    new-array v3, v2, [Ljava/lang/String;
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "Start loading original image:"
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v5, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mUri:Landroid/net/Uri;
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v4
+
+    aput-object v4, v3, v1
+
+    invoke-static {v3}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 112
+    :cond_2e
+    iget-object v3, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mImageData:[B
+
+    if-eqz v3, :cond_3a
+
+    .line 113
+    new-instance v3, Ljava/io/ByteArrayInputStream;
+
+    iget-object v4, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mImageData:[B
+
+    invoke-direct {v3, v4}, Ljava/io/ByteArrayInputStream;-><init>([B)V
+
+    goto :goto_42
+
+    .line 115
+    :cond_3a
+    iget-object v3, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mContext:Landroid/content/Context;
+
+    iget-object v4, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mUri:Landroid/net/Uri;
+
+    invoke-static {v3, v4}, Lcom/sonyericsson/cameracommon/storage/ContentResolverUtil;->crOpenInputStream(Landroid/content/Context;Landroid/net/Uri;)Ljava/io/InputStream;
+
+    move-result-object v3
+    :try_end_42
+    .catch Ljava/io/InvalidObjectException; {:try_start_10 .. :try_end_42} :catch_15b
+    .catch Ljava/io/FileNotFoundException; {:try_start_10 .. :try_end_42} :catch_133
+    .catch Ljava/io/IOException; {:try_start_10 .. :try_end_42} :catch_10b
+    .catch Ljava/lang/IllegalArgumentException; {:try_start_10 .. :try_end_42} :catch_df
+    .catchall {:try_start_10 .. :try_end_42} :catchall_dc
+
+    :goto_42
+    if-eqz v3, :cond_76
+
+    .line 119
+    :try_start_44
+    iget-object v4, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mOption:Landroid/graphics/BitmapFactory$Options;
+
+    invoke-direct {p0, v3, v4}, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->calcBounds(Ljava/io/InputStream;Landroid/graphics/BitmapFactory$Options;)V
+
+    .line 122
+    iget-object v4, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mOption:Landroid/graphics/BitmapFactory$Options;
+
+    iget-object v5, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mOption:Landroid/graphics/BitmapFactory$Options;
+
+    iget-object v6, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mOption:Landroid/graphics/BitmapFactory$Options;
+
+    iget v6, v6, Landroid/graphics/BitmapFactory$Options;->inSampleSize:I
+
+    const/16 v7, 0x401
+
+    invoke-direct {p0, v5, v6, v7}, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->calcRatio(Landroid/graphics/BitmapFactory$Options;II)I
+
+    move-result v5
+
+    iput v5, v4, Landroid/graphics/BitmapFactory$Options;->inSampleSize:I
+
+    .line 125
+    invoke-virtual {v3}, Ljava/io/InputStream;->close()V
+
+    goto :goto_76
+
+    :catchall_5d
+    move-exception p0
+
+    move-object v0, v3
+
+    goto/16 :goto_184
+
+    :catch_61
+    move-object v8, v3
+
+    move-object v3, v0
+
+    move-object v0, v8
+
+    goto/16 :goto_e0
+
+    :catch_66
+    move-object v8, v3
+
+    move-object v3, v0
+
+    move-object v0, v8
+
+    goto/16 :goto_10c
+
+    :catch_6b
+    move-object v8, v3
+
+    move-object v3, v0
+
+    move-object v0, v8
+
+    goto/16 :goto_134
+
+    :catch_70
+    move-exception p0
+
+    move-object v8, v3
+
+    move-object v3, v0
+
+    move-object v0, v8
+
+    goto/16 :goto_15d
+
+    .line 128
+    :cond_76
+    :goto_76
+    iget-object v4, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mImageData:[B
+
+    if-eqz v4, :cond_82
+
+    .line 129
+    new-instance v4, Ljava/io/ByteArrayInputStream;
+
+    iget-object v5, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mImageData:[B
+
+    invoke-direct {v4, v5}, Ljava/io/ByteArrayInputStream;-><init>([B)V
+
+    goto :goto_8a
+
+    .line 131
+    :cond_82
+    iget-object v4, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mContext:Landroid/content/Context;
+
+    iget-object v5, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mUri:Landroid/net/Uri;
+
+    invoke-static {v4, v5}, Lcom/sonyericsson/cameracommon/storage/ContentResolverUtil;->crOpenInputStream(Landroid/content/Context;Landroid/net/Uri;)Ljava/io/InputStream;
+
+    move-result-object v4
+    :try_end_8a
+    .catch Ljava/io/InvalidObjectException; {:try_start_44 .. :try_end_8a} :catch_70
+    .catch Ljava/io/FileNotFoundException; {:try_start_44 .. :try_end_8a} :catch_6b
+    .catch Ljava/io/IOException; {:try_start_44 .. :try_end_8a} :catch_66
+    .catch Ljava/lang/IllegalArgumentException; {:try_start_44 .. :try_end_8a} :catch_61
+    .catchall {:try_start_44 .. :try_end_8a} :catchall_5d
+
+    :goto_8a
+    if-eqz v4, :cond_ad
+
+    .line 135
+    :try_start_8c
+    iget-object v3, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mOption:Landroid/graphics/BitmapFactory$Options;
+
+    invoke-direct {p0, v4, v3}, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->loadFullSize(Ljava/io/InputStream;Landroid/graphics/BitmapFactory$Options;)Landroid/graphics/Bitmap;
+
+    move-result-object v3
+    :try_end_92
+    .catch Ljava/io/InvalidObjectException; {:try_start_8c .. :try_end_92} :catch_a8
+    .catch Ljava/io/FileNotFoundException; {:try_start_8c .. :try_end_92} :catch_a4
+    .catch Ljava/io/IOException; {:try_start_8c .. :try_end_92} :catch_a0
+    .catch Ljava/lang/IllegalArgumentException; {:try_start_8c .. :try_end_92} :catch_9d
+    .catchall {:try_start_8c .. :try_end_92} :catchall_99
+
+    .line 137
+    :try_start_92
+    invoke-virtual {v4}, Ljava/io/InputStream;->close()V
+    :try_end_95
+    .catch Ljava/io/InvalidObjectException; {:try_start_92 .. :try_end_95} :catch_97
+    .catch Ljava/io/FileNotFoundException; {:try_start_92 .. :try_end_95} :catch_a5
+    .catch Ljava/io/IOException; {:try_start_92 .. :try_end_95} :catch_a1
+    .catch Ljava/lang/IllegalArgumentException; {:try_start_92 .. :try_end_95} :catch_9e
+    .catchall {:try_start_92 .. :try_end_95} :catchall_99
+
+    move-object v0, v3
+
+    goto :goto_ad
+
+    :catch_97
+    move-exception p0
+
+    goto :goto_aa
+
+    :catchall_99
+    move-exception p0
+
+    move-object v0, v4
+
+    goto/16 :goto_184
+
+    :catch_9d
+    move-object v3, v0
+
+    :catch_9e
+    move-object v0, v4
+
+    goto :goto_e0
+
+    :catch_a0
+    move-object v3, v0
+
+    :catch_a1
+    move-object v0, v4
+
+    goto/16 :goto_10c
+
+    :catch_a4
+    move-object v3, v0
+
+    :catch_a5
+    move-object v0, v4
+
+    goto/16 :goto_134
+
+    :catch_a8
+    move-exception p0
+
+    move-object v3, v0
+
+    :goto_aa
+    move-object v0, v4
+
+    goto/16 :goto_15d
+
+    .line 139
+    :cond_ad
+    :goto_ad
+    :try_start_ad
+    sget-boolean v3, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v3, :cond_ba
+
+    const-string v3, "Loading full size image finished"
+
+    filled-new-array {v3}, [Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v3}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+    :try_end_ba
+    .catch Ljava/io/InvalidObjectException; {:try_start_ad .. :try_end_ba} :catch_a8
+    .catch Ljava/io/FileNotFoundException; {:try_start_ad .. :try_end_ba} :catch_a4
+    .catch Ljava/io/IOException; {:try_start_ad .. :try_end_ba} :catch_a0
+    .catch Ljava/lang/IllegalArgumentException; {:try_start_ad .. :try_end_ba} :catch_9d
+    .catchall {:try_start_ad .. :try_end_ba} :catchall_99
+
+    :cond_ba
+    if-eqz v4, :cond_d9
+
+    .line 151
+    :try_start_bc
+    invoke-virtual {v4}, Ljava/io/InputStream;->close()V
+    :try_end_bf
+    .catch Ljava/lang/Exception; {:try_start_bc .. :try_end_bf} :catch_c0
+
+    goto :goto_d9
+
+    :catch_c0
+    move-exception p0
+
+    .line 153
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "Close stream failed:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p0}, Ljava/lang/Exception;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v1, p0}, Lcom/sonyericsson/android/camera/util/CamLog;->e(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    :cond_d9
+    :goto_d9
+    move-object v3, v0
+
+    goto/16 :goto_183
+
+    :catchall_dc
+    move-exception p0
+
+    goto/16 :goto_184
+
+    :catch_df
+    move-object v3, v0
+
+    :goto_e0
+    :try_start_e0
+    const-string p0, "Maybe File access error."
+
+    .line 147
+    filled-new-array {p0}, [Ljava/lang/String;
+
+    move-result-object p0
+
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/util/CamLog;->e([Ljava/lang/String;)V
+    :try_end_e9
+    .catchall {:try_start_e0 .. :try_end_e9} :catchall_dc
+
+    if-eqz v0, :cond_183
+
+    .line 151
+    :try_start_eb
+    invoke-virtual {v0}, Ljava/io/InputStream;->close()V
+    :try_end_ee
+    .catch Ljava/lang/Exception; {:try_start_eb .. :try_end_ee} :catch_f0
+
+    goto/16 :goto_183
+
+    :catch_f0
+    move-exception p0
+
+    .line 153
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    :goto_f6
+    const-string v1, "Close stream failed:"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p0}, Ljava/lang/Exception;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0, p0}, Lcom/sonyericsson/android/camera/util/CamLog;->e(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    goto/16 :goto_183
+
+    :catch_10b
+    move-object v3, v0
+
+    .line 145
+    :goto_10c
+    :try_start_10c
+    new-array v2, v2, [Ljava/lang/String;
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "Close failed:"
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object p0, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mUri:Landroid/net/Uri;
+
+    invoke-virtual {v4, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p0
+
+    aput-object p0, v2, v1
+
+    invoke-static {v2}, Lcom/sonyericsson/android/camera/util/CamLog;->e([Ljava/lang/String;)V
+    :try_end_126
+    .catchall {:try_start_10c .. :try_end_126} :catchall_dc
+
+    if-eqz v0, :cond_183
+
+    .line 151
+    :try_start_128
+    invoke-virtual {v0}, Ljava/io/InputStream;->close()V
+    :try_end_12b
+    .catch Ljava/lang/Exception; {:try_start_128 .. :try_end_12b} :catch_12c
+
+    goto :goto_183
+
+    :catch_12c
+    move-exception p0
+
+    .line 153
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    goto :goto_f6
+
+    :catch_133
+    move-object v3, v0
+
+    .line 143
+    :goto_134
+    :try_start_134
+    new-array v2, v2, [Ljava/lang/String;
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "File not found:"
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object p0, p0, Lcom/sonyericsson/cameracommon/storage/ImageLoader;->mUri:Landroid/net/Uri;
+
+    invoke-virtual {v4, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p0
+
+    aput-object p0, v2, v1
+
+    invoke-static {v2}, Lcom/sonyericsson/android/camera/util/CamLog;->e([Ljava/lang/String;)V
+    :try_end_14e
+    .catchall {:try_start_134 .. :try_end_14e} :catchall_dc
+
+    if-eqz v0, :cond_183
+
+    .line 151
+    :try_start_150
+    invoke-virtual {v0}, Ljava/io/InputStream;->close()V
+    :try_end_153
+    .catch Ljava/lang/Exception; {:try_start_150 .. :try_end_153} :catch_154
+
+    goto :goto_183
+
+    :catch_154
+    move-exception p0
+
+    .line 153
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    goto :goto_f6
+
+    :catch_15b
+    move-exception p0
+
+    move-object v3, v0
+
+    .line 141
+    :goto_15d
+    :try_start_15d
+    new-array v2, v2, [Ljava/lang/String;
+
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v5, "Load full size error:"
+
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v4, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p0
+
+    aput-object p0, v2, v1
+
+    invoke-static {v2}, Lcom/sonyericsson/android/camera/util/CamLog;->e([Ljava/lang/String;)V
+    :try_end_175
+    .catchall {:try_start_15d .. :try_end_175} :catchall_dc
+
+    if-eqz v0, :cond_183
+
+    .line 151
+    :try_start_177
+    invoke-virtual {v0}, Ljava/io/InputStream;->close()V
+    :try_end_17a
+    .catch Ljava/lang/Exception; {:try_start_177 .. :try_end_17a} :catch_17b
+
+    goto :goto_183
+
+    :catch_17b
+    move-exception p0
+
+    .line 153
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    goto/16 :goto_f6
+
+    :cond_183
+    :goto_183
+    return-object v3
+
+    :goto_184
+    if-eqz v0, :cond_1a3
+
+    .line 151
+    :try_start_186
+    invoke-virtual {v0}, Ljava/io/InputStream;->close()V
+    :try_end_189
+    .catch Ljava/lang/Exception; {:try_start_186 .. :try_end_189} :catch_18a
+
+    goto :goto_1a3
+
+    :catch_18a
+    move-exception v0
+
+    .line 153
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "Close stream failed:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v0}, Ljava/lang/Exception;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v1, v0}, Lcom/sonyericsson/android/camera/util/CamLog;->e(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    .line 157
+    :cond_1a3
+    :goto_1a3
+    throw p0
+.end method

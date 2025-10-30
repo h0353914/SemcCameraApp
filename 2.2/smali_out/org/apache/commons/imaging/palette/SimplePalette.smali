@@ -1,0 +1,81 @@
+.class public Lorg/apache/commons/imaging/palette/SimplePalette;
+.super Ljava/lang/Object;
+.source "SimplePalette.java"
+
+# interfaces
+.implements Lorg/apache/commons/imaging/palette/Palette;
+
+
+# instance fields
+.field private final palette:[I
+
+
+# direct methods
+.method public constructor <init>([I)V
+    .registers 2
+
+    .line 22
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 23
+    iput-object p1, p0, Lorg/apache/commons/imaging/palette/SimplePalette;->palette:[I
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public getEntry(I)I
+    .registers 2
+
+    .line 37
+    iget-object p0, p0, Lorg/apache/commons/imaging/palette/SimplePalette;->palette:[I
+
+    aget p0, p0, p1
+
+    return p0
+.end method
+
+.method public getPaletteIndex(I)I
+    .registers 4
+
+    const/4 v0, 0x0
+
+    .line 27
+    :goto_1
+    iget-object v1, p0, Lorg/apache/commons/imaging/palette/SimplePalette;->palette:[I
+
+    array-length v1, v1
+
+    if-ge v0, v1, :cond_10
+
+    .line 28
+    iget-object v1, p0, Lorg/apache/commons/imaging/palette/SimplePalette;->palette:[I
+
+    aget v1, v1, v0
+
+    if-ne v1, p1, :cond_d
+
+    return v0
+
+    :cond_d
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_1
+
+    :cond_10
+    const/4 p0, -0x1
+
+    return p0
+.end method
+
+.method public length()I
+    .registers 1
+
+    .line 41
+    iget-object p0, p0, Lorg/apache/commons/imaging/palette/SimplePalette;->palette:[I
+
+    array-length p0, p0
+
+    return p0
+.end method

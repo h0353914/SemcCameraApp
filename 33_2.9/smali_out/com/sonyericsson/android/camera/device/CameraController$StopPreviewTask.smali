@@ -1,0 +1,340 @@
+.class Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;
+.super Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceAccessTask;
+.source "CameraController.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonyericsson/android/camera/device/CameraController;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x2
+    name = "StopPreviewTask"
+.end annotation
+
+
+# instance fields
+.field final synthetic this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+
+# direct methods
+.method private constructor <init>(Lcom/sonyericsson/android/camera/device/CameraController;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;)V
+    .registers 3
+
+    .line 4864
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    .line 4865
+    invoke-direct {p0, p2}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceAccessTask;-><init>(Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;)V
+
+    return-void
+.end method
+
+.method synthetic constructor <init>(Lcom/sonyericsson/android/camera/device/CameraController;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;Lcom/sonyericsson/android/camera/device/CameraController$1;)V
+    .registers 4
+
+    .line 4863
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;-><init>(Lcom/sonyericsson/android/camera/device/CameraController;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public doCameraDeviceAccess()V
+    .registers 4
+
+    .line 4899
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    sget-object v1, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceStatus;->STATUS_OPENED:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceStatus;
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/android/camera/device/CameraController;->setCameraDeviceStatus(Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceStatus;)V
+
+    const/4 v0, 0x0
+
+    .line 4901
+    :try_start_8
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # getter for: Lcom/sonyericsson/android/camera/device/CameraController;->mCaptureSession:Landroid/hardware/camera2/CameraCaptureSession;
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/device/CameraController;->access$4200(Lcom/sonyericsson/android/camera/device/CameraController;)Landroid/hardware/camera2/CameraCaptureSession;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_44
+
+    .line 4902
+    sget-boolean v1, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v1, :cond_1d
+
+    const-string v1, "stopRepeating()"
+
+    filled-new-array {v1}, [Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 4903
+    :cond_1d
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # getter for: Lcom/sonyericsson/android/camera/device/CameraController;->mCaptureSession:Landroid/hardware/camera2/CameraCaptureSession;
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/device/CameraController;->access$4200(Lcom/sonyericsson/android/camera/device/CameraController;)Landroid/hardware/camera2/CameraCaptureSession;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/hardware/camera2/CameraCaptureSession;->stopRepeating()V
+
+    .line 4904
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # getter for: Lcom/sonyericsson/android/camera/device/CameraController;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceHandlerInquirer;
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/device/CameraController;->access$1900(Lcom/sonyericsson/android/camera/device/CameraController;)Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceHandlerInquirer;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceHandlerInquirer;->isSnapshotRunning()Z
+
+    move-result v1
+
+    if-nez v1, :cond_3b
+
+    .line 4905
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # getter for: Lcom/sonyericsson/android/camera/device/CameraController;->mCaptureSession:Landroid/hardware/camera2/CameraCaptureSession;
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/device/CameraController;->access$4200(Lcom/sonyericsson/android/camera/device/CameraController;)Landroid/hardware/camera2/CameraCaptureSession;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/hardware/camera2/CameraCaptureSession;->abortCaptures()V
+
+    .line 4907
+    :cond_3b
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # getter for: Lcom/sonyericsson/android/camera/device/CameraController;->mCaptureSession:Landroid/hardware/camera2/CameraCaptureSession;
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/device/CameraController;->access$4200(Lcom/sonyericsson/android/camera/device/CameraController;)Landroid/hardware/camera2/CameraCaptureSession;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/hardware/camera2/CameraCaptureSession;->close()V
+    :try_end_44
+    .catch Landroid/hardware/camera2/CameraAccessException; {:try_start_8 .. :try_end_44} :catch_60
+    .catch Ljava/lang/IllegalStateException; {:try_start_8 .. :try_end_44} :catch_60
+    .catchall {:try_start_8 .. :try_end_44} :catchall_5e
+
+    .line 4912
+    :cond_44
+    :goto_44
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # setter for: Lcom/sonyericsson/android/camera/device/CameraController;->mCaptureSession:Landroid/hardware/camera2/CameraCaptureSession;
+    invoke-static {v1, v0}, Lcom/sonyericsson/android/camera/device/CameraController;->access$4202(Lcom/sonyericsson/android/camera/device/CameraController;Landroid/hardware/camera2/CameraCaptureSession;)Landroid/hardware/camera2/CameraCaptureSession;
+
+    .line 4913
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # setter for: Lcom/sonyericsson/android/camera/device/CameraController;->mCaptureRequestDumper:Lcom/sonyericsson/android/camera/device/CaptureRequestDumper;
+    invoke-static {v1, v0}, Lcom/sonyericsson/android/camera/device/CameraController;->access$8302(Lcom/sonyericsson/android/camera/device/CameraController;Lcom/sonyericsson/android/camera/device/CaptureRequestDumper;)Lcom/sonyericsson/android/camera/device/CaptureRequestDumper;
+
+    .line 4914
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # setter for: Lcom/sonyericsson/android/camera/device/CameraController;->mOutputConfiguration:Landroid/hardware/camera2/params/OutputConfiguration;
+    invoke-static {v1, v0}, Lcom/sonyericsson/android/camera/device/CameraController;->access$8402(Lcom/sonyericsson/android/camera/device/CameraController;Landroid/hardware/camera2/params/OutputConfiguration;)Landroid/hardware/camera2/params/OutputConfiguration;
+
+    .line 4916
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # setter for: Lcom/sonyericsson/android/camera/device/CameraController;->mPreviewSurface:Landroid/view/Surface;
+    invoke-static {v1, v0}, Lcom/sonyericsson/android/camera/device/CameraController;->access$3602(Lcom/sonyericsson/android/camera/device/CameraController;Landroid/view/Surface;)Landroid/view/Surface;
+
+    .line 4917
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # setter for: Lcom/sonyericsson/android/camera/device/CameraController;->mCaptureImageRetriever:Lcom/sonyericsson/android/camera/device/ImageRetriever;
+    invoke-static {v1, v0}, Lcom/sonyericsson/android/camera/device/CameraController;->access$8502(Lcom/sonyericsson/android/camera/device/CameraController;Lcom/sonyericsson/android/camera/device/ImageRetriever;)Lcom/sonyericsson/android/camera/device/ImageRetriever;
+
+    goto :goto_67
+
+    :catchall_5e
+    move-exception v1
+
+    goto :goto_6d
+
+    :catch_60
+    move-exception v1
+
+    :try_start_61
+    const-string v2, "StopPreviewTask: Close session failed: "
+
+    .line 4910
+    invoke-static {v2, v1}, Lcom/sonyericsson/android/camera/util/CamLog;->e(Ljava/lang/String;Ljava/lang/Throwable;)V
+    :try_end_66
+    .catchall {:try_start_61 .. :try_end_66} :catchall_5e
+
+    goto :goto_44
+
+    .line 4920
+    :goto_67
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->mLatch:Ljava/util/concurrent/CountDownLatch;
+
+    invoke-virtual {p0}, Ljava/util/concurrent/CountDownLatch;->countDown()V
+
+    return-void
+
+    .line 4912
+    :goto_6d
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # setter for: Lcom/sonyericsson/android/camera/device/CameraController;->mCaptureSession:Landroid/hardware/camera2/CameraCaptureSession;
+    invoke-static {v2, v0}, Lcom/sonyericsson/android/camera/device/CameraController;->access$4202(Lcom/sonyericsson/android/camera/device/CameraController;Landroid/hardware/camera2/CameraCaptureSession;)Landroid/hardware/camera2/CameraCaptureSession;
+
+    .line 4913
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # setter for: Lcom/sonyericsson/android/camera/device/CameraController;->mCaptureRequestDumper:Lcom/sonyericsson/android/camera/device/CaptureRequestDumper;
+    invoke-static {v2, v0}, Lcom/sonyericsson/android/camera/device/CameraController;->access$8302(Lcom/sonyericsson/android/camera/device/CameraController;Lcom/sonyericsson/android/camera/device/CaptureRequestDumper;)Lcom/sonyericsson/android/camera/device/CaptureRequestDumper;
+
+    .line 4914
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # setter for: Lcom/sonyericsson/android/camera/device/CameraController;->mOutputConfiguration:Landroid/hardware/camera2/params/OutputConfiguration;
+    invoke-static {v2, v0}, Lcom/sonyericsson/android/camera/device/CameraController;->access$8402(Lcom/sonyericsson/android/camera/device/CameraController;Landroid/hardware/camera2/params/OutputConfiguration;)Landroid/hardware/camera2/params/OutputConfiguration;
+
+    .line 4916
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # setter for: Lcom/sonyericsson/android/camera/device/CameraController;->mPreviewSurface:Landroid/view/Surface;
+    invoke-static {v2, v0}, Lcom/sonyericsson/android/camera/device/CameraController;->access$3602(Lcom/sonyericsson/android/camera/device/CameraController;Landroid/view/Surface;)Landroid/view/Surface;
+
+    .line 4917
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    # setter for: Lcom/sonyericsson/android/camera/device/CameraController;->mCaptureImageRetriever:Lcom/sonyericsson/android/camera/device/ImageRetriever;
+    invoke-static {p0, v0}, Lcom/sonyericsson/android/camera/device/CameraController;->access$8502(Lcom/sonyericsson/android/camera/device/CameraController;Lcom/sonyericsson/android/camera/device/ImageRetriever;)Lcom/sonyericsson/android/camera/device/ImageRetriever;
+
+    .line 4918
+    throw v1
+.end method
+
+.method protected verifyCameraDeviceStatus()Z
+    .registers 5
+
+    .line 4870
+    sget-object v0, Lcom/sonyericsson/android/camera/device/CameraController$22;->$SwitchMap$com$sonyericsson$android$camera$device$CameraDeviceHandler$CameraDeviceStatus:[I
+
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/device/CameraController;->getCameraDeviceStatus()Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceStatus;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceStatus;->ordinal()I
+
+    move-result v1
+
+    aget v0, v0, v1
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x1
+
+    if-eq v0, v2, :cond_58
+
+    const/4 v3, 0x2
+
+    if-eq v0, v3, :cond_58
+
+    const/4 v3, 0x3
+
+    if-eq v0, v3, :cond_3e
+
+    const/4 v3, 0x4
+
+    if-eq v0, v3, :cond_3e
+
+    const/4 v2, 0x5
+
+    if-ne v0, v2, :cond_1f
+
+    goto :goto_58
+
+    .line 4891
+    :cond_1f
+    new-instance v0, Ljava/lang/IllegalStateException;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "Failed due to wrong status in StopPreviewTask. status: "
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->this$0:Lcom/sonyericsson/android/camera/device/CameraController;
+
+    .line 4893
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/device/CameraController;->getCameraDeviceStatus()Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceStatus;
+
+    move-result-object p0
+
+    invoke-virtual {v1, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object p0
+
+    invoke-virtual {p0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p0
+
+    invoke-direct {v0, p0}, Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V
+
+    throw v0
+
+    .line 4873
+    :cond_3e
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->getOpenCloseStatusInfo()Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionInfo;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionInfo;->isCloseCameraTaskRequested()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_57
+
+    const-string v0, "StopPreviewTask : CloseCameraTask is already requested."
+
+    .line 4874
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 4876
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->mLatch:Ljava/util/concurrent/CountDownLatch;
+
+    invoke-virtual {p0}, Ljava/util/concurrent/CountDownLatch;->countDown()V
+
+    return v1
+
+    :cond_57
+    return v2
+
+    .line 4887
+    :cond_58
+    :goto_58
+    iget-object p0, p0, Lcom/sonyericsson/android/camera/device/CameraController$StopPreviewTask;->mLatch:Ljava/util/concurrent/CountDownLatch;
+
+    invoke-virtual {p0}, Ljava/util/concurrent/CountDownLatch;->countDown()V
+
+    return v1
+.end method

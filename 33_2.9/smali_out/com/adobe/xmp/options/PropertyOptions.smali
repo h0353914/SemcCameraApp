@@ -1,0 +1,586 @@
+.class public final Lcom/adobe/xmp/options/PropertyOptions;
+.super Lcom/adobe/xmp/options/Options;
+
+
+# static fields
+.field public static final ARRAY:I = 0x200
+
+.field public static final ARRAY_ALTERNATE:I = 0x800
+
+.field public static final ARRAY_ALT_TEXT:I = 0x1000
+
+.field public static final ARRAY_ORDERED:I = 0x400
+
+.field public static final DELETE_EXISTING:I = 0x20000000
+
+.field public static final HAS_LANGUAGE:I = 0x40
+
+.field public static final HAS_QUALIFIERS:I = 0x10
+
+.field public static final HAS_TYPE:I = 0x80
+
+.field public static final NO_OPTIONS:I = 0x0
+
+.field public static final QUALIFIER:I = 0x20
+
+.field public static final SCHEMA_NODE:I = -0x80000000
+
+.field public static final STRUCT:I = 0x100
+
+.field public static final URI:I = 0x2
+
+
+# direct methods
+.method public constructor <init>()V
+    .registers 1
+
+    invoke-direct {p0}, Lcom/adobe/xmp/options/Options;-><init>()V
+
+    return-void
+.end method
+
+.method public constructor <init>(I)V
+    .registers 2
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Lcom/adobe/xmp/XMPException;
+        }
+    .end annotation
+
+    invoke-direct {p0, p1}, Lcom/adobe/xmp/options/Options;-><init>(I)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public assertConsistency(I)V
+    .registers 3
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Lcom/adobe/xmp/XMPException;
+        }
+    .end annotation
+
+    and-int/lit16 p0, p1, 0x100
+
+    const/16 v0, 0x67
+
+    if-lez p0, :cond_13
+
+    and-int/lit16 p0, p1, 0x200
+
+    if-gtz p0, :cond_b
+
+    goto :goto_13
+
+    :cond_b
+    new-instance p0, Lcom/adobe/xmp/XMPException;
+
+    const-string p1, "IsStruct and IsArray options are mutually exclusive"
+
+    invoke-direct {p0, p1, v0}, Lcom/adobe/xmp/XMPException;-><init>(Ljava/lang/String;I)V
+
+    throw p0
+
+    :cond_13
+    :goto_13
+    and-int/lit8 p0, p1, 0x2
+
+    if-lez p0, :cond_24
+
+    and-int/lit16 p0, p1, 0x300
+
+    if-gtz p0, :cond_1c
+
+    goto :goto_24
+
+    :cond_1c
+    new-instance p0, Lcom/adobe/xmp/XMPException;
+
+    const-string p1, "Structs and arrays can\'t have \"value\" options"
+
+    invoke-direct {p0, p1, v0}, Lcom/adobe/xmp/XMPException;-><init>(Ljava/lang/String;I)V
+
+    throw p0
+
+    :cond_24
+    :goto_24
+    return-void
+.end method
+
+.method protected defineOptionName(I)Ljava/lang/String;
+    .registers 2
+
+    sparse-switch p1, :sswitch_data_26
+
+    const/4 p0, 0x0
+
+    return-object p0
+
+    :sswitch_5
+    const-string p0, "ARRAY_ALT_TEXT"
+
+    return-object p0
+
+    :sswitch_8
+    const-string p0, "ARRAY_ALTERNATE"
+
+    return-object p0
+
+    :sswitch_b
+    const-string p0, "ARRAY_ORDERED"
+
+    return-object p0
+
+    :sswitch_e
+    const-string p0, "ARRAY"
+
+    return-object p0
+
+    :sswitch_11
+    const-string p0, "STRUCT"
+
+    return-object p0
+
+    :sswitch_14
+    const-string p0, "HAS_TYPE"
+
+    return-object p0
+
+    :sswitch_17
+    const-string p0, "HAS_LANGUAGE"
+
+    return-object p0
+
+    :sswitch_1a
+    const-string p0, "QUALIFIER"
+
+    return-object p0
+
+    :sswitch_1d
+    const-string p0, "HAS_QUALIFIER"
+
+    return-object p0
+
+    :sswitch_20
+    const-string p0, "URI"
+
+    return-object p0
+
+    :sswitch_23
+    const-string p0, "SCHEMA_NODE"
+
+    return-object p0
+
+    :sswitch_data_26
+    .sparse-switch
+        -0x80000000 -> :sswitch_23
+        0x2 -> :sswitch_20
+        0x10 -> :sswitch_1d
+        0x20 -> :sswitch_1a
+        0x40 -> :sswitch_17
+        0x80 -> :sswitch_14
+        0x100 -> :sswitch_11
+        0x200 -> :sswitch_e
+        0x400 -> :sswitch_b
+        0x800 -> :sswitch_8
+        0x1000 -> :sswitch_5
+    .end sparse-switch
+.end method
+
+.method public equalArrayTypes(Lcom/adobe/xmp/options/PropertyOptions;)Z
+    .registers 4
+
+    invoke-virtual {p0}, Lcom/adobe/xmp/options/PropertyOptions;->isArray()Z
+
+    move-result v0
+
+    invoke-virtual {p1}, Lcom/adobe/xmp/options/PropertyOptions;->isArray()Z
+
+    move-result v1
+
+    if-ne v0, v1, :cond_2a
+
+    invoke-virtual {p0}, Lcom/adobe/xmp/options/PropertyOptions;->isArrayOrdered()Z
+
+    move-result v0
+
+    invoke-virtual {p1}, Lcom/adobe/xmp/options/PropertyOptions;->isArrayOrdered()Z
+
+    move-result v1
+
+    if-ne v0, v1, :cond_2a
+
+    invoke-virtual {p0}, Lcom/adobe/xmp/options/PropertyOptions;->isArrayAlternate()Z
+
+    move-result v0
+
+    invoke-virtual {p1}, Lcom/adobe/xmp/options/PropertyOptions;->isArrayAlternate()Z
+
+    move-result v1
+
+    if-ne v0, v1, :cond_2a
+
+    invoke-virtual {p0}, Lcom/adobe/xmp/options/PropertyOptions;->isArrayAltText()Z
+
+    move-result p0
+
+    invoke-virtual {p1}, Lcom/adobe/xmp/options/PropertyOptions;->isArrayAltText()Z
+
+    move-result p1
+
+    if-ne p0, p1, :cond_2a
+
+    const/4 p0, 0x1
+
+    goto :goto_2b
+
+    :cond_2a
+    const/4 p0, 0x0
+
+    :goto_2b
+    return p0
+.end method
+
+.method public getHasLanguage()Z
+    .registers 2
+
+    const/16 v0, 0x40
+
+    invoke-virtual {p0, v0}, Lcom/adobe/xmp/options/PropertyOptions;->getOption(I)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method public getHasQualifiers()Z
+    .registers 2
+
+    const/16 v0, 0x10
+
+    invoke-virtual {p0, v0}, Lcom/adobe/xmp/options/PropertyOptions;->getOption(I)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method public getHasType()Z
+    .registers 2
+
+    const/16 v0, 0x80
+
+    invoke-virtual {p0, v0}, Lcom/adobe/xmp/options/PropertyOptions;->getOption(I)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method protected getValidOptions()I
+    .registers 1
+
+    const p0, -0x7fffe00e
+
+    return p0
+.end method
+
+.method public isArray()Z
+    .registers 2
+
+    const/16 v0, 0x200
+
+    invoke-virtual {p0, v0}, Lcom/adobe/xmp/options/PropertyOptions;->getOption(I)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method public isArrayAltText()Z
+    .registers 2
+
+    const/16 v0, 0x1000
+
+    invoke-virtual {p0, v0}, Lcom/adobe/xmp/options/PropertyOptions;->getOption(I)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method public isArrayAlternate()Z
+    .registers 2
+
+    const/16 v0, 0x800
+
+    invoke-virtual {p0, v0}, Lcom/adobe/xmp/options/PropertyOptions;->getOption(I)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method public isArrayOrdered()Z
+    .registers 2
+
+    const/16 v0, 0x400
+
+    invoke-virtual {p0, v0}, Lcom/adobe/xmp/options/PropertyOptions;->getOption(I)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method public isCompositeProperty()Z
+    .registers 1
+
+    invoke-virtual {p0}, Lcom/adobe/xmp/options/PropertyOptions;->getOptions()I
+
+    move-result p0
+
+    and-int/lit16 p0, p0, 0x300
+
+    if-lez p0, :cond_a
+
+    const/4 p0, 0x1
+
+    goto :goto_b
+
+    :cond_a
+    const/4 p0, 0x0
+
+    :goto_b
+    return p0
+.end method
+
+.method public isOnlyArrayOptions()Z
+    .registers 1
+
+    invoke-virtual {p0}, Lcom/adobe/xmp/options/PropertyOptions;->getOptions()I
+
+    move-result p0
+
+    and-int/lit16 p0, p0, -0x1e01
+
+    if-nez p0, :cond_a
+
+    const/4 p0, 0x1
+
+    goto :goto_b
+
+    :cond_a
+    const/4 p0, 0x0
+
+    :goto_b
+    return p0
+.end method
+
+.method public isQualifier()Z
+    .registers 2
+
+    const/16 v0, 0x20
+
+    invoke-virtual {p0, v0}, Lcom/adobe/xmp/options/PropertyOptions;->getOption(I)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method public isSchemaNode()Z
+    .registers 2
+
+    const/high16 v0, -0x80000000
+
+    invoke-virtual {p0, v0}, Lcom/adobe/xmp/options/PropertyOptions;->getOption(I)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method public isSimple()Z
+    .registers 1
+
+    invoke-virtual {p0}, Lcom/adobe/xmp/options/PropertyOptions;->getOptions()I
+
+    move-result p0
+
+    and-int/lit16 p0, p0, 0x300
+
+    if-nez p0, :cond_a
+
+    const/4 p0, 0x1
+
+    goto :goto_b
+
+    :cond_a
+    const/4 p0, 0x0
+
+    :goto_b
+    return p0
+.end method
+
+.method public isStruct()Z
+    .registers 2
+
+    const/16 v0, 0x100
+
+    invoke-virtual {p0, v0}, Lcom/adobe/xmp/options/PropertyOptions;->getOption(I)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method public isURI()Z
+    .registers 2
+
+    const/4 v0, 0x2
+
+    invoke-virtual {p0, v0}, Lcom/adobe/xmp/options/PropertyOptions;->getOption(I)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method public mergeWith(Lcom/adobe/xmp/options/PropertyOptions;)V
+    .registers 3
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Lcom/adobe/xmp/XMPException;
+        }
+    .end annotation
+
+    if-eqz p1, :cond_e
+
+    invoke-virtual {p0}, Lcom/adobe/xmp/options/PropertyOptions;->getOptions()I
+
+    move-result v0
+
+    invoke-virtual {p1}, Lcom/adobe/xmp/options/PropertyOptions;->getOptions()I
+
+    move-result p1
+
+    or-int/2addr p1, v0
+
+    invoke-virtual {p0, p1}, Lcom/adobe/xmp/options/PropertyOptions;->setOptions(I)V
+
+    :cond_e
+    return-void
+.end method
+
+.method public setArray(Z)Lcom/adobe/xmp/options/PropertyOptions;
+    .registers 3
+
+    const/16 v0, 0x200
+
+    invoke-virtual {p0, v0, p1}, Lcom/adobe/xmp/options/PropertyOptions;->setOption(IZ)V
+
+    return-object p0
+.end method
+
+.method public setArrayAltText(Z)Lcom/adobe/xmp/options/PropertyOptions;
+    .registers 3
+
+    const/16 v0, 0x1000
+
+    invoke-virtual {p0, v0, p1}, Lcom/adobe/xmp/options/PropertyOptions;->setOption(IZ)V
+
+    return-object p0
+.end method
+
+.method public setArrayAlternate(Z)Lcom/adobe/xmp/options/PropertyOptions;
+    .registers 3
+
+    const/16 v0, 0x800
+
+    invoke-virtual {p0, v0, p1}, Lcom/adobe/xmp/options/PropertyOptions;->setOption(IZ)V
+
+    return-object p0
+.end method
+
+.method public setArrayOrdered(Z)Lcom/adobe/xmp/options/PropertyOptions;
+    .registers 3
+
+    const/16 v0, 0x400
+
+    invoke-virtual {p0, v0, p1}, Lcom/adobe/xmp/options/PropertyOptions;->setOption(IZ)V
+
+    return-object p0
+.end method
+
+.method public setHasLanguage(Z)Lcom/adobe/xmp/options/PropertyOptions;
+    .registers 3
+
+    const/16 v0, 0x40
+
+    invoke-virtual {p0, v0, p1}, Lcom/adobe/xmp/options/PropertyOptions;->setOption(IZ)V
+
+    return-object p0
+.end method
+
+.method public setHasQualifiers(Z)Lcom/adobe/xmp/options/PropertyOptions;
+    .registers 3
+
+    const/16 v0, 0x10
+
+    invoke-virtual {p0, v0, p1}, Lcom/adobe/xmp/options/PropertyOptions;->setOption(IZ)V
+
+    return-object p0
+.end method
+
+.method public setHasType(Z)Lcom/adobe/xmp/options/PropertyOptions;
+    .registers 3
+
+    const/16 v0, 0x80
+
+    invoke-virtual {p0, v0, p1}, Lcom/adobe/xmp/options/PropertyOptions;->setOption(IZ)V
+
+    return-object p0
+.end method
+
+.method public setQualifier(Z)Lcom/adobe/xmp/options/PropertyOptions;
+    .registers 3
+
+    const/16 v0, 0x20
+
+    invoke-virtual {p0, v0, p1}, Lcom/adobe/xmp/options/PropertyOptions;->setOption(IZ)V
+
+    return-object p0
+.end method
+
+.method public setSchemaNode(Z)Lcom/adobe/xmp/options/PropertyOptions;
+    .registers 3
+
+    const/high16 v0, -0x80000000
+
+    invoke-virtual {p0, v0, p1}, Lcom/adobe/xmp/options/PropertyOptions;->setOption(IZ)V
+
+    return-object p0
+.end method
+
+.method public setStruct(Z)Lcom/adobe/xmp/options/PropertyOptions;
+    .registers 3
+
+    const/16 v0, 0x100
+
+    invoke-virtual {p0, v0, p1}, Lcom/adobe/xmp/options/PropertyOptions;->setOption(IZ)V
+
+    return-object p0
+.end method
+
+.method public setURI(Z)Lcom/adobe/xmp/options/PropertyOptions;
+    .registers 3
+
+    const/4 v0, 0x2
+
+    invoke-virtual {p0, v0, p1}, Lcom/adobe/xmp/options/PropertyOptions;->setOption(IZ)V
+
+    return-object p0
+.end method

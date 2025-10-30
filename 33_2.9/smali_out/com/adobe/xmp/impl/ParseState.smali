@@ -1,0 +1,214 @@
+.class Lcom/adobe/xmp/impl/ParseState;
+.super Ljava/lang/Object;
+
+
+# instance fields
+.field private pos:I
+
+.field private str:Ljava/lang/String;
+
+
+# direct methods
+.method public constructor <init>(Ljava/lang/String;)V
+    .registers 3
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    const/4 v0, 0x0
+
+    iput v0, p0, Lcom/adobe/xmp/impl/ParseState;->pos:I
+
+    iput-object p1, p0, Lcom/adobe/xmp/impl/ParseState;->str:Ljava/lang/String;
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public ch()C
+    .registers 3
+
+    iget v0, p0, Lcom/adobe/xmp/impl/ParseState;->pos:I
+
+    iget-object v1, p0, Lcom/adobe/xmp/impl/ParseState;->str:Ljava/lang/String;
+
+    invoke-virtual {v1}, Ljava/lang/String;->length()I
+
+    move-result v1
+
+    if-ge v0, v1, :cond_13
+
+    iget-object v0, p0, Lcom/adobe/xmp/impl/ParseState;->str:Ljava/lang/String;
+
+    iget p0, p0, Lcom/adobe/xmp/impl/ParseState;->pos:I
+
+    invoke-virtual {v0, p0}, Ljava/lang/String;->charAt(I)C
+
+    move-result p0
+
+    goto :goto_14
+
+    :cond_13
+    const/4 p0, 0x0
+
+    :goto_14
+    return p0
+.end method
+
+.method public ch(I)C
+    .registers 3
+
+    iget-object v0, p0, Lcom/adobe/xmp/impl/ParseState;->str:Ljava/lang/String;
+
+    invoke-virtual {v0}, Ljava/lang/String;->length()I
+
+    move-result v0
+
+    if-ge p1, v0, :cond_f
+
+    iget-object p0, p0, Lcom/adobe/xmp/impl/ParseState;->str:Ljava/lang/String;
+
+    invoke-virtual {p0, p1}, Ljava/lang/String;->charAt(I)C
+
+    move-result p0
+
+    goto :goto_10
+
+    :cond_f
+    const/4 p0, 0x0
+
+    :goto_10
+    return p0
+.end method
+
+.method public gatherInt(Ljava/lang/String;I)I
+    .registers 9
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Lcom/adobe/xmp/XMPException;
+        }
+    .end annotation
+
+    iget v0, p0, Lcom/adobe/xmp/impl/ParseState;->pos:I
+
+    invoke-virtual {p0, v0}, Lcom/adobe/xmp/impl/ParseState;->ch(I)C
+
+    move-result v0
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    move v3, v2
+
+    move v4, v3
+
+    :goto_a
+    const/16 v5, 0x30
+
+    if-gt v5, v0, :cond_22
+
+    const/16 v5, 0x39
+
+    if-gt v0, v5, :cond_22
+
+    mul-int/lit8 v3, v3, 0xa
+
+    add-int/lit8 v0, v0, -0x30
+
+    add-int/2addr v3, v0
+
+    iget v0, p0, Lcom/adobe/xmp/impl/ParseState;->pos:I
+
+    add-int/2addr v0, v1
+
+    iput v0, p0, Lcom/adobe/xmp/impl/ParseState;->pos:I
+
+    invoke-virtual {p0, v0}, Lcom/adobe/xmp/impl/ParseState;->ch(I)C
+
+    move-result v0
+
+    move v4, v1
+
+    goto :goto_a
+
+    :cond_22
+    if-eqz v4, :cond_2b
+
+    if-le v3, p2, :cond_27
+
+    return p2
+
+    :cond_27
+    if-gez v3, :cond_2a
+
+    return v2
+
+    :cond_2a
+    return v3
+
+    :cond_2b
+    new-instance p0, Lcom/adobe/xmp/XMPException;
+
+    const/4 p2, 0x5
+
+    invoke-direct {p0, p1, p2}, Lcom/adobe/xmp/XMPException;-><init>(Ljava/lang/String;I)V
+
+    throw p0
+.end method
+
+.method public hasNext()Z
+    .registers 2
+
+    iget v0, p0, Lcom/adobe/xmp/impl/ParseState;->pos:I
+
+    iget-object p0, p0, Lcom/adobe/xmp/impl/ParseState;->str:Ljava/lang/String;
+
+    invoke-virtual {p0}, Ljava/lang/String;->length()I
+
+    move-result p0
+
+    if-ge v0, p0, :cond_c
+
+    const/4 p0, 0x1
+
+    goto :goto_d
+
+    :cond_c
+    const/4 p0, 0x0
+
+    :goto_d
+    return p0
+.end method
+
+.method public length()I
+    .registers 1
+
+    iget-object p0, p0, Lcom/adobe/xmp/impl/ParseState;->str:Ljava/lang/String;
+
+    invoke-virtual {p0}, Ljava/lang/String;->length()I
+
+    move-result p0
+
+    return p0
+.end method
+
+.method public pos()I
+    .registers 1
+
+    iget p0, p0, Lcom/adobe/xmp/impl/ParseState;->pos:I
+
+    return p0
+.end method
+
+.method public skip()V
+    .registers 2
+
+    iget v0, p0, Lcom/adobe/xmp/impl/ParseState;->pos:I
+
+    add-int/lit8 v0, v0, 0x1
+
+    iput v0, p0, Lcom/adobe/xmp/impl/ParseState;->pos:I
+
+    return-void
+.end method

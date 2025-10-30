@@ -1,0 +1,122 @@
+.class public final Lcom/google/zxing/client/result/TelResultParser;
+.super Lcom/google/zxing/client/result/ResultParser;
+.source "TelResultParser.java"
+
+
+# direct methods
+.method public constructor <init>()V
+    .registers 1
+
+    .line 26
+    invoke-direct {p0}, Lcom/google/zxing/client/result/ResultParser;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public bridge synthetic parse(Lcom/google/zxing/Result;)Lcom/google/zxing/client/result/ParsedResult;
+    .registers 2
+
+    .line 26
+    invoke-virtual {p0, p1}, Lcom/google/zxing/client/result/TelResultParser;->parse(Lcom/google/zxing/Result;)Lcom/google/zxing/client/result/TelParsedResult;
+
+    move-result-object p0
+
+    return-object p0
+.end method
+
+.method public parse(Lcom/google/zxing/Result;)Lcom/google/zxing/client/result/TelParsedResult;
+    .registers 5
+
+    .line 30
+    invoke-static {p1}, Lcom/google/zxing/client/result/TelResultParser;->getMassagedText(Lcom/google/zxing/Result;)Ljava/lang/String;
+
+    move-result-object p0
+
+    const-string p1, "tel:"
+
+    .line 31
+    invoke-virtual {p0, p1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    const-string v2, "TEL:"
+
+    if-nez v0, :cond_16
+
+    invoke-virtual {p0, v2}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_16
+
+    return-object v1
+
+    .line 35
+    :cond_16
+    invoke-virtual {p0, v2}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v0
+
+    const/4 v2, 0x4
+
+    if-eqz v0, :cond_33
+
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    invoke-virtual {v0, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    invoke-virtual {p0, v2}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {p1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    goto :goto_34
+
+    :cond_33
+    move-object p1, p0
+
+    :goto_34
+    const/16 v0, 0x3f
+
+    .line 37
+    invoke-virtual {p0, v0, v2}, Ljava/lang/String;->indexOf(II)I
+
+    move-result v0
+
+    if-gez v0, :cond_41
+
+    .line 38
+    invoke-virtual {p0, v2}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+
+    move-result-object p0
+
+    goto :goto_45
+
+    :cond_41
+    invoke-virtual {p0, v2, v0}, Ljava/lang/String;->substring(II)Ljava/lang/String;
+
+    move-result-object p0
+
+    .line 39
+    :goto_45
+    new-instance v0, Lcom/google/zxing/client/result/TelParsedResult;
+
+    invoke-direct {v0, p0, p1, v1}, Lcom/google/zxing/client/result/TelParsedResult;-><init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
+    return-object v0
+.end method

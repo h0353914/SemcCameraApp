@@ -1,0 +1,448 @@
+.class public Lorg/apache/commons/imaging/common/PackBits;
+.super Ljava/lang/Object;
+.source "PackBits.java"
+
+
+# direct methods
+.method public constructor <init>()V
+    .registers 1
+
+    .line 25
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+.method private findNextDuplicate([BI)I
+    .registers 5
+
+    .line 77
+    array-length p0, p1
+
+    const/4 v0, -0x1
+
+    if-lt p2, p0, :cond_5
+
+    return v0
+
+    .line 81
+    :cond_5
+    aget-byte p0, p1, p2
+
+    add-int/lit8 p2, p2, 0x1
+
+    .line 83
+    :goto_9
+    array-length v1, p1
+
+    if-ge p2, v1, :cond_17
+
+    .line 84
+    aget-byte v1, p1, p2
+
+    if-ne v1, p0, :cond_13
+
+    add-int/lit8 p2, p2, -0x1
+
+    return p2
+
+    :cond_13
+    add-int/lit8 p2, p2, 0x1
+
+    move p0, v1
+
+    goto :goto_9
+
+    :cond_17
+    return v0
+.end method
+
+.method private findRunLength([BI)I
+    .registers 5
+
+    .line 97
+    aget-byte p0, p1, p2
+
+    add-int/lit8 v0, p2, 0x1
+
+    .line 101
+    :goto_4
+    array-length v1, p1
+
+    if-ge v0, v1, :cond_e
+
+    aget-byte v1, p1, v0
+
+    if-ne v1, p0, :cond_e
+
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_4
+
+    :cond_e
+    sub-int/2addr v0, p2
+
+    return v0
+.end method
+
+
+# virtual methods
+.method public compress([B)[B
+    .registers 11
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;
+        }
+    .end annotation
+
+    const/4 v0, 0x0
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    .line 112
+    :try_start_3
+    new-instance v3, Lorg/apache/commons/imaging/common/FastByteArrayOutputStream;
+
+    array-length v4, p1
+
+    mul-int/lit8 v4, v4, 0x2
+
+    invoke-direct {v3, v4}, Lorg/apache/commons/imaging/common/FastByteArrayOutputStream;-><init>(I)V
+    :try_end_b
+    .catchall {:try_start_3 .. :try_end_b} :catchall_6d
+
+    move v2, v0
+
+    .line 116
+    :cond_c
+    :goto_c
+    :try_start_c
+    array-length v4, p1
+
+    if-ge v2, v4, :cond_5e
+
+    .line 117
+    invoke-direct {p0, p1, v2}, Lorg/apache/commons/imaging/common/PackBits;->findNextDuplicate([BI)I
+
+    move-result v4
+
+    const/16 v5, 0x80
+
+    if-ne v4, v2, :cond_2c
+
+    .line 121
+    invoke-direct {p0, p1, v4}, Lorg/apache/commons/imaging/common/PackBits;->findRunLength([BI)I
+
+    move-result v4
+
+    .line 122
+    invoke-static {v4, v5}, Ljava/lang/Math;->min(II)I
+
+    move-result v4
+
+    add-int/lit8 v5, v4, -0x1
+
+    neg-int v5, v5
+
+    .line 123
+    invoke-virtual {v3, v5}, Lorg/apache/commons/imaging/common/FastByteArrayOutputStream;->write(I)V
+
+    .line 124
+    aget-byte v5, p1, v2
+
+    invoke-virtual {v3, v5}, Lorg/apache/commons/imaging/common/FastByteArrayOutputStream;->write(I)V
+
+    add-int/2addr v2, v4
+
+    goto :goto_c
+
+    :cond_2c
+    sub-int v6, v4, v2
+
+    if-lez v4, :cond_43
+
+    .line 131
+    invoke-direct {p0, p1, v4}, Lorg/apache/commons/imaging/common/PackBits;->findRunLength([BI)I
+
+    move-result v7
+
+    const/4 v8, 0x3
+
+    if-ge v7, v8, :cond_43
+
+    add-int v8, v2, v6
+
+    add-int/2addr v8, v7
+
+    .line 135
+    invoke-direct {p0, p1, v8}, Lorg/apache/commons/imaging/common/PackBits;->findNextDuplicate([BI)I
+
+    move-result v7
+
+    if-eq v7, v8, :cond_43
+
+    sub-int v6, v7, v2
+
+    move v4, v7
+
+    :cond_43
+    if-gez v4, :cond_48
+
+    .line 145
+    array-length v4, p1
+
+    sub-int v6, v4, v2
+
+    .line 147
+    :cond_48
+    invoke-static {v6, v5}, Ljava/lang/Math;->min(II)I
+
+    move-result v4
+
+    add-int/lit8 v5, v4, -0x1
+
+    .line 149
+    invoke-virtual {v3, v5}, Lorg/apache/commons/imaging/common/FastByteArrayOutputStream;->write(I)V
+
+    move v5, v0
+
+    :goto_52
+    if-ge v5, v4, :cond_c
+
+    .line 151
+    aget-byte v6, p1, v2
+
+    invoke-virtual {v3, v6}, Lorg/apache/commons/imaging/common/FastByteArrayOutputStream;->write(I)V
+
+    add-int/lit8 v2, v2, 0x1
+
+    add-int/lit8 v5, v5, 0x1
+
+    goto :goto_52
+
+    .line 156
+    :cond_5e
+    invoke-virtual {v3}, Lorg/apache/commons/imaging/common/FastByteArrayOutputStream;->toByteArray()[B
+
+    move-result-object p0
+    :try_end_62
+    .catchall {:try_start_c .. :try_end_62} :catchall_6a
+
+    new-array p1, v1, [Ljava/io/Closeable;
+
+    aput-object v3, p1, v0
+
+    .line 160
+    invoke-static {v1, p1}, Lorg/apache/commons/imaging/util/IoUtils;->closeQuietly(Z[Ljava/io/Closeable;)V
+
+    return-object p0
+
+    :catchall_6a
+    move-exception p0
+
+    move-object v2, v3
+
+    goto :goto_6e
+
+    :catchall_6d
+    move-exception p0
+
+    :goto_6e
+    new-array p1, v1, [Ljava/io/Closeable;
+
+    aput-object v2, p1, v0
+
+    invoke-static {v0, p1}, Lorg/apache/commons/imaging/util/IoUtils;->closeQuietly(Z[Ljava/io/Closeable;)V
+
+    throw p0
+.end method
+
+.method public decompress([BI)[B
+    .registers 9
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Lorg/apache/commons/imaging/ImageReadException;
+        }
+    .end annotation
+
+    .line 31
+    new-instance p0, Ljava/io/ByteArrayOutputStream;
+
+    invoke-direct {p0}, Ljava/io/ByteArrayOutputStream;-><init>()V
+
+    const/4 v0, 0x0
+
+    move v1, v0
+
+    move v2, v1
+
+    :goto_8
+    if-ge v1, p2, :cond_8e
+
+    .line 37
+    array-length v3, p1
+
+    if-ge v2, v3, :cond_61
+
+    add-int/lit8 v3, v2, 0x1
+
+    .line 44
+    aget-byte v2, p1, v2
+
+    if-ltz v2, :cond_28
+
+    const/16 v4, 0x7f
+
+    if-gt v2, v4, :cond_28
+
+    add-int/lit8 v2, v2, 0x1
+
+    add-int/2addr v1, v2
+
+    move v4, v0
+
+    :goto_1b
+    if-ge v4, v2, :cond_46
+
+    add-int/lit8 v5, v3, 0x1
+
+    .line 52
+    aget-byte v3, p1, v3
+
+    invoke-virtual {p0, v3}, Ljava/io/ByteArrayOutputStream;->write(I)V
+
+    add-int/lit8 v4, v4, 0x1
+
+    move v3, v5
+
+    goto :goto_1b
+
+    :cond_28
+    const/16 v4, -0x7f
+
+    if-lt v2, v4, :cond_42
+
+    const/4 v4, -0x1
+
+    if-gt v2, v4, :cond_42
+
+    add-int/lit8 v4, v3, 0x1
+
+    .line 58
+    aget-byte v3, p1, v3
+
+    neg-int v2, v2
+
+    add-int/lit8 v2, v2, 0x1
+
+    add-int/2addr v1, v2
+
+    move v5, v0
+
+    :goto_38
+    if-ge v5, v2, :cond_40
+
+    .line 63
+    invoke-virtual {p0, v3}, Ljava/io/ByteArrayOutputStream;->write(I)V
+
+    add-int/lit8 v5, v5, 0x1
+
+    goto :goto_38
+
+    :cond_40
+    move v2, v4
+
+    goto :goto_8
+
+    :cond_42
+    const/16 v4, -0x80
+
+    if-eq v2, v4, :cond_48
+
+    :cond_46
+    move v2, v3
+
+    goto :goto_8
+
+    .line 67
+    :cond_48
+    new-instance p0, Lorg/apache/commons/imaging/ImageReadException;
+
+    new-instance p1, Ljava/lang/StringBuilder;
+
+    invoke-direct {p1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string p2, "Packbits: "
+
+    invoke-virtual {p1, p2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    invoke-virtual {p1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-direct {p0, p1}, Lorg/apache/commons/imaging/ImageReadException;-><init>(Ljava/lang/String;)V
+
+    throw p0
+
+    .line 38
+    :cond_61
+    new-instance p0, Lorg/apache/commons/imaging/ImageReadException;
+
+    new-instance p1, Ljava/lang/StringBuilder;
+
+    invoke-direct {p1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v0, "Tiff: Unpack bits source exhausted: "
+
+    invoke-virtual {p1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    invoke-virtual {p1, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    const-string v0, ", done + "
+
+    invoke-virtual {p1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    invoke-virtual {p1, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    const-string v0, ", expected + "
+
+    invoke-virtual {p1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    invoke-virtual {p1, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-direct {p0, p1}, Lorg/apache/commons/imaging/ImageReadException;-><init>(Ljava/lang/String;)V
+
+    throw p0
+
+    .line 71
+    :cond_8e
+    invoke-virtual {p0}, Ljava/io/ByteArrayOutputStream;->toByteArray()[B
+
+    move-result-object p0
+
+    return-object p0
+.end method

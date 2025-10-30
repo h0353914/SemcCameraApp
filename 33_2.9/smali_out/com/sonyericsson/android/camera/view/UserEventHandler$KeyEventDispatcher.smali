@@ -1,0 +1,379 @@
+.class public Lcom/sonyericsson/android/camera/view/UserEventHandler$KeyEventDispatcher;
+.super Lcom/sonyericsson/android/camera/view/UserEventHandler$EventDispatcher;
+.source "UserEventHandler.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonyericsson/android/camera/view/UserEventHandler;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x9
+    name = "KeyEventDispatcher"
+.end annotation
+
+
+# direct methods
+.method public constructor <init>()V
+    .registers 2
+
+    const/4 v0, 0x0
+
+    .line 262
+    invoke-direct {p0, v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$EventDispatcher;-><init>(Lcom/sonyericsson/android/camera/view/UserEventHandler$1;)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public bridge synthetic attach(Lcom/sonyericsson/android/camera/view/UserEventHandler;)V
+    .registers 2
+
+    .line 262
+    invoke-super {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler$EventDispatcher;->attach(Lcom/sonyericsson/android/camera/view/UserEventHandler;)V
+
+    return-void
+.end method
+
+.method protected reset()V
+    .registers 1
+
+    .line 266
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$KeyEventDispatcher;->getHandler()Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    move-result-object p0
+
+    # invokes: Lcom/sonyericsson/android/camera/view/UserEventHandler;->resetKeyEventHandling()V
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$300(Lcom/sonyericsson/android/camera/view/UserEventHandler;)V
+
+    return-void
+.end method
+
+.method public sendKeyDown(Landroid/view/KeyEvent;)Z
+    .registers 6
+
+    .line 270
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$KeyEventDispatcher;->getHandler()Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    move-result-object v0
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    if-eqz v0, :cond_39
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$KeyEventDispatcher;->isRunning()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_39
+
+    .line 271
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_30
+
+    new-array v0, v1, [Ljava/lang/String;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "KeyEventDispatcher#sendKeyDown() event:"
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    .line 272
+    invoke-virtual {p1}, Landroid/view/KeyEvent;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    aput-object v1, v0, v2
+
+    .line 271
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 273
+    :cond_30
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$KeyEventDispatcher;->getHandler()Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    move-result-object p0
+
+    # invokes: Lcom/sonyericsson/android/camera/view/UserEventHandler;->dispatchKeyDown(Landroid/view/KeyEvent;)Z
+    invoke-static {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$400(Lcom/sonyericsson/android/camera/view/UserEventHandler;Landroid/view/KeyEvent;)Z
+
+    move-result p0
+
+    return p0
+
+    :cond_39
+    new-array p0, v1, [Ljava/lang/String;
+
+    .line 275
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "KeyEventDispatcher#sendKeyDown() event is rejected. event:"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    .line 276
+    invoke-virtual {p1}, Landroid/view/KeyEvent;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-virtual {v0, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    aput-object p1, p0, v2
+
+    .line 275
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/util/CamLog;->i([Ljava/lang/String;)V
+
+    return v2
+.end method
+
+.method public sendKeyLongPress(Landroid/view/KeyEvent;)Z
+    .registers 6
+
+    .line 294
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$KeyEventDispatcher;->getHandler()Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    move-result-object v0
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    if-eqz v0, :cond_39
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$KeyEventDispatcher;->isRunning()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_39
+
+    .line 295
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_30
+
+    new-array v0, v1, [Ljava/lang/String;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "KeyEventDispatcher#sendKeyLongPress() event:"
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    .line 296
+    invoke-virtual {p1}, Landroid/view/KeyEvent;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    aput-object v1, v0, v2
+
+    .line 295
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 297
+    :cond_30
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$KeyEventDispatcher;->getHandler()Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    move-result-object p0
+
+    # invokes: Lcom/sonyericsson/android/camera/view/UserEventHandler;->dispatchKeyLongPress(Landroid/view/KeyEvent;)Z
+    invoke-static {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$600(Lcom/sonyericsson/android/camera/view/UserEventHandler;Landroid/view/KeyEvent;)Z
+
+    move-result p0
+
+    return p0
+
+    :cond_39
+    new-array p0, v1, [Ljava/lang/String;
+
+    .line 299
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "KeyEventDispatcher#sendKeyLongPress() event is rejected. event:"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    .line 300
+    invoke-virtual {p1}, Landroid/view/KeyEvent;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-virtual {v0, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    aput-object p1, p0, v2
+
+    .line 299
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/util/CamLog;->i([Ljava/lang/String;)V
+
+    return v2
+.end method
+
+.method public sendKeyUp(Landroid/view/KeyEvent;)Z
+    .registers 6
+
+    .line 282
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$KeyEventDispatcher;->getHandler()Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    move-result-object v0
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    if-eqz v0, :cond_39
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$KeyEventDispatcher;->isRunning()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_39
+
+    .line 283
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_30
+
+    new-array v0, v1, [Ljava/lang/String;
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "KeyEventDispatcher#sendKeyUp() event:"
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    .line 284
+    invoke-virtual {p1}, Landroid/view/KeyEvent;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    aput-object v1, v0, v2
+
+    .line 283
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 285
+    :cond_30
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$KeyEventDispatcher;->getHandler()Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    move-result-object p0
+
+    # invokes: Lcom/sonyericsson/android/camera/view/UserEventHandler;->dispatchKeyUp(Landroid/view/KeyEvent;)Z
+    invoke-static {p0, p1}, Lcom/sonyericsson/android/camera/view/UserEventHandler;->access$500(Lcom/sonyericsson/android/camera/view/UserEventHandler;Landroid/view/KeyEvent;)Z
+
+    move-result p0
+
+    return p0
+
+    :cond_39
+    new-array p0, v1, [Ljava/lang/String;
+
+    .line 287
+    new-instance v0, Ljava/lang/StringBuilder;
+
+    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v1, "KeyEventDispatcher#sendKeyUp() event is rejected. event:"
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    .line 288
+    invoke-virtual {p1}, Landroid/view/KeyEvent;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-virtual {v0, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object p1
+
+    invoke-virtual {p1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    aput-object p1, p0, v2
+
+    .line 287
+    invoke-static {p0}, Lcom/sonyericsson/android/camera/util/CamLog;->i([Ljava/lang/String;)V
+
+    return v2
+.end method
+
+.method public bridge synthetic start()V
+    .registers 1
+
+    .line 262
+    invoke-super {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$EventDispatcher;->start()V
+
+    return-void
+.end method
+
+.method public bridge synthetic stop()V
+    .registers 1
+
+    .line 262
+    invoke-super {p0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$EventDispatcher;->stop()V
+
+    return-void
+.end method

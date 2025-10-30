@@ -1,0 +1,154 @@
+.class Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;
+.super Ljava/lang/Object;
+.source "BypassCamera.java"
+
+# interfaces
+.implements Ljava/lang/Runnable;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x2
+    name = "CallbackSnapshotReadyTask"
+.end annotation
+
+
+# instance fields
+.field private final mCaptureDuration:I
+
+.field private final mCaptureStartPoint:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CaptureStartPoint;
+
+.field private final mDisplayFlashColor:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$DisplayFlashColor;
+
+.field private final mIsAfSuccessed:Z
+
+.field private final mIsHighQualityBurstAvailable:Z
+
+.field private final mRequireDisplayFlash:Z
+
+.field final synthetic this$0:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;
+
+
+# direct methods
+.method public constructor <init>(Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;ZZZIIIII)V
+    .registers 10
+
+    .line 1399
+    iput-object p1, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->this$0:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 1400
+    iput-boolean p2, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->mIsHighQualityBurstAvailable:Z
+
+    .line 1401
+    iput-boolean p3, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->mIsAfSuccessed:Z
+
+    .line 1402
+    iput-boolean p4, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->mRequireDisplayFlash:Z
+
+    .line 1403
+    new-instance p1, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$DisplayFlashColor;
+
+    invoke-direct {p1, p5, p6, p7}, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$DisplayFlashColor;-><init>(III)V
+
+    iput-object p1, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->mDisplayFlashColor:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$DisplayFlashColor;
+
+    packed-switch p8, :pswitch_data_26
+
+    .line 1417
+    sget-object p1, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CaptureStartPoint;->INVALID:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CaptureStartPoint;
+
+    iput-object p1, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->mCaptureStartPoint:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CaptureStartPoint;
+
+    goto :goto_23
+
+    .line 1412
+    :pswitch_1a
+    sget-object p1, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CaptureStartPoint;->ON_REQUEST:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CaptureStartPoint;
+
+    iput-object p1, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->mCaptureStartPoint:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CaptureStartPoint;
+
+    goto :goto_23
+
+    .line 1409
+    :pswitch_1f
+    sget-object p1, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CaptureStartPoint;->ALREADY_DONE:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CaptureStartPoint;
+
+    iput-object p1, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->mCaptureStartPoint:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CaptureStartPoint;
+
+    .line 1420
+    :goto_23
+    iput p9, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->mCaptureDuration:I
+
+    return-void
+
+    :pswitch_data_26
+    .packed-switch 0x0
+        :pswitch_1f
+        :pswitch_1a
+    .end packed-switch
+.end method
+
+
+# virtual methods
+.method public run()V
+    .registers 10
+
+    .line 1425
+    iget-object v0, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->this$0:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;
+
+    monitor-enter v0
+
+    .line 1426
+    :try_start_3
+    iget-object v1, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->this$0:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;
+
+    # getter for: Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;->mSnapshotReadyCallback:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$SnapshotReadyCallback;
+    invoke-static {v1}, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;->access$600(Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;)Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$SnapshotReadyCallback;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_20
+
+    .line 1427
+    iget-object v1, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->this$0:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;
+
+    # getter for: Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;->mSnapshotReadyCallback:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$SnapshotReadyCallback;
+    invoke-static {v1}, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;->access$600(Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;)Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$SnapshotReadyCallback;
+
+    move-result-object v2
+
+    iget-boolean v3, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->mIsHighQualityBurstAvailable:Z
+
+    iget-boolean v4, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->mIsAfSuccessed:Z
+
+    iget-boolean v5, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->mRequireDisplayFlash:Z
+
+    iget-object v6, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->mDisplayFlashColor:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$DisplayFlashColor;
+
+    iget-object v7, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->mCaptureStartPoint:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CaptureStartPoint;
+
+    iget v8, p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CallbackSnapshotReadyTask;->mCaptureDuration:I
+
+    invoke-interface/range {v2 .. v8}, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$SnapshotReadyCallback;->onSnapshotReadyDone(ZZZLcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$DisplayFlashColor;Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera$CaptureStartPoint;I)V
+
+    .line 1436
+    :cond_20
+    monitor-exit v0
+
+    return-void
+
+    :catchall_22
+    move-exception v1
+
+    monitor-exit v0
+    :try_end_24
+    .catchall {:try_start_3 .. :try_end_24} :catchall_22
+
+    throw v1
+.end method

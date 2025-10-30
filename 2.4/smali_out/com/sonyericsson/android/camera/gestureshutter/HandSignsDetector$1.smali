@@ -1,0 +1,126 @@
+.class Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector$1;
+.super Ljava/lang/Object;
+.source "HandSignsDetector.java"
+
+# interfaces
+.implements Ljava/lang/Runnable;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = null
+.end annotation
+
+
+# instance fields
+.field final synthetic this$0:Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;
+
+
+# direct methods
+.method constructor <init>(Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;)V
+    .registers 2
+
+    .line 191
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector$1;->this$0:Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public run()V
+    .registers 5
+
+    .line 194
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector$1;->this$0:Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;
+
+    # getter for: Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;->mDetectContext:Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector$DetectContext;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;->access$100(Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;)Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector$DetectContext;
+
+    move-result-object v0
+
+    monitor-enter v0
+
+    .line 195
+    :try_start_7
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector$1;->this$0:Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;
+
+    # getter for: Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;->mIsStarted:Z
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;->access$200(Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;)Z
+
+    move-result v1
+
+    if-nez v1, :cond_11
+
+    .line 196
+    monitor-exit v0
+
+    return-void
+
+    .line 198
+    :cond_11
+    iget-object v1, p0, Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector$1;->this$0:Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;
+
+    # getter for: Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;->mPreviewFrameProvider:Lcom/sonyericsson/android/camera/device/PreviewFrameProvider;
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;->access$500(Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;)Lcom/sonyericsson/android/camera/device/PreviewFrameProvider;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector$1;->this$0:Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;
+
+    .line 199
+    # getter for: Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;->mImageCallback:Lcom/sonyericsson/android/camera/device/PreviewFrameProvider$OnPreviewFrameCallback;
+    invoke-static {v2}, Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;->access$300(Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;)Lcom/sonyericsson/android/camera/device/PreviewFrameProvider$OnPreviewFrameCallback;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector$1;->this$0:Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;
+
+    # getter for: Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;->mWorker:Lcom/sonyericsson/android/camera/util/BackgroundWorker;
+    invoke-static {v3}, Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;->access$400(Lcom/sonyericsson/android/camera/gestureshutter/HandSignsDetector;)Lcom/sonyericsson/android/camera/util/BackgroundWorker;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Lcom/sonyericsson/android/camera/util/BackgroundWorker;->getHandler()Landroid/os/Handler;
+
+    move-result-object v3
+
+    .line 198
+    invoke-interface {v1, v2, v3}, Lcom/sonyericsson/android/camera/device/PreviewFrameProvider;->registerPreviewFrameCallback(Lcom/sonyericsson/android/camera/device/PreviewFrameProvider$OnPreviewFrameCallback;Landroid/os/Handler;)V
+
+    .line 201
+    sget-boolean v1, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz v1, :cond_37
+
+    const-string v1, "Get frame requested"
+
+    .line 202
+    filled-new-array {v1}, [Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 204
+    :cond_37
+    monitor-exit v0
+
+    return-void
+
+    :catchall_39
+    move-exception v1
+
+    monitor-exit v0
+    :try_end_3b
+    .catchall {:try_start_7 .. :try_end_3b} :catchall_39
+
+    throw v1
+.end method

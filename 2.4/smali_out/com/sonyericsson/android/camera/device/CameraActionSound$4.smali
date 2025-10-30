@@ -1,0 +1,47 @@
+.class final Lcom/sonyericsson/android/camera/device/CameraActionSound$4;
+.super Ljava/lang/Object;
+.source "CameraActionSound.java"
+
+# interfaces
+.implements Ljava/lang/Runnable;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/sonyericsson/android/camera/device/CameraActionSound;->playSoundByTemporarySoundPool(Landroid/content/Context;Lcom/sonyericsson/android/camera/device/CameraActionSound$Type;)V
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x8
+    name = null
+.end annotation
+
+
+# instance fields
+.field final synthetic val$soundPool:Landroid/media/SoundPool;
+
+
+# direct methods
+.method constructor <init>(Landroid/media/SoundPool;)V
+    .registers 2
+
+    .line 236
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/device/CameraActionSound$4;->val$soundPool:Landroid/media/SoundPool;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public run()V
+    .registers 2
+
+    .line 239
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/device/CameraActionSound$4;->val$soundPool:Landroid/media/SoundPool;
+
+    invoke-virtual {v0}, Landroid/media/SoundPool;->release()V
+
+    return-void
+.end method

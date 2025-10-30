@@ -1,0 +1,213 @@
+.class final Lcom/google/protobuf/nano/UnknownFieldData;
+.super Ljava/lang/Object;
+.source "UnknownFieldData.java"
+
+
+# instance fields
+.field final bytes:[B
+
+.field final tag:I
+
+
+# direct methods
+.method constructor <init>(I[B)V
+    .registers 3
+    .annotation system Ldalvik/annotation/MethodParameters;
+        accessFlags = {
+            0x0,
+            0x0
+        }
+        names = {
+            "tag",
+            "bytes"
+        }
+    .end annotation
+
+    .line 51
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 52
+    iput p1, p0, Lcom/google/protobuf/nano/UnknownFieldData;->tag:I
+
+    .line 53
+    iput-object p2, p0, Lcom/google/protobuf/nano/UnknownFieldData;->bytes:[B
+
+    return-void
+.end method
+
+
+# virtual methods
+.method computeSerializedSize()I
+    .registers 3
+
+    .line 58
+    iget v0, p0, Lcom/google/protobuf/nano/UnknownFieldData;->tag:I
+
+    invoke-static {v0}, Lcom/google/protobuf/nano/CodedOutputByteBufferNano;->computeRawVarint32Size(I)I
+
+    move-result v0
+
+    add-int/lit8 v0, v0, 0x0
+
+    .line 59
+    iget-object v1, p0, Lcom/google/protobuf/nano/UnknownFieldData;->bytes:[B
+
+    array-length v1, v1
+
+    add-int/2addr v0, v1
+
+    return v0
+.end method
+
+.method computeSerializedSizeAsMessageSet()I
+    .registers 3
+
+    .line 69
+    iget v0, p0, Lcom/google/protobuf/nano/UnknownFieldData;->tag:I
+
+    iget-object v1, p0, Lcom/google/protobuf/nano/UnknownFieldData;->bytes:[B
+
+    invoke-static {v0, v1}, Lcom/google/protobuf/nano/CodedOutputByteBufferNano;->computeRawMessageSetExtensionSize(I[B)I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public equals(Ljava/lang/Object;)Z
+    .registers 6
+    .annotation system Ldalvik/annotation/MethodParameters;
+        accessFlags = {
+            0x0
+        }
+        names = {
+            "o"
+        }
+    .end annotation
+
+    const/4 v0, 0x1
+
+    if-ne p1, p0, :cond_4
+
+    return v0
+
+    .line 81
+    :cond_4
+    instance-of v1, p1, Lcom/google/protobuf/nano/UnknownFieldData;
+
+    const/4 v2, 0x0
+
+    if-nez v1, :cond_a
+
+    return v2
+
+    .line 85
+    :cond_a
+    check-cast p1, Lcom/google/protobuf/nano/UnknownFieldData;
+
+    .line 86
+    iget v1, p0, Lcom/google/protobuf/nano/UnknownFieldData;->tag:I
+
+    iget v3, p1, Lcom/google/protobuf/nano/UnknownFieldData;->tag:I
+
+    if-ne v1, v3, :cond_1d
+
+    iget-object v1, p0, Lcom/google/protobuf/nano/UnknownFieldData;->bytes:[B
+
+    iget-object p1, p1, Lcom/google/protobuf/nano/UnknownFieldData;->bytes:[B
+
+    invoke-static {v1, p1}, Ljava/util/Arrays;->equals([B[B)Z
+
+    move-result p1
+
+    if-eqz p1, :cond_1d
+
+    goto :goto_1e
+
+    :cond_1d
+    move v0, v2
+
+    :goto_1e
+    return v0
+.end method
+
+.method public hashCode()I
+    .registers 3
+
+    .line 92
+    iget v0, p0, Lcom/google/protobuf/nano/UnknownFieldData;->tag:I
+
+    const/16 v1, 0x20f
+
+    add-int/2addr v1, v0
+
+    mul-int/lit8 v1, v1, 0x1f
+
+    .line 93
+    iget-object v0, p0, Lcom/google/protobuf/nano/UnknownFieldData;->bytes:[B
+
+    invoke-static {v0}, Ljava/util/Arrays;->hashCode([B)I
+
+    move-result v0
+
+    add-int/2addr v1, v0
+
+    return v1
+.end method
+
+.method writeAsMessageSetTo(Lcom/google/protobuf/nano/CodedOutputByteBufferNano;)V
+    .registers 4
+    .annotation system Ldalvik/annotation/MethodParameters;
+        accessFlags = {
+            0x0
+        }
+        names = {
+            "output"
+        }
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;
+        }
+    .end annotation
+
+    .line 73
+    iget v0, p0, Lcom/google/protobuf/nano/UnknownFieldData;->tag:I
+
+    iget-object v1, p0, Lcom/google/protobuf/nano/UnknownFieldData;->bytes:[B
+
+    invoke-virtual {p1, v0, v1}, Lcom/google/protobuf/nano/CodedOutputByteBufferNano;->writeRawMessageSetExtension(I[B)V
+
+    return-void
+.end method
+
+.method writeTo(Lcom/google/protobuf/nano/CodedOutputByteBufferNano;)V
+    .registers 3
+    .annotation system Ldalvik/annotation/MethodParameters;
+        accessFlags = {
+            0x0
+        }
+        names = {
+            "output"
+        }
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;
+        }
+    .end annotation
+
+    .line 64
+    iget v0, p0, Lcom/google/protobuf/nano/UnknownFieldData;->tag:I
+
+    invoke-virtual {p1, v0}, Lcom/google/protobuf/nano/CodedOutputByteBufferNano;->writeRawVarint32(I)V
+
+    .line 65
+    iget-object v0, p0, Lcom/google/protobuf/nano/UnknownFieldData;->bytes:[B
+
+    invoke-virtual {p1, v0}, Lcom/google/protobuf/nano/CodedOutputByteBufferNano;->writeRawBytes([B)V
+
+    return-void
+.end method

@@ -1,0 +1,343 @@
+.class Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;
+.super Ljava/lang/Object;
+.source "RequestPermissionActivity.java"
+
+# interfaces
+.implements Landroid/widget/ListAdapter;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x2
+    name = "PermissionAdapter"
+.end annotation
+
+
+# instance fields
+.field private final mContext:Landroid/content/Context;
+
+.field private mGroupList:Ljava/util/List;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/List<",
+            "Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionGroup;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+.field private final mId:I
+
+.field final synthetic this$0:Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;
+
+
+# direct methods
+.method public constructor <init>(Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;Landroid/content/Context;ILjava/util/List;)V
+    .registers 5
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/content/Context;",
+            "I",
+            "Ljava/util/List<",
+            "Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionGroup;",
+            ">;)V"
+        }
+    .end annotation
+
+    .line 714
+    iput-object p1, p0, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->this$0:Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 715
+    iput-object p2, p0, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->mContext:Landroid/content/Context;
+
+    .line 716
+    iput p3, p0, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->mId:I
+
+    .line 717
+    iput-object p4, p0, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->mGroupList:Ljava/util/List;
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public areAllItemsEnabled()Z
+    .registers 2
+
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method public getCount()I
+    .registers 2
+
+    .line 732
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->mGroupList:Ljava/util/List;
+
+    if-nez v0, :cond_6
+
+    const/4 v0, 0x0
+
+    return v0
+
+    .line 735
+    :cond_6
+    invoke-interface {v0}, Ljava/util/List;->size()I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public getItem(I)Ljava/lang/Object;
+    .registers 3
+
+    .line 740
+    iget-object v0, p0, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->mGroupList:Ljava/util/List;
+
+    if-nez v0, :cond_6
+
+    const/4 p1, 0x0
+
+    return-object p1
+
+    .line 743
+    :cond_6
+    invoke-interface {v0, p1}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object p1
+
+    return-object p1
+.end method
+
+.method public getItemId(I)J
+    .registers 4
+
+    int-to-long v0, p1
+
+    return-wide v0
+.end method
+
+.method public getItemViewType(I)I
+    .registers 2
+
+    const/4 p1, 0x0
+
+    return p1
+.end method
+
+.method public getView(ILandroid/view/View;Landroid/view/ViewGroup;)Landroid/view/View;
+    .registers 7
+
+    if-nez p2, :cond_10
+
+    .line 760
+    iget-object p2, p0, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->mContext:Landroid/content/Context;
+
+    invoke-static {p2}, Landroid/view/LayoutInflater;->from(Landroid/content/Context;)Landroid/view/LayoutInflater;
+
+    move-result-object p2
+
+    const p3, 0x7f0b0059
+
+    const/4 v0, 0x0
+
+    .line 761
+    invoke-virtual {p2, p3, v0}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;)Landroid/view/View;
+
+    move-result-object p2
+
+    .line 764
+    :cond_10
+    invoke-virtual {p0, p1}, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->getItem(I)Ljava/lang/Object;
+
+    move-result-object p1
+
+    check-cast p1, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionGroup;
+
+    const p3, 0x7f090111
+
+    .line 766
+    invoke-virtual {p2, p3}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+
+    move-result-object p3
+
+    check-cast p3, Landroid/widget/TextView;
+
+    const v0, 0x7f090097
+
+    .line 767
+    invoke-virtual {p2, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/widget/TextView;
+
+    .line 768
+    iget v1, p0, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->mId:I
+
+    const/16 v2, 0x201
+
+    if-ne v1, v2, :cond_55
+
+    if-eqz p1, :cond_55
+
+    .line 769
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionGroup;->getPreDialogMessageId()I
+
+    move-result v1
+
+    # getter for: Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;->INVALID_ID:I
+    invoke-static {}, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;->access$000()I
+
+    move-result v2
+
+    if-eq v1, v2, :cond_55
+
+    .line 771
+    iget-object v1, p0, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->this$0:Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;
+
+    # invokes: Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;->getPermissionGroupLabel(Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionGroup;)Ljava/lang/String;
+    invoke-static {v1, p1}, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;->access$700(Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionGroup;)Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {p3, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    .line 773
+    iget-object p3, p0, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->this$0:Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;
+
+    invoke-virtual {p3}, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;->getResources()Landroid/content/res/Resources;
+
+    move-result-object p3
+
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionGroup;->getPreDialogMessageId()I
+
+    move-result p1
+
+    invoke-virtual {p3, p1}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-virtual {v0, p1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    goto :goto_81
+
+    .line 774
+    :cond_55
+    iget v1, p0, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->mId:I
+
+    const/16 v2, 0x202
+
+    if-ne v1, v2, :cond_81
+
+    if-eqz p1, :cond_81
+
+    .line 775
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionGroup;->getPostDialogMessageId()I
+
+    move-result v1
+
+    # getter for: Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;->INVALID_ID:I
+    invoke-static {}, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;->access$000()I
+
+    move-result v2
+
+    if-eq v1, v2, :cond_81
+
+    .line 777
+    iget-object v1, p0, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->this$0:Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;
+
+    # invokes: Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;->getPermissionGroupLabel(Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionGroup;)Ljava/lang/String;
+    invoke-static {v1, p1}, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;->access$700(Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionGroup;)Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {p3, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    .line 779
+    iget-object p3, p0, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->this$0:Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;
+
+    invoke-virtual {p3}, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity;->getResources()Landroid/content/res/Resources;
+
+    move-result-object p3
+
+    invoke-virtual {p1}, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionGroup;->getPostDialogMessageId()I
+
+    move-result p1
+
+    invoke-virtual {p3, p1}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-virtual {v0, p1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    :cond_81
+    :goto_81
+    return-object p2
+.end method
+
+.method public getViewTypeCount()I
+    .registers 2
+
+    const/4 v0, 0x1
+
+    return v0
+.end method
+
+.method public hasStableIds()Z
+    .registers 2
+
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method public isEmpty()Z
+    .registers 3
+
+    .line 796
+    invoke-virtual {p0}, Lcom/sonyericsson/cameracommon/activity/RequestPermissionActivity$PermissionAdapter;->getCount()I
+
+    move-result v0
+
+    const/4 v1, 0x1
+
+    if-ge v0, v1, :cond_8
+
+    goto :goto_9
+
+    :cond_8
+    const/4 v1, 0x0
+
+    :goto_9
+    return v1
+.end method
+
+.method public isEnabled(I)Z
+    .registers 2
+
+    const/4 p1, 0x0
+
+    return p1
+.end method
+
+.method public registerDataSetObserver(Landroid/database/DataSetObserver;)V
+    .registers 2
+
+    return-void
+.end method
+
+.method public unregisterDataSetObserver(Landroid/database/DataSetObserver;)V
+    .registers 2
+
+    return-void
+.end method

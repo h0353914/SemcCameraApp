@@ -1,0 +1,159 @@
+.class public Lcom/sonyericsson/android/camera/util/capability/HighSpeedVideoConfigurationListCapabilityItem;
+.super Lcom/sonyericsson/android/camera/util/capability/CapabilityItem;
+.source "HighSpeedVideoConfigurationListCapabilityItem.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Lcom/sonyericsson/android/camera/util/capability/CapabilityItem<",
+        "Ljava/util/List<",
+        "Lcom/sonyericsson/android/camera/util/capability/HighSpeedVideoConfiguration;",
+        ">;>;"
+    }
+.end annotation
+
+
+# direct methods
+.method constructor <init>(Ljava/lang/String;Landroid/content/SharedPreferences;)V
+    .registers 3
+
+    .line 27
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/android/camera/util/capability/CapabilityItem;-><init>(Ljava/lang/String;Landroid/content/SharedPreferences;)V
+
+    return-void
+.end method
+
+.method constructor <init>(Ljava/lang/String;Ljava/util/List;)V
+    .registers 3
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "Ljava/util/List<",
+            "Lcom/sonyericsson/android/camera/util/capability/HighSpeedVideoConfiguration;",
+            ">;)V"
+        }
+    .end annotation
+
+    .line 23
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/android/camera/util/capability/CapabilityItem;-><init>(Ljava/lang/String;Ljava/lang/Object;)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method bridge synthetic getDefaultValue()Ljava/lang/Object;
+    .registers 2
+
+    .line 18
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/util/capability/HighSpeedVideoConfigurationListCapabilityItem;->getDefaultValue()Ljava/util/List;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method getDefaultValue()Ljava/util/List;
+    .registers 2
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()",
+            "Ljava/util/List<",
+            "Lcom/sonyericsson/android/camera/util/capability/HighSpeedVideoConfiguration;",
+            ">;"
+        }
+    .end annotation
+
+    .line 50
+    invoke-static {}, Ljava/util/Collections;->emptyList()Ljava/util/List;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public bridge synthetic read(Landroid/content/SharedPreferences;Ljava/lang/String;)Ljava/lang/Object;
+    .registers 3
+
+    .line 18
+    invoke-virtual {p0, p1, p2}, Lcom/sonyericsson/android/camera/util/capability/HighSpeedVideoConfigurationListCapabilityItem;->read(Landroid/content/SharedPreferences;Ljava/lang/String;)Ljava/util/List;
+
+    move-result-object p1
+
+    return-object p1
+.end method
+
+.method public read(Landroid/content/SharedPreferences;Ljava/lang/String;)Ljava/util/List;
+    .registers 4
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Landroid/content/SharedPreferences;",
+            "Ljava/lang/String;",
+            ")",
+            "Ljava/util/List<",
+            "Lcom/sonyericsson/android/camera/util/capability/HighSpeedVideoConfiguration;",
+            ">;"
+        }
+    .end annotation
+
+    .line 32
+    invoke-interface {p1, p2}, Landroid/content/SharedPreferences;->contains(Ljava/lang/String;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_11
+
+    const-string v0, ""
+
+    .line 33
+    invoke-interface {p1, p2, v0}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object p1
+
+    .line 34
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/capability/SharedPrefsTranslator;->getHighSpeedVideoConfigurationList(Ljava/lang/String;)Ljava/util/List;
+
+    move-result-object p1
+
+    return-object p1
+
+    .line 36
+    :cond_11
+    invoke-static {}, Ljava/util/Collections;->emptyList()Ljava/util/List;
+
+    move-result-object p1
+
+    return-object p1
+.end method
+
+.method public write(Landroid/content/SharedPreferences$Editor;)V
+    .registers 4
+
+    .line 41
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/util/capability/HighSpeedVideoConfigurationListCapabilityItem;->get()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/util/List;
+
+    if-eqz v0, :cond_13
+
+    .line 43
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/util/capability/HighSpeedVideoConfigurationListCapabilityItem;->getName()Ljava/lang/String;
+
+    move-result-object v1
+
+    .line 44
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/capability/SharedPrefsTranslator;->fromHighSpeedVideoConfigurationList(Ljava/util/List;)Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 43
+    invoke-interface {p1, v1, v0}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
+
+    :cond_13
+    return-void
+.end method

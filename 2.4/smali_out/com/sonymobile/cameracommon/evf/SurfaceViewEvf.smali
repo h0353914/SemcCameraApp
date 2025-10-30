@@ -1,0 +1,719 @@
+.class public Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;
+.super Ljava/lang/Object;
+.source "SurfaceViewEvf.java"
+
+# interfaces
+.implements Lcom/sonymobile/cameracommon/evf/Evf;
+
+
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf$SurfaceViewCallback;
+    }
+.end annotation
+
+
+# static fields
+.field private static final TAG:Ljava/lang/String; = "SurfaceViewEvf"
+
+
+# instance fields
+.field private mEvfRect:Landroid/graphics/Rect;
+
+.field private mIsSurfaceAvailable:Z
+
+.field private mLifeCycleCallback:Lcom/sonymobile/cameracommon/evf/Evf$LifeCycleCallback;
+
+.field private mSurfaceSize:Landroid/util/Size;
+
+.field private mSurfaceView:Landroid/view/SurfaceView;
+
+.field private mSurfaceViewCallback:Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf$SurfaceViewCallback;
+
+
+# direct methods
+.method public constructor <init>()V
+    .registers 3
+
+    .line 24
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    const/4 v0, 0x0
+
+    .line 28
+    iput-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    .line 29
+    new-instance v1, Landroid/graphics/Rect;
+
+    invoke-direct {v1}, Landroid/graphics/Rect;-><init>()V
+
+    iput-object v1, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mEvfRect:Landroid/graphics/Rect;
+
+    const/4 v1, 0x0
+
+    .line 30
+    iput-boolean v1, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mIsSurfaceAvailable:Z
+
+    .line 33
+    new-instance v1, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf$SurfaceViewCallback;
+
+    invoke-direct {v1, p0, v0}, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf$SurfaceViewCallback;-><init>(Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf$1;)V
+
+    iput-object v1, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceViewCallback:Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf$SurfaceViewCallback;
+
+    .line 35
+    iput-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mLifeCycleCallback:Lcom/sonymobile/cameracommon/evf/Evf$LifeCycleCallback;
+
+    return-void
+.end method
+
+.method static synthetic access$100(Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;Z)V
+    .registers 2
+
+    .line 24
+    invoke-direct {p0, p1}, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->setSurfaceAvailability(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$202(Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;Landroid/util/Size;)Landroid/util/Size;
+    .registers 2
+
+    .line 24
+    iput-object p1, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceSize:Landroid/util/Size;
+
+    return-object p1
+.end method
+
+.method static synthetic access$300(Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;)Lcom/sonymobile/cameracommon/evf/Evf$LifeCycleCallback;
+    .registers 1
+
+    .line 24
+    iget-object p0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mLifeCycleCallback:Lcom/sonymobile/cameracommon/evf/Evf$LifeCycleCallback;
+
+    return-object p0
+.end method
+
+.method static synthetic access$400(Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;)Landroid/view/SurfaceView;
+    .registers 1
+
+    .line 24
+    iget-object p0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    return-object p0
+.end method
+
+.method private declared-synchronized setSurfaceAvailability(Z)V
+    .registers 2
+
+    monitor-enter p0
+
+    .line 151
+    :try_start_1
+    iput-boolean p1, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mIsSurfaceAvailable:Z
+    :try_end_3
+    .catchall {:try_start_1 .. :try_end_3} :catchall_5
+
+    .line 152
+    monitor-exit p0
+
+    return-void
+
+    :catchall_5
+    move-exception p1
+
+    monitor-exit p0
+
+    throw p1
+.end method
+
+
+# virtual methods
+.method public asSurface()Landroid/view/Surface;
+    .registers 2
+
+    .line 232
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "asSurface()"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 233
+    :cond_d
+    iget-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    invoke-virtual {v0}, Landroid/view/SurfaceView;->getHolder()Landroid/view/SurfaceHolder;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Landroid/view/SurfaceHolder;->getSurface()Landroid/view/Surface;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public asView()Landroid/view/View;
+    .registers 2
+
+    .line 65
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "asView()"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 66
+    :cond_d
+    iget-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    return-object v0
+.end method
+
+.method public declared-synchronized clear()V
+    .registers 4
+
+    monitor-enter p0
+
+    .line 140
+    :try_start_1
+    iget-boolean v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mIsSurfaceAvailable:Z
+
+    if-eqz v0, :cond_19
+
+    .line 141
+    iget-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    invoke-virtual {v0}, Landroid/view/SurfaceView;->getHolder()Landroid/view/SurfaceHolder;
+
+    move-result-object v0
+
+    .line 142
+    invoke-interface {v0}, Landroid/view/SurfaceHolder;->lockCanvas()Landroid/graphics/Canvas;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_19
+
+    const/high16 v2, -0x1000000
+
+    .line 144
+    invoke-virtual {v1, v2}, Landroid/graphics/Canvas;->drawColor(I)V
+
+    .line 145
+    invoke-interface {v0, v1}, Landroid/view/SurfaceHolder;->unlockCanvasAndPost(Landroid/graphics/Canvas;)V
+    :try_end_19
+    .catchall {:try_start_1 .. :try_end_19} :catchall_1b
+
+    .line 148
+    :cond_19
+    monitor-exit p0
+
+    return-void
+
+    :catchall_1b
+    move-exception v0
+
+    monitor-exit p0
+
+    throw v0
+.end method
+
+.method public getRect()Landroid/graphics/Rect;
+    .registers 6
+
+    .line 71
+    iget-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mEvfRect:Landroid/graphics/Rect;
+
+    iget-object v1, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    .line 72
+    invoke-virtual {v1}, Landroid/view/SurfaceView;->getLeft()I
+
+    move-result v1
+
+    iget-object v2, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    .line 73
+    invoke-virtual {v2}, Landroid/view/SurfaceView;->getTop()I
+
+    move-result v2
+
+    iget-object v3, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    .line 74
+    invoke-virtual {v3}, Landroid/view/SurfaceView;->getRight()I
+
+    move-result v3
+
+    iget-object v4, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    .line 75
+    invoke-virtual {v4}, Landroid/view/SurfaceView;->getBottom()I
+
+    move-result v4
+
+    .line 71
+    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/graphics/Rect;->set(IIII)V
+
+    .line 76
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_41
+
+    const/4 v0, 0x1
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "getRect() : Rect="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    iget-object v3, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mEvfRect:Landroid/graphics/Rect;
+
+    invoke-virtual {v3}, Landroid/graphics/Rect;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    aput-object v2, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 77
+    :cond_41
+    iget-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mEvfRect:Landroid/graphics/Rect;
+
+    return-object v0
+.end method
+
+.method public getSurfaceSize()Landroid/util/Size;
+    .registers 2
+
+    .line 244
+    iget-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceSize:Landroid/util/Size;
+
+    return-object v0
+.end method
+
+.method public hide()V
+    .registers 3
+
+    .line 47
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "hide()"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 48
+    :cond_d
+    iget-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    if-eqz v0, :cond_16
+
+    const/16 v1, 0x8
+
+    .line 49
+    invoke-virtual {v0, v1}, Landroid/view/SurfaceView;->setVisibility(I)V
+
+    :cond_16
+    return-void
+.end method
+
+.method public isShown()Z
+    .registers 3
+
+    .line 55
+    iget-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_d
+
+    .line 56
+    invoke-virtual {v0}, Landroid/view/SurfaceView;->getVisibility()I
+
+    move-result v0
+
+    if-nez v0, :cond_c
+
+    const/4 v1, 0x1
+
+    :cond_c
+    return v1
+
+    :cond_d
+    return v1
+.end method
+
+.method public onCreate(Landroid/content/Context;)V
+    .registers 3
+
+    .line 100
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "onCreate() : E"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 103
+    :cond_d
+    new-instance v0, Landroid/view/SurfaceView;
+
+    invoke-direct {v0, p1}, Landroid/view/SurfaceView;-><init>(Landroid/content/Context;)V
+
+    iput-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    .line 104
+    iget-object p1, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    const/4 v0, 0x4
+
+    invoke-virtual {p1, v0}, Landroid/view/SurfaceView;->setVisibility(I)V
+
+    .line 105
+    iget-object p1, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    invoke-virtual {p1}, Landroid/view/SurfaceView;->getHolder()Landroid/view/SurfaceHolder;
+
+    move-result-object p1
+
+    iget-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceViewCallback:Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf$SurfaceViewCallback;
+
+    invoke-interface {p1, v0}, Landroid/view/SurfaceHolder;->addCallback(Landroid/view/SurfaceHolder$Callback;)V
+
+    .line 107
+    sget-boolean p1, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz p1, :cond_32
+
+    const-string p1, "onCreate() : X"
+
+    filled-new-array {p1}, [Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_32
+    return-void
+.end method
+
+.method public onDestroy()V
+    .registers 4
+
+    .line 126
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "onDestroy() : E"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 128
+    :cond_d
+    iget-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_1d
+
+    .line 129
+    invoke-virtual {v0}, Landroid/view/SurfaceView;->getHolder()Landroid/view/SurfaceHolder;
+
+    move-result-object v0
+
+    iget-object v2, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceViewCallback:Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf$SurfaceViewCallback;
+
+    invoke-interface {v0, v2}, Landroid/view/SurfaceHolder;->removeCallback(Landroid/view/SurfaceHolder$Callback;)V
+
+    .line 130
+    iput-object v1, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    .line 133
+    :cond_1d
+    iput-object v1, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mLifeCycleCallback:Lcom/sonymobile/cameracommon/evf/Evf$LifeCycleCallback;
+
+    .line 135
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_2c
+
+    const-string v0, "onDestroy() : X"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_2c
+    return-void
+.end method
+
+.method public onPause()V
+    .registers 2
+
+    .line 119
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "onPause() : E"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 121
+    :cond_d
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_1a
+
+    const-string v0, "onPause() : X"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_1a
+    return-void
+.end method
+
+.method public onResume()V
+    .registers 2
+
+    .line 112
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "onResume() : E"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 114
+    :cond_d
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_1a
+
+    const-string v0, "onResume() : X"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_1a
+    return-void
+.end method
+
+.method public resize(II)V
+    .registers 7
+
+    .line 82
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_26
+
+    const/4 v0, 0x1
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "resize() : Width="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string v3, ", Height = "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    aput-object v2, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 84
+    :cond_26
+    iget-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    invoke-virtual {v0}, Landroid/view/SurfaceView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+
+    move-result-object v0
+
+    .line 87
+    iput p1, v0, Landroid/view/ViewGroup$LayoutParams;->width:I
+
+    .line 88
+    iput p2, v0, Landroid/view/ViewGroup$LayoutParams;->height:I
+
+    .line 90
+    iget-object p1, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    invoke-virtual {p1, v0}, Landroid/view/SurfaceView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+
+    return-void
+.end method
+
+.method public setFixedSurfaceSize(II)V
+    .registers 7
+
+    .line 238
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_2b
+
+    const/4 v0, 0x1
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "setFixedSurfaceSize(w:"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string v3, ", h:"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    const-string v3, ")"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    aput-object v2, v0, v1
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 239
+    :cond_2b
+    iget-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    invoke-virtual {v0}, Landroid/view/SurfaceView;->getHolder()Landroid/view/SurfaceHolder;
+
+    move-result-object v0
+
+    invoke-interface {v0, p1, p2}, Landroid/view/SurfaceHolder;->setFixedSize(II)V
+
+    return-void
+.end method
+
+.method public setLifeCycleCallback(Lcom/sonymobile/cameracommon/evf/Evf$LifeCycleCallback;)V
+    .registers 2
+
+    .line 95
+    iput-object p1, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mLifeCycleCallback:Lcom/sonymobile/cameracommon/evf/Evf$LifeCycleCallback;
+
+    return-void
+.end method
+
+.method public show()V
+    .registers 3
+
+    .line 39
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "show()"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 40
+    :cond_d
+    iget-object v0, p0, Lcom/sonymobile/cameracommon/evf/SurfaceViewEvf;->mSurfaceView:Landroid/view/SurfaceView;
+
+    if-eqz v0, :cond_15
+
+    const/4 v1, 0x0
+
+    .line 41
+    invoke-virtual {v0, v1}, Landroid/view/SurfaceView;->setVisibility(I)V
+
+    :cond_15
+    return-void
+.end method

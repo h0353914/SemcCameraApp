@@ -1,0 +1,66 @@
+.class Lcom/sonyericsson/android/camera/view/messagedialog/SettingMessageDialogBuilder$OnSettingMessageDialogCheckBoxChangeListener;
+.super Ljava/lang/Object;
+.source "SettingMessageDialogBuilder.java"
+
+# interfaces
+.implements Landroid/widget/CompoundButton$OnCheckedChangeListener;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonyericsson/android/camera/view/messagedialog/SettingMessageDialogBuilder;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0xa
+    name = "OnSettingMessageDialogCheckBoxChangeListener"
+.end annotation
+
+
+# instance fields
+.field private mIsItemChecked:Z
+
+
+# direct methods
+.method private constructor <init>()V
+    .registers 2
+
+    .line 185
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    const/4 v0, 0x0
+
+    .line 187
+    iput-boolean v0, p0, Lcom/sonyericsson/android/camera/view/messagedialog/SettingMessageDialogBuilder$OnSettingMessageDialogCheckBoxChangeListener;->mIsItemChecked:Z
+
+    return-void
+.end method
+
+.method synthetic constructor <init>(Lcom/sonyericsson/android/camera/view/messagedialog/SettingMessageDialogBuilder$1;)V
+    .registers 2
+
+    .line 185
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/view/messagedialog/SettingMessageDialogBuilder$OnSettingMessageDialogCheckBoxChangeListener;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public isItemChecked()Z
+    .registers 2
+
+    .line 195
+    iget-boolean v0, p0, Lcom/sonyericsson/android/camera/view/messagedialog/SettingMessageDialogBuilder$OnSettingMessageDialogCheckBoxChangeListener;->mIsItemChecked:Z
+
+    return v0
+.end method
+
+.method public onCheckedChanged(Landroid/widget/CompoundButton;Z)V
+    .registers 3
+
+    .line 191
+    iput-boolean p2, p0, Lcom/sonyericsson/android/camera/view/messagedialog/SettingMessageDialogBuilder$OnSettingMessageDialogCheckBoxChangeListener;->mIsItemChecked:Z
+
+    return-void
+.end method

@@ -1,0 +1,150 @@
+.class public Lorg/apache/commons/imaging/formats/jpeg/iptc/PhotoshopApp13Data;
+.super Ljava/lang/Object;
+.source "PhotoshopApp13Data.java"
+
+
+# instance fields
+.field private final rawBlocks:Ljava/util/List;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/List<",
+            "Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcBlock;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+.field private final records:Ljava/util/List;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/List<",
+            "Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;",
+            ">;"
+        }
+    .end annotation
+.end field
+
+
+# direct methods
+.method public constructor <init>(Ljava/util/List;Ljava/util/List;)V
+    .registers 3
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/util/List<",
+            "Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;",
+            ">;",
+            "Ljava/util/List<",
+            "Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcBlock;",
+            ">;)V"
+        }
+    .end annotation
+
+    .line 28
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 29
+    iput-object p2, p0, Lorg/apache/commons/imaging/formats/jpeg/iptc/PhotoshopApp13Data;->rawBlocks:Ljava/util/List;
+
+    .line 30
+    iput-object p1, p0, Lorg/apache/commons/imaging/formats/jpeg/iptc/PhotoshopApp13Data;->records:Ljava/util/List;
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public getNonIptcBlocks()Ljava/util/List;
+    .registers 5
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()",
+            "Ljava/util/List<",
+            "Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcBlock;",
+            ">;"
+        }
+    .end annotation
+
+    .line 42
+    new-instance v0, Ljava/util/ArrayList;
+
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+
+    .line 43
+    iget-object v1, p0, Lorg/apache/commons/imaging/formats/jpeg/iptc/PhotoshopApp13Data;->rawBlocks:Ljava/util/List;
+
+    invoke-interface {v1}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v1
+
+    :cond_b
+    :goto_b
+    invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_21
+
+    invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcBlock;
+
+    .line 44
+    invoke-virtual {v2}, Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcBlock;->isIPTCBlock()Z
+
+    move-result v3
+
+    if-nez v3, :cond_b
+
+    .line 45
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    goto :goto_b
+
+    :cond_21
+    return-object v0
+.end method
+
+.method public getRawBlocks()Ljava/util/List;
+    .registers 3
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()",
+            "Ljava/util/List<",
+            "Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcBlock;",
+            ">;"
+        }
+    .end annotation
+
+    .line 38
+    new-instance v0, Ljava/util/ArrayList;
+
+    iget-object v1, p0, Lorg/apache/commons/imaging/formats/jpeg/iptc/PhotoshopApp13Data;->rawBlocks:Ljava/util/List;
+
+    invoke-direct {v0, v1}, Ljava/util/ArrayList;-><init>(Ljava/util/Collection;)V
+
+    return-object v0
+.end method
+
+.method public getRecords()Ljava/util/List;
+    .registers 3
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()",
+            "Ljava/util/List<",
+            "Lorg/apache/commons/imaging/formats/jpeg/iptc/IptcRecord;",
+            ">;"
+        }
+    .end annotation
+
+    .line 34
+    new-instance v0, Ljava/util/ArrayList;
+
+    iget-object v1, p0, Lorg/apache/commons/imaging/formats/jpeg/iptc/PhotoshopApp13Data;->records:Ljava/util/List;
+
+    invoke-direct {v0, v1}, Ljava/util/ArrayList;-><init>(Ljava/util/Collection;)V
+
+    return-object v0
+.end method

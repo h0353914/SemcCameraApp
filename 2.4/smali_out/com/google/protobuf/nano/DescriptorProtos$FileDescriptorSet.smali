@@ -1,0 +1,433 @@
+.class public final Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+.super Lcom/google/protobuf/nano/ExtendableMessageNano;
+.source "DescriptorProtos.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/google/protobuf/nano/DescriptorProtos;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x19
+    name = "FileDescriptorSet"
+.end annotation
+
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Lcom/google/protobuf/nano/ExtendableMessageNano<",
+        "Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;",
+        ">;"
+    }
+.end annotation
+
+
+# static fields
+.field private static volatile _emptyArray:[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+
+
+# instance fields
+.field public file:[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;
+
+
+# direct methods
+.method public constructor <init>()V
+    .registers 1
+
+    .line 33
+    invoke-direct {p0}, Lcom/google/protobuf/nano/ExtendableMessageNano;-><init>()V
+
+    .line 34
+    invoke-virtual {p0}, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->clear()Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+
+    return-void
+.end method
+
+.method public static emptyArray()[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+    .registers 2
+
+    .line 17
+    sget-object v0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->_emptyArray:[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+
+    if-nez v0, :cond_15
+
+    .line 18
+    sget-object v0, Lcom/google/protobuf/nano/InternalNano;->LAZY_INIT_LOCK:Ljava/lang/Object;
+
+    monitor-enter v0
+
+    .line 20
+    :try_start_7
+    sget-object v1, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->_emptyArray:[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+
+    if-nez v1, :cond_10
+
+    const/4 v1, 0x0
+
+    .line 21
+    new-array v1, v1, [Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+
+    sput-object v1, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->_emptyArray:[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+
+    .line 23
+    :cond_10
+    monitor-exit v0
+
+    goto :goto_15
+
+    :catchall_12
+    move-exception v1
+
+    monitor-exit v0
+    :try_end_14
+    .catchall {:try_start_7 .. :try_end_14} :catchall_12
+
+    throw v1
+
+    .line 25
+    :cond_15
+    :goto_15
+    sget-object v0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->_emptyArray:[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+
+    return-object v0
+.end method
+
+.method public static parseFrom(Lcom/google/protobuf/nano/CodedInputByteBufferNano;)Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+    .registers 2
+    .annotation system Ldalvik/annotation/MethodParameters;
+        accessFlags = {
+            0x0
+        }
+        names = {
+            "input"
+        }
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;
+        }
+    .end annotation
+
+    .line 120
+    new-instance v0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+
+    invoke-direct {v0}, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;-><init>()V
+
+    invoke-virtual {v0, p0}, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->mergeFrom(Lcom/google/protobuf/nano/CodedInputByteBufferNano;)Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+
+    move-result-object p0
+
+    return-object p0
+.end method
+
+.method public static parseFrom([B)Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+    .registers 2
+    .annotation system Ldalvik/annotation/MethodParameters;
+        accessFlags = {
+            0x0
+        }
+        names = {
+            "data"
+        }
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Lcom/google/protobuf/nano/InvalidProtocolBufferNanoException;
+        }
+    .end annotation
+
+    .line 114
+    new-instance v0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+
+    invoke-direct {v0}, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;-><init>()V
+
+    invoke-static {v0, p0}, Lcom/google/protobuf/nano/MessageNano;->mergeFrom(Lcom/google/protobuf/nano/MessageNano;[B)Lcom/google/protobuf/nano/MessageNano;
+
+    move-result-object p0
+
+    check-cast p0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+
+    return-object p0
+.end method
+
+
+# virtual methods
+.method public clear()Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+    .registers 2
+
+    .line 38
+    invoke-static {}, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;->emptyArray()[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->file:[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;
+
+    const/4 v0, 0x0
+
+    .line 39
+    iput-object v0, p0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->unknownFieldData:Lcom/google/protobuf/nano/FieldArray;
+
+    const/4 v0, -0x1
+
+    .line 40
+    iput v0, p0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->cachedSize:I
+
+    return-object p0
+.end method
+
+.method protected computeSerializedSize()I
+    .registers 5
+
+    .line 60
+    invoke-super {p0}, Lcom/google/protobuf/nano/ExtendableMessageNano;->computeSerializedSize()I
+
+    move-result v0
+
+    .line 61
+    iget-object v1, p0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->file:[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;
+
+    if-eqz v1, :cond_1e
+
+    array-length v1, v1
+
+    if-lez v1, :cond_1e
+
+    const/4 v1, 0x0
+
+    .line 62
+    :goto_c
+    iget-object v2, p0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->file:[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;
+
+    array-length v3, v2
+
+    if-ge v1, v3, :cond_1e
+
+    .line 63
+    aget-object v2, v2, v1
+
+    if-eqz v2, :cond_1b
+
+    const/4 v3, 0x1
+
+    .line 66
+    invoke-static {v3, v2}, Lcom/google/protobuf/nano/CodedOutputByteBufferNano;->computeMessageSize(ILcom/google/protobuf/nano/MessageNano;)I
+
+    move-result v2
+
+    add-int/2addr v0, v2
+
+    :cond_1b
+    add-int/lit8 v1, v1, 0x1
+
+    goto :goto_c
+
+    :cond_1e
+    return v0
+.end method
+
+.method public mergeFrom(Lcom/google/protobuf/nano/CodedInputByteBufferNano;)Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+    .registers 6
+    .annotation system Ldalvik/annotation/MethodParameters;
+        accessFlags = {
+            0x0
+        }
+        names = {
+            "input"
+        }
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;
+        }
+    .end annotation
+
+    .line 78
+    :cond_0
+    :goto_0
+    invoke-virtual {p1}, Lcom/google/protobuf/nano/CodedInputByteBufferNano;->readTag()I
+
+    move-result v0
+
+    if-eqz v0, :cond_4d
+
+    const/16 v1, 0xa
+
+    if-eq v0, v1, :cond_11
+
+    .line 83
+    invoke-super {p0, p1, v0}, Lcom/google/protobuf/nano/ExtendableMessageNano;->storeUnknownField(Lcom/google/protobuf/nano/CodedInputByteBufferNano;I)Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    return-object p0
+
+    .line 90
+    :cond_11
+    invoke-static {p1, v1}, Lcom/google/protobuf/nano/WireFormatNano;->getRepeatedFieldArrayLength(Lcom/google/protobuf/nano/CodedInputByteBufferNano;I)I
+
+    move-result v0
+
+    .line 91
+    iget-object v1, p0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->file:[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;
+
+    const/4 v2, 0x0
+
+    if-nez v1, :cond_1c
+
+    move v1, v2
+
+    goto :goto_1d
+
+    :cond_1c
+    array-length v1, v1
+
+    :goto_1d
+    add-int/2addr v0, v1
+
+    .line 92
+    new-array v0, v0, [Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;
+
+    if-eqz v1, :cond_27
+
+    .line 95
+    iget-object v3, p0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->file:[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;
+
+    invoke-static {v3, v2, v0, v2, v1}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
+
+    .line 97
+    :cond_27
+    :goto_27
+    array-length v2, v0
+
+    add-int/lit8 v2, v2, -0x1
+
+    if-ge v1, v2, :cond_3e
+
+    .line 98
+    new-instance v2, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;
+
+    invoke-direct {v2}, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;-><init>()V
+
+    aput-object v2, v0, v1
+
+    .line 99
+    aget-object v2, v0, v1
+
+    invoke-virtual {p1, v2}, Lcom/google/protobuf/nano/CodedInputByteBufferNano;->readMessage(Lcom/google/protobuf/nano/MessageNano;)V
+
+    .line 100
+    invoke-virtual {p1}, Lcom/google/protobuf/nano/CodedInputByteBufferNano;->readTag()I
+
+    add-int/lit8 v1, v1, 0x1
+
+    goto :goto_27
+
+    .line 103
+    :cond_3e
+    new-instance v2, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;
+
+    invoke-direct {v2}, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;-><init>()V
+
+    aput-object v2, v0, v1
+
+    .line 104
+    aget-object v1, v0, v1
+
+    invoke-virtual {p1, v1}, Lcom/google/protobuf/nano/CodedInputByteBufferNano;->readMessage(Lcom/google/protobuf/nano/MessageNano;)V
+
+    .line 105
+    iput-object v0, p0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->file:[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;
+
+    goto :goto_0
+
+    :cond_4d
+    return-object p0
+.end method
+
+.method public bridge synthetic mergeFrom(Lcom/google/protobuf/nano/CodedInputByteBufferNano;)Lcom/google/protobuf/nano/MessageNano;
+    .registers 2
+    .annotation system Ldalvik/annotation/MethodParameters;
+        accessFlags = {
+            0x1000
+        }
+        names = {
+            "input"
+        }
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;
+        }
+    .end annotation
+
+    .line 11
+    invoke-virtual {p0, p1}, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->mergeFrom(Lcom/google/protobuf/nano/CodedInputByteBufferNano;)Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;
+
+    move-result-object p1
+
+    return-object p1
+.end method
+
+.method public writeTo(Lcom/google/protobuf/nano/CodedOutputByteBufferNano;)V
+    .registers 5
+    .annotation system Ldalvik/annotation/MethodParameters;
+        accessFlags = {
+            0x0
+        }
+        names = {
+            "output"
+        }
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;
+        }
+    .end annotation
+
+    .line 47
+    iget-object v0, p0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->file:[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;
+
+    if-eqz v0, :cond_18
+
+    array-length v0, v0
+
+    if-lez v0, :cond_18
+
+    const/4 v0, 0x0
+
+    .line 48
+    :goto_8
+    iget-object v1, p0, Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorSet;->file:[Lcom/google/protobuf/nano/DescriptorProtos$FileDescriptorProto;
+
+    array-length v2, v1
+
+    if-ge v0, v2, :cond_18
+
+    .line 49
+    aget-object v1, v1, v0
+
+    if-eqz v1, :cond_15
+
+    const/4 v2, 0x1
+
+    .line 51
+    invoke-virtual {p1, v2, v1}, Lcom/google/protobuf/nano/CodedOutputByteBufferNano;->writeMessage(ILcom/google/protobuf/nano/MessageNano;)V
+
+    :cond_15
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_8
+
+    .line 55
+    :cond_18
+    invoke-super {p0, p1}, Lcom/google/protobuf/nano/ExtendableMessageNano;->writeTo(Lcom/google/protobuf/nano/CodedOutputByteBufferNano;)V
+
+    return-void
+.end method

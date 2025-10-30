@@ -1,0 +1,122 @@
+.class Lcom/sonyericsson/android/camera/CameraActivity$ForceExitRequestReceiver;
+.super Landroid/content/BroadcastReceiver;
+.source "CameraActivity.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonyericsson/android/camera/CameraActivity;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x2
+    name = "ForceExitRequestReceiver"
+.end annotation
+
+
+# instance fields
+.field final synthetic this$0:Lcom/sonyericsson/android/camera/CameraActivity;
+
+
+# direct methods
+.method private constructor <init>(Lcom/sonyericsson/android/camera/CameraActivity;)V
+    .registers 2
+
+    .line 2722
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/CameraActivity$ForceExitRequestReceiver;->this$0:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
+
+    return-void
+.end method
+
+.method synthetic constructor <init>(Lcom/sonyericsson/android/camera/CameraActivity;Lcom/sonyericsson/android/camera/CameraActivity$1;)V
+    .registers 3
+
+    .line 2722
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/CameraActivity$ForceExitRequestReceiver;-><init>(Lcom/sonyericsson/android/camera/CameraActivity;)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V
+    .registers 4
+
+    .line 2725
+    sget-boolean p1, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz p1, :cond_d
+
+    const-string p1, "ForceExitRequestReceiver.onReceive()"
+
+    filled-new-array {p1}, [Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    :cond_d
+    if-nez p2, :cond_10
+
+    return-void
+
+    .line 2731
+    :cond_10
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/CameraActivity$ForceExitRequestReceiver;->this$0:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/CameraActivity;->getStoredSettings()Lcom/sonyericsson/android/camera/setting/StoredSettings;
+
+    move-result-object p1
+
+    invoke-interface {p1}, Lcom/sonyericsson/android/camera/setting/StoredSettings;->getMessageSettings()Lcom/sonyericsson/android/camera/setting/MessageSettings;
+
+    move-result-object p1
+
+    .line 2733
+    sget-object v0, Lcom/sonyericsson/android/camera/setting/MessageType;->SETUP_WIZARD:Lcom/sonyericsson/android/camera/setting/MessageType;
+
+    .line 2734
+    invoke-interface {p1, v0}, Lcom/sonyericsson/android/camera/setting/MessageSettings;->isNeverShow(Lcom/sonyericsson/android/camera/setting/MessageType;)Z
+
+    move-result p1
+
+    if-eqz p1, :cond_40
+
+    const-string p1, "com.sonymobile.cameracommon.intent.ACTION_FORCE_EXIT_REQUEST"
+
+    .line 2735
+    invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
+
+    move-result-object p2
+
+    invoke-virtual {p1, p2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result p1
+
+    if-eqz p1, :cond_40
+
+    .line 2737
+    sget-boolean p1, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
+
+    if-eqz p1, :cond_3b
+
+    const-string p1, "ForceExitRequestReceiver() Force Exit"
+
+    .line 2738
+    filled-new-array {p1}, [Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p1}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 2739
+    :cond_3b
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/CameraActivity$ForceExitRequestReceiver;->this$0:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {p1}, Lcom/sonyericsson/android/camera/CameraActivity;->finish()V
+
+    :cond_40
+    return-void
+.end method

@@ -1,0 +1,140 @@
+.class Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver$CameraDeviceReleaseTimerTask;
+.super Ljava/util/TimerTask;
+.source "CameraButtonIntentReceiver.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0xa
+    name = "CameraDeviceReleaseTimerTask"
+.end annotation
+
+
+# instance fields
+.field private final mContext:Landroid/content/Context;
+
+
+# direct methods
+.method private constructor <init>(Landroid/content/Context;)V
+    .registers 2
+
+    .line 698
+    invoke-direct {p0}, Ljava/util/TimerTask;-><init>()V
+
+    .line 699
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver$CameraDeviceReleaseTimerTask;->mContext:Landroid/content/Context;
+
+    return-void
+.end method
+
+.method synthetic constructor <init>(Landroid/content/Context;Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver$1;)V
+    .registers 3
+
+    .line 695
+    invoke-direct {p0, p1}, Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver$CameraDeviceReleaseTimerTask;-><init>(Landroid/content/Context;)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public run()V
+    .registers 3
+
+    .line 704
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "Camera is released due to timeout."
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 707
+    :cond_d
+    # getter for: Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver;->sReleaseTimerLock:Ljava/lang/Object;
+    invoke-static {}, Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver;->access$100()Ljava/lang/Object;
+
+    move-result-object v0
+
+    monitor-enter v0
+
+    .line 708
+    :try_start_12
+    # getter for: Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver;->sReleaseTimer:Ljava/util/Timer;
+    invoke-static {}, Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver;->access$200()Ljava/util/Timer;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_2a
+
+    .line 709
+    # getter for: Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver;->sReleaseTimer:Ljava/util/Timer;
+    invoke-static {}, Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver;->access$200()Ljava/util/Timer;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/util/Timer;->cancel()V
+
+    .line 710
+    # getter for: Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver;->sReleaseTimer:Ljava/util/Timer;
+    invoke-static {}, Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver;->access$200()Ljava/util/Timer;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/util/Timer;->purge()I
+
+    const/4 v1, 0x0
+
+    .line 711
+    # setter for: Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver;->sReleaseTimer:Ljava/util/Timer;
+    invoke-static {v1}, Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver;->access$202(Ljava/util/Timer;)Ljava/util/Timer;
+
+    .line 713
+    :cond_2a
+    monitor-exit v0
+    :try_end_2b
+    .catchall {:try_start_12 .. :try_end_2b} :catchall_40
+
+    .line 715
+    sget-object v0, Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver$ReceiverState;->IDLE:Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver$ReceiverState;
+
+    # invokes: Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver;->changeStateTo(Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver$ReceiverState;)V
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver;->access$300(Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver$ReceiverState;)V
+
+    .line 718
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/CameraButtonIntentReceiver$CameraDeviceReleaseTimerTask;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getApplicationContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/sonyericsson/android/camera/CameraApplication;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/CameraApplication;->getCameraDevice()Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->closeCamera()V
+
+    return-void
+
+    :catchall_40
+    move-exception v1
+
+    .line 713
+    :try_start_41
+    monitor-exit v0
+    :try_end_42
+    .catchall {:try_start_41 .. :try_end_42} :catchall_40
+
+    throw v1
+.end method

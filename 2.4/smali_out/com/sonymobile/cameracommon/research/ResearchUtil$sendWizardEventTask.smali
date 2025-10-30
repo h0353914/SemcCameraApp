@@ -1,0 +1,96 @@
+.class Lcom/sonymobile/cameracommon/research/ResearchUtil$sendWizardEventTask;
+.super Ljava/lang/Object;
+.source "ResearchUtil.java"
+
+# interfaces
+.implements Ljava/lang/Runnable;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonymobile/cameracommon/research/ResearchUtil;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0xa
+    name = "sendWizardEventTask"
+.end annotation
+
+
+# instance fields
+.field private final mIsRecovery:Z
+
+.field private final mPage:Ljava/lang/String;
+
+.field private final mResult:Ljava/lang/String;
+
+.field private final mTime:J
+
+
+# direct methods
+.method private constructor <init>(Lcom/sonymobile/cameracommon/research/parameters/Event$WizardPage;Lcom/sonymobile/cameracommon/research/parameters/Event$WizardResult;JZ)V
+    .registers 6
+
+    .line 2118
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 2119
+    invoke-virtual {p1}, Lcom/sonymobile/cameracommon/research/parameters/Event$WizardPage;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    iput-object p1, p0, Lcom/sonymobile/cameracommon/research/ResearchUtil$sendWizardEventTask;->mPage:Ljava/lang/String;
+
+    .line 2120
+    invoke-virtual {p2}, Lcom/sonymobile/cameracommon/research/parameters/Event$WizardResult;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    iput-object p1, p0, Lcom/sonymobile/cameracommon/research/ResearchUtil$sendWizardEventTask;->mResult:Ljava/lang/String;
+
+    .line 2121
+    iput-wide p3, p0, Lcom/sonymobile/cameracommon/research/ResearchUtil$sendWizardEventTask;->mTime:J
+
+    .line 2122
+    iput-boolean p5, p0, Lcom/sonymobile/cameracommon/research/ResearchUtil$sendWizardEventTask;->mIsRecovery:Z
+
+    return-void
+.end method
+
+.method synthetic constructor <init>(Lcom/sonymobile/cameracommon/research/parameters/Event$WizardPage;Lcom/sonymobile/cameracommon/research/parameters/Event$WizardResult;JZLcom/sonymobile/cameracommon/research/ResearchUtil$1;)V
+    .registers 7
+
+    .line 2103
+    invoke-direct/range {p0 .. p5}, Lcom/sonymobile/cameracommon/research/ResearchUtil$sendWizardEventTask;-><init>(Lcom/sonymobile/cameracommon/research/parameters/Event$WizardPage;Lcom/sonymobile/cameracommon/research/parameters/Event$WizardResult;JZ)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public run()V
+    .registers 5
+
+    .line 2127
+    iget-object v0, p0, Lcom/sonymobile/cameracommon/research/ResearchUtil$sendWizardEventTask;->mPage:Ljava/lang/String;
+
+    iget-wide v1, p0, Lcom/sonymobile/cameracommon/research/ResearchUtil$sendWizardEventTask;->mTime:J
+
+    invoke-static {v1, v2}, Ljava/lang/String;->valueOf(J)Ljava/lang/String;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/sonymobile/cameracommon/research/ResearchUtil$sendWizardEventTask;->mResult:Ljava/lang/String;
+
+    iget-boolean v3, p0, Lcom/sonymobile/cameracommon/research/ResearchUtil$sendWizardEventTask;->mIsRecovery:Z
+
+    .line 2128
+    invoke-static {v3}, Ljava/lang/String;->valueOf(Z)Ljava/lang/String;
+
+    move-result-object v3
+
+    .line 2127
+    invoke-static {v0, v1, v2, v3}, Lcom/sonymobile/cameracommon/research/idd/IddUtil;->sendWizardEvent(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
+    return-void
+.end method

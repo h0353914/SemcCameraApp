@@ -1,0 +1,74 @@
+.class public Lcom/sonyericsson/android/camera/setting/MruSettings;
+.super Ljava/lang/Object;
+.source "MruSettings.java"
+
+
+# instance fields
+.field private final mAccessor:Lcom/sonyericsson/android/camera/setting/SharedPreferencesAccessor;
+
+
+# direct methods
+.method constructor <init>(Landroid/content/Context;)V
+    .registers 4
+
+    .line 19
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 20
+    new-instance v0, Lcom/sonyericsson/android/camera/setting/SharedPreferencesAccessor;
+
+    const-string v1, "mode-shortcut"
+
+    invoke-direct {v0, p1, v1}, Lcom/sonyericsson/android/camera/setting/SharedPreferencesAccessor;-><init>(Landroid/content/Context;Ljava/lang/String;)V
+
+    iput-object v0, p0, Lcom/sonyericsson/android/camera/setting/MruSettings;->mAccessor:Lcom/sonyericsson/android/camera/setting/SharedPreferencesAccessor;
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public clear()V
+    .registers 3
+
+    .line 43
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/setting/MruSettings;->mAccessor:Lcom/sonyericsson/android/camera/setting/SharedPreferencesAccessor;
+
+    const/4 v1, 0x1
+
+    invoke-virtual {v0, v1}, Lcom/sonyericsson/android/camera/setting/SharedPreferencesAccessor;->clearParameters(Z)V
+
+    return-void
+.end method
+
+.method public getMode()Ljava/lang/String;
+    .registers 4
+
+    .line 38
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/setting/MruSettings;->mAccessor:Lcom/sonyericsson/android/camera/setting/SharedPreferencesAccessor;
+
+    const-string v1, "MODE_SHORTCUT_ID"
+
+    const/4 v2, 0x0
+
+    invoke-virtual {v0, v1, v2}, Lcom/sonyericsson/android/camera/setting/SharedPreferencesAccessor;->readString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public setMode(Ljava/lang/String;)V
+    .registers 5
+
+    .line 29
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/setting/MruSettings;->mAccessor:Lcom/sonyericsson/android/camera/setting/SharedPreferencesAccessor;
+
+    const-string v1, "MODE_SHORTCUT_ID"
+
+    const/4 v2, 0x1
+
+    invoke-virtual {v0, v1, p1, v2}, Lcom/sonyericsson/android/camera/setting/SharedPreferencesAccessor;->writeString(Ljava/lang/String;Ljava/lang/String;Z)V
+
+    return-void
+.end method

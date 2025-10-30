@@ -1,0 +1,70 @@
+.class Lcom/sonyericsson/android/camera/view/ViewFinderImpl$4;
+.super Ljava/lang/Object;
+.source "ViewFinderImpl.java"
+
+# interfaces
+.implements Ljava/lang/Runnable;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = null
+.end annotation
+
+
+# instance fields
+.field final synthetic this$0:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+
+# direct methods
+.method constructor <init>(Lcom/sonyericsson/android/camera/view/ViewFinderImpl;)V
+    .registers 2
+
+    .line 1330
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/view/ViewFinderImpl$4;->this$0:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public run()V
+    .registers 2
+
+    .line 1339
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/ViewFinderImpl$4;->this$0:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    # getter for: Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->mEvf:Lcom/sonymobile/cameracommon/evf/Evf;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->access$2800(Lcom/sonyericsson/android/camera/view/ViewFinderImpl;)Lcom/sonymobile/cameracommon/evf/Evf;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_e
+
+    .line 1340
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/view/ViewFinderImpl$4;->this$0:Lcom/sonyericsson/android/camera/view/ViewFinderImpl;
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/view/ViewFinderImpl;->notifyOnEvfPrepared()V
+
+    goto :goto_17
+
+    :cond_e
+    const-string v0, "All reference of ViewFinderImpl has aleady been released."
+
+    .line 1342
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->w([Ljava/lang/String;)V
+
+    :goto_17
+    return-void
+.end method

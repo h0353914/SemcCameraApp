@@ -1,0 +1,164 @@
+.class Lcom/sonyericsson/android/camera/device/BypassCameraController$RequestFinishBurstShotTask;
+.super Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceAccessTask;
+.source "BypassCameraController.java"
+
+
+# annotations
+.annotation build Landroidx/annotation/WorkerThread;
+.end annotation
+
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonyericsson/android/camera/device/BypassCameraController;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x2
+    name = "RequestFinishBurstShotTask"
+.end annotation
+
+
+# instance fields
+.field final synthetic this$0:Lcom/sonyericsson/android/camera/device/BypassCameraController;
+
+
+# direct methods
+.method private constructor <init>(Lcom/sonyericsson/android/camera/device/BypassCameraController;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;)V
+    .registers 3
+
+    .line 828
+    iput-object p1, p0, Lcom/sonyericsson/android/camera/device/BypassCameraController$RequestFinishBurstShotTask;->this$0:Lcom/sonyericsson/android/camera/device/BypassCameraController;
+
+    .line 829
+    invoke-direct {p0, p2}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceAccessTask;-><init>(Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;)V
+
+    return-void
+.end method
+
+.method synthetic constructor <init>(Lcom/sonyericsson/android/camera/device/BypassCameraController;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;Lcom/sonyericsson/android/camera/device/BypassCameraController$1;)V
+    .registers 4
+
+    .line 826
+    invoke-direct {p0, p1, p2}, Lcom/sonyericsson/android/camera/device/BypassCameraController$RequestFinishBurstShotTask;-><init>(Lcom/sonyericsson/android/camera/device/BypassCameraController;Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public doCameraDeviceAccess()V
+    .registers 5
+
+    .line 844
+    sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->DEBUG:Z
+
+    if-eqz v0, :cond_d
+
+    const-string v0, "requestFinishBurstShot()"
+
+    filled-new-array {v0}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
+
+    .line 845
+    :cond_d
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/device/BypassCameraController$RequestFinishBurstShotTask;->this$0:Lcom/sonyericsson/android/camera/device/BypassCameraController;
+
+    # getter for: Lcom/sonyericsson/android/camera/device/BypassCameraController;->mBypassCamera:Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/device/BypassCameraController;->access$500(Lcom/sonyericsson/android/camera/device/BypassCameraController;)Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;->requestFinishBurstShot()V
+
+    .line 847
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/device/BypassCameraController$RequestFinishBurstShotTask;->this$0:Lcom/sonyericsson/android/camera/device/BypassCameraController;
+
+    # invokes: Lcom/sonyericsson/android/camera/device/BypassCameraController;->getApplicationContext()Landroid/content/Context;
+    invoke-static {v0}, Lcom/sonyericsson/android/camera/device/BypassCameraController;->access$900(Lcom/sonyericsson/android/camera/device/BypassCameraController;)Landroid/content/Context;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_43
+
+    .line 849
+    new-instance v1, Lcom/sonyericsson/cameracommon/status/EachCameraStatusPublisher;
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/device/BypassCameraController$RequestFinishBurstShotTask;->this$0:Lcom/sonyericsson/android/camera/device/BypassCameraController;
+
+    .line 850
+    # getter for: Lcom/sonyericsson/android/camera/device/BypassCameraController;->mCameraDeviceHandler:Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceHandlerInquirer;
+    invoke-static {v2}, Lcom/sonyericsson/android/camera/device/BypassCameraController;->access$400(Lcom/sonyericsson/android/camera/device/BypassCameraController;)Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceHandlerInquirer;
+
+    move-result-object v2
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/device/BypassCameraController$RequestFinishBurstShotTask;->getSessionId()Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraDeviceHandlerInquirer;->getParameters(Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionId;)Lcom/sonyericsson/android/camera/device/CameraParameters;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Lcom/sonyericsson/android/camera/device/CameraParameters;->getCameraId()Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;
+
+    move-result-object v2
+
+    invoke-direct {v1, v0, v2}, Lcom/sonyericsson/cameracommon/status/EachCameraStatusPublisher;-><init>(Landroid/content/Context;Lcom/sonyericsson/android/camera/device/CameraInfo$CameraId;)V
+
+    new-instance v0, Lcom/sonyericsson/cameracommon/status/eachcamera/BurstShooting;
+
+    sget-object v2, Lcom/sonyericsson/cameracommon/status/eachcamera/BurstShooting$Value;->OFF:Lcom/sonyericsson/cameracommon/status/eachcamera/BurstShooting$Value;
+
+    invoke-direct {v0, v2}, Lcom/sonyericsson/cameracommon/status/eachcamera/BurstShooting;-><init>(Lcom/sonyericsson/cameracommon/status/eachcamera/BurstShooting$Value;)V
+
+    .line 851
+    invoke-virtual {v1, v0}, Lcom/sonyericsson/cameracommon/status/EachCameraStatusPublisher;->put(Lcom/sonyericsson/cameracommon/status/CameraStatusValue;)Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;
+
+    move-result-object v0
+
+    .line 852
+    invoke-virtual {v0}, Lcom/sonyericsson/cameracommon/status/CameraStatusPublisher;->publish()V
+
+    :cond_43
+    return-void
+.end method
+
+.method protected verifyCameraDeviceStatus()Z
+    .registers 3
+
+    .line 834
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/device/BypassCameraController$RequestFinishBurstShotTask;->getOpenCloseStatusInfo()Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionInfo;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionInfo;->isOpenBypassCameraTaskPerformed()Z
+
+    move-result v0
+
+    const/4 v1, 0x0
+
+    if-nez v0, :cond_c
+
+    return v1
+
+    .line 836
+    :cond_c
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/device/BypassCameraController$RequestFinishBurstShotTask;->getOpenCloseStatusInfo()Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionInfo;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler$CameraSessionInfo;->isCloseBypassCameraTaskPerformed()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_17
+
+    return v1
+
+    :cond_17
+    const/4 v0, 0x1
+
+    return v0
+.end method

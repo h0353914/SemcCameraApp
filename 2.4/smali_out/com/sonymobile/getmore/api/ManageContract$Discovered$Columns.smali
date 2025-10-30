@@ -1,0 +1,18 @@
+.class public interface abstract Lcom/sonymobile/getmore/api/ManageContract$Discovered$Columns;
+.super Ljava/lang/Object;
+.source "ManageContract.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/sonymobile/getmore/api/ManageContract$Discovered;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x609
+    name = "Columns"
+.end annotation
+
+
+# static fields
+.field public static final COUNT:Ljava/lang/String; = "count"

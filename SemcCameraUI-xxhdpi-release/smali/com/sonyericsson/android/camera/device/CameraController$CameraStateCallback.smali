@@ -15,7 +15,7 @@
 
 
 # static fields
-.field private static final OPEN_CLOSE_WAIT_TIME_MILLIS:I = 0x3e8
+.field private static final OPEN_CLOSE_WAIT_TIME_MILLIS:I = 0x7d0
 
 
 # instance fields

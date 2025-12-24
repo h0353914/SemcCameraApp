@@ -129,9 +129,11 @@
 
     const-string v4, "android.permission-group.STORAGE"
 
-    const-string v1, "android.permission.WRITE_EXTERNAL_STORAGE"
+    const-string v1, "android.permission.READ_MEDIA_IMAGES"
 
-    filled-new-array {v1}, [Ljava/lang/String;
+    const-string v8, "android.permission.READ_MEDIA_VIDEO"
+
+    filled-new-array {v1, v8}, [Ljava/lang/String;
 
     move-result-object v1
 

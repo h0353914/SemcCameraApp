@@ -3029,7 +3029,23 @@
     .line 1679
     invoke-virtual {v4, v5, p1}, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;->requestPrepareSnapshot(Landroid/view/Surface;I)V
     :try_end_2
+    .catch Ljava/lang/RuntimeException; {:try_start_2 .. :try_end_2} :catch_1
     .catchall {:try_start_2 .. :try_end_2} :catchall_2
+
+    goto :goto_0
+
+    :catch_1
+    move-exception v4
+
+    new-array v4, v3, [Ljava/lang/String;
+
+    const-string v5, "requestPrepareSnapshot() failed. Ignore to prevent crash."
+
+    aput-object v5, v4, v2
+
+    invoke-static {v4}, Lcom/sonyericsson/android/camera/util/CamLog;->e([Ljava/lang/String;)V
+
+    :goto_0
 
     .line 1683
     iget-object p1, p0, Lcom/sonyericsson/android/camera/device/BypassCameraController;->mImageReaderPreparedLockObject:Ljava/lang/Object;

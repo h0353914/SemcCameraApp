@@ -31,19 +31,13 @@
 
 # direct methods
 .method public constructor <init>()V
-    .locals 3
+    .locals 2
 
     .line 32
     invoke-direct {p0}, Landroid/app/Activity;-><init>()V
 
-    const-string v0, "android.permission.CAMERA"
-
-    const-string v1, "android.permission.RECORD_AUDIO"
-
-    const-string v2, "android.permission.WRITE_EXTERNAL_STORAGE"
-
     .line 35
-    filled-new-array {v0, v1, v2}, [Ljava/lang/String;
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/MultiWindowActivity;->getPermissionList()[Ljava/lang/String;
 
     move-result-object v0
 
@@ -63,6 +57,24 @@
     iput-boolean v0, p0, Lcom/sonyericsson/android/camera/MultiWindowActivity;->isCameraActivityLaunched:Z
 
     return-void
+.end method
+
+.method private getPermissionList()[Ljava/lang/String;
+    .locals 4
+
+    const-string v0, "android.permission.READ_MEDIA_IMAGES"
+
+    const-string v1, "android.permission.READ_MEDIA_VIDEO"
+
+    const-string v2, "android.permission.CAMERA"
+
+    const-string v3, "android.permission.RECORD_AUDIO"
+
+    filled-new-array {v2, v3, v0, v1}, [Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
 .end method
 
 .method static synthetic access$000(Lcom/sonyericsson/android/camera/MultiWindowActivity;)Z

@@ -826,6 +826,10 @@
 .method private static checkStorageWritable(Ljava/lang/String;)Z
     .locals 5
 
+    const/4 v0, 0x1
+
+    return v0
+
     .line 604
     new-instance v0, Ljava/util/Date;
 

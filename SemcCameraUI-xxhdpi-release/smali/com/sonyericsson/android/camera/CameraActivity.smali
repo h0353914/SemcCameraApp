@@ -252,7 +252,7 @@
 .end method
 
 .method public constructor <init>()V
-    .locals 6
+    .locals 7
 
     .line 148
     invoke-direct {p0}, Landroid/app/Activity;-><init>()V
@@ -304,10 +304,12 @@
 
     const-string v4, "android.permission.RECORD_AUDIO"
 
-    const-string v5, "android.permission.WRITE_EXTERNAL_STORAGE"
+    const-string v5, "android.permission.READ_MEDIA_IMAGES"
+
+    const-string v6, "android.permission.READ_MEDIA_VIDEO"
 
     .line 294
-    filled-new-array {v3, v4, v5}, [Ljava/lang/String;
+    filled-new-array {v3, v4, v5, v6}, [Ljava/lang/String;
 
     move-result-object v3
 

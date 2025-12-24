@@ -1,0 +1,12 @@
+SemcCameraUI-xxhdpi-release/build/
+<<<<<<< HEAD
+<<<<<<< HEAD
+*.pyc
+tool/test_tmp/
+=======
+*.pyc
+>>>>>>> ce34b3f2 (apk tool)
+=======
+*.pyc
+tool/test_tmp/
+>>>>>>> 12bbf011 (Fix 權限請求)

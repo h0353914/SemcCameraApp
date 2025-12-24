@@ -101,12 +101,19 @@
 
     move-result p1
 
-    if-nez p1, :cond_1
+    if-nez p1, :cond_granted
 
     .line 3542
     iget-object p1, p0, Lcom/sonyericsson/android/camera/CameraActivity$11;->this$0:Lcom/sonyericsson/android/camera/CameraActivity;
 
     invoke-virtual {p1}, Lcom/sonyericsson/android/camera/CameraActivity;->finish()V
+
+    goto :goto_0
+
+    :cond_granted
+    iget-object p1, p0, Lcom/sonyericsson/android/camera/CameraActivity$11;->this$0:Lcom/sonyericsson/android/camera/CameraActivity;
+
+    invoke-virtual {p1}, Landroid/app/Activity;->recreate()V
 
     .line 3553
     :cond_1

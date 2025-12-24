@@ -1252,6 +1252,14 @@
 
     invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->removeOnPreviewStartedListener()V
 
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/CameraActivity;->mStateMachine:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    if-nez v0, :cond_sm_ready
+
+    return-void
+
+    :cond_sm_ready
+
     .line 1921
     iget-object v0, p0, Lcom/sonyericsson/android/camera/CameraActivity;->mStateMachine:Lcom/sonyericsson/android/camera/controller/StateMachine;
 
@@ -2417,6 +2425,12 @@
 
     .line 2134
     iget-object v0, p0, Lcom/sonyericsson/android/camera/CameraActivity;->mStateMachine:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    if-nez v0, :cond_sm_ready
+
+    return-void
+
+    :cond_sm_ready
 
     sget-object v1, Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;->EVENT_FINALIZE:Lcom/sonyericsson/android/camera/controller/StateMachine$TransitterEvent;
 
@@ -3725,9 +3739,7 @@
 
     .line 1019
     new-instance v0, Landroid/content/IntentFilter;
-
     invoke-direct {v0}, Landroid/content/IntentFilter;-><init>()V
-
     const-string v1, "android.intent.action.ACTION_SHUTDOWN"
 
     .line 1020
@@ -4171,12 +4183,25 @@
 .end method
 
 .method private unRegisterShutDownReceiver()V
-    .locals 1
+    .locals 2
 
     .line 1025
     iget-object v0, p0, Lcom/sonyericsson/android/camera/CameraActivity;->mShutDownReceiver:Lcom/sonyericsson/android/camera/CameraActivity$ShutDownReceiver;
 
+    if-eqz v0, :cond_0
+
+    :try_start_0
+
     invoke-virtual {p0, v0}, Lcom/sonyericsson/android/camera/CameraActivity;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
+
+    :try_end_0
+    .catch Ljava/lang/IllegalArgumentException; {:try_start_0 .. :try_end_0} :catch_0
+
+    :cond_0
+    return-void
+
+    :catch_0
+    move-exception v1
 
     return-void
 .end method
@@ -6020,6 +6045,21 @@
     invoke-static {v4}, Lcom/sonyericsson/android/camera/util/CamLog;->d([Ljava/lang/String;)V
 
     :cond_2
+    iget-object v7, p0, Lcom/sonyericsson/android/camera/CameraActivity;->REQUESTED_PERMISSIONS:[Ljava/lang/String;
+
+    invoke-static {p0, v7}, Lcom/sonyericsson/cameracommon/utility/PermissionsUtil;->arePermissionsGranted(Landroid/content/Context;[Ljava/lang/String;)Z
+
+    move-result v7
+
+    if-nez v7, :cond_2_perm_ok
+
+    invoke-super {p0, p1}, Landroid/app/Activity;->onCreate(Landroid/os/Bundle;)V
+
+    invoke-direct {p0}, Lcom/sonyericsson/android/camera/CameraActivity;->createLaunchCondition()V
+
+    return-void
+
+    :cond_2_perm_ok
     if-nez v0, :cond_4
 
     .line 786
@@ -6690,6 +6730,8 @@
 
     .line 2084
     iget-object v0, p0, Lcom/sonyericsson/android/camera/CameraActivity;->mBackgroundWorker:Ljava/util/concurrent/ExecutorService;
+
+    if-eqz v0, :cond_6
 
     new-instance v1, Lcom/sonyericsson/android/camera/CameraActivity$ThermalAlertReceiverOnDestroyTask;
 
@@ -7391,7 +7433,17 @@
     invoke-virtual {v0}, Lcom/sonyericsson/android/camera/device/CameraDeviceHandler;->closeCamera()V
 
     .line 2950
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/CameraActivity;->REQUESTED_PERMISSIONS:[Ljava/lang/String;
+
+    invoke-static {p0, v0}, Lcom/sonyericsson/cameracommon/utility/PermissionsUtil;->arePermissionsGranted(Landroid/content/Context;[Ljava/lang/String;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0_perm
+
     invoke-direct {p0}, Lcom/sonyericsson/android/camera/CameraActivity;->finishUrgently()V
+
+    :cond_0_perm
 
     return-void
 
@@ -7730,6 +7782,10 @@
 
     .line 1909
     :goto_0
+    iget-object v0, p0, Lcom/sonyericsson/android/camera/CameraActivity;->mUserEventHandler:Lcom/sonyericsson/android/camera/view/UserEventHandler;
+
+    if-eqz v0, :cond_skip_dispatcher_stop
+
     iget-object v0, p0, Lcom/sonyericsson/android/camera/CameraActivity;->mKeyEventDispatcher:Lcom/sonyericsson/android/camera/view/UserEventHandler$KeyEventDispatcher;
 
     invoke-virtual {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$KeyEventDispatcher;->stop()V
@@ -7738,6 +7794,8 @@
     iget-object v0, p0, Lcom/sonyericsson/android/camera/CameraActivity;->mSideTouchEventDispatcher:Lcom/sonyericsson/android/camera/view/UserEventHandler$SideTouchEventDispatcher;
 
     invoke-virtual {v0}, Lcom/sonyericsson/android/camera/view/UserEventHandler$SideTouchEventDispatcher;->stop()V
+
+    :cond_skip_dispatcher_stop
 
     .line 1912
     sget-boolean v0, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
@@ -7838,11 +7896,55 @@
     iput-boolean v0, p0, Lcom/sonyericsson/android/camera/CameraActivity;->mIsColdBoot:Z
 
     .line 2889
-    invoke-static {}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->isPrepared()Z
+    const/16 v1, 0xc
+
+    iget-object v3, p0, Lcom/sonyericsson/android/camera/CameraActivity;->REQUESTED_PERMISSIONS:[Ljava/lang/String;
+
+    invoke-virtual {p0, v1, v3}, Lcom/sonyericsson/android/camera/CameraActivity;->checkAndRequestSelfPermissions(I[Ljava/lang/String;)Z
 
     move-result v1
 
-    if-nez v1, :cond_0
+    if-eqz v1, :after_permission_request
+
+    invoke-super {p0}, Landroid/app/Activity;->onResume()V
+
+    return-void
+
+    :after_permission_request
+
+    invoke-static {}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->isPrepared()Z
+
+    move-result v2
+
+    if-nez v2, :cond_0
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/CameraActivity;->REQUESTED_PERMISSIONS:[Ljava/lang/String;
+
+    invoke-static {p0, v2}, Lcom/sonyericsson/cameracommon/utility/PermissionsUtil;->arePermissionsGranted(Landroid/content/Context;[Ljava/lang/String;)Z
+
+    move-result v2
+
+    if-eqz v2, :no_prepare_async
+
+    new-instance v5, Lcom/sonyericsson/android/camera/CameraActivity$6;
+
+    invoke-direct {v5, p0}, Lcom/sonyericsson/android/camera/CameraActivity$6;-><init>(Lcom/sonyericsson/android/camera/CameraActivity;)V
+
+    invoke-static {v5}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->prepareAsync(Lcom/sonyericsson/android/camera/util/capability/PlatformCapability$OnPlatformCapabilityPreparedCallback;)V
+
+    :no_prepare_async
+
+    sget-object v2, Ljava/util/concurrent/TimeUnit;->MILLISECONDS:Ljava/util/concurrent/TimeUnit;
+
+    const-wide/16 v3, 0x7d0
+
+    invoke-static {v3, v4, v2}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->awaitPrepare(JLjava/util/concurrent/TimeUnit;)Z
+
+    invoke-static {}, Lcom/sonyericsson/android/camera/util/capability/PlatformCapability;->isPrepared()Z
+
+    move-result v2
+
+    if-nez v2, :cond_0
 
     .line 2890
     invoke-super {p0}, Landroid/app/Activity;->onResume()V
@@ -7851,6 +7953,44 @@
 
     .line 2903
     :cond_0
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/CameraActivity;->mStateMachine:Lcom/sonyericsson/android/camera/controller/StateMachine;
+
+    if-nez v2, :cond_0_sm_ok
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/CameraActivity;->REQUESTED_PERMISSIONS:[Ljava/lang/String;
+
+    invoke-static {p0, v2}, Lcom/sonyericsson/cameracommon/utility/PermissionsUtil;->arePermissionsGranted(Landroid/content/Context;[Ljava/lang/String;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_0_sm_ok
+
+    invoke-super {p0}, Landroid/app/Activity;->onResume()V
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/CameraActivity;->recreate()V
+
+    return-void
+
+    :cond_0_sm_ok
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/CameraActivity;->mStoredSettings:Lcom/sonyericsson/android/camera/setting/StoredSettings;
+
+    if-nez v2, :cond_0_continue
+
+    iget-object v2, p0, Lcom/sonyericsson/android/camera/CameraActivity;->REQUESTED_PERMISSIONS:[Ljava/lang/String;
+
+    invoke-static {p0, v2}, Lcom/sonyericsson/cameracommon/utility/PermissionsUtil;->arePermissionsGranted(Landroid/content/Context;[Ljava/lang/String;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_0_continue
+
+    invoke-super {p0}, Landroid/app/Activity;->onResume()V
+
+    invoke-virtual {p0}, Lcom/sonyericsson/android/camera/CameraActivity;->recreate()V
+
+    return-void
+
+    :cond_0_continue
     sget-boolean v1, Lcom/sonyericsson/android/camera/util/CamLog;->VERBOSE:Z
 
     const/4 v2, 0x1

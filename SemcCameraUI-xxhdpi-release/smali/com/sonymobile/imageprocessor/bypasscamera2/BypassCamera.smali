@@ -1132,6 +1132,7 @@
     .locals 4
 
     .line 1002
+    :try_start_0
     invoke-static {}, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCamera;->loadNativeLibrary()V
 
     .line 1004
@@ -1148,16 +1149,23 @@
 
     move-result p0
 
+    :try_end_0
+    .catch Ljava/lang/Throwable; {:try_start_0 .. :try_end_0} :catch_0
+
     if-eqz p0, :cond_0
 
-    .line 1007
-    new-instance p0, Ljava/lang/RuntimeException;
+    new-instance p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCameraParameters;
 
-    const-string v0, "Failed to nativeGetCaps()."
+    invoke-direct {p0}, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCameraParameters;-><init>()V
 
-    invoke-direct {p0, v0}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
+    return-object p0
 
-    throw p0
+    :catch_0
+    new-instance p0, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCameraParameters;
+
+    invoke-direct {p0}, Lcom/sonymobile/imageprocessor/bypasscamera2/BypassCameraParameters;-><init>()V
+
+    return-object p0
 
     .line 1010
     :cond_0
@@ -1375,7 +1383,11 @@
     const-string v3, "imageprocessorjni"
 
     .line 200
+    :try_start_1
     invoke-static {v3}, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
+
+    :try_end_1
+    .catch Ljava/lang/Throwable; {:try_start_1 .. :try_end_1} :catch_1
 
     if-eqz v1, :cond_3
 
@@ -1421,6 +1433,9 @@
     monitor-exit v0
 
     return-void
+
+    :catch_1
+    goto :cond_4
 
     :catchall_0
     move-exception v1

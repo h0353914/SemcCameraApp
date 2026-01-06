@@ -6,7 +6,7 @@ import tempfile
 from typing import Optional
 
 repo_root = os.path.dirname(__file__)
-java_cmd = os.path.join(repo_root, "../../../../prebuilts/jdk/jdk11/linux-x86/bin/java")
+java_cmd = os.path.join(repo_root, "/home/h/lineageos/prebuilts/jdk/jdk11/linux-x86/bin/java")
 
 
 def _abs_from_tool(rel_path: str) -> str:
@@ -19,20 +19,20 @@ def _resolve_java_executable(custom_path: Optional[str]) -> str:
 
 
 def _find_signing_resources() -> tuple[str, str, str, Optional[str]]:
-    signapk_jar = _abs_from_tool("../../../../out/host/linux-x86/framework/signapk.jar")
+    signapk_jar = _abs_from_tool("/home/h/lineageos/out/host/linux-x86/framework/signapk.jar")
     if not os.path.exists(signapk_jar):
         raise FileNotFoundError(f"signapk.jar not found: {signapk_jar}")
 
-    pub_key = _abs_from_tool("../../../../build/target/product/security/platform.x509.pem")
-    priv_key = _abs_from_tool("../../../../build/target/product/security/platform.pk8")
+    pub_key = _abs_from_tool("/home/h/lineageos/build/target/product/security/platform.x509.pem")
+    priv_key = _abs_from_tool("/home/h/lineageos/build/target/product/security/platform.pk8")
     if not os.path.exists(pub_key) or not os.path.exists(priv_key):
         raise FileNotFoundError(
             f"Platform keys not found. Expected:\n  {pub_key}\n  {priv_key}"
         )
 
-    conscrypt_so = _abs_from_tool("../../../../out/host/linux-x86/lib64/libconscrypt_openjdk_jni.so")
+    conscrypt_so = _abs_from_tool("/home/h/lineageos/out/host/linux-x86/lib64/libconscrypt_openjdk_jni.so")
     if not os.path.exists(conscrypt_so):
-        conscrypt_so = _abs_from_tool("../../../../prebuilts/sdk/tools/linux/lib64/libconscrypt_openjdk_jni.so")
+        conscrypt_so = _abs_from_tool("/home/h/lineageos/prebuilts/sdk/tools/linux/lib64/libconscrypt_openjdk_jni.so")
         if not os.path.exists(conscrypt_so):
             conscrypt_so = None
 

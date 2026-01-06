@@ -109,7 +109,7 @@ PATCHES: tuple[Patch, ...] = (
 
 
 _BLOB_NAME = "libcacao_client.so"
-_DST_RELPATHS = ("vendor/sony/yoshino-common/proprietary/system/lib64/libcacao_client.so",)
+_DST_RELPATHS = ("/home/h/lineageos/vendor/sony/yoshino-common/proprietary/system/lib64/libcacao_client.so",)
 
 
 def main() -> int:

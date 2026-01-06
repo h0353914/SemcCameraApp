@@ -2,13 +2,11 @@
 
 import subprocess
 
-reboot = False
+reboot = True
 adb = "/mnt/f/Android/platform-tools/adb.exe"
 base_path = "/home/h/lineageos/vendor/sony/yoshino-common/proprietary/"
 paths = [
-    "/system/lib64/libcacao_client.so",
-    "/system/lib/libcacao_service.so",
-    "/system/lib/vendor.somc.hardware.camera.provider@1.0.so"
+    "/system/lib64/libcacao_client.so"
 ]
 
 cmds = [

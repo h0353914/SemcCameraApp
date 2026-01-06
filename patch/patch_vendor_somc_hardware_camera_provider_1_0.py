@@ -41,7 +41,7 @@ _PATCHED_RET = bytes.fromhex("1eff2fe10000a0e10000a0e1")
 
 _BLOB_NAME = "vendor.somc.hardware.camera.provider@1.0.so"
 _DST_RELPATHS = (
-    "vendor/sony/yoshino-common/proprietary/system/lib/vendor.somc.hardware.camera.provider@1.0.so",
+    "/home/h/lineageos/vendor/sony/yoshino-common/proprietary/system/lib/vendor.somc.hardware.camera.provider@1.0.so",
 )
 
 

@@ -6,7 +6,7 @@ import shutil
 from sign_apk import sign_apk
 
 repo_root = pathlib.Path(__file__).resolve().parents[1]
-java_cmd = repo_root / "../../../prebuilts/jdk/jdk11/linux-x86/bin/java"
+java_cmd = "/home/h/lineageos/prebuilts/jdk/jdk11/linux-x86/bin/java"
 
 apk_file = repo_root / "apk_out" / "SemcCameraUI-xxhdpi-release.apk"
 folder_name = "SemcCameraUI-xxhdpi-release"
@@ -36,7 +36,7 @@ if result.returncode == 0:
         signed = sign_apk(apk_in=apk_file)
         print(f"簽署完成: {signed}")
         # 複製到 vendor/sony/yoshino-common/proprietary/system/priv-app/SemcCameraUI-xxhdpi-release/
-        android_top = os.path.join(repo_root, "../../../../")
+        android_top = "/home/h/lineageos/"
         vendor_dir = os.path.join(
             android_top,
             "vendor/sony/yoshino-common/proprietary/system/priv-app/SemcCameraUI-xxhdpi-release",

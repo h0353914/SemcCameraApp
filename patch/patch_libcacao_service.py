@@ -163,7 +163,7 @@ DEFAULT_PATCHES = flatten_patches(PATCH_GROUPS[g] for g in DEFAULT_PATCH_GROUPS)
 
 # 只保留 blob 名稱與目標路徑；其餘（路徑推導、驗證、寫檔、統一輸出）由 patch_utils.run_patcher 處理。
 _BLOB_NAME = "libcacao_service.so"
-_DST_RELPATHS = ("vendor/sony/yoshino-common/proprietary/system/lib/libcacao_service.so",)
+_DST_RELPATHS = ("/home/h/lineageos/vendor/sony/yoshino-common/proprietary/system/lib/libcacao_service.so",)
 
 
 def main() -> int:

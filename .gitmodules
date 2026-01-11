@@ -1,0 +1,12 @@
+[submodule "ArtFilterCamera-xhdpi-release"]
+	path = ArtFilterCamera-xhdpi-release
+	url = https://github.com/h0353914/ArtFilterCamera-xhdpi-release
+[submodule "CameraPanorama-release"]
+	path = CameraPanorama-release
+	url = https://github.com/h0353914/CameraPanorama-release
+[submodule "SemcCameraUI-xxhdpi-release"]
+	path = SemcCameraUI-xxhdpi-release
+	url = https://github.com/h0353914/SemcCameraUI-xxhdpi-release.git
+[submodule "SoundPhotoCamera-xhdpi-release"]
+	path = SoundPhotoCamera-xhdpi-release
+	url = https://github.com/h0353914/SoundPhotoCamera-xhdpi-release.git

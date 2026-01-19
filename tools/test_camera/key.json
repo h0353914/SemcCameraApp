@@ -1,0 +1,11 @@
+{
+  "設定": "com.sonyericsson.android.camera:id/contextual_setting_shortcut",
+  "拍照鍵": "com.sonyericsson.android.camera:id/main_button",
+  "使用期間允許": "com.android.permissioncontroller:id/permission_allow_foreground_only_button",
+  "允許檔案存取": "com.android.permissioncontroller:id/permission_allow_button",
+  "儲存地點否": "com.sonyericsson.android.camera:id/tutorial_no_button",
+  "模式": "com.sonyericsson.android.camera:id/mode_button_shortcut",
+  "模式列": "com.sonyericsson.android.camera:id/mode_icons",
+  "慢動作": "com.sonyericsson.android.camera:id/mru_button",
+  "切換鏡頭": "com.sonyericsson.android.camera:id/primary_shortcut_facing"
+}

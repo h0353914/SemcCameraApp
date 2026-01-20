@@ -10,3 +10,6 @@
 [submodule "SoundPhotoCamera-xhdpi-release"]
 	path = SoundPhotoCamera-xhdpi-release
 	url = https://github.com/h0353914/SoundPhotoCamera-xhdpi-release.git
+[submodule "tools/test_camera/UiAgentService"]
+	path = tools/test_camera/UiAgentService
+	url = https://github.com/h0353914/UiAgentService

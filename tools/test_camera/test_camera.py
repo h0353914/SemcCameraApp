@@ -208,14 +208,14 @@ def main() -> None:
     wait_exists(模式)
     print("有照片?", has_saved_photo())
     
-    # 開始測試錄影流程
-    click_camera_mode(pick="right")  # 切到錄影模式
-    wait_exists(模式)
-    # time.sleep(1)
-    wait_then_click(拍照鍵)
-    time.sleep(10)
-    wait_then_click(拍照鍵)
-    # print("有照片?", has_saved_photo())
+    # # 開始測試錄影流程
+    # click_camera_mode(pick="right")  # 切到錄影模式
+    # wait_exists(模式)
+    # # time.sleep(1)
+    # wait_then_click(拍照鍵)
+    # time.sleep(10)
+    # wait_then_click(拍照鍵)
+    # # print("有照片?", has_saved_photo())
 
 
 if __name__ == "__main__":
